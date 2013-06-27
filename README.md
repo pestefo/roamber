@@ -59,7 +59,7 @@ We need to run the NodeJS server within the Terminal/xterm to make sure someone 
 
     ./${Amber_DIR}/bin/server 
 
-Open [`http://localhost:4000/projects/roassal/index.html`](http://localhost:4000/projects/roassal-d3/index.html) in your favourite web browser.
+Open [`http://localhost:4000/projects/roassal/index.html`](http://localhost:4000/projects/roassal/index.html) in your favourite web browser.
 
 ### 2 - Example
 Click on the Workspace tab and type:
