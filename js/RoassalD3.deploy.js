@@ -4,10 +4,10 @@ smalltalk.addMethod(
 "_initialize",
 smalltalk.method({
 selector: "initialize",
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.withContext(function($ctx1) { smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROElement)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROElement)});},
 messageSends: ["initialize"]}),
 smalltalk.ROElement);
 
@@ -18,7 +18,7 @@ smalltalk.addMethod(
 "_circles_",
 smalltalk.method({
 selector: "circles:",
-fn: function (objects){
+fn: function (objects) {
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 		var colors = "red blue yellow green black orange".split(" ");
@@ -31,7 +31,7 @@ return smalltalk.withContext(function($ctx1) {
 		
 		
 	;
-return self}, function($ctx1) {$ctx1.fill(self,"circles:",{objects:objects},smalltalk.ROMondrianViewBuilder)})},
+return self}, function($ctx1) {$ctx1.fill(self,"circles:",{objects:objects},smalltalk.ROMondrianViewBuilder)});},
 messageSends: []}),
 smalltalk.ROMondrianViewBuilder);
 
@@ -39,12 +39,11 @@ smalltalk.addMethod(
 "_nodes_",
 smalltalk.method({
 selector: "nodes:",
-fn: function (objects){
+fn: function (objects) {
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 		var colors = "red blue yellow green black orange".split(" ");
 		var svg = d3.select("#svgCanvas");
-		var svg = d3.select(".elements").exit().remove();
 		var nodes = svg.selectAll("rect").data(objects);
 		nodes.enter().append("rect")
 			.attr("class","elements")
@@ -52,10 +51,8 @@ return smalltalk.withContext(function($ctx1) {
 			.attr("width",10)
 			.attr("fill",function(d){var i = d%colors.length; return colors[i]})
 			.attr("x",function(d){return d*20}).attr("y",20);
-		
-		
 	;
-return self}, function($ctx1) {$ctx1.fill(self,"nodes:",{objects:objects},smalltalk.ROMondrianViewBuilder)})},
+return self}, function($ctx1) {$ctx1.fill(self,"nodes:",{objects:objects},smalltalk.ROMondrianViewBuilder)});},
 messageSends: []}),
 smalltalk.ROMondrianViewBuilder);
 
@@ -66,11 +63,11 @@ smalltalk.addMethod(
 "_initialize",
 smalltalk.method({
 selector: "initialize",
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.withContext(function($ctx1) { smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
 self["@svgCanvas"]=_st("#svgCanvas")._asJQuery();
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROSVGCanvas)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROSVGCanvas)});},
 messageSends: ["initialize", "asJQuery"]}),
 smalltalk.ROSVGCanvas);
 

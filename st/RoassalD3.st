@@ -37,7 +37,6 @@ nodes: objects
 	<
 		var colors = "red blue yellow green black orange".split(" ");
 		var svg = d3.select("#svgCanvas");
-		var svg = d3.select(".elements").exit().remove();
 		var nodes = svg.selectAll("rect").data(objects);
 		nodes.enter().append("rect")
 			.attr("class","elements")
@@ -45,8 +44,6 @@ nodes: objects
 			.attr("width",10)
 			.attr("fill",function(d){var i = d%colors.length; return colors[i]})
 			.attr("x",function(d){return d*20}).attr("y",20);
-		
-		
 	>
 ! !
 
