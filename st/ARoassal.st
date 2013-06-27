@@ -33,6 +33,12 @@ shape: aROShape
 	shape := aROShape
 ! !
 
+!ROElement methodsFor: 'drawing'!
+
+drawOn: canvas
+	shape drawOn: canvas for: self
+! !
+
 !ROElement methodsFor: 'initialize'!
 
 initialize
@@ -44,6 +50,12 @@ ROObject subclass: #ROShape
 	instanceVariableNames: 'd3Shape color'
 	package: 'ARoassal'!
 
+!ROShape methodsFor: 'drawing'!
+
+drawOn: canvas for: anElement
+	"abstract method - Please override it to do what you actually need"
+! !
+
 ROShape subclass: #ROBox
 	instanceVariableNames: 'height width'
 	package: 'ARoassal'!
@@ -52,6 +64,11 @@ ROShape subclass: #ROBox
 
 defaultSize
 	^ 10
+! !
+
+!ROBox methodsFor: 'drawing'!
+
+drawOn: canvas for: anElement
 ! !
 
 !ROBox methodsFor: 'initialize'!
@@ -70,6 +87,11 @@ ROShape subclass: #ROCircle
 
 defaultRadius
 	^ 10
+! !
+
+!ROCircle methodsFor: 'drawing'!
+
+drawOn: canvas for: anElement
 ! !
 
 !ROCircle methodsFor: 'initialize'!
@@ -100,6 +122,11 @@ add: anElement
 initialize
 	super initialize.
 	elements := Array new
+! !
+
+!ROView methodsFor: 'public - opening'!
+
+open
 ! !
 
 TestCase subclass: #ROViewTest

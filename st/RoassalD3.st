@@ -1,14 +1,4 @@
 Smalltalk current createPackage: 'RoassalD3'!
-Object subclass: #ROElement
-	instanceVariableNames: ''
-	package: 'RoassalD3'!
-
-!ROElement methodsFor: 'not yet classified'!
-
-initialize
-	super initialize.
-! !
-
 Object subclass: #ROMondrianViewBuilder
 	instanceVariableNames: ''
 	package: 'RoassalD3'!
@@ -33,7 +23,6 @@ circles: objects
 
 nodes: objects
 
-"	els := ROElement forCollection: objects."
 	<
 		var colors = "red blue yellow green black orange".split(" ");
 		var svg = d3.select("#svgCanvas");

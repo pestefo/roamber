@@ -25,6 +25,22 @@ smalltalk.addClass('ROObject', smalltalk.Object, [], 'ARoassal');
 
 smalltalk.addClass('ROElement', smalltalk.ROObject, ['shape', 'position'], 'ARoassal');
 smalltalk.addMethod(
+"_drawOn_",
+smalltalk.method({
+selector: "drawOn:",
+category: 'drawing',
+fn: function (canvas) {
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self["@shape"])._drawOn_for_(canvas,self);
+return self}, function($ctx1) {$ctx1.fill(self,"drawOn:",{canvas:canvas},smalltalk.ROElement)});},
+args: ["canvas"],
+source: "drawOn: canvas\x0a\x09shape drawOn: canvas for: self",
+messageSends: ["drawOn:for:"],
+referencedClasses: []
+}),
+smalltalk.ROElement);
+
+smalltalk.addMethod(
 "_initialize",
 smalltalk.method({
 selector: "initialize",
@@ -96,6 +112,21 @@ smalltalk.ROElement);
 
 
 smalltalk.addClass('ROShape', smalltalk.ROObject, ['d3Shape', 'color'], 'ARoassal');
+smalltalk.addMethod(
+"_drawOn_for_",
+smalltalk.method({
+selector: "drawOn:for:",
+category: 'drawing',
+fn: function (canvas, anElement) {
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self}, function($ctx1) {$ctx1.fill(self,"drawOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROShape)});},
+args: ["canvas", "anElement"],
+source: "drawOn: canvas for: anElement\x0a\x09\x22abstract method - Please override it to do what you actually need\x22",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROShape);
+
 
 
 smalltalk.addClass('ROBox', smalltalk.ROShape, ['height', 'width'], 'ARoassal');
@@ -110,6 +141,21 @@ return smalltalk.withContext(function($ctx1) { return (10);
 }, function($ctx1) {$ctx1.fill(self,"defaultSize",{},smalltalk.ROBox)});},
 args: [],
 source: "defaultSize\x0a\x09^ 10",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROBox);
+
+smalltalk.addMethod(
+"_drawOn_for_",
+smalltalk.method({
+selector: "drawOn:for:",
+category: 'drawing',
+fn: function (canvas, anElement) {
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self}, function($ctx1) {$ctx1.fill(self,"drawOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROBox)});},
+args: ["canvas", "anElement"],
+source: "drawOn: canvas for: anElement\x0a",
 messageSends: [],
 referencedClasses: []
 }),
@@ -147,6 +193,21 @@ return smalltalk.withContext(function($ctx1) { return (10);
 }, function($ctx1) {$ctx1.fill(self,"defaultRadius",{},smalltalk.ROCircle)});},
 args: [],
 source: "defaultRadius\x0a\x09^ 10",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROCircle);
+
+smalltalk.addMethod(
+"_drawOn_for_",
+smalltalk.method({
+selector: "drawOn:for:",
+category: 'drawing',
+fn: function (canvas, anElement) {
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self}, function($ctx1) {$ctx1.fill(self,"drawOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROCircle)});},
+args: ["canvas", "anElement"],
+source: "drawOn: canvas for: anElement\x0a",
 messageSends: [],
 referencedClasses: []
 }),
@@ -219,6 +280,21 @@ return $1;
 args: [],
 source: "numberOfElements\x0a\x09^ elements size\x0a\x09",
 messageSends: ["size"],
+referencedClasses: []
+}),
+smalltalk.ROView);
+
+smalltalk.addMethod(
+"_open",
+smalltalk.method({
+selector: "open",
+category: 'public - opening',
+fn: function () {
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self}, function($ctx1) {$ctx1.fill(self,"open",{},smalltalk.ROView)});},
+args: [],
+source: "open\x0a\x09",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.ROView);

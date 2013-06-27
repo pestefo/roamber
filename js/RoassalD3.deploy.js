@@ -1,18 +1,4 @@
 smalltalk.addPackage('RoassalD3');
-smalltalk.addClass('ROElement', smalltalk.Object, [], 'RoassalD3');
-smalltalk.addMethod(
-"_initialize",
-smalltalk.method({
-selector: "initialize",
-fn: function () {
-var self=this;
-return smalltalk.withContext(function($ctx1) { smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROElement)});},
-messageSends: ["initialize"]}),
-smalltalk.ROElement);
-
-
-
 smalltalk.addClass('ROMondrianViewBuilder', smalltalk.Object, [], 'RoassalD3');
 smalltalk.addMethod(
 "_circles_",

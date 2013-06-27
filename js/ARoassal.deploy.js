@@ -20,6 +20,17 @@ smalltalk.addClass('ROObject', smalltalk.Object, [], 'ARoassal');
 
 smalltalk.addClass('ROElement', smalltalk.ROObject, ['shape', 'position'], 'ARoassal');
 smalltalk.addMethod(
+"_drawOn_",
+smalltalk.method({
+selector: "drawOn:",
+fn: function (canvas) {
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self["@shape"])._drawOn_for_(canvas,self);
+return self}, function($ctx1) {$ctx1.fill(self,"drawOn:",{canvas:canvas},smalltalk.ROElement)});},
+messageSends: ["drawOn:for:"]}),
+smalltalk.ROElement);
+
+smalltalk.addMethod(
 "_initialize",
 smalltalk.method({
 selector: "initialize",
@@ -71,6 +82,16 @@ smalltalk.ROElement);
 
 
 smalltalk.addClass('ROShape', smalltalk.ROObject, ['d3Shape', 'color'], 'ARoassal');
+smalltalk.addMethod(
+"_drawOn_for_",
+smalltalk.method({
+selector: "drawOn:for:",
+fn: function (canvas, anElement) {
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self}, function($ctx1) {$ctx1.fill(self,"drawOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROShape)});},
+messageSends: []}),
+smalltalk.ROShape);
+
 
 
 smalltalk.addClass('ROBox', smalltalk.ROShape, ['height', 'width'], 'ARoassal');
@@ -82,6 +103,16 @@ fn: function () {
 var self=this;
 return smalltalk.withContext(function($ctx1) { return (10);
 }, function($ctx1) {$ctx1.fill(self,"defaultSize",{},smalltalk.ROBox)});},
+messageSends: []}),
+smalltalk.ROBox);
+
+smalltalk.addMethod(
+"_drawOn_for_",
+smalltalk.method({
+selector: "drawOn:for:",
+fn: function (canvas, anElement) {
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self}, function($ctx1) {$ctx1.fill(self,"drawOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROBox)});},
 messageSends: []}),
 smalltalk.ROBox);
 
@@ -109,6 +140,16 @@ fn: function () {
 var self=this;
 return smalltalk.withContext(function($ctx1) { return (10);
 }, function($ctx1) {$ctx1.fill(self,"defaultRadius",{},smalltalk.ROCircle)});},
+messageSends: []}),
+smalltalk.ROCircle);
+
+smalltalk.addMethod(
+"_drawOn_for_",
+smalltalk.method({
+selector: "drawOn:for:",
+fn: function (canvas, anElement) {
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self}, function($ctx1) {$ctx1.fill(self,"drawOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROCircle)});},
 messageSends: []}),
 smalltalk.ROCircle);
 
@@ -161,6 +202,16 @@ $1=_st(self["@elements"])._size();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"numberOfElements",{},smalltalk.ROView)});},
 messageSends: ["size"]}),
+smalltalk.ROView);
+
+smalltalk.addMethod(
+"_open",
+smalltalk.method({
+selector: "open",
+fn: function () {
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self}, function($ctx1) {$ctx1.fill(self,"open",{},smalltalk.ROView)});},
+messageSends: []}),
 smalltalk.ROView);
 
 
