@@ -1,41 +1,69 @@
 Roassal in Amber
 =======
+Roassal is an agile visualization engine for Smalltalk-like programming languages.
+This github repository contains a port for Amber.
 
-Porting Roassal in Amber Smalltalk platform
 
 ## Installation
+The installation of Roassal requires (i) NodeJS (a JavaScript server), (ii) the Amber programming language and (iii) the Roassal source code.
 
-### Install nodejs
+After this installation procedure, you will be able to run the examples we provide and contribute to enhancing Roassal.
 
-Download the installer for the latests verison of nodejs `v0.10.12` and double click on it
+### 1 - Install nodejs
+We first need NodeJS to serve javascript files to your Web Browser. Open a terminal/xterm and type "node --version". If you have something like v0.8.16, then it means you have NodeJS installed. Move to the second step. 
+
+If you do not have NodeJS install, then download one of these installers for the latests verison of nodejs `v0.10.12` and double click on it
 
 * [MacOSX](http://nodejs.org/dist/v0.10.12/node-v0.10.12.pkg)
 * [Windows](http://nodejs.org/dist/v0.10.12/node-v0.10.12-x86.msi)
 * [Source Code](http://nodejs.org/dist/v0.10.12/node-v0.10.12.tar.gz)
 * [Other platforms (64 bit)](http://nodejs.org/download/)
 
-### Install amber
+NodeJs weights only 42 Mb, and will be installed on /usr/local/bin. No big deal. After this, you should be able to exectue "node --version" in a terminal. If you still have an error, maybe your PATH variable is not properly set.
 
-Then you need to [download amber](https://github.com/amber-smalltalk/amber/archive/0.10.zip) and unzip it.
-Now you have to install [grunt](http://gruntjs.com/) to build it
+### 2 - Install amber
 
-    npm install -g grunt-cli grunt-init
-    cd ${Amber_DIR}
-    npm install && grunt
+You need to download Amber, the Smalltalk-like programming language in which Roassal is written. This is an easy step.
+[Download amber](https://github.com/amber-smalltalk/amber/archive/0.10.zip) and unzip the file. It contains everything you need to run the NodeJS server and develop in Amber.
 
-
-Create a directory for roassal code:
-
+### 3 - Install Roassal
+The final step is install Roassal. Again a very light step.
+We assume ${Amber_DIR} is the absolute path where Amber is installed.
+Create a directory for roassal code next to the distribution of Amber:
 
     cd ${Amber_DIR}
     mkdir projects && cd projects
     mkdir roassal && cd roassal
 
-[Download the code](https://github.com/pestefo/roamber/archive/master.zip) and put it in  ```${Amber_DIR}/projects/roassal```
+Then you have to [download the code](https://github.com/pestefo/roamber/archive/master.zip) and put all the content in  ```${Amber_DIR}/projects/roassal```
 
-Start amber's server
+We do not need the roamber-master folder. Move everything contained in roamber-master in your roassal folder. If you do not do this, then you need to adjust the URL given in the web browser.
+
+You should then have:
+${Amber_DIR}/bin
+${Amber_DIR}/css
+${Amber_DIR}/... "Other Amber stuff"
+${Amber_DIR}/projects
+${Amber_DIR}/projects/roassal/
+${Amber_DIR}/projects/roassal/index.html
+${Amber_DIR}/projects/roassal/st
+${Amber_DIR}/projects/roassal/js
+
+
+
+## Running our 
+
+### 1 - Running the NodeJS
+
+We need to run the NodeJS server within the Terminal/xterm to make sure someone will serve the necessary files to your web browser. Start amber's server:
 
     ./${Amber_DIR}/bin/server 
 
-Open [`http://localhost:4000/projects/roassal-d3/index.html`](http://localhost:4000/projects/roassal-d3/index.html) in your favourite web browser.
+Open [`http://localhost:4000/projects/roassal/index.html`](http://localhost:4000/projects/roassal-d3/index.html) in your favourite web browser.
+
+### 2 - Example
+Click on the Workspace tab and type:
+ROMondrianViewBuilder new nodes: (1 to: 20)
+and press Ctlr-d to execute this line
+You should see 20 colored squares
 
