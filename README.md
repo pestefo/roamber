@@ -9,14 +9,13 @@ Porting Roassal in Amber Smalltalk platform
 
 2. Install amber
 	1. [Install nodejs](http://nodejs.org/download/)
-	1. At amber's directory run:
-	```
-	npm install -g grunt-cli grunt-init
-
-	cd ${Amber_DIR}
 	
-	npm install && grunt
-	```
+	1. At amber's directory run:
+```
+npm install -g grunt-cli grunt-init
+cd ${Amber_DIR}
+npm install && grunt
+```
 
 3. Create a directory for roassal code
 ```
