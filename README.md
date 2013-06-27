@@ -35,5 +35,5 @@ Start amber's server
 
     ./${Amber_DIR}/bin/server 
 
-Open ```http://localhost:4000/projects/roassal-d3/index.html``` in your favourite web browser.
+Open [`http://localhost:4000/projects/roassal-d3/index.html`](http://localhost:4000/projects/roassal-d3/index.html) in your favourite web browser.
 
