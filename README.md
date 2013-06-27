@@ -12,7 +12,9 @@ Porting Roassal in Amber Smalltalk platform
 	1. At amber's directory run:
 	```
 	npm install -g grunt-cli grunt-init
+
 	cd ${Amber_DIR}
+	
 	npm install && grunt
 	```
 
