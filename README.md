@@ -29,7 +29,7 @@ Create a directory for roassal code:
     mkdir projects && cd projects
     mkdir roassal && cd roassal
 
-Download the code and put it in  ```${Amber_DIR}/projects/roassal```
+[Download the code](https://github.com/pestefo/roamber/archive/master.zip) and put it in  ```${Amber_DIR}/projects/roassal```
 
 Start amber's server
 
