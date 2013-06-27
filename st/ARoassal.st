@@ -46,6 +46,19 @@ initialize
 	position := 0 @ 0
 ! !
 
+ROObject subclass: #ROExample
+	instanceVariableNames: ''
+	package: 'ARoassal'!
+
+!ROExample methodsFor: 'not yet classified'!
+
+create
+	| view |
+	view := ROView new.
+	view add: (ROElement new shape: (ROBox new)).
+	view open.
+! !
+
 ROObject subclass: #ROShape
 	instanceVariableNames: 'd3Shape color'
 	package: 'ARoassal'!
@@ -69,6 +82,15 @@ defaultSize
 !ROBox methodsFor: 'drawing'!
 
 drawOn: canvas for: anElement
+	| nodes |
+	nodes := (canvas selectAll: 'rect') data: anElement .
+	nodes enter append: 'rect'.
+	nodes attr: 'class' value: 'elements'.
+	nodes attr: 'height' value: 10.
+	nodes attr: 'width' value: 10.
+	nodes attr: 'fill' value: 'green'.
+	nodes attr: 'x' value: (anElement position x).
+	nodes attr: 'y' value: 20.
 ! !
 
 !ROBox methodsFor: 'initialize'!
@@ -102,7 +124,7 @@ initialize
 ! !
 
 ROObject subclass: #ROView
-	instanceVariableNames: 'elements'
+	instanceVariableNames: 'elements svgCanvas'
 	package: 'ARoassal'!
 
 !ROView methodsFor: 'accessing'!
@@ -127,6 +149,8 @@ initialize
 !ROView methodsFor: 'public - opening'!
 
 open
+	svgCanvas := d3 select: '#svgCanvas'.
+	elements do: [ :each | each drawOn: svgCanvas].
 ! !
 
 TestCase subclass: #ROViewTest

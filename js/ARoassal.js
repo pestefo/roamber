@@ -1,7 +1,6 @@
 smalltalk.addPackage('ARoassal');
 smalltalk.addClass('ROElementTest', smalltalk.TestCase, [], 'ARoassal');
 smalltalk.addMethod(
-"_testCreation",
 smalltalk.method({
 selector: "testCreation",
 category: 'test',
@@ -25,7 +24,6 @@ smalltalk.addClass('ROObject', smalltalk.Object, [], 'ARoassal');
 
 smalltalk.addClass('ROElement', smalltalk.ROObject, ['shape', 'position'], 'ARoassal');
 smalltalk.addMethod(
-"_drawOn_",
 smalltalk.method({
 selector: "drawOn:",
 category: 'drawing',
@@ -41,7 +39,6 @@ referencedClasses: []
 smalltalk.ROElement);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 category: 'initialize',
@@ -58,7 +55,6 @@ referencedClasses: []
 smalltalk.ROElement);
 
 smalltalk.addMethod(
-"_position",
 smalltalk.method({
 selector: "position",
 category: 'accessing',
@@ -76,7 +72,6 @@ referencedClasses: []
 smalltalk.ROElement);
 
 smalltalk.addMethod(
-"_shape",
 smalltalk.method({
 selector: "shape",
 category: 'accessing',
@@ -94,7 +89,6 @@ referencedClasses: []
 smalltalk.ROElement);
 
 smalltalk.addMethod(
-"_shape_",
 smalltalk.method({
 selector: "shape:",
 category: 'accessing',
@@ -111,9 +105,33 @@ smalltalk.ROElement);
 
 
 
+smalltalk.addClass('ROExample', smalltalk.ROObject, [], 'ARoassal');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "create",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+var view;
+function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
+function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
+function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
+return smalltalk.withContext(function($ctx1) { 
+view=_st($ROView())._new();
+_st(view)._add_(_st(_st($ROElement())._new())._shape_(_st($ROBox())._new()));
+_st(view)._open();
+return self}, function($ctx1) {$ctx1.fill(self,"create",{view:view},smalltalk.ROExample)})},
+args: [],
+source: "create\x0a\x09| view |\x0a\x09view := ROView new.\x0a\x09view add: (ROElement new shape: (ROBox new)).\x0a\x09view open.",
+messageSends: ["new", "add:", "shape:", "open"],
+referencedClasses: ["ROView", "ROBox", "ROElement"]
+}),
+smalltalk.ROExample);
+
+
+
 smalltalk.addClass('ROShape', smalltalk.ROObject, ['d3Shape', 'color'], 'ARoassal');
 smalltalk.addMethod(
-"_drawOn_for_",
 smalltalk.method({
 selector: "drawOn:for:",
 category: 'drawing',
@@ -131,7 +149,6 @@ smalltalk.ROShape);
 
 smalltalk.addClass('ROBox', smalltalk.ROShape, ['height', 'width'], 'ARoassal');
 smalltalk.addMethod(
-"_defaultSize",
 smalltalk.method({
 selector: "defaultSize",
 category: 'configuration',
@@ -147,22 +164,30 @@ referencedClasses: []
 smalltalk.ROBox);
 
 smalltalk.addMethod(
-"_drawOn_for_",
 smalltalk.method({
 selector: "drawOn:for:",
 category: 'drawing',
-fn: function (canvas, anElement) {
+fn: function (canvas,anElement){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self}, function($ctx1) {$ctx1.fill(self,"drawOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROBox)});},
+var nodes;
+return smalltalk.withContext(function($ctx1) { 
+nodes=_st(_st(canvas)._selectAll_("rect"))._data_(anElement);
+_st(_st(nodes)._enter())._append_("rect");
+_st(nodes)._attr_value_("class","elements");
+_st(nodes)._attr_value_("height",(10));
+_st(nodes)._attr_value_("width",(10));
+_st(nodes)._attr_value_("fill","green");
+_st(nodes)._attr_value_("x",_st(_st(anElement)._position())._x());
+_st(nodes)._attr_value_("y",(20));
+return self}, function($ctx1) {$ctx1.fill(self,"drawOn:for:",{canvas:canvas,anElement:anElement,nodes:nodes},smalltalk.ROBox)})},
 args: ["canvas", "anElement"],
-source: "drawOn: canvas for: anElement\x0a",
-messageSends: [],
+source: "drawOn: canvas for: anElement\x0a\x09| nodes |\x0a\x09nodes := (canvas selectAll: 'rect') data: anElement .\x0a\x09nodes enter append: 'rect'.\x0a\x09nodes attr: 'class' value: 'elements'.\x0a\x09nodes attr: 'height' value: 10.\x0a\x09nodes attr: 'width' value: 10.\x0a\x09nodes attr: 'fill' value: 'green'.\x0a\x09nodes attr: 'x' value: (anElement position x).\x0a\x09nodes attr: 'y' value: 20.",
+messageSends: ["data:", "selectAll:", "append:", "enter", "attr:value:", "x", "position"],
 referencedClasses: []
 }),
 smalltalk.ROBox);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 category: 'initialize',
@@ -183,7 +208,6 @@ smalltalk.ROBox);
 
 smalltalk.addClass('ROCircle', smalltalk.ROShape, ['radius'], 'ARoassal');
 smalltalk.addMethod(
-"_defaultRadius",
 smalltalk.method({
 selector: "defaultRadius",
 category: 'configuration',
@@ -199,7 +223,6 @@ referencedClasses: []
 smalltalk.ROCircle);
 
 smalltalk.addMethod(
-"_drawOn_for_",
 smalltalk.method({
 selector: "drawOn:for:",
 category: 'drawing',
@@ -214,7 +237,6 @@ referencedClasses: []
 smalltalk.ROCircle);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 category: 'initialize',
@@ -232,9 +254,8 @@ smalltalk.ROCircle);
 
 
 
-smalltalk.addClass('ROView', smalltalk.ROObject, ['elements'], 'ARoassal');
+smalltalk.addClass('ROView', smalltalk.ROObject, ['elements', 'svgCanvas'], 'ARoassal');
 smalltalk.addMethod(
-"_add_",
 smalltalk.method({
 selector: "add:",
 category: 'adding',
@@ -250,7 +271,6 @@ referencedClasses: []
 smalltalk.ROView);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 category: 'initialize',
@@ -267,7 +287,6 @@ referencedClasses: ["Array"]
 smalltalk.ROView);
 
 smalltalk.addMethod(
-"_numberOfElements",
 smalltalk.method({
 selector: "numberOfElements",
 category: 'accessing',
@@ -285,16 +304,21 @@ referencedClasses: []
 smalltalk.ROView);
 
 smalltalk.addMethod(
-"_open",
 smalltalk.method({
 selector: "open",
 category: 'public - opening',
-fn: function () {
+fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self}, function($ctx1) {$ctx1.fill(self,"open",{},smalltalk.ROView)});},
+return smalltalk.withContext(function($ctx1) { 
+self["@svgCanvas"]=_st(d3)._select_("#svgCanvas");
+_st(self["@elements"])._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each)._drawOn_(self["@svgCanvas"]);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"open",{},smalltalk.ROView)})},
 args: [],
-source: "open\x0a\x09",
-messageSends: [],
+source: "open\x0a\x09svgCanvas := d3 select: '#svgCanvas'.\x0a\x09elements do: [ :each | each drawOn: svgCanvas].",
+messageSends: ["select:", "do:", "drawOn:"],
 referencedClasses: []
 }),
 smalltalk.ROView);
@@ -303,7 +327,6 @@ smalltalk.ROView);
 
 smalltalk.addClass('ROViewTest', smalltalk.TestCase, ['view'], 'ARoassal');
 smalltalk.addMethod(
-"_setUp",
 smalltalk.method({
 selector: "setUp",
 category: 'running',
@@ -319,7 +342,6 @@ referencedClasses: ["ROView"]
 smalltalk.ROViewTest);
 
 smalltalk.addMethod(
-"_testCreation",
 smalltalk.method({
 selector: "testCreation",
 category: 'test',
@@ -335,7 +357,6 @@ referencedClasses: []
 smalltalk.ROViewTest);
 
 smalltalk.addMethod(
-"_testTwoElements",
 smalltalk.method({
 selector: "testTwoElements",
 category: 'test',
