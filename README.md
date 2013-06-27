@@ -17,16 +17,16 @@ cd ${Amber_DIR}
 npm install && grunt
 ```
 
-3. Create a directory for roassal code:
+1. Create a directory for roassal code:
 ```
 cd ${Amber_DIR}
 mkdir projects && cd projects
 mkdir roassal && cd roassal
 ```
 
-4. Download the code and put it in  ```${Amber_DIR}/projects/roassal```
+1. Download the code and put it in  ```${Amber_DIR}/projects/roassal```
 
-5. Start amber's server
+1. Start amber's server
  ```./${Amber_DIR}/bin/server ```
 
-6. Open ```http://localhost:4000/projects/roassal-d3/index.html``` in your favourite web browser.
+1. Open ```http://localhost:4000/projects/roassal-d3/index.html``` in your favourite web browser.
