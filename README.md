@@ -19,39 +19,42 @@ If you do not have NodeJS install, then download one of these installers for the
 * [Source Code](http://nodejs.org/dist/v0.10.12/node-v0.10.12.tar.gz)
 * [Other platforms (64 bit)](http://nodejs.org/download/)
 
-NodeJs weights only 42 Mb, and will be installed on /usr/local/bin. No big deal. After this, you should be able to exectue "node --version" in a terminal. If you still have an error, maybe your PATH variable is not properly set.
+NodeJs weights only 42 Mb, and will be installed on /usr/local/bin. No big deal. 
+After this, you should be able to exectue `node --version` in a terminal. If you still have an error, maybe your PATH variable is not properly set.
 
-### 2 - Install amber
+### 2 - Install Amber
 
 You need to download Amber, the Smalltalk-like programming language in which Roassal is written. This is an easy step.
-[Download amber](https://github.com/amber-smalltalk/amber/archive/0.10.zip) and unzip the file. It contains everything you need to run the NodeJS server and develop in Amber.
+[Download amber](https://github.com/amber-smalltalk/amber/archive/0.10.zip)(`v0.10.0`) and unzip the file. It contains everything you need to run the NodeJS server and develop in Amber.
 
-### 3 - Install Roassal
+### 3 - Install ROAmber
 The final step is install Roassal. Again a very light step.
 We assume ${Amber_DIR} is the absolute path where Amber is installed.
-Create a directory for roassal code next to the distribution of Amber:
+Create a directory for roamber code next to the distribution of Amber:
 
     cd ${Amber_DIR}
     mkdir projects && cd projects
-    mkdir roassal && cd roassal
+    mkdir roamber && cd roamber
 
-Then you have to [download the code](https://github.com/pestefo/roamber/archive/master.zip) and put all the content in  ```${Amber_DIR}/projects/roassal```
+Then you have to [download the code](https://github.com/pestefo/roamber/archive/master.zip) and put all the content in  ```${Amber_DIR}/projects/roamber```
 
 We do not need the roamber-master folder. Move everything contained in roamber-master in your roassal folder. If you do not do this, then you need to adjust the URL given in the web browser.
 
 You should then have:
+
+```
 ${Amber_DIR}/bin
 ${Amber_DIR}/css
 ${Amber_DIR}/... "Other Amber stuff"
 ${Amber_DIR}/projects
-${Amber_DIR}/projects/roassal/
-${Amber_DIR}/projects/roassal/index.html
-${Amber_DIR}/projects/roassal/st
-${Amber_DIR}/projects/roassal/js
+${Amber_DIR}/projects/roamber/
+${Amber_DIR}/projects/roamber/index.html
+${Amber_DIR}/projects/roamber/st
+${Amber_DIR}/projects/roamber/js
+```
 
 
-
-## Running our 
+## Running ROAmber 
 
 ### 1 - Running the NodeJS
 
@@ -59,11 +62,14 @@ We need to run the NodeJS server within the Terminal/xterm to make sure someone 
 
     ./${Amber_DIR}/bin/server 
 
-Open [`http://localhost:4000/projects/roassal/index.html`](http://localhost:4000/projects/roassal/index.html) in your favourite web browser.
+Open [`http://localhost:4000/projects/roamber/index.html`](http://localhost:4000/projects/roamber/index.html) in your favourite web browser.
 
 ### 2 - Example
 Click on the Workspace tab and type:
+
+```
 ROMondrianViewBuilder new nodes: (1 to: 20)
-and press Ctlr-d to execute this line
+```
+and press `Ctrl-d` to execute this line
 You should see 20 colored squares
 
