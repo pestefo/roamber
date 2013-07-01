@@ -1,42 +1,4 @@
 Smalltalk current createPackage: 'RoassalD3'!
-Object subclass: #ROElement
-	instanceVariableNames: 'height width x y'
-	package: 'RoassalD3'!
-
-!ROElement methodsFor: 'not yet classified'!
-
-drawOn: svg
-<
-	svg.append("svg:rect")
-    .attr("id", "redCircle")
-    .attr("cx", 100)
-    .attr("cy", 140)
-    .attr("r", 20)
-    .attr("fill", "red")
->
-!
-
-initialize
-	super initialize.
-!
-
-move
-"activates draw and drop"
-<
-function move(){
-    this.parentNode.appendChild(this);
-    var dragTarget = d3.select(this);
-    dragTarget
-        .attr("x", function(){return d3.event.dx + parseInt(dragTarget.attr("cx"))})
-        .attr("y", function(){return d3.event.dy + parseInt(dragTarget.attr("cy"))});
-};
->
-!
-
-withDragAndDrop
-< self.call(d3.behavior.drag().on("drag", self._move()));>
-! !
-
 Object subclass: #ROMondrianViewBuilder
 	instanceVariableNames: ''
 	package: 'RoassalD3'!
@@ -61,11 +23,9 @@ circles: objects
 
 nodes: objects
 
-"	els := ROElement forCollection: objects."
 	<
 		var colors = "red blue yellow green black orange".split(" ");
 		var svg = d3.select("#svgCanvas");
-		var svg = d3.select(".elements").exit().remove();
 		var nodes = svg.selectAll("rect").data(objects);
 		nodes.enter().append("rect")
 			.attr("class","elements")
@@ -73,8 +33,6 @@ nodes: objects
 			.attr("width",10)
 			.attr("fill",function(d){var i = d%colors.length; return colors[i]})
 			.attr("x",function(d){return d*20}).attr("y",20);
-		
-		
 	>
 ! !
 
@@ -88,4 +46,3 @@ initialize
 	super initialize.
 	svgCanvas := '#svgCanvas' asJQuery.
 ! !
-
