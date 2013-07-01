@@ -5,7 +5,11 @@ This github repository contains a port for Amber.
 
 
 ## Installation
-The installation of Roassal requires (i) NodeJS (a JavaScript server), (ii) the Amber programming language and (iii) the Roassal source code.
+The installation of Roassal requires:
+
+1. NodeJS (a JavaScript server)
+1. the Amber programming language and 
+1.  the Roassal source code.
 
 After this installation procedure, you will be able to run the examples we provide and contribute to enhancing Roassal.
 
@@ -30,17 +34,28 @@ You need to download Amber, the Smalltalk-like programming language in which Roa
 ### 3 - Install ROAmber
 The final step is install Roassal. Again a very light step.
 We assume ${Amber_DIR} is the absolute path where Amber is installed.
+#### 3.a Download Zip file
 Create a directory for roamber code next to the distribution of Amber:
 
     cd ${Amber_DIR}
     mkdir projects && cd projects
     mkdir roamber && cd roamber
-
+    
 Then you have to [download the code](https://github.com/pestefo/roamber/archive/master.zip) and put all the content in  ```${Amber_DIR}/projects/roamber```
 
 We do not need the roamber-master folder. Move everything contained in roamber-master in your roassal folder. If you do not do this, then you need to adjust the URL given in the web browser.
 
-You should then have:
+
+#### 3.b Clone repository
+An alternative step is to clone this repository into projects folder. To do that you need to have `git` installed. To be sure type `git --version` into a terminal or xTerm and it should shows you your installed git version. In case you have not installed git, [check this out](https://help.github.com/articles/set-up-git). 
+
+Then, in a terminal type:
+
+    cd ${Amber_DIR}
+    mkdir projects && cd projects
+    git clone git@github.com:pestefo/roamber.git
+
+Whatever the step you followed, you should have:
 
 ```
 ${Amber_DIR}/bin
