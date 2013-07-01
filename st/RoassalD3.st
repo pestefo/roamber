@@ -1,12 +1,40 @@
 Smalltalk current createPackage: 'RoassalD3'!
 Object subclass: #ROElement
-	instanceVariableNames: ''
+	instanceVariableNames: 'height width x y'
 	package: 'RoassalD3'!
 
 !ROElement methodsFor: 'not yet classified'!
 
+drawOn: svg
+<
+	svg.append("svg:rect")
+    .attr("id", "redCircle")
+    .attr("cx", 100)
+    .attr("cy", 140)
+    .attr("r", 20)
+    .attr("fill", "red")
+>
+!
+
 initialize
 	super initialize.
+!
+
+move
+"activates draw and drop"
+<
+function move(){
+    this.parentNode.appendChild(this);
+    var dragTarget = d3.select(this);
+    dragTarget
+        .attr("x", function(){return d3.event.dx + parseInt(dragTarget.attr("cx"))})
+        .attr("y", function(){return d3.event.dy + parseInt(dragTarget.attr("cy"))});
+};
+>
+!
+
+withDragAndDrop
+< self.call(d3.behavior.drag().on("drag", self._move()));>
 ! !
 
 Object subclass: #ROMondrianViewBuilder

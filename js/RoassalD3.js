@@ -1,5 +1,28 @@
 smalltalk.addPackage('RoassalD3');
-smalltalk.addClass('ROElement', smalltalk.Object, [], 'RoassalD3');
+smalltalk.addClass('ROElement', smalltalk.Object, ['height', 'width', 'x', 'y'], 'RoassalD3');
+smalltalk.addMethod(
+"_drawOn_",
+smalltalk.method({
+selector: "drawOn:",
+category: 'not yet classified',
+fn: function (svg){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+	svg.append("svg:rect")
+    .attr("id", "redCircle")
+    .attr("cx", 100)
+    .attr("cy", 140)
+    .attr("r", 20)
+    .attr("fill", "red")
+;
+return self}, function($ctx1) {$ctx1.fill(self,"drawOn:",{svg:svg},smalltalk.ROElement)})},
+args: ["svg"],
+source: "drawOn: svg\x0a<\x0a\x09svg.append(\x22svg:rect\x22)\x0a    .attr(\x22id\x22, \x22redCircle\x22)\x0a    .attr(\x22cx\x22, 100)\x0a    .attr(\x22cy\x22, 140)\x0a    .attr(\x22r\x22, 20)\x0a    .attr(\x22fill\x22, \x22red\x22)\x0a>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROElement);
+
 smalltalk.addMethod(
 "_initialize",
 smalltalk.method({
@@ -12,6 +35,46 @@ return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROEleme
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a",
 messageSends: ["initialize"],
+referencedClasses: []
+}),
+smalltalk.ROElement);
+
+smalltalk.addMethod(
+"_move",
+smalltalk.method({
+selector: "move",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+function move(){
+    this.parentNode.appendChild(this);
+    var dragTarget = d3.select(this);
+    dragTarget
+        .attr("x", function(){return d3.event.dx + parseInt(dragTarget.attr("cx"))})
+        .attr("y", function(){return d3.event.dy + parseInt(dragTarget.attr("cy"))});
+};
+;
+return self}, function($ctx1) {$ctx1.fill(self,"move",{},smalltalk.ROElement)})},
+args: [],
+source: "move\x0a\x22activates draw and drop\x22\x0a<\x0afunction move(){\x0a    this.parentNode.appendChild(this);\x0a    var dragTarget = d3.select(this);\x0a    dragTarget\x0a        .attr(\x22x\x22, function(){return d3.event.dx + parseInt(dragTarget.attr(\x22cx\x22))})\x0a        .attr(\x22y\x22, function(){return d3.event.dy + parseInt(dragTarget.attr(\x22cy\x22))});\x0a};\x0a>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROElement);
+
+smalltalk.addMethod(
+"_withDragAndDrop",
+smalltalk.method({
+selector: "withDragAndDrop",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) {  self.call(d3.behavior.drag().on("drag", self._move()));;
+return self}, function($ctx1) {$ctx1.fill(self,"withDragAndDrop",{},smalltalk.ROElement)})},
+args: [],
+source: "withDragAndDrop\x0a< self.call(d3.behavior.drag().on(\x22drag\x22, self._move()));>",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.ROElement);
