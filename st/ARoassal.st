@@ -83,7 +83,7 @@ defaultSize
 
 drawOn: canvas for: anElement
 	| nodes |
-	nodes := (canvas selectAll: 'rect') data: anElement .
+	nodes := (self getRect: canvas) data: anElement .
 	nodes enter append: 'rect'.
 	nodes attr: 'class' value: 'elements'.
 	nodes attr: 'height' value: 10.
@@ -91,6 +91,10 @@ drawOn: canvas for: anElement
 	nodes attr: 'fill' value: 'green'.
 	nodes attr: 'x' value: (anElement position x).
 	nodes attr: 'y' value: 20.
+!
+
+getRect: canvas
+	< return canvas.selectAll("rect") >
 ! !
 
 !ROBox methodsFor: 'initialize'!
@@ -148,8 +152,13 @@ initialize
 
 !ROView methodsFor: 'public - opening'!
 
+d3
+	^ window d3
+   "< return d3 >"
+!
+
 open
-	svgCanvas := d3 select: '#svgCanvas'.
+	svgCanvas := self d3 select: '#svgCanvas'.
 	elements do: [ :each | each drawOn: svgCanvas].
 ! !
 
