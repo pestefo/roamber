@@ -5,25 +5,25 @@
     <title>Amber Smalltalk</title> 
     <meta http-equiv="content-type" content="text/html; charset=utf-8" /> 
     <meta name="author" content="Nicolas Petton" /> 
-    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="js/raphael-min.js" charset="utf-8"></script>
     <script type='text/javascript' src='../../js/amber.js'></script> 
   </head> 
 
   <body> 
 
 
-     <script type='text/javascript'> 
+    <script type='text/javascript'> 
       loadAmber({
         files: ['RoassalD3.js','ARoassal.js'],
         prefix: 'projects/roamber/js',
         ready: function() {smalltalk.Browser._open()}}) 
     </script> 
 
-   <button onclick="smalltalk.Browser._open()">class browser</button>
-<A HREF="http://localhost:4000/projects/roamber/index.html">GO TO localhost:4000</A>
+    <button onclick="smalltalk.Browser._open()">class browser</button>
+    <a href="http://localhost:4000/projects/roamber/index.html">GO TO localhost:4000</a>
 
 
-     <svg id="svgCanvas" width="1024" height="840"></svg>
+    <div id="container"></div>
 
   </body> 
 </html> 

@@ -82,8 +82,14 @@ defaultSize
 !ROBox methodsFor: 'drawing'!
 
 drawOn: canvas for: anElement
+	canvas 
+		rect: (anElement position x)
+		with: (anElement position y) 
+		with: (self width) 
+		with: (self height) .
+	"
 	| nodes |
-	nodes := (self getRect: canvas) data: anElement .
+	nodes := (canvas selectAll: 'rect') data: anElement .
 	nodes enter append: 'rect'.
 	nodes attr: 'class' value: 'elements'.
 	nodes attr: 'height' value: 10.
@@ -91,18 +97,23 @@ drawOn: canvas for: anElement
 	nodes attr: 'fill' value: 'green'.
 	nodes attr: 'x' value: (anElement position x).
 	nodes attr: 'y' value: 20.
-!
-
-getRect: canvas
-	< return canvas.selectAll("rect") >
+	"
 ! !
 
 !ROBox methodsFor: 'initialize'!
+
+height
+	^ height
+!
 
 initialize
 	super initialize.
 	width := self defaultSize.
 	height := self defaultSize.
+!
+
+width
+	^ width
 ! !
 
 ROShape subclass: #ROCircle
@@ -152,14 +163,13 @@ initialize
 
 !ROView methodsFor: 'public - opening'!
 
-d3
-	^ window d3
-   "< return d3 >"
+open
+	svgCanvas := self paper.
+	elements do: [ :each | each drawOn: svgCanvas].
 !
 
-open
-	svgCanvas := self d3 select: '#svgCanvas'.
-	elements do: [ :each | each drawOn: svgCanvas].
+paper
+	< return Raphael("container", 800, 600);>
 ! !
 
 TestCase subclass: #ROViewTest

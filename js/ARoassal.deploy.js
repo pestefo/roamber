@@ -129,17 +129,22 @@ smalltalk.method({
 selector: "drawOn:for:",
 fn: function (canvas,anElement){
 var self=this;
-var nodes;
-return smalltalk.withContext(function($ctx1) { nodes=_st(_st(canvas)._selectAll_("rect"))._data_(anElement);
-_st(_st(nodes)._enter())._append_("rect");
-_st(nodes)._attr_value_("class","elements");
-_st(nodes)._attr_value_("height",(10));
-_st(nodes)._attr_value_("width",(10));
-_st(nodes)._attr_value_("fill","green");
-_st(nodes)._attr_value_("x",_st(_st(anElement)._position())._x());
-_st(nodes)._attr_value_("y",(20));
-return self}, function($ctx1) {$ctx1.fill(self,"drawOn:for:",{canvas:canvas,anElement:anElement,nodes:nodes},smalltalk.ROBox)})},
-messageSends: ["data:", "selectAll:", "append:", "enter", "attr:value:", "x", "position"]}),
+return smalltalk.withContext(function($ctx1) { _st(canvas)._rect_with_with_with_(_st(_st(anElement)._position())._x(),_st(_st(anElement)._position())._y(),_st(self)._width(),_st(self)._height());
+return self}, function($ctx1) {$ctx1.fill(self,"drawOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROBox)})},
+messageSends: ["rect:with:with:with:", "x", "position", "y", "width", "height"]}),
+smalltalk.ROBox);
+
+smalltalk.addMethod(
+"_height",
+smalltalk.method({
+selector: "height",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@height"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"height",{},smalltalk.ROBox)})},
+messageSends: []}),
 smalltalk.ROBox);
 
 smalltalk.addMethod(
@@ -153,6 +158,19 @@ self["@width"]=_st(self)._defaultSize();
 self["@height"]=_st(self)._defaultSize();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROBox)})},
 messageSends: ["initialize", "defaultSize"]}),
+smalltalk.ROBox);
+
+smalltalk.addMethod(
+"_width",
+smalltalk.method({
+selector: "width",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@width"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"width",{},smalltalk.ROBox)})},
+messageSends: []}),
 smalltalk.ROBox);
 
 
@@ -236,12 +254,23 @@ smalltalk.method({
 selector: "open",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@svgCanvas"]=_st(d3)._select_("#svgCanvas");
+return smalltalk.withContext(function($ctx1) { self["@svgCanvas"]=_st(self)._paper();
 _st(self["@elements"])._do_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(each)._drawOn_(self["@svgCanvas"]);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"open",{},smalltalk.ROView)})},
-messageSends: ["select:", "do:", "drawOn:"]}),
+messageSends: ["paper", "do:", "drawOn:"]}),
+smalltalk.ROView);
+
+smalltalk.addMethod(
+"_paper",
+smalltalk.method({
+selector: "paper",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) {  return Raphael("container", 800, 600);;
+return self}, function($ctx1) {$ctx1.fill(self,"paper",{},smalltalk.ROView)})},
+messageSends: []}),
 smalltalk.ROView);
 
 

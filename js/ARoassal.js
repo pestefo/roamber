@@ -175,19 +175,29 @@ selector: "drawOn:for:",
 category: 'drawing',
 fn: function (canvas,anElement){
 var self=this;
-var nodes;
-return smalltalk.withContext(function($ctx1) { nodes=_st(_st(canvas)._selectAll_("rect"))._data_(anElement);
-_st(_st(nodes)._enter())._append_("rect");
-_st(nodes)._attr_value_("class","elements");
-_st(nodes)._attr_value_("height",(10));
-_st(nodes)._attr_value_("width",(10));
-_st(nodes)._attr_value_("fill","green");
-_st(nodes)._attr_value_("x",_st(_st(anElement)._position())._x());
-_st(nodes)._attr_value_("y",(20));
-return self}, function($ctx1) {$ctx1.fill(self,"drawOn:for:",{canvas:canvas,anElement:anElement,nodes:nodes},smalltalk.ROBox)})},
+return smalltalk.withContext(function($ctx1) { _st(canvas)._rect_with_with_with_(_st(_st(anElement)._position())._x(),_st(_st(anElement)._position())._y(),_st(self)._width(),_st(self)._height());
+return self}, function($ctx1) {$ctx1.fill(self,"drawOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROBox)})},
 args: ["canvas", "anElement"],
-source: "drawOn: canvas for: anElement\x0a\x09| nodes |\x0a\x09nodes := (canvas selectAll: 'rect') data: anElement .\x0a\x09nodes enter append: 'rect'.\x0a\x09nodes attr: 'class' value: 'elements'.\x0a\x09nodes attr: 'height' value: 10.\x0a\x09nodes attr: 'width' value: 10.\x0a\x09nodes attr: 'fill' value: 'green'.\x0a\x09nodes attr: 'x' value: (anElement position x).\x0a\x09nodes attr: 'y' value: 20.",
-messageSends: ["data:", "selectAll:", "append:", "enter", "attr:value:", "x", "position"],
+source: "drawOn: canvas for: anElement\x0a\x09canvas \x0a\x09\x09rect: (anElement position x)\x0a\x09\x09with: (anElement position y) \x0a\x09\x09with: (self width) \x0a\x09\x09with: (self height) .\x0a\x09\x22\x0a\x09| nodes |\x0a\x09nodes := (canvas selectAll: 'rect') data: anElement .\x0a\x09nodes enter append: 'rect'.\x0a\x09nodes attr: 'class' value: 'elements'.\x0a\x09nodes attr: 'height' value: 10.\x0a\x09nodes attr: 'width' value: 10.\x0a\x09nodes attr: 'fill' value: 'green'.\x0a\x09nodes attr: 'x' value: (anElement position x).\x0a\x09nodes attr: 'y' value: 20.\x0a\x09\x22",
+messageSends: ["rect:with:with:with:", "x", "position", "y", "width", "height"],
+referencedClasses: []
+}),
+smalltalk.ROBox);
+
+smalltalk.addMethod(
+"_height",
+smalltalk.method({
+selector: "height",
+category: 'initialize',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@height"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"height",{},smalltalk.ROBox)})},
+args: [],
+source: "height\x0a\x09^ height",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.ROBox);
@@ -206,6 +216,24 @@ return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROBox)}
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x09width := self defaultSize.\x0a\x09height := self defaultSize.",
 messageSends: ["initialize", "defaultSize"],
+referencedClasses: []
+}),
+smalltalk.ROBox);
+
+smalltalk.addMethod(
+"_width",
+smalltalk.method({
+selector: "width",
+category: 'initialize',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@width"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"width",{},smalltalk.ROBox)})},
+args: [],
+source: "width\x0a\x09^ width",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.ROBox);
@@ -322,14 +350,30 @@ selector: "open",
 category: 'public - opening',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@svgCanvas"]=_st(d3)._select_("#svgCanvas");
+return smalltalk.withContext(function($ctx1) { self["@svgCanvas"]=_st(self)._paper();
 _st(self["@elements"])._do_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(each)._drawOn_(self["@svgCanvas"]);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"open",{},smalltalk.ROView)})},
 args: [],
-source: "open\x0a\x09svgCanvas := d3 select: '#svgCanvas'.\x0a\x09elements do: [ :each | each drawOn: svgCanvas].",
-messageSends: ["select:", "do:", "drawOn:"],
+source: "open\x0a\x09svgCanvas := self paper.\x0a\x09elements do: [ :each | each drawOn: svgCanvas].",
+messageSends: ["paper", "do:", "drawOn:"],
+referencedClasses: []
+}),
+smalltalk.ROView);
+
+smalltalk.addMethod(
+"_paper",
+smalltalk.method({
+selector: "paper",
+category: 'public - opening',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) {  return Raphael("container", 800, 600);;
+return self}, function($ctx1) {$ctx1.fill(self,"paper",{},smalltalk.ROView)})},
+args: [],
+source: "paper\x0a\x09< return Raphael(\x22container\x22, 800, 600);>",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.ROView);
