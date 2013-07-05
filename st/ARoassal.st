@@ -11,6 +11,176 @@ testCreation
 	self assert: element position = (0 @ 0).
 ! !
 
+Object subclass: #ROLayout
+	instanceVariableNames: 'translator'
+	package: 'ARoassal'!
+
+!ROLayout methodsFor: 'not yet classified'!
+
+applyOn: elements
+	
+	self executeOnElements: elements
+!
+
+executeOnElements: elements 
+	"Execute the layout, myself, on the elements"
+		
+"	self doInitialize: elements."
+	self doExecute: elements asOrderedCollection.
+"	self doPost: elements."
+!
+
+initialize
+	translator := ROLayoutTranslator default.
+! !
+
+!ROLayout class methodsFor: 'not yet classified'!
+
+on: aCollection
+	self new applyOn: aCollection.
+	^ aCollection
+! !
+
+ROLayout subclass: #ROAbstractLineLayout
+	instanceVariableNames: 'gapSize horizontalGap verticalGap horizontalOutGap verticalOutGap alignment horizontallyStretchable verticallyStretchable'
+	package: 'ARoassal'!
+
+!ROAbstractLineLayout methodsFor: 'not yet classified'!
+
+alignTop
+	
+	alignment := #top
+!
+
+alignment
+	
+	^alignment
+!
+
+alignment: anObject
+	
+	alignment := anObject
+!
+
+horizontalGap
+	
+	^horizontalGap
+!
+
+horizontalOutGap
+	
+	^horizontalOutGap
+!
+
+initialize
+	
+	super initialize.
+	verticalGap := 10.
+	horizontalGap := 10.
+	horizontalOutGap := 5.
+	verticalOutGap := 5.
+	horizontallyStretchable := verticallyStretchable := false
+!
+
+verticalOutGap
+	
+	^verticalOutGap
+! !
+
+ROAbstractLineLayout subclass: #ROHorizontalLineLayout
+	instanceVariableNames: ''
+	package: 'ARoassal'!
+
+!ROHorizontalLineLayout methodsFor: 'not yet classified'!
+
+deltaFor: aNodeFigure
+	
+	| delta |
+	delta := 0.
+	self alignment == #bottom ifTrue: [delta := aNodeFigure height].
+	self alignment == #center ifTrue: [delta := aNodeFigure height / 2.0].
+	^0 @ delta
+!
+
+doExecute: elements 
+	| pointer delta |
+	pointer := self positionOriginalPointer: elements.
+"
+	horizontallyStretchable ifTrue: 
+		[ self doStretchHorizontal: elements ].
+"
+	elements do: 
+		[ :element | 
+		delta := self deltaFor: element.
+		translator translate: element to: pointer - delta.
+		pointer := self 
+					movePointer: pointer
+					accordingToFigure: element.
+		self step ].	
+"
+	verticallyStretchable ifTrue: 
+		[ self doStretchVertical: elements ]
+"
+!
+
+initialize
+	
+	super initialize.
+	self alignTop
+!
+
+movePointer: pointer accordingToFigure: element
+	
+	^ (pointer x + element width + self horizontalGap) @ pointer y
+!
+
+positionOriginalPointer: aGraph 
+	| maxHeight delta |
+	delta := 0.
+	self alignment == #bottom ifTrue: 
+		[ maxHeight := aGraph nodes maxValue: #height.
+		delta := maxHeight ].
+	self alignment == #center ifTrue: 
+		[ maxHeight := aGraph nodes maxValue: #height.
+		delta := maxHeight / 2.0 ].
+	^ self horizontalOutGap @ (self verticalOutGap + delta)
+! !
+
+Object subclass: #ROLayoutTranslator
+	instanceVariableNames: ''
+	package: 'ARoassal'!
+
+!ROLayoutTranslator methodsFor: 'not yet classified'!
+
+translate: element to: newPosition
+	self subclassResponsibility
+! !
+
+ROLayoutTranslator class instanceVariableNames: 'defaultTranslator'!
+
+!ROLayoutTranslator class methodsFor: 'not yet classified'!
+
+default
+	"Return the default translator, the one used in the layouts"
+
+	defaultTranslator ifNotNil: [ ^ defaultTranslator ].
+	^ defaultTranslator := self defaultClass new
+!
+
+defaultClass
+	^ RODirectLayoutTranslator
+! !
+
+ROLayoutTranslator subclass: #RODirectLayoutTranslator
+	instanceVariableNames: ''
+	package: 'ARoassal'!
+
+!RODirectLayoutTranslator methodsFor: 'not yet classified'!
+
+translate: element to: newPosition
+	element translateTo: newPosition
+! !
+
 Object subclass: #ROObject
 	instanceVariableNames: ''
 	package: 'ARoassal'!
@@ -21,7 +191,15 @@ ROObject subclass: #ROElement
 
 !ROElement methodsFor: 'accessing'!
 
+bounds
+	"Return the bounds of the element"
+	
+	^ self position extent: (shape extentFor: self)
+!
+
 position
+	"Return the position of the element. Return a point of floats"
+	
 	^ position
 !
 
@@ -31,6 +209,10 @@ shape
 
 shape: aROShape
 	shape := aROShape
+!
+
+translateTo: aPoint 
+	self translateBy: (aPoint - self bounds origin)
 ! !
 
 !ROElement methodsFor: 'drawing'!
@@ -52,21 +234,52 @@ ROObject subclass: #ROExample
 
 !ROExample methodsFor: 'not yet classified'!
 
+circle
+	| view |
+	view := ROView new.
+	view add: (ROElement new shape: (ROCircle new)).
+	view open.
+!
+
 create
 	| view |
 	view := ROView new.
 	view add: (ROElement new shape: (ROBox new)).
 	view open.
+!
+
+horizontalLayout
+	| view |
+	view := ROView new.
+	10 timesRepeat: [view add: (ROElement new shape: (ROBox new))].
+	ROHorizontalLineLayout on: view elements.
+	view open.
 ! !
 
 ROObject subclass: #ROShape
-	instanceVariableNames: 'd3Shape color'
+	instanceVariableNames: 'height width color'
 	package: 'ARoassal'!
 
 !ROShape methodsFor: 'drawing'!
 
 drawOn: canvas for: anElement
 	"abstract method - Please override it to do what you actually need"
+!
+
+extentFor: element
+	"Return the extent of element"
+	
+	| res |
+	"
+	(widthCache notNil and: [ heightCache notNil ]) ifTrue: [ ^ widthCache @ heightCache ].
+	"
+	"res := ((width roValue: element) @ (height roValue: element)) max: (next extentFor: element)."
+	res := ((width roValue: element) @ (height roValue: element)) .
+	"
+	widthCache := res x.
+	heightCache := res y.
+	"
+	^ res
 ! !
 
 ROShape subclass: #ROBox
@@ -129,6 +342,14 @@ defaultRadius
 !ROCircle methodsFor: 'drawing'!
 
 drawOn: canvas for: anElement
+	canvas 
+		circle: (anElement position x)
+		with: (anElement position y) 
+		with: (self radius) .
+!
+
+radius
+	^ radius
 ! !
 
 !ROCircle methodsFor: 'initialize'!
@@ -143,6 +364,10 @@ ROObject subclass: #ROView
 	package: 'ARoassal'!
 
 !ROView methodsFor: 'accessing'!
+
+elements
+	^ elements
+!
 
 numberOfElements
 	^ elements size
