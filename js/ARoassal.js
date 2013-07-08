@@ -18,6 +18,29 @@ referencedClasses: ["ROElement"]
 }),
 smalltalk.ROElementTest);
 
+smalltalk.addMethod(
+"_testExtent",
+smalltalk.method({
+selector: "testExtent",
+category: 'test',
+fn: function (){
+var self=this;
+var element,shape;
+return smalltalk.withContext(function($ctx1) { element=_st((smalltalk.ROElement || ROElement))._new();
+shape=_st((smalltalk.ROBox || ROBox))._new();
+_st(shape)._width_((20));
+_st(shape)._height_((30));
+_st(element)._shape_(shape);
+_st(self)._assert_(_st(_st(element)._width()).__eq((20)));
+_st(self)._assert_(_st(_st(element)._height()).__eq((30)));
+return self}, function($ctx1) {$ctx1.fill(self,"testExtent",{element:element,shape:shape},smalltalk.ROElementTest)})},
+args: [],
+source: "testExtent\x0a\x09| element shape |\x0a\x09element := ROElement new.\x0a\x09shape := ROBox new.\x0a\x09shape width: 20.\x0a\x09shape height: 30.\x0a\x09element shape: shape.\x0a\x09self assert: element width = 20.\x0a\x09self assert: element height = 30.",
+messageSends: ["new", "width:", "height:", "shape:", "assert:", "=", "width", "height"],
+referencedClasses: ["ROElement", "ROBox"]
+}),
+smalltalk.ROElementTest);
+
 
 
 smalltalk.addClass('ROLayout', smalltalk.Object, ['translator'], 'ARoassal');
@@ -264,13 +287,12 @@ return smalltalk.withContext(function($ctx2) {delta=_st(self)._deltaFor_(elemen
 delta;
 _st(self["@translator"])._translate_to_(element,_st(pointer).__minus(delta));
 pointer=_st(self)._movePointer_accordingToFigure_(pointer,element);
-pointer;
-return _st(self)._step();
+return pointer;
 }, function($ctx2) {$ctx2.fillBlock({element:element},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"doExecute:",{elements:elements,pointer:pointer,delta:delta},smalltalk.ROHorizontalLineLayout)})},
 args: ["elements"],
-source: "doExecute: elements \x0a\x09| pointer delta |\x0a\x09pointer := self positionOriginalPointer: elements.\x0a\x22\x0a\x09horizontallyStretchable ifTrue: \x0a\x09\x09[ self doStretchHorizontal: elements ].\x0a\x22\x0a\x09elements do: \x0a\x09\x09[ :element | \x0a\x09\x09delta := self deltaFor: element.\x0a\x09\x09translator translate: element to: pointer - delta.\x0a\x09\x09pointer := self \x0a\x09\x09\x09\x09\x09movePointer: pointer\x0a\x09\x09\x09\x09\x09accordingToFigure: element.\x0a\x09\x09self step ].\x09\x0a\x22\x0a\x09verticallyStretchable ifTrue: \x0a\x09\x09[ self doStretchVertical: elements ]\x0a\x22",
-messageSends: ["positionOriginalPointer:", "do:", "deltaFor:", "translate:to:", "-", "movePointer:accordingToFigure:", "step"],
+source: "doExecute: elements \x0a\x09| pointer delta |\x0a\x09pointer := self positionOriginalPointer: elements.\x0a\x22\x0a\x09horizontallyStretchable ifTrue: \x0a\x09\x09[ self doStretchHorizontal: elements ].\x0a\x22\x0a\x09elements do: \x0a\x09\x09[ :element | \x0a\x09\x09delta := self deltaFor: element.\x0a\x09\x09translator translate: element to: pointer - delta.\x0a\x09\x09pointer := self \x0a\x09\x09\x09\x09\x09movePointer: pointer\x0a\x09\x09\x09\x09\x09accordingToFigure: element.\x0a ].\x09\x0a\x22\x0a\x09verticallyStretchable ifTrue: \x0a\x09\x09[ self doStretchVertical: elements ]\x0a\x22",
+messageSends: ["positionOriginalPointer:", "do:", "deltaFor:", "translate:to:", "-", "movePointer:accordingToFigure:"],
 referencedClasses: []
 }),
 smalltalk.ROHorizontalLineLayout);
@@ -468,6 +490,24 @@ referencedClasses: []
 smalltalk.ROElement);
 
 smalltalk.addMethod(
+"_height",
+smalltalk.method({
+selector: "height",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self["@shape"])._heightFor_(self);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"height",{},smalltalk.ROElement)})},
+args: [],
+source: "height\x0a\x09^ shape heightFor: self",
+messageSends: ["heightFor:"],
+referencedClasses: []
+}),
+smalltalk.ROElement);
+
+smalltalk.addMethod(
 "_initialize",
 smalltalk.method({
 selector: "initialize",
@@ -543,11 +583,29 @@ selector: "translateTo:",
 category: 'accessing',
 fn: function (aPoint){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._translateBy_(_st(aPoint).__minus(_st(_st(self)._bounds())._origin()));
+return smalltalk.withContext(function($ctx1) { self["@position"]=aPoint;
 return self}, function($ctx1) {$ctx1.fill(self,"translateTo:",{aPoint:aPoint},smalltalk.ROElement)})},
 args: ["aPoint"],
-source: "translateTo: aPoint \x0a\x09self translateBy: (aPoint - self bounds origin)",
-messageSends: ["translateBy:", "-", "origin", "bounds"],
+source: "translateTo: aPoint \x0a\x09position := aPoint",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROElement);
+
+smalltalk.addMethod(
+"_width",
+smalltalk.method({
+selector: "width",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self["@shape"])._widthFor_(self);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"width",{},smalltalk.ROElement)})},
+args: [],
+source: "width\x0a\x09^ shape widthFor: self",
+messageSends: ["widthFor:"],
 referencedClasses: []
 }),
 smalltalk.ROElement);
@@ -615,6 +673,22 @@ referencedClasses: ["ROView", "ROBox", "ROElement", "ROHorizontalLineLayout"]
 }),
 smalltalk.ROExample);
 
+smalltalk.addMethod(
+"_horizontalLayout2",
+smalltalk.method({
+selector: "horizontalLayout2",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+var view;
+return smalltalk.withContext(function($ctx1) { return self}, function($ctx1) {$ctx1.fill(self,"horizontalLayout2",{view:view},smalltalk.ROExample)})},
+args: [],
+source: "horizontalLayout2\x0a\x09| view |\x0a\x22\x0aview := ROView new.\x0a\x091 to: 20 [ :i |\x0a\x09\x09view add: (ROElement new model: i) shape: \x0a\x09\x09\x09(ROBox new ))].\x0a\x09ROHorizontalLineLayout on: view elements.\x0a\x09view open.\x0a\x09\x22",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROExample);
+
 
 
 smalltalk.addClass('ROShape', smalltalk.ROObject, ['height', 'width', 'color'], 'ARoassal');
@@ -653,9 +727,113 @@ referencedClasses: []
 }),
 smalltalk.ROShape);
 
+smalltalk.addMethod(
+"_height",
+smalltalk.method({
+selector: "height",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@height"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"height",{},smalltalk.ROShape)})},
+args: [],
+source: "height\x0a\x09^ height",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROShape);
+
+smalltalk.addMethod(
+"_height_",
+smalltalk.method({
+selector: "height:",
+category: 'accessing',
+fn: function (aNumberOrABlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@height"]=aNumberOrABlock;
+return self}, function($ctx1) {$ctx1.fill(self,"height:",{aNumberOrABlock:aNumberOrABlock},smalltalk.ROShape)})},
+args: ["aNumberOrABlock"],
+source: "height: aNumberOrABlock\x0a\x09height := aNumberOrABlock",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROShape);
+
+smalltalk.addMethod(
+"_heightFor_",
+smalltalk.method({
+selector: "heightFor:",
+category: 'accessing',
+fn: function (anElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self["@height"])._roValue_(anElement);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"heightFor:",{anElement:anElement},smalltalk.ROShape)})},
+args: ["anElement"],
+source: "heightFor: anElement\x0a\x09^ height roValue: anElement",
+messageSends: ["roValue:"],
+referencedClasses: []
+}),
+smalltalk.ROShape);
+
+smalltalk.addMethod(
+"_width",
+smalltalk.method({
+selector: "width",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@width"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"width",{},smalltalk.ROShape)})},
+args: [],
+source: "width\x0a\x09^ width ",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROShape);
+
+smalltalk.addMethod(
+"_width_",
+smalltalk.method({
+selector: "width:",
+category: 'accessing',
+fn: function (aNumberOrABlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@width"]=aNumberOrABlock;
+return self}, function($ctx1) {$ctx1.fill(self,"width:",{aNumberOrABlock:aNumberOrABlock},smalltalk.ROShape)})},
+args: ["aNumberOrABlock"],
+source: "width: aNumberOrABlock\x0a\x09width := aNumberOrABlock",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROShape);
+
+smalltalk.addMethod(
+"_widthFor_",
+smalltalk.method({
+selector: "widthFor:",
+category: 'accessing',
+fn: function (anElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self["@width"])._roValue_(anElement);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"widthFor:",{anElement:anElement},smalltalk.ROShape)})},
+args: ["anElement"],
+source: "widthFor: anElement\x0a\x09^ width roValue: anElement",
+messageSends: ["roValue:"],
+referencedClasses: []
+}),
+smalltalk.ROShape);
 
 
-smalltalk.addClass('ROBox', smalltalk.ROShape, ['height', 'width'], 'ARoassal');
+
+smalltalk.addClass('ROBox', smalltalk.ROShape, [], 'ARoassal');
 smalltalk.addMethod(
 "_defaultSize",
 smalltalk.method({
@@ -984,4 +1162,40 @@ referencedClasses: ["ROBox", "ROElement"]
 smalltalk.ROViewTest);
 
 
+
+smalltalk.addMethod(
+"_roValue_",
+smalltalk.method({
+selector: "roValue:",
+category: '*ARoassal',
+fn: function (anElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"roValue:",{anElement:anElement},smalltalk.Object)})},
+args: ["anElement"],
+source: "roValue: anElement\x0a\x09^ self ",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Object);
+
+smalltalk.addMethod(
+"_roValue_",
+smalltalk.method({
+selector: "roValue:",
+category: '*ARoassal',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"roValue:",{aBlock:aBlock},smalltalk.Number)})},
+args: ["aBlock"],
+source: "roValue: aBlock\x0a\x0a\x09^ self ",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Number);
 

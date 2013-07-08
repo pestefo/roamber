@@ -9,6 +9,17 @@ testCreation
 	| element |
 	element := ROElement new.
 	self assert: element position = (0 @ 0).
+!
+
+testExtent
+	| element shape |
+	element := ROElement new.
+	shape := ROBox new.
+	shape width: 20.
+	shape height: 30.
+	element shape: shape.
+	self assert: element width = 20.
+	self assert: element height = 30.
 ! !
 
 Object subclass: #ROLayout
@@ -116,7 +127,7 @@ doExecute: elements
 		pointer := self 
 					movePointer: pointer
 					accordingToFigure: element.
-		self step ].	
+ ].	
 "
 	verticallyStretchable ifTrue: 
 		[ self doStretchVertical: elements ]
@@ -197,6 +208,10 @@ bounds
 	^ self position extent: (shape extentFor: self)
 !
 
+height
+	^ shape heightFor: self
+!
+
 position
 	"Return the position of the element. Return a point of floats"
 	
@@ -212,7 +227,11 @@ shape: aROShape
 !
 
 translateTo: aPoint 
-	self translateBy: (aPoint - self bounds origin)
+	position := aPoint
+!
+
+width
+	^ shape widthFor: self
 ! !
 
 !ROElement methodsFor: 'drawing'!
@@ -254,11 +273,49 @@ horizontalLayout
 	10 timesRepeat: [view add: (ROElement new shape: (ROBox new))].
 	ROHorizontalLineLayout on: view elements.
 	view open.
+!
+
+horizontalLayout2
+	| view |
+"
+view := ROView new.
+	1 to: 20 [ :i |
+		view add: (ROElement new model: i) shape: 
+			(ROBox new ))].
+	ROHorizontalLineLayout on: view elements.
+	view open.
+	"
 ! !
 
 ROObject subclass: #ROShape
 	instanceVariableNames: 'height width color'
 	package: 'ARoassal'!
+
+!ROShape methodsFor: 'accessing'!
+
+height
+	^ height
+!
+
+height: aNumberOrABlock
+	height := aNumberOrABlock
+!
+
+heightFor: anElement
+	^ height roValue: anElement
+!
+
+width
+	^ width
+!
+
+width: aNumberOrABlock
+	width := aNumberOrABlock
+!
+
+widthFor: anElement
+	^ width roValue: anElement
+! !
 
 !ROShape methodsFor: 'drawing'!
 
@@ -283,7 +340,7 @@ extentFor: element
 ! !
 
 ROShape subclass: #ROBox
-	instanceVariableNames: 'height width'
+	instanceVariableNames: ''
 	package: 'ARoassal'!
 
 !ROBox methodsFor: 'configuration'!
@@ -421,5 +478,18 @@ testTwoElements
 	view add: el1; add: el2.
 	
 	self assert: view numberOfElements equals: 2
+! !
+
+!Object methodsFor: '*ARoassal'!
+
+roValue: anElement
+	^ self
+! !
+
+!Number methodsFor: '*ARoassal'!
+
+roValue: aBlock
+
+	^ self
 ! !
 
