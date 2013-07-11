@@ -197,7 +197,7 @@ Object subclass: #ROObject
 	package: 'ARoassal'!
 
 ROObject subclass: #ROElement
-	instanceVariableNames: 'shape position'
+	instanceVariableNames: 'model shape position'
 	package: 'ARoassal'!
 
 !ROElement methodsFor: 'accessing'!
@@ -210,6 +210,14 @@ bounds
 
 height
 	^ shape heightFor: self
+!
+
+model
+	^ model
+!
+
+model: anObject
+	model := anObject
 !
 
 position
@@ -273,18 +281,18 @@ horizontalLayout
 	10 timesRepeat: [view add: (ROElement new shape: (ROBox new))].
 	ROHorizontalLineLayout on: view elements.
 	view open.
+	^ view.
 !
 
 horizontalLayout2
 	| view |
-"
-view := ROView new.
-	1 to: 20 [ :i |
-		view add: (ROElement new model: i) shape: 
-			(ROBox new ))].
+
+	view := ROView new.
+	1 to: 20 do: [ :i |
+		view add: ((ROElement new model: i) shape: 
+			(ROBox new height: i*10)) ].
 	ROHorizontalLineLayout on: view elements.
 	view open.
-	"
 ! !
 
 ROObject subclass: #ROShape
@@ -440,13 +448,18 @@ add: anElement
 
 initialize
 	super initialize.
-	elements := Array new
+	elements := Array new.
+	svgCanvas := self paper.
 ! !
 
 !ROView methodsFor: 'public - opening'!
 
+clear
+	self paper clear
+!
+
 open
-	svgCanvas := self paper.
+	
 	elements do: [ :each | each drawOn: svgCanvas].
 !
 

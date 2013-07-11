@@ -1,7 +1,6 @@
 smalltalk.addPackage('ARoassal');
 smalltalk.addClass('ROElementTest', smalltalk.TestCase, [], 'ARoassal');
 smalltalk.addMethod(
-"_testCreation",
 smalltalk.method({
 selector: "testCreation",
 category: 'test',
@@ -19,7 +18,6 @@ referencedClasses: ["ROElement"]
 smalltalk.ROElementTest);
 
 smalltalk.addMethod(
-"_testExtent",
 smalltalk.method({
 selector: "testExtent",
 category: 'test',
@@ -45,7 +43,6 @@ smalltalk.ROElementTest);
 
 smalltalk.addClass('ROLayout', smalltalk.Object, ['translator'], 'ARoassal');
 smalltalk.addMethod(
-"_applyOn_",
 smalltalk.method({
 selector: "applyOn:",
 category: 'not yet classified',
@@ -61,7 +58,6 @@ referencedClasses: []
 smalltalk.ROLayout);
 
 smalltalk.addMethod(
-"_executeOnElements_",
 smalltalk.method({
 selector: "executeOnElements:",
 category: 'not yet classified',
@@ -77,7 +73,6 @@ referencedClasses: []
 smalltalk.ROLayout);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 category: 'not yet classified',
@@ -94,7 +89,6 @@ smalltalk.ROLayout);
 
 
 smalltalk.addMethod(
-"_on_",
 smalltalk.method({
 selector: "on:",
 category: 'not yet classified',
@@ -115,7 +109,6 @@ smalltalk.ROLayout.klass);
 
 smalltalk.addClass('ROAbstractLineLayout', smalltalk.ROLayout, ['gapSize', 'horizontalGap', 'verticalGap', 'horizontalOutGap', 'verticalOutGap', 'alignment', 'horizontallyStretchable', 'verticallyStretchable'], 'ARoassal');
 smalltalk.addMethod(
-"_alignTop",
 smalltalk.method({
 selector: "alignTop",
 category: 'not yet classified',
@@ -131,7 +124,6 @@ referencedClasses: []
 smalltalk.ROAbstractLineLayout);
 
 smalltalk.addMethod(
-"_alignment",
 smalltalk.method({
 selector: "alignment",
 category: 'not yet classified',
@@ -149,7 +141,6 @@ referencedClasses: []
 smalltalk.ROAbstractLineLayout);
 
 smalltalk.addMethod(
-"_alignment_",
 smalltalk.method({
 selector: "alignment:",
 category: 'not yet classified',
@@ -165,7 +156,6 @@ referencedClasses: []
 smalltalk.ROAbstractLineLayout);
 
 smalltalk.addMethod(
-"_horizontalGap",
 smalltalk.method({
 selector: "horizontalGap",
 category: 'not yet classified',
@@ -183,7 +173,6 @@ referencedClasses: []
 smalltalk.ROAbstractLineLayout);
 
 smalltalk.addMethod(
-"_horizontalOutGap",
 smalltalk.method({
 selector: "horizontalOutGap",
 category: 'not yet classified',
@@ -201,7 +190,6 @@ referencedClasses: []
 smalltalk.ROAbstractLineLayout);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 category: 'not yet classified',
@@ -223,7 +211,6 @@ referencedClasses: []
 smalltalk.ROAbstractLineLayout);
 
 smalltalk.addMethod(
-"_verticalOutGap",
 smalltalk.method({
 selector: "verticalOutGap",
 category: 'not yet classified',
@@ -244,7 +231,6 @@ smalltalk.ROAbstractLineLayout);
 
 smalltalk.addClass('ROHorizontalLineLayout', smalltalk.ROAbstractLineLayout, [], 'ARoassal');
 smalltalk.addMethod(
-"_deltaFor_",
 smalltalk.method({
 selector: "deltaFor:",
 category: 'not yet classified',
@@ -274,7 +260,6 @@ referencedClasses: []
 smalltalk.ROHorizontalLineLayout);
 
 smalltalk.addMethod(
-"_doExecute_",
 smalltalk.method({
 selector: "doExecute:",
 category: 'not yet classified',
@@ -298,7 +283,6 @@ referencedClasses: []
 smalltalk.ROHorizontalLineLayout);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 category: 'not yet classified',
@@ -315,7 +299,6 @@ referencedClasses: []
 smalltalk.ROHorizontalLineLayout);
 
 smalltalk.addMethod(
-"_movePointer_accordingToFigure_",
 smalltalk.method({
 selector: "movePointer:accordingToFigure:",
 category: 'not yet classified',
@@ -333,7 +316,6 @@ referencedClasses: []
 smalltalk.ROHorizontalLineLayout);
 
 smalltalk.addMethod(
-"_positionOriginalPointer_",
 smalltalk.method({
 selector: "positionOriginalPointer:",
 category: 'not yet classified',
@@ -370,7 +352,6 @@ smalltalk.ROHorizontalLineLayout);
 
 smalltalk.addClass('ROLayoutTranslator', smalltalk.Object, [], 'ARoassal');
 smalltalk.addMethod(
-"_translate_to_",
 smalltalk.method({
 selector: "translate:to:",
 category: 'not yet classified',
@@ -388,7 +369,6 @@ smalltalk.ROLayoutTranslator);
 
 smalltalk.ROLayoutTranslator.klass.iVarNames = ['defaultTranslator'];
 smalltalk.addMethod(
-"_default",
 smalltalk.method({
 selector: "default",
 category: 'not yet classified',
@@ -414,7 +394,6 @@ referencedClasses: []
 smalltalk.ROLayoutTranslator.klass);
 
 smalltalk.addMethod(
-"_defaultClass",
 smalltalk.method({
 selector: "defaultClass",
 category: 'not yet classified',
@@ -434,7 +413,6 @@ smalltalk.ROLayoutTranslator.klass);
 
 smalltalk.addClass('RODirectLayoutTranslator', smalltalk.ROLayoutTranslator, [], 'ARoassal');
 smalltalk.addMethod(
-"_translate_to_",
 smalltalk.method({
 selector: "translate:to:",
 category: 'not yet classified',
@@ -454,9 +432,8 @@ smalltalk.RODirectLayoutTranslator);
 smalltalk.addClass('ROObject', smalltalk.Object, [], 'ARoassal');
 
 
-smalltalk.addClass('ROElement', smalltalk.ROObject, ['shape', 'position'], 'ARoassal');
+smalltalk.addClass('ROElement', smalltalk.ROObject, ['model', 'shape', 'position'], 'ARoassal');
 smalltalk.addMethod(
-"_bounds",
 smalltalk.method({
 selector: "bounds",
 category: 'accessing',
@@ -474,7 +451,6 @@ referencedClasses: []
 smalltalk.ROElement);
 
 smalltalk.addMethod(
-"_drawOn_",
 smalltalk.method({
 selector: "drawOn:",
 category: 'drawing',
@@ -490,7 +466,6 @@ referencedClasses: []
 smalltalk.ROElement);
 
 smalltalk.addMethod(
-"_height",
 smalltalk.method({
 selector: "height",
 category: 'accessing',
@@ -508,7 +483,6 @@ referencedClasses: []
 smalltalk.ROElement);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 category: 'initialize',
@@ -525,7 +499,40 @@ referencedClasses: []
 smalltalk.ROElement);
 
 smalltalk.addMethod(
-"_position",
+smalltalk.method({
+selector: "model",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@model"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"model",{},smalltalk.ROElement)})},
+args: [],
+source: "model\x0a\x09^ model",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROElement);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "model:",
+category: 'accessing',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@model"]=anObject;
+return self}, function($ctx1) {$ctx1.fill(self,"model:",{anObject:anObject},smalltalk.ROElement)})},
+args: ["anObject"],
+source: "model: anObject\x0a\x09model := anObject",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROElement);
+
+smalltalk.addMethod(
 smalltalk.method({
 selector: "position",
 category: 'accessing',
@@ -543,7 +550,6 @@ referencedClasses: []
 smalltalk.ROElement);
 
 smalltalk.addMethod(
-"_shape",
 smalltalk.method({
 selector: "shape",
 category: 'accessing',
@@ -561,7 +567,6 @@ referencedClasses: []
 smalltalk.ROElement);
 
 smalltalk.addMethod(
-"_shape_",
 smalltalk.method({
 selector: "shape:",
 category: 'accessing',
@@ -577,7 +582,6 @@ referencedClasses: []
 smalltalk.ROElement);
 
 smalltalk.addMethod(
-"_translateTo_",
 smalltalk.method({
 selector: "translateTo:",
 category: 'accessing',
@@ -593,7 +597,6 @@ referencedClasses: []
 smalltalk.ROElement);
 
 smalltalk.addMethod(
-"_width",
 smalltalk.method({
 selector: "width",
 category: 'accessing',
@@ -614,7 +617,6 @@ smalltalk.ROElement);
 
 smalltalk.addClass('ROExample', smalltalk.ROObject, [], 'ARoassal');
 smalltalk.addMethod(
-"_circle",
 smalltalk.method({
 selector: "circle",
 category: 'not yet classified',
@@ -633,7 +635,6 @@ referencedClasses: ["ROView", "ROCircle", "ROElement"]
 smalltalk.ROExample);
 
 smalltalk.addMethod(
-"_create",
 smalltalk.method({
 selector: "create",
 category: 'not yet classified',
@@ -652,40 +653,59 @@ referencedClasses: ["ROView", "ROBox", "ROElement"]
 smalltalk.ROExample);
 
 smalltalk.addMethod(
-"_horizontalLayout",
 smalltalk.method({
 selector: "horizontalLayout",
 category: 'not yet classified',
 fn: function (){
 var self=this;
 var view;
-return smalltalk.withContext(function($ctx1) { view=_st((smalltalk.ROView || ROView))._new();
-_st((10))._timesRepeat_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(view)._add_(_st(_st((smalltalk.ROElement || ROElement))._new())._shape_(_st((smalltalk.ROBox || ROBox))._new()));
+function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
+function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
+function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
+function $ROHorizontalLineLayout(){return smalltalk.ROHorizontalLineLayout||(typeof ROHorizontalLineLayout=="undefined"?nil:ROHorizontalLineLayout)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+view=_st($ROView())._new();
+(10)._timesRepeat_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(view)._add_(_st(_st($ROElement())._new())._shape_(_st($ROBox())._new()));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-_st((smalltalk.ROHorizontalLineLayout || ROHorizontalLineLayout))._on_(_st(view)._elements());
+_st($ROHorizontalLineLayout())._on_(_st(view)._elements());
 _st(view)._open();
-return self}, function($ctx1) {$ctx1.fill(self,"horizontalLayout",{view:view},smalltalk.ROExample)})},
+$1=view;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"horizontalLayout",{view:view},smalltalk.ROExample)})},
 args: [],
-source: "horizontalLayout\x0a\x09| view |\x0a\x09view := ROView new.\x0a\x0910 timesRepeat: [view add: (ROElement new shape: (ROBox new))].\x0a\x09ROHorizontalLineLayout on: view elements.\x0a\x09view open.",
+source: "horizontalLayout\x0a\x09| view |\x0a\x09view := ROView new.\x0a\x0910 timesRepeat: [view add: (ROElement new shape: (ROBox new))].\x0a\x09ROHorizontalLineLayout on: view elements.\x0a\x09view open.\x0a\x09^ view.",
 messageSends: ["new", "timesRepeat:", "add:", "shape:", "on:", "elements", "open"],
 referencedClasses: ["ROView", "ROBox", "ROElement", "ROHorizontalLineLayout"]
 }),
 smalltalk.ROExample);
 
 smalltalk.addMethod(
-"_horizontalLayout2",
 smalltalk.method({
 selector: "horizontalLayout2",
 category: 'not yet classified',
 fn: function (){
 var self=this;
 var view;
-return smalltalk.withContext(function($ctx1) { return self}, function($ctx1) {$ctx1.fill(self,"horizontalLayout2",{view:view},smalltalk.ROExample)})},
+function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
+function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
+function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
+function $ROHorizontalLineLayout(){return smalltalk.ROHorizontalLineLayout||(typeof ROHorizontalLineLayout=="undefined"?nil:ROHorizontalLineLayout)}
+return smalltalk.withContext(function($ctx1) { 
+view=_st($ROView())._new();
+(1)._to_do_((20),(function(i){
+return smalltalk.withContext(function($ctx2) {
+return _st(view)._add_(_st(_st(_st($ROElement())._new())._model_(i))._shape_(_st(_st($ROBox())._new())._height_(_st(i).__star((10)))));
+}, function($ctx2) {$ctx2.fillBlock({i:i},$ctx1)})}));
+_st($ROHorizontalLineLayout())._on_(_st(view)._elements());
+_st(view)._open();
+return self}, function($ctx1) {$ctx1.fill(self,"horizontalLayout2",{view:view},smalltalk.ROExample)})},
 args: [],
-source: "horizontalLayout2\x0a\x09| view |\x0a\x22\x0aview := ROView new.\x0a\x091 to: 20 [ :i |\x0a\x09\x09view add: (ROElement new model: i) shape: \x0a\x09\x09\x09(ROBox new ))].\x0a\x09ROHorizontalLineLayout on: view elements.\x0a\x09view open.\x0a\x09\x22",
-messageSends: [],
-referencedClasses: []
+source: "horizontalLayout2\x0a\x09| view |\x0a\x0a\x09view := ROView new.\x0a\x091 to: 20 do: [ :i |\x0a\x09\x09view add: ((ROElement new model: i) shape: \x0a\x09\x09\x09(ROBox new height: i*10)) ].\x0a\x09ROHorizontalLineLayout on: view elements.\x0a\x09view open.\x0a\x09",
+messageSends: ["new", "to:do:", "add:", "shape:", "height:", "*", "model:", "on:", "elements", "open"],
+referencedClasses: ["ROView", "ROBox", "ROElement", "ROHorizontalLineLayout"]
 }),
 smalltalk.ROExample);
 
@@ -693,7 +713,6 @@ smalltalk.ROExample);
 
 smalltalk.addClass('ROShape', smalltalk.ROObject, ['height', 'width', 'color'], 'ARoassal');
 smalltalk.addMethod(
-"_drawOn_for_",
 smalltalk.method({
 selector: "drawOn:for:",
 category: 'drawing',
@@ -708,7 +727,6 @@ referencedClasses: []
 smalltalk.ROShape);
 
 smalltalk.addMethod(
-"_extentFor_",
 smalltalk.method({
 selector: "extentFor:",
 category: 'drawing',
@@ -728,7 +746,6 @@ referencedClasses: []
 smalltalk.ROShape);
 
 smalltalk.addMethod(
-"_height",
 smalltalk.method({
 selector: "height",
 category: 'accessing',
@@ -746,7 +763,6 @@ referencedClasses: []
 smalltalk.ROShape);
 
 smalltalk.addMethod(
-"_height_",
 smalltalk.method({
 selector: "height:",
 category: 'accessing',
@@ -762,7 +778,6 @@ referencedClasses: []
 smalltalk.ROShape);
 
 smalltalk.addMethod(
-"_heightFor_",
 smalltalk.method({
 selector: "heightFor:",
 category: 'accessing',
@@ -780,7 +795,6 @@ referencedClasses: []
 smalltalk.ROShape);
 
 smalltalk.addMethod(
-"_width",
 smalltalk.method({
 selector: "width",
 category: 'accessing',
@@ -798,7 +812,6 @@ referencedClasses: []
 smalltalk.ROShape);
 
 smalltalk.addMethod(
-"_width_",
 smalltalk.method({
 selector: "width:",
 category: 'accessing',
@@ -814,7 +827,6 @@ referencedClasses: []
 smalltalk.ROShape);
 
 smalltalk.addMethod(
-"_widthFor_",
 smalltalk.method({
 selector: "widthFor:",
 category: 'accessing',
@@ -835,7 +847,6 @@ smalltalk.ROShape);
 
 smalltalk.addClass('ROBox', smalltalk.ROShape, [], 'ARoassal');
 smalltalk.addMethod(
-"_defaultSize",
 smalltalk.method({
 selector: "defaultSize",
 category: 'configuration',
@@ -851,7 +862,6 @@ referencedClasses: []
 smalltalk.ROBox);
 
 smalltalk.addMethod(
-"_drawOn_for_",
 smalltalk.method({
 selector: "drawOn:for:",
 category: 'drawing',
@@ -867,7 +877,6 @@ referencedClasses: []
 smalltalk.ROBox);
 
 smalltalk.addMethod(
-"_height",
 smalltalk.method({
 selector: "height",
 category: 'initialize',
@@ -885,7 +894,6 @@ referencedClasses: []
 smalltalk.ROBox);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 category: 'initialize',
@@ -903,7 +911,6 @@ referencedClasses: []
 smalltalk.ROBox);
 
 smalltalk.addMethod(
-"_width",
 smalltalk.method({
 selector: "width",
 category: 'initialize',
@@ -924,7 +931,6 @@ smalltalk.ROBox);
 
 smalltalk.addClass('ROCircle', smalltalk.ROShape, ['radius'], 'ARoassal');
 smalltalk.addMethod(
-"_defaultRadius",
 smalltalk.method({
 selector: "defaultRadius",
 category: 'configuration',
@@ -940,7 +946,6 @@ referencedClasses: []
 smalltalk.ROCircle);
 
 smalltalk.addMethod(
-"_drawOn_for_",
 smalltalk.method({
 selector: "drawOn:for:",
 category: 'drawing',
@@ -956,7 +961,6 @@ referencedClasses: []
 smalltalk.ROCircle);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 category: 'initialize',
@@ -973,7 +977,6 @@ referencedClasses: []
 smalltalk.ROCircle);
 
 smalltalk.addMethod(
-"_radius",
 smalltalk.method({
 selector: "radius",
 category: 'drawing',
@@ -994,7 +997,6 @@ smalltalk.ROCircle);
 
 smalltalk.addClass('ROView', smalltalk.ROObject, ['elements', 'svgCanvas'], 'ARoassal');
 smalltalk.addMethod(
-"_add_",
 smalltalk.method({
 selector: "add:",
 category: 'adding',
@@ -1010,7 +1012,22 @@ referencedClasses: []
 smalltalk.ROView);
 
 smalltalk.addMethod(
-"_elements",
+smalltalk.method({
+selector: "clear",
+category: 'public - opening',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._paper())._clear();
+return self}, function($ctx1) {$ctx1.fill(self,"clear",{},smalltalk.ROView)})},
+args: [],
+source: "clear\x0a\x09self paper clear",
+messageSends: ["clear", "paper"],
+referencedClasses: []
+}),
+smalltalk.ROView);
+
+smalltalk.addMethod(
 smalltalk.method({
 selector: "elements",
 category: 'accessing',
@@ -1028,24 +1045,25 @@ referencedClasses: []
 smalltalk.ROView);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 category: 'initialize',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { smalltalk.ROObject.fn.prototype._initialize.apply(_st(self), []);
-self["@elements"]=_st((smalltalk.Array || Array))._new();
+function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.ROObject.fn.prototype._initialize.apply(_st(self), []);
+self["@elements"]=_st($Array())._new();
+self["@svgCanvas"]=self._paper();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROView)})},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09elements := Array new",
-messageSends: ["initialize", "new"],
+source: "initialize\x0a\x09super initialize.\x0a\x09elements := Array new.\x0a\x09svgCanvas := self paper.",
+messageSends: ["initialize", "new", "paper"],
 referencedClasses: ["Array"]
 }),
 smalltalk.ROView);
 
 smalltalk.addMethod(
-"_numberOfElements",
 smalltalk.method({
 selector: "numberOfElements",
 category: 'accessing',
@@ -1063,26 +1081,25 @@ referencedClasses: []
 smalltalk.ROView);
 
 smalltalk.addMethod(
-"_open",
 smalltalk.method({
 selector: "open",
 category: 'public - opening',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@svgCanvas"]=_st(self)._paper();
+return smalltalk.withContext(function($ctx1) { 
 _st(self["@elements"])._do_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(each)._drawOn_(self["@svgCanvas"]);
+return smalltalk.withContext(function($ctx2) {
+return _st(each)._drawOn_(self["@svgCanvas"]);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"open",{},smalltalk.ROView)})},
 args: [],
-source: "open\x0a\x09svgCanvas := self paper.\x0a\x09elements do: [ :each | each drawOn: svgCanvas].",
-messageSends: ["paper", "do:", "drawOn:"],
+source: "open\x0a\x09\x0a\x09elements do: [ :each | each drawOn: svgCanvas].",
+messageSends: ["do:", "drawOn:"],
 referencedClasses: []
 }),
 smalltalk.ROView);
 
 smalltalk.addMethod(
-"_paper",
 smalltalk.method({
 selector: "paper",
 category: 'public - opening',
@@ -1101,7 +1118,6 @@ smalltalk.ROView);
 
 smalltalk.addClass('ROViewTest', smalltalk.TestCase, ['view'], 'ARoassal');
 smalltalk.addMethod(
-"_setUp",
 smalltalk.method({
 selector: "setUp",
 category: 'running',
@@ -1117,7 +1133,6 @@ referencedClasses: ["ROView"]
 smalltalk.ROViewTest);
 
 smalltalk.addMethod(
-"_testCreation",
 smalltalk.method({
 selector: "testCreation",
 category: 'test',
@@ -1133,7 +1148,6 @@ referencedClasses: []
 smalltalk.ROViewTest);
 
 smalltalk.addMethod(
-"_testTwoElements",
 smalltalk.method({
 selector: "testTwoElements",
 category: 'test',
@@ -1164,7 +1178,6 @@ smalltalk.ROViewTest);
 
 
 smalltalk.addMethod(
-"_roValue_",
 smalltalk.method({
 selector: "roValue:",
 category: '*ARoassal',
@@ -1182,7 +1195,6 @@ referencedClasses: []
 smalltalk.Object);
 
 smalltalk.addMethod(
-"_roValue_",
 smalltalk.method({
 selector: "roValue:",
 category: '*ARoassal',
