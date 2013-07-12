@@ -290,7 +290,7 @@ horizontalLayout2
 	view := ROView new.
 	1 to: 20 do: [ :i |
 		view add: ((ROElement new model: i) shape: 
-			(ROBox new height: i*10)) ].
+			(ROBox new height: [ :el | el model * 13 ] )) ].
 	ROHorizontalLineLayout on: view elements.
 	view open.
 ! !
