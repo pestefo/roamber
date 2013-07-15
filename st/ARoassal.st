@@ -278,6 +278,7 @@ create
 horizontalLayout
 	| view |
 	view := ROView new.
+	view clear.
 	10 timesRepeat: [view add: (ROElement new shape: (ROBox new))].
 	ROHorizontalLineLayout on: view elements.
 	view open.
@@ -286,13 +287,46 @@ horizontalLayout
 
 horizontalLayout2
 	| view |
-
 	view := ROView new.
+	view clear.
 	1 to: 20 do: [ :i |
 		view add: ((ROElement new model: i) shape: 
 			(ROBox new height: [ :el | el model * 13 ] )) ].
 	ROHorizontalLineLayout on: view elements.
 	view open.
+! !
+
+ROObject subclass: #ROPaper
+	instanceVariableNames: 'svgCanvas'
+	package: 'ARoassal'!
+
+!ROPaper methodsFor: 'as yet unclassified'!
+
+canvas
+	^ svgCanvas
+!
+
+initialize
+	super initialize.
+	svgCanvas := self paper.
+	^ self
+!
+
+paper
+	< return Raphael("container", 800, 600);>
+! !
+
+ROPaper class instanceVariableNames: 'paper'!
+
+!ROPaper class methodsFor: 'as yet unclassified'!
+
+default
+paper ifNil: [paper := self basicNew initialize].
+       ^paper
+!
+
+new	
+	self error: 'Use default instead.'
 ! !
 
 ROObject subclass: #ROShape
@@ -464,7 +498,7 @@ open
 !
 
 paper
-	< return Raphael("container", 800, 600);>
+	^ ROPaper default canvas
 ! !
 
 TestCase subclass: #ROViewTest
