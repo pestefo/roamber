@@ -490,6 +490,7 @@ function $ROHorizontalLineLayout(){return smalltalk.ROHorizontalLineLayout||(typ
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 view=_st($ROView())._new();
+_st(view)._clear();
 (10)._timesRepeat_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(view)._add_(_st(_st($ROElement())._new())._shape_(_st($ROBox())._new()));
@@ -499,7 +500,7 @@ _st(view)._open();
 $1=view;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"horizontalLayout",{view:view},smalltalk.ROExample)})},
-messageSends: ["new", "timesRepeat:", "add:", "shape:", "on:", "elements", "open"]}),
+messageSends: ["new", "clear", "timesRepeat:", "add:", "shape:", "on:", "elements", "open"]}),
 smalltalk.ROExample);
 
 smalltalk.addMethod(
@@ -514,6 +515,7 @@ function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"
 function $ROHorizontalLineLayout(){return smalltalk.ROHorizontalLineLayout||(typeof ROHorizontalLineLayout=="undefined"?nil:ROHorizontalLineLayout)}
 return smalltalk.withContext(function($ctx1) { 
 view=_st($ROView())._new();
+_st(view)._clear();
 (1)._to_do_((20),(function(i){
 return smalltalk.withContext(function($ctx2) {
 return _st(view)._add_(_st(_st(_st($ROElement())._new())._model_(i))._shape_(_st(_st($ROBox())._new())._height_(_st(i).__star((10)))));
@@ -521,9 +523,83 @@ return _st(view)._add_(_st(_st(_st($ROElement())._new())._model_(i))._shape_(_st
 _st($ROHorizontalLineLayout())._on_(_st(view)._elements());
 _st(view)._open();
 return self}, function($ctx1) {$ctx1.fill(self,"horizontalLayout2",{view:view},smalltalk.ROExample)})},
-messageSends: ["new", "to:do:", "add:", "shape:", "height:", "*", "model:", "on:", "elements", "open"]}),
+messageSends: ["new", "clear", "to:do:", "add:", "shape:", "height:", "*", "model:", "on:", "elements", "open"]}),
 smalltalk.ROExample);
 
+
+
+smalltalk.addClass('ROPaper', smalltalk.ROObject, ['svgCanvas'], 'ARoassal');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "canvas",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@svgCanvas"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"canvas",{},smalltalk.ROPaper)})},
+messageSends: []}),
+smalltalk.ROPaper);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+smalltalk.ROObject.fn.prototype._initialize.apply(_st(self), []);
+self["@svgCanvas"]=self._paper();
+$1=self;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROPaper)})},
+messageSends: ["initialize", "paper"]}),
+smalltalk.ROPaper);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "paper",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+ return Raphael("container", 800, 600);;
+return self}, function($ctx1) {$ctx1.fill(self,"paper",{},smalltalk.ROPaper)})},
+messageSends: []}),
+smalltalk.ROPaper);
+
+
+smalltalk.ROPaper.klass.iVarNames = ['paper'];
+smalltalk.addMethod(
+smalltalk.method({
+selector: "default",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=self["@paper"];
+if(($receiver = $1) == nil || $receiver == undefined){
+self["@paper"]=_st(self._basicNew())._initialize();
+self["@paper"];
+} else {
+$1;
+};
+$2=self["@paper"];
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"default",{},smalltalk.ROPaper.klass)})},
+messageSends: ["ifNil:", "initialize", "basicNew"]}),
+smalltalk.ROPaper.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "new",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._error_("Use default instead.");
+return self}, function($ctx1) {$ctx1.fill(self,"new",{},smalltalk.ROPaper.klass)})},
+messageSends: ["error:"]}),
+smalltalk.ROPaper.klass);
 
 
 smalltalk.addClass('ROShape', smalltalk.ROObject, ['height', 'width', 'color'], 'ARoassal');
@@ -804,9 +880,13 @@ smalltalk.method({
 selector: "paper",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) {  return Raphael("container", 800, 600);;
-return self}, function($ctx1) {$ctx1.fill(self,"paper",{},smalltalk.ROView)})},
-messageSends: []}),
+function $ROPaper(){return smalltalk.ROPaper||(typeof ROPaper=="undefined"?nil:ROPaper)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st($ROPaper())._default())._canvas();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"paper",{},smalltalk.ROView)})},
+messageSends: ["canvas", "default"]}),
 smalltalk.ROView);
 
 
