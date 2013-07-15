@@ -1,27 +1,4 @@
 Smalltalk current createPackage: 'ARoassal'!
-TestCase subclass: #ROElementTest
-	instanceVariableNames: ''
-	package: 'ARoassal'!
-
-!ROElementTest methodsFor: 'test'!
-
-testCreation
-	| element |
-	element := ROElement new.
-	self assert: element position = (0 @ 0).
-!
-
-testExtent
-	| element shape |
-	element := ROElement new.
-	shape := ROBox new.
-	shape width: 20.
-	shape height: 30.
-	element shape: shape.
-	self assert: element width = 20.
-	self assert: element height = 30.
-! !
-
 Object subclass: #ROLayout
 	instanceVariableNames: 'translator'
 	package: 'ARoassal'!
@@ -196,6 +173,46 @@ Object subclass: #ROObject
 	instanceVariableNames: ''
 	package: 'ARoassal'!
 
+ROObject subclass: #ROEdge
+	instanceVariableNames: 'model from to shape'
+	package: 'ARoassal'!
+
+!ROEdge methodsFor: 'accessing'!
+
+drawOn: canvas
+	shape drawOn: canvas for: self
+!
+
+from
+	^ from
+!
+
+from: anElement
+	from := anElement
+!
+
+shape
+	^ shape
+!
+
+shape: aShape
+	shape := aShape
+!
+
+to
+	^ to
+!
+
+to: anElement
+	to := anElement
+! !
+
+!ROEdge class methodsFor: 'public'!
+
+from: el1 to: el2
+	^ self new from: el1; to: el2; yourself
+! !
+
 ROObject subclass: #ROElement
 	instanceVariableNames: 'model shape position'
 	package: 'ARoassal'!
@@ -255,6 +272,12 @@ initialize
 	position := 0 @ 0
 ! !
 
+!ROElement class methodsFor: 'public'!
+
+on: anObject
+	^ self new model: anObject; yourself
+! !
+
 ROObject subclass: #ROExample
 	instanceVariableNames: ''
 	package: 'ARoassal'!
@@ -291,8 +314,21 @@ horizontalLayout2
 	view clear.
 	1 to: 20 do: [ :i |
 		view add: ((ROElement new model: i) shape: 
-			(ROBox new height: [ :el | el model * 13 ] )) ].
+			(ROBox new height: [ :el | el model * 13 ]; width: [ :el | el model * 5 ])) ].
 	ROHorizontalLineLayout on: view elements.
+	view open.
+!
+
+line
+	| view el1 el2 edge |
+	view := ROView new.
+
+	el1 := ROBox element.
+	el2 := ROBox element.
+	edge := ROLineShape edgeFrom: el1 to: el2.
+
+	view add: el1; add: el2; add: edge.
+	
 	view open.
 ! !
 
@@ -359,6 +395,16 @@ widthFor: anElement
 	^ width roValue: anElement
 ! !
 
+!ROShape methodsFor: 'creation'!
+
+element
+	^ self elementOn: nil
+!
+
+elementOn: anObject
+	^ (ROElement on: anObject) shape: self; yourself
+! !
+
 !ROShape methodsFor: 'drawing'!
 
 drawOn: canvas for: anElement
@@ -381,6 +427,48 @@ extentFor: element
 	^ res
 ! !
 
+!ROShape class methodsFor: 'not yet classified'!
+
+element
+	^ self new element
+!
+
+elementOn: object
+	"Easy way to create element from a shape"
+	
+	^ (ROElement on: object) shape: self; yourself
+! !
+
+ROShape subclass: #ROAbstractLineShape
+	instanceVariableNames: ''
+	package: 'ARoassal'!
+
+!ROAbstractLineShape class methodsFor: 'not yet classified'!
+
+edgeFrom: el1 to: el2
+	^ (ROEdge from: el1 to: el2) shape: self new; yourself
+!
+
+elementFrom: el1 to: el2
+	^ self edgeFrom: el1 to: el2
+! !
+
+ROAbstractLineShape subclass: #ROLineShape
+	instanceVariableNames: ''
+	package: 'ARoassal'!
+
+!ROLineShape methodsFor: 'not yet classified'!
+
+drawOn: canvas for: anEdge
+	canvas path: 'M10 10L90 90'
+"	canvas 
+		rect: (anElement position x)
+		with: (anElement position y) 
+		with: (self widthFor: anElement) 
+		with: (self heightFor: anElement) .
+"
+! !
+
 ROShape subclass: #ROBox
 	instanceVariableNames: ''
 	package: 'ARoassal'!
@@ -397,8 +485,8 @@ drawOn: canvas for: anElement
 	canvas 
 		rect: (anElement position x)
 		with: (anElement position y) 
-		with: (self width) 
-		with: (self height) .
+		with: (self widthFor: anElement) 
+		with: (self heightFor: anElement) .
 	"
 	| nodes |
 	nodes := (canvas selectAll: 'rect') data: anElement .
@@ -484,6 +572,7 @@ initialize
 	super initialize.
 	elements := Array new.
 	svgCanvas := self paper.
+	self clear
 ! !
 
 !ROView methodsFor: 'public - opening'!
@@ -501,36 +590,16 @@ paper
 	^ ROPaper default canvas
 ! !
 
-TestCase subclass: #ROViewTest
-	instanceVariableNames: 'view'
-	package: 'ARoassal'!
-
-!ROViewTest methodsFor: 'running'!
-
-setUp
-	view := ROView new.
-! !
-
-!ROViewTest methodsFor: 'test'!
-
-testCreation
-
-	self assert: view numberOfElements equals: 0.
-!
-
-testTwoElements
-	| el1 el2 |
-	el1 := ROElement new shape: (ROBox new); yourself.
-	el2 := ROElement new shape: (ROBox new); yourself.
-	view add: el1; add: el2.
-	
-	self assert: view numberOfElements equals: 2
-! !
-
 !Object methodsFor: '*ARoassal'!
 
 roValue: anElement
 	^ self
+! !
+
+!BlockClosure methodsFor: '*ARoassal'!
+
+roValue: anObject
+	^ self value: anObject
 ! !
 
 !Number methodsFor: '*ARoassal'!
