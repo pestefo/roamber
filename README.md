@@ -1,54 +1,46 @@
-Amber [![Travis CI Status](https://secure.travis-ci.org/amber-smalltalk/amber.png)](https://travis-ci.org/#!/amber-smalltalk/amber)
-=====
-
-By Nicolas Petton <petton.nicolas@gmail.com> and [Amber contributors](https://github.com/NicolasPetton/amber/contributors)
-
-Amber is an implementation of the Smalltalk language that runs on top of the JavaScript runtime. It is designed to make client-side development faster and easier.
-
-Overview
---------
-
-Amber is written in itself, including the parser and compiler. Amber compiles into efficient JavaScript, mapping one-to-one with the equivalent JavaScript. There is no interpretation at runtime.
-
-Some highlights:
-
--    Amber features an IDE with a Class browser, Workspace, Transcript, a ReferencesBrowser supporting senders/implementors and class references, basic Inspector and even a beginning of a Debugger and a unit TestRunner.
--    [Pharo Smalltalk](http://www.pharo-project.org) is considered as the reference implementation.
--    Amber includes a canvas to generate HTML, like [Seaside](http://www.seaside.st)
--    Amber can use Javascript libraries and the current IDE is built on [jQuery](http://www.jquery.com)
--    You can inline Javascript code and there are many ways to interact between Amber and Javascript
+Roassal in Amber
+=======
+Roassal is an agile visualization engine for Smalltalk-like programming languages.
+This github repository contains a port for Amber.
 
 
-License
--------
+## Installation
+For running Roassal, we need you have [NodeJS (a JavaScript server)](#1---install-nodejs) installed.
 
-Amber is released under the MIT license. All contributions made for inclusion are considered to be under MIT.
+### Installing nodejs
+We first need NodeJS to serve javascript files to your Web Browser. Open a terminal/xterm and type "node --version". If you have something like v0.8.16, then it means you have NodeJS installed. Move to the second step. 
 
-Building Amber
---------------
+If you do not have NodeJS install, then download one of these installers for the latests verison of nodejs `v0.10.12` and double click on it
 
-Amber uses [Grunt.js](http://gruntjs.com/) as build system since version `0.10.0`.
+* [MacOSX](http://nodejs.org/dist/v0.10.12/node-v0.10.12.pkg)
+* [Windows](http://nodejs.org/dist/v0.10.12/node-v0.10.12-x86.msi)
+* [Source Code](http://nodejs.org/dist/v0.10.12/node-v0.10.12.tar.gz)
+* [Other platforms (64 bit)](http://nodejs.org/download/)
 
-If you already have Grunt.js v0.3.x installed locally run the following (otherwise ignore these lines):
-
-    cd ${Amber_DIR}
-    npm uninstall grunt
-
-To install Grunt.js v0.4.x on the commandline execute the following commands:
-    
-    npm install -g grunt-cli grunt-init
-    cd ${Amber_DIR}
-    npm install
-
-And finally, compile Amber using the following command:
-
-    cd ${Amber_DIR}
-    grunt
-
-For Windows support check the [Grunt.js on Windows](http://gruntjs.com/frequently-asked-questions#does-grunt-work-on-windows) page.
+NodeJs weights only 42 Mb, and will be installed on /usr/local/bin. No big deal. 
+After this, you should be able to exectue `node --version` in a terminal. If you still have an error, maybe your PATH variable is not properly set.
 
 
-More infos
-----------
 
-More on the [project page](http://amber-lang.net)
+## Running ROAmber 
+
+### 1 - Running the NodeJS
+
+We need to run the NodeJS server within the Terminal/xterm to make sure someone will serve the necessary files to your web browser. Start amber's server:
+
+    ./${Amber_DIR}/bin/server 
+
+Open [`http://localhost:4000/projects/roamber/index.html`](http://localhost:4000/projects/roamber/index.html) in your favourite web browser.
+
+### 2 - Example
+Click on the Workspace tab and type:
+
+```
+ROExample new linelayout2
+```
+and press `Ctrl-d` to execute this line
+You should see several rectangles aligned on top in a small-to-big order.
+
+## Troubleshooting
+
+If you had any problem running Amber's server we recommend to check the [this documentation](https://github.com/amber-smalltalk/amber#building-amber) about building Amber.
