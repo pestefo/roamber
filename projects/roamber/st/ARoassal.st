@@ -327,11 +327,37 @@ line
 	el2 := ROBox element.
 	
 	el1 translateTo: 20 @ 30.
-	el2 translateTo: 80 @ 100.
+	el2 translateTo: 300 @ 100.
 	
 	edge := ROLineShape edgeFrom: el1 to: el2.
 
 	view add: el1; add: el2; add: edge.
+	
+	view open.
+!
+
+line2
+
+	| view el1 el2 edge el3 el4 edge2 |
+	view := ROView new.
+
+	el1 := ROCircle element.
+	el2 := ROCircle element.
+	
+	el1 translateTo: 20 @ 30.
+	el2 translateTo: 300 @ 100.
+	
+	edge := ROLineShape edgeFrom: el1 to: el2.
+	
+	el3 := ROBox element.
+	el4 := ROBox element.
+	
+	el3 translateTo: 150 @ 20.
+	el4 translateTo: 150 @ 300.
+	
+	edge2 := ROLineShape edgeFrom: el3 to: el4.
+
+	view add: el1; add: el2; add: edge; add: el3; add: el4; add: edge2.
 	
 	view open.
 !

@@ -1,7 +1,6 @@
 smalltalk.addPackage('ARoassal');
 smalltalk.addClass('ROLayout', smalltalk.Object, ['translator'], 'ARoassal');
 smalltalk.addMethod(
-"_applyOn_",
 smalltalk.method({
 selector: "applyOn:",
 fn: function (elements) {
@@ -12,7 +11,6 @@ messageSends: ["executeOnElements:"]}),
 smalltalk.ROLayout);
 
 smalltalk.addMethod(
-"_executeOnElements_",
 smalltalk.method({
 selector: "executeOnElements:",
 fn: function (elements) {
@@ -23,7 +21,6 @@ messageSends: ["doExecute:", "asOrderedCollection"]}),
 smalltalk.ROLayout);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 fn: function () {
@@ -35,7 +32,6 @@ smalltalk.ROLayout);
 
 
 smalltalk.addMethod(
-"_on_",
 smalltalk.method({
 selector: "on:",
 fn: function (aCollection) {
@@ -51,7 +47,6 @@ smalltalk.ROLayout.klass);
 
 smalltalk.addClass('ROAbstractLineLayout', smalltalk.ROLayout, ['gapSize', 'horizontalGap', 'verticalGap', 'horizontalOutGap', 'verticalOutGap', 'alignment', 'horizontallyStretchable', 'verticallyStretchable'], 'ARoassal');
 smalltalk.addMethod(
-"_alignTop",
 smalltalk.method({
 selector: "alignTop",
 fn: function () {
@@ -62,7 +57,6 @@ messageSends: []}),
 smalltalk.ROAbstractLineLayout);
 
 smalltalk.addMethod(
-"_alignment",
 smalltalk.method({
 selector: "alignment",
 fn: function () {
@@ -75,7 +69,6 @@ messageSends: []}),
 smalltalk.ROAbstractLineLayout);
 
 smalltalk.addMethod(
-"_alignment_",
 smalltalk.method({
 selector: "alignment:",
 fn: function (anObject) {
@@ -86,7 +79,6 @@ messageSends: []}),
 smalltalk.ROAbstractLineLayout);
 
 smalltalk.addMethod(
-"_horizontalGap",
 smalltalk.method({
 selector: "horizontalGap",
 fn: function () {
@@ -99,7 +91,6 @@ messageSends: []}),
 smalltalk.ROAbstractLineLayout);
 
 smalltalk.addMethod(
-"_horizontalOutGap",
 smalltalk.method({
 selector: "horizontalOutGap",
 fn: function () {
@@ -112,7 +103,6 @@ messageSends: []}),
 smalltalk.ROAbstractLineLayout);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 fn: function () {
@@ -129,7 +119,6 @@ messageSends: ["initialize"]}),
 smalltalk.ROAbstractLineLayout);
 
 smalltalk.addMethod(
-"_verticalOutGap",
 smalltalk.method({
 selector: "verticalOutGap",
 fn: function () {
@@ -145,7 +134,6 @@ smalltalk.ROAbstractLineLayout);
 
 smalltalk.addClass('ROHorizontalLineLayout', smalltalk.ROAbstractLineLayout, [], 'ARoassal');
 smalltalk.addMethod(
-"_deltaFor_",
 smalltalk.method({
 selector: "deltaFor:",
 fn: function (aNodeFigure) {
@@ -170,7 +158,6 @@ messageSends: ["ifTrue:", "height", "==", "alignment", "/", "@"]}),
 smalltalk.ROHorizontalLineLayout);
 
 smalltalk.addMethod(
-"_doExecute_",
 smalltalk.method({
 selector: "doExecute:",
 fn: function (elements) {
@@ -189,7 +176,6 @@ messageSends: ["positionOriginalPointer:", "do:", "deltaFor:", "translate:to:", 
 smalltalk.ROHorizontalLineLayout);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 fn: function () {
@@ -201,7 +187,6 @@ messageSends: ["initialize", "alignTop"]}),
 smalltalk.ROHorizontalLineLayout);
 
 smalltalk.addMethod(
-"_movePointer_accordingToFigure_",
 smalltalk.method({
 selector: "movePointer:accordingToFigure:",
 fn: function (pointer, element) {
@@ -214,7 +199,6 @@ messageSends: ["@", "y", "+", "horizontalGap", "width", "x"]}),
 smalltalk.ROHorizontalLineLayout);
 
 smalltalk.addMethod(
-"_positionOriginalPointer_",
 smalltalk.method({
 selector: "positionOriginalPointer:",
 fn: function (aGraph) {
@@ -246,7 +230,6 @@ smalltalk.ROHorizontalLineLayout);
 
 smalltalk.addClass('ROLayoutTranslator', smalltalk.Object, [], 'ARoassal');
 smalltalk.addMethod(
-"_translate_to_",
 smalltalk.method({
 selector: "translate:to:",
 fn: function (element, newPosition) {
@@ -259,7 +242,6 @@ smalltalk.ROLayoutTranslator);
 
 smalltalk.ROLayoutTranslator.klass.iVarNames = ['defaultTranslator'];
 smalltalk.addMethod(
-"_default",
 smalltalk.method({
 selector: "default",
 fn: function () {
@@ -280,7 +262,6 @@ messageSends: ["ifNotNil:", "new", "defaultClass"]}),
 smalltalk.ROLayoutTranslator.klass);
 
 smalltalk.addMethod(
-"_defaultClass",
 smalltalk.method({
 selector: "defaultClass",
 fn: function () {
@@ -295,7 +276,6 @@ smalltalk.ROLayoutTranslator.klass);
 
 smalltalk.addClass('RODirectLayoutTranslator', smalltalk.ROLayoutTranslator, [], 'ARoassal');
 smalltalk.addMethod(
-"_translate_to_",
 smalltalk.method({
 selector: "translate:to:",
 fn: function (element, newPosition) {
@@ -312,7 +292,6 @@ smalltalk.addClass('ROObject', smalltalk.Object, [], 'ARoassal');
 
 smalltalk.addClass('ROEdge', smalltalk.ROObject, ['model', 'from', 'to', 'shape'], 'ARoassal');
 smalltalk.addMethod(
-"_drawOn_",
 smalltalk.method({
 selector: "drawOn:",
 fn: function (canvas) {
@@ -323,7 +302,6 @@ messageSends: ["drawOn:for:"]}),
 smalltalk.ROEdge);
 
 smalltalk.addMethod(
-"_from",
 smalltalk.method({
 selector: "from",
 fn: function () {
@@ -336,7 +314,6 @@ messageSends: []}),
 smalltalk.ROEdge);
 
 smalltalk.addMethod(
-"_from_",
 smalltalk.method({
 selector: "from:",
 fn: function (anElement) {
@@ -347,7 +324,6 @@ messageSends: []}),
 smalltalk.ROEdge);
 
 smalltalk.addMethod(
-"_shape",
 smalltalk.method({
 selector: "shape",
 fn: function () {
@@ -360,7 +336,6 @@ messageSends: []}),
 smalltalk.ROEdge);
 
 smalltalk.addMethod(
-"_shape_",
 smalltalk.method({
 selector: "shape:",
 fn: function (aShape) {
@@ -371,7 +346,6 @@ messageSends: []}),
 smalltalk.ROEdge);
 
 smalltalk.addMethod(
-"_to",
 smalltalk.method({
 selector: "to",
 fn: function () {
@@ -384,7 +358,6 @@ messageSends: []}),
 smalltalk.ROEdge);
 
 smalltalk.addMethod(
-"_to_",
 smalltalk.method({
 selector: "to:",
 fn: function (anElement) {
@@ -396,7 +369,6 @@ smalltalk.ROEdge);
 
 
 smalltalk.addMethod(
-"_from_to_",
 smalltalk.method({
 selector: "from:to:",
 fn: function (el1, el2) {
@@ -415,7 +387,6 @@ smalltalk.ROEdge.klass);
 
 smalltalk.addClass('ROElement', smalltalk.ROObject, ['model', 'shape', 'position'], 'ARoassal');
 smalltalk.addMethod(
-"_bounds",
 smalltalk.method({
 selector: "bounds",
 fn: function () {
@@ -428,7 +399,6 @@ messageSends: ["extent:", "extentFor:", "position"]}),
 smalltalk.ROElement);
 
 smalltalk.addMethod(
-"_drawOn_",
 smalltalk.method({
 selector: "drawOn:",
 fn: function (canvas) {
@@ -439,7 +409,6 @@ messageSends: ["drawOn:for:"]}),
 smalltalk.ROElement);
 
 smalltalk.addMethod(
-"_height",
 smalltalk.method({
 selector: "height",
 fn: function () {
@@ -452,7 +421,6 @@ messageSends: ["heightFor:"]}),
 smalltalk.ROElement);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 fn: function () {
@@ -464,7 +432,6 @@ messageSends: ["initialize", "@"]}),
 smalltalk.ROElement);
 
 smalltalk.addMethod(
-"_model",
 smalltalk.method({
 selector: "model",
 fn: function () {
@@ -477,7 +444,6 @@ messageSends: []}),
 smalltalk.ROElement);
 
 smalltalk.addMethod(
-"_model_",
 smalltalk.method({
 selector: "model:",
 fn: function (anObject) {
@@ -488,7 +454,6 @@ messageSends: []}),
 smalltalk.ROElement);
 
 smalltalk.addMethod(
-"_position",
 smalltalk.method({
 selector: "position",
 fn: function () {
@@ -501,7 +466,6 @@ messageSends: []}),
 smalltalk.ROElement);
 
 smalltalk.addMethod(
-"_shape",
 smalltalk.method({
 selector: "shape",
 fn: function () {
@@ -514,7 +478,6 @@ messageSends: []}),
 smalltalk.ROElement);
 
 smalltalk.addMethod(
-"_shape_",
 smalltalk.method({
 selector: "shape:",
 fn: function (aROShape) {
@@ -525,7 +488,6 @@ messageSends: []}),
 smalltalk.ROElement);
 
 smalltalk.addMethod(
-"_translateTo_",
 smalltalk.method({
 selector: "translateTo:",
 fn: function (aPoint) {
@@ -536,7 +498,6 @@ messageSends: []}),
 smalltalk.ROElement);
 
 smalltalk.addMethod(
-"_width",
 smalltalk.method({
 selector: "width",
 fn: function () {
@@ -550,7 +511,6 @@ smalltalk.ROElement);
 
 
 smalltalk.addMethod(
-"_on_",
 smalltalk.method({
 selector: "on:",
 fn: function (anObject) {
@@ -568,7 +528,6 @@ smalltalk.ROElement.klass);
 
 smalltalk.addClass('ROExample', smalltalk.ROObject, [], 'ARoassal');
 smalltalk.addMethod(
-"_circle",
 smalltalk.method({
 selector: "circle",
 fn: function () {
@@ -582,7 +541,6 @@ messageSends: ["new", "add:", "translateTo:", "@", "element", "open"]}),
 smalltalk.ROExample);
 
 smalltalk.addMethod(
-"_create",
 smalltalk.method({
 selector: "create",
 fn: function () {
@@ -596,7 +554,6 @@ messageSends: ["new", "add:", "shape:", "open"]}),
 smalltalk.ROExample);
 
 smalltalk.addMethod(
-"_horizontalLayout",
 smalltalk.method({
 selector: "horizontalLayout",
 fn: function () {
@@ -617,7 +574,6 @@ messageSends: ["new", "clear", "timesRepeat:", "add:", "shape:", "on:", "element
 smalltalk.ROExample);
 
 smalltalk.addMethod(
-"_horizontalLayout2",
 smalltalk.method({
 selector: "horizontalLayout2",
 fn: function () {
@@ -643,30 +599,67 @@ messageSends: ["new", "clear", "to:do:", "add:", "shape:", "height:", "*", "mode
 smalltalk.ROExample);
 
 smalltalk.addMethod(
-"_line",
 smalltalk.method({
 selector: "line",
-fn: function () {
+fn: function (){
 var self=this;
 var view,el1,el2,edge;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
-view=_st((smalltalk.ROView || ROView))._new();
-el1=_st((smalltalk.ROBox || ROBox))._element();
-el2=_st((smalltalk.ROBox || ROBox))._element();
-_st(el1)._translateTo_(_st((20)).__at((30)));
-_st(el2)._translateTo_(_st((80)).__at((100)));
-edge=_st((smalltalk.ROLineShape || ROLineShape))._edgeFrom_to_(el1,el2);
+function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
+function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
+function $ROLineShape(){return smalltalk.ROLineShape||(typeof ROLineShape=="undefined"?nil:ROLineShape)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+view=_st($ROView())._new();
+el1=_st($ROBox())._element();
+el2=_st($ROBox())._element();
+_st(el1)._translateTo_((20).__at((30)));
+_st(el2)._translateTo_((300).__at((100)));
+edge=_st($ROLineShape())._edgeFrom_to_(el1,el2);
 $1=view;
 _st($1)._add_(el1);
 _st($1)._add_(el2);
 $2=_st($1)._add_(edge);
 _st(view)._open();
-return self}, function($ctx1) {$ctx1.fill(self,"line",{view:view,el1:el1,el2:el2,edge:edge},smalltalk.ROExample)});},
+return self}, function($ctx1) {$ctx1.fill(self,"line",{view:view,el1:el1,el2:el2,edge:edge},smalltalk.ROExample)})},
 messageSends: ["new", "element", "translateTo:", "@", "edgeFrom:to:", "add:", "open"]}),
 smalltalk.ROExample);
 
 smalltalk.addMethod(
-"_tux",
+smalltalk.method({
+selector: "line2",
+fn: function (){
+var self=this;
+var view,el1,el2,edge,el3,el4,edge2;
+function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
+function $ROCircle(){return smalltalk.ROCircle||(typeof ROCircle=="undefined"?nil:ROCircle)}
+function $ROLineShape(){return smalltalk.ROLineShape||(typeof ROLineShape=="undefined"?nil:ROLineShape)}
+function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+view=_st($ROView())._new();
+el1=_st($ROCircle())._element();
+el2=_st($ROCircle())._element();
+_st(el1)._translateTo_((20).__at((30)));
+_st(el2)._translateTo_((300).__at((100)));
+edge=_st($ROLineShape())._edgeFrom_to_(el1,el2);
+el3=_st($ROBox())._element();
+el4=_st($ROBox())._element();
+_st(el3)._translateTo_((150).__at((20)));
+_st(el4)._translateTo_((150).__at((300)));
+edge2=_st($ROLineShape())._edgeFrom_to_(el3,el4);
+$1=view;
+_st($1)._add_(el1);
+_st($1)._add_(el2);
+_st($1)._add_(edge);
+_st($1)._add_(el3);
+_st($1)._add_(el4);
+$2=_st($1)._add_(edge2);
+_st(view)._open();
+return self}, function($ctx1) {$ctx1.fill(self,"line2",{view:view,el1:el1,el2:el2,edge:edge,el3:el3,el4:el4,edge2:edge2},smalltalk.ROExample)})},
+messageSends: ["new", "element", "translateTo:", "@", "edgeFrom:to:", "add:", "open"]}),
+smalltalk.ROExample);
+
+smalltalk.addMethod(
 smalltalk.method({
 selector: "tux",
 fn: function () {
@@ -683,7 +676,6 @@ smalltalk.ROExample);
 
 smalltalk.addClass('ROPaper', smalltalk.ROObject, ['svgCanvas'], 'ARoassal');
 smalltalk.addMethod(
-"_canvas",
 smalltalk.method({
 selector: "canvas",
 fn: function () {
@@ -696,7 +688,6 @@ messageSends: []}),
 smalltalk.ROPaper);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 fn: function () {
@@ -711,7 +702,6 @@ messageSends: ["initialize", "paper"]}),
 smalltalk.ROPaper);
 
 smalltalk.addMethod(
-"_paper",
 smalltalk.method({
 selector: "paper",
 fn: function () {
@@ -724,7 +714,6 @@ smalltalk.ROPaper);
 
 smalltalk.ROPaper.klass.iVarNames = ['paper'];
 smalltalk.addMethod(
-"_default",
 smalltalk.method({
 selector: "default",
 fn: function () {
@@ -744,7 +733,6 @@ messageSends: ["ifNil:", "initialize", "basicNew"]}),
 smalltalk.ROPaper.klass);
 
 smalltalk.addMethod(
-"_new",
 smalltalk.method({
 selector: "new",
 fn: function () {
@@ -757,7 +745,6 @@ smalltalk.ROPaper.klass);
 
 smalltalk.addClass('ROShape', smalltalk.ROObject, ['height', 'width', 'color'], 'ARoassal');
 smalltalk.addMethod(
-"_drawOn_for_",
 smalltalk.method({
 selector: "drawOn:for:",
 fn: function (canvas, anElement) {
@@ -767,7 +754,6 @@ messageSends: []}),
 smalltalk.ROShape);
 
 smalltalk.addMethod(
-"_element",
 smalltalk.method({
 selector: "element",
 fn: function () {
@@ -780,7 +766,6 @@ messageSends: ["elementOn:"]}),
 smalltalk.ROShape);
 
 smalltalk.addMethod(
-"_elementOn_",
 smalltalk.method({
 selector: "elementOn:",
 fn: function (anObject) {
@@ -796,7 +781,6 @@ messageSends: ["shape:", "on:", "yourself"]}),
 smalltalk.ROShape);
 
 smalltalk.addMethod(
-"_extentFor_",
 smalltalk.method({
 selector: "extentFor:",
 fn: function (element) {
@@ -811,7 +795,6 @@ messageSends: ["@", "roValue:"]}),
 smalltalk.ROShape);
 
 smalltalk.addMethod(
-"_height",
 smalltalk.method({
 selector: "height",
 fn: function () {
@@ -824,7 +807,6 @@ messageSends: []}),
 smalltalk.ROShape);
 
 smalltalk.addMethod(
-"_height_",
 smalltalk.method({
 selector: "height:",
 fn: function (aNumberOrABlock) {
@@ -835,7 +817,6 @@ messageSends: []}),
 smalltalk.ROShape);
 
 smalltalk.addMethod(
-"_heightFor_",
 smalltalk.method({
 selector: "heightFor:",
 fn: function (anElement) {
@@ -848,7 +829,6 @@ messageSends: ["roValue:"]}),
 smalltalk.ROShape);
 
 smalltalk.addMethod(
-"_width",
 smalltalk.method({
 selector: "width",
 fn: function () {
@@ -861,7 +841,6 @@ messageSends: []}),
 smalltalk.ROShape);
 
 smalltalk.addMethod(
-"_width_",
 smalltalk.method({
 selector: "width:",
 fn: function (aNumberOrABlock) {
@@ -872,7 +851,6 @@ messageSends: []}),
 smalltalk.ROShape);
 
 smalltalk.addMethod(
-"_widthFor_",
 smalltalk.method({
 selector: "widthFor:",
 fn: function (anElement) {
@@ -886,7 +864,6 @@ smalltalk.ROShape);
 
 
 smalltalk.addMethod(
-"_element",
 smalltalk.method({
 selector: "element",
 fn: function () {
@@ -899,7 +876,6 @@ messageSends: ["element", "new"]}),
 smalltalk.ROShape.klass);
 
 smalltalk.addMethod(
-"_elementOn_",
 smalltalk.method({
 selector: "elementOn:",
 fn: function (object) {
@@ -918,7 +894,6 @@ smalltalk.ROShape.klass);
 smalltalk.addClass('ROAbstractLineShape', smalltalk.ROShape, [], 'ARoassal');
 
 smalltalk.addMethod(
-"_edgeFrom_to_",
 smalltalk.method({
 selector: "edgeFrom:to:",
 fn: function (el1, el2) {
@@ -934,7 +909,6 @@ messageSends: ["shape:", "new", "from:to:", "yourself"]}),
 smalltalk.ROAbstractLineShape.klass);
 
 smalltalk.addMethod(
-"_elementFrom_to_",
 smalltalk.method({
 selector: "elementFrom:to:",
 fn: function (el1, el2) {
@@ -949,7 +923,6 @@ smalltalk.ROAbstractLineShape.klass);
 
 smalltalk.addClass('ROLineShape', smalltalk.ROAbstractLineShape, [], 'ARoassal');
 smalltalk.addMethod(
-"_drawOn_for_",
 smalltalk.method({
 selector: "drawOn:for:",
 fn: function (canvas, anEdge) {
@@ -968,7 +941,6 @@ smalltalk.ROLineShape);
 
 smalltalk.addClass('ROBox', smalltalk.ROShape, [], 'ARoassal');
 smalltalk.addMethod(
-"_defaultSize",
 smalltalk.method({
 selector: "defaultSize",
 fn: function () {
@@ -979,7 +951,6 @@ messageSends: []}),
 smalltalk.ROBox);
 
 smalltalk.addMethod(
-"_drawOn_for_",
 smalltalk.method({
 selector: "drawOn:for:",
 fn: function (canvas, anElement) {
@@ -990,7 +961,6 @@ messageSends: ["rect:with:with:with:", "x", "position", "y", "widthFor:", "heigh
 smalltalk.ROBox);
 
 smalltalk.addMethod(
-"_height",
 smalltalk.method({
 selector: "height",
 fn: function () {
@@ -1003,7 +973,6 @@ messageSends: []}),
 smalltalk.ROBox);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 fn: function () {
@@ -1016,7 +985,6 @@ messageSends: ["initialize", "defaultSize"]}),
 smalltalk.ROBox);
 
 smalltalk.addMethod(
-"_width",
 smalltalk.method({
 selector: "width",
 fn: function () {
@@ -1032,7 +1000,6 @@ smalltalk.ROBox);
 
 smalltalk.addClass('ROCircle', smalltalk.ROShape, ['radius'], 'ARoassal');
 smalltalk.addMethod(
-"_defaultRadius",
 smalltalk.method({
 selector: "defaultRadius",
 fn: function () {
@@ -1043,7 +1010,6 @@ messageSends: []}),
 smalltalk.ROCircle);
 
 smalltalk.addMethod(
-"_drawOn_for_",
 smalltalk.method({
 selector: "drawOn:for:",
 fn: function (canvas, anElement) {
@@ -1054,7 +1020,6 @@ messageSends: ["circle:with:with:", "x", "position", "y", "radius"]}),
 smalltalk.ROCircle);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 fn: function () {
@@ -1066,7 +1031,6 @@ messageSends: ["initialize", "defaultRadius"]}),
 smalltalk.ROCircle);
 
 smalltalk.addMethod(
-"_radius",
 smalltalk.method({
 selector: "radius",
 fn: function () {
@@ -1082,7 +1046,6 @@ smalltalk.ROCircle);
 
 smalltalk.addClass('ROTux', smalltalk.ROShape, [], 'ARoassal');
 smalltalk.addMethod(
-"_drawOn_for_",
 smalltalk.method({
 selector: "drawOn:for:",
 fn: function (canvas, anElement) {
@@ -1096,7 +1059,6 @@ smalltalk.ROTux);
 
 smalltalk.addClass('ROView', smalltalk.ROObject, ['elements', 'svgCanvas'], 'ARoassal');
 smalltalk.addMethod(
-"_add_",
 smalltalk.method({
 selector: "add:",
 fn: function (anElement) {
@@ -1107,7 +1069,6 @@ messageSends: ["add:"]}),
 smalltalk.ROView);
 
 smalltalk.addMethod(
-"_clear",
 smalltalk.method({
 selector: "clear",
 fn: function () {
@@ -1118,7 +1079,6 @@ messageSends: ["clear", "paper"]}),
 smalltalk.ROView);
 
 smalltalk.addMethod(
-"_elements",
 smalltalk.method({
 selector: "elements",
 fn: function () {
@@ -1131,7 +1091,6 @@ messageSends: []}),
 smalltalk.ROView);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 fn: function () {
@@ -1145,7 +1104,6 @@ messageSends: ["initialize", "new", "paper", "clear"]}),
 smalltalk.ROView);
 
 smalltalk.addMethod(
-"_numberOfElements",
 smalltalk.method({
 selector: "numberOfElements",
 fn: function () {
@@ -1158,7 +1116,6 @@ messageSends: ["size"]}),
 smalltalk.ROView);
 
 smalltalk.addMethod(
-"_open",
 smalltalk.method({
 selector: "open",
 fn: function () {
@@ -1171,7 +1128,6 @@ messageSends: ["do:", "drawOn:"]}),
 smalltalk.ROView);
 
 smalltalk.addMethod(
-"_paper",
 smalltalk.method({
 selector: "paper",
 fn: function () {
@@ -1186,7 +1142,6 @@ smalltalk.ROView);
 
 
 smalltalk.addMethod(
-"_roValue_",
 smalltalk.method({
 selector: "roValue:",
 fn: function (anElement) {
@@ -1199,7 +1154,6 @@ messageSends: []}),
 smalltalk.Object);
 
 smalltalk.addMethod(
-"_roValue_",
 smalltalk.method({
 selector: "roValue:",
 fn: function (anObject) {
@@ -1212,7 +1166,6 @@ messageSends: ["value:"]}),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_roValue_",
 smalltalk.method({
 selector: "roValue:",
 fn: function (aBlock) {
