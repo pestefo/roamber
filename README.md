@@ -28,7 +28,7 @@ After this, you should be able to exectue `node --version` in a terminal. If you
 
 We need to run the NodeJS server within the Terminal/xterm to make sure someone will serve the necessary files to your web browser. Start amber's server:
 
-    ./${Amber_DIR}/bin/server 
+    ./bin/server 
 
 Open [`http://localhost:4000/projects/roamber/index.html`](http://localhost:4000/projects/roamber/index.html) in your favourite web browser.
 
