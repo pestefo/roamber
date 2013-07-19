@@ -1527,6 +1527,22 @@ smalltalk.ROAbstractLineShape.klass);
 smalltalk.addClass('ROLineShape', smalltalk.ROAbstractLineShape, [], 'ARoassal');
 smalltalk.addMethod(
 smalltalk.method({
+selector: "drawOn:for:",
+category: 'drawing',
+fn: function (canvas,anEdge){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._initializeSVGElementOn_for_(canvas,anEdge);
+return self}, function($ctx1) {$ctx1.fill(self,"drawOn:for:",{canvas:canvas,anEdge:anEdge},smalltalk.ROLineShape)})},
+args: ["canvas", "anEdge"],
+source: "drawOn: canvas for: anEdge\x0a\x09self initializeSVGElementOn: canvas for: anEdge.",
+messageSends: ["initializeSVGElementOn:for:"],
+referencedClasses: []
+}),
+smalltalk.ROLineShape);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "initializeSVGElementOn:for:",
 category: 'drawing',
 fn: function (canvas,anEdge){

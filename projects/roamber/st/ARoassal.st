@@ -595,6 +595,10 @@ ROAbstractLineShape subclass: #ROLineShape
 
 !ROLineShape methodsFor: 'drawing'!
 
+drawOn: canvas for: anEdge
+	self initializeSVGElementOn: canvas for: anEdge.
+!
+
 initializeSVGElementOn: canvas for: anEdge
 	| x1 y1 x2 y2 |
 	x1 := anEdge from position x.
