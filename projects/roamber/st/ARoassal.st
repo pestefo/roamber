@@ -404,7 +404,7 @@ new
 ! !
 
 ROObject subclass: #ROShape
-	instanceVariableNames: 'height width color'
+	instanceVariableNames: 'svgElement height width color'
 	package: 'ARoassal'!
 
 !ROShape methodsFor: 'accessing'!
@@ -565,10 +565,18 @@ width
 ! !
 
 ROShape subclass: #ROCircle
-	instanceVariableNames: 'radius'
+	instanceVariableNames: 'radius cx cy'
 	package: 'ARoassal'!
 
 !ROCircle methodsFor: 'configuration'!
+
+cx
+	^ cx
+!
+
+cy
+	^ cy
+!
 
 defaultRadius
 	^ 10
@@ -577,10 +585,23 @@ defaultRadius
 !ROCircle methodsFor: 'drawing'!
 
 drawOn: canvas for: anElement
-	canvas 
+	svgElement := canvas 
 		circle: (anElement position x)
-		with: (anElement position y) 
-		with: (self radius) .
+		y: (anElement position y) 
+		r: (self radius) .
+	
+	svgElement	
+		drag: [ :dx :dy |
+			| bboxCurrent |
+			bboxCurrent := svgElement getBBox.
+			svgElement translate: ((anElement position x) - (bboxCurrent x) + dx) y: ((anElement position y) -(bboxCurrent y) + dy).
+			"connections do: [ :each | raphaelPaper connection: each ]" ]
+  		onstart: [ Transcript show: 'Drag start'; cr.]
+      	onend: [ | bboxAfterDrag| 
+		bboxAfterDrag := svgElement getBBox.
+		"update current position"
+		anElement translateTo: (bboxAfterDrag x)@(bboxAfterDrag y)
+		].
 !
 
 radius

@@ -743,7 +743,7 @@ messageSends: ["error:"]}),
 smalltalk.ROPaper.klass);
 
 
-smalltalk.addClass('ROShape', smalltalk.ROObject, ['height', 'width', 'color'], 'ARoassal');
+smalltalk.addClass('ROShape', smalltalk.ROObject, ['svgElement', 'height', 'width', 'color'], 'ARoassal');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "drawOn:for:",
@@ -998,7 +998,33 @@ smalltalk.ROBox);
 
 
 
-smalltalk.addClass('ROCircle', smalltalk.ROShape, ['radius'], 'ARoassal');
+smalltalk.addClass('ROCircle', smalltalk.ROShape, ['radius', 'cx', 'cy'], 'ARoassal');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "cx",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@cx"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"cx",{},smalltalk.ROCircle)})},
+messageSends: []}),
+smalltalk.ROCircle);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "cy",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@cy"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"cy",{},smalltalk.ROCircle)})},
+messageSends: []}),
+smalltalk.ROCircle);
+
 smalltalk.addMethod(
 smalltalk.method({
 selector: "defaultRadius",
@@ -1012,11 +1038,33 @@ smalltalk.ROCircle);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "drawOn:for:",
-fn: function (canvas, anElement) {
+fn: function (canvas,anElement){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(canvas)._circle_with_with_(_st(_st(anElement)._position())._x(),_st(_st(anElement)._position())._y(),_st(self)._radius());
-return self}, function($ctx1) {$ctx1.fill(self,"drawOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROCircle)});},
-messageSends: ["circle:with:with:", "x", "position", "y", "radius"]}),
+function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+self["@svgElement"]=_st(canvas)._circle_y_r_(_st(_st(anElement)._position())._x(),_st(_st(anElement)._position())._y(),self._radius());
+_st(self["@svgElement"])._drag_onstart_onend_((function(dx,dy){
+var bboxCurrent;
+return smalltalk.withContext(function($ctx2) {
+bboxCurrent=_st(self["@svgElement"])._getBBox();
+bboxCurrent;
+return _st(self["@svgElement"])._translate_y_(_st(_st(_st(_st(anElement)._position())._x()).__minus(_st(bboxCurrent)._x())).__plus(dx),_st(_st(_st(_st(anElement)._position())._y()).__minus(_st(bboxCurrent)._y())).__plus(dy));
+}, function($ctx2) {$ctx2.fillBlock({dx:dx,dy:dy,bboxCurrent:bboxCurrent},$ctx1)})}),(function(){
+return smalltalk.withContext(function($ctx2) {
+$1=$Transcript();
+_st($1)._show_("Drag start");
+$2=_st($1)._cr();
+return $2;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(function(){
+var bboxAfterDrag;
+return smalltalk.withContext(function($ctx2) {
+bboxAfterDrag=_st(self["@svgElement"])._getBBox();
+bboxAfterDrag;
+return _st(anElement)._translateTo_(_st(_st(bboxAfterDrag)._x()).__at(_st(bboxAfterDrag)._y()));
+}, function($ctx2) {$ctx2.fillBlock({bboxAfterDrag:bboxAfterDrag},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"drawOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROCircle)})},
+messageSends: ["circle:y:r:", "x", "position", "y", "radius", "drag:onstart:onend:", "getBBox", "translate:y:", "+", "-", "show:", "cr", "translateTo:", "@"]}),
 smalltalk.ROCircle);
 
 smalltalk.addMethod(
