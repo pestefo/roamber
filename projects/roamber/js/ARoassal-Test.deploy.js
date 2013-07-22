@@ -1,7 +1,6 @@
 smalltalk.addPackage('ARoassal-Test');
 smalltalk.addClass('ROEdgeTest', smalltalk.TestCase, [], 'ARoassal-Test');
 smalltalk.addMethod(
-"_testCreation",
 smalltalk.method({
 selector: "testCreation",
 fn: function () {
@@ -17,7 +16,6 @@ messageSends: ["element", "new", "from:to:", "assert:", "==", "from", "to"]}),
 smalltalk.ROEdgeTest);
 
 smalltalk.addMethod(
-"_testCreationFromShape",
 smalltalk.method({
 selector: "testCreationFromShape",
 fn: function () {
@@ -35,7 +33,6 @@ smalltalk.ROEdgeTest);
 
 smalltalk.addClass('ROElementTest', smalltalk.TestCase, [], 'ARoassal-Test');
 smalltalk.addMethod(
-"_testCreation",
 smalltalk.method({
 selector: "testCreation",
 fn: function () {
@@ -48,7 +45,6 @@ messageSends: ["new", "assert:", "=", "@", "position"]}),
 smalltalk.ROElementTest);
 
 smalltalk.addMethod(
-"_testExtent",
 smalltalk.method({
 selector: "testExtent",
 fn: function () {
@@ -66,7 +62,6 @@ messageSends: ["new", "width:", "height:", "shape:", "assert:", "=", "width", "h
 smalltalk.ROElementTest);
 
 smalltalk.addMethod(
-"_testShapeSize",
 smalltalk.method({
 selector: "testShapeSize",
 fn: function () {
@@ -92,7 +87,6 @@ smalltalk.ROElementTest);
 
 smalltalk.addClass('ROViewTest', smalltalk.TestCase, ['view'], 'ARoassal-Test');
 smalltalk.addMethod(
-"_setUp",
 smalltalk.method({
 selector: "setUp",
 fn: function () {
@@ -103,7 +97,6 @@ messageSends: ["new"]}),
 smalltalk.ROViewTest);
 
 smalltalk.addMethod(
-"_testCreation",
 smalltalk.method({
 selector: "testCreation",
 fn: function () {
@@ -114,7 +107,6 @@ messageSends: ["assert:equals:", "numberOfElements"]}),
 smalltalk.ROViewTest);
 
 smalltalk.addMethod(
-"_testTwoElements",
 smalltalk.method({
 selector: "testTwoElements",
 fn: function () {

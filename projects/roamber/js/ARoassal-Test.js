@@ -1,7 +1,6 @@
 smalltalk.addPackage('ARoassal-Test');
 smalltalk.addClass('ROEdgeTest', smalltalk.TestCase, [], 'ARoassal-Test');
 smalltalk.addMethod(
-"_testCreation",
 smalltalk.method({
 selector: "testCreation",
 category: 'not yet classified',
@@ -22,7 +21,6 @@ referencedClasses: ["ROBox", "ROEdge"]
 smalltalk.ROEdgeTest);
 
 smalltalk.addMethod(
-"_testCreationFromShape",
 smalltalk.method({
 selector: "testCreationFromShape",
 category: 'not yet classified',
@@ -45,7 +43,6 @@ smalltalk.ROEdgeTest);
 
 smalltalk.addClass('ROElementTest', smalltalk.TestCase, [], 'ARoassal-Test');
 smalltalk.addMethod(
-"_testCreation",
 smalltalk.method({
 selector: "testCreation",
 category: 'test',
@@ -63,7 +60,6 @@ referencedClasses: ["ROElement"]
 smalltalk.ROElementTest);
 
 smalltalk.addMethod(
-"_testExtent",
 smalltalk.method({
 selector: "testExtent",
 category: 'test',
@@ -86,7 +82,6 @@ referencedClasses: ["ROElement", "ROBox"]
 smalltalk.ROElementTest);
 
 smalltalk.addMethod(
-"_testShapeSize",
 smalltalk.method({
 selector: "testShapeSize",
 category: 'test shape size',
@@ -117,7 +112,6 @@ smalltalk.ROElementTest);
 
 smalltalk.addClass('ROViewTest', smalltalk.TestCase, ['view'], 'ARoassal-Test');
 smalltalk.addMethod(
-"_setUp",
 smalltalk.method({
 selector: "setUp",
 category: 'running',
@@ -133,7 +127,6 @@ referencedClasses: ["ROView"]
 smalltalk.ROViewTest);
 
 smalltalk.addMethod(
-"_testCreation",
 smalltalk.method({
 selector: "testCreation",
 category: 'test',
@@ -149,7 +142,6 @@ referencedClasses: []
 smalltalk.ROViewTest);
 
 smalltalk.addMethod(
-"_testTwoElements",
 smalltalk.method({
 selector: "testTwoElements",
 category: 'test',
