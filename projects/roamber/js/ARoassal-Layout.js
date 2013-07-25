@@ -723,12 +723,12 @@ selector: "cachedChildren",
 category: 'private',
 fn: function (){
 var self=this;
-function $IdentityDictionary(){return smalltalk.IdentityDictionary||(typeof IdentityDictionary=="undefined"?nil:IdentityDictionary)}
+function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=self["@cachedChildren"];
 if(($receiver = $1) == nil || $receiver == undefined){
-self["@cachedChildren"]=_st($IdentityDictionary())._new_((1000));
+self["@cachedChildren"]=_st($Dictionary())._new_((1000));
 self["@cachedChildren"];
 } else {
 $1;
@@ -737,9 +737,9 @@ $2=self["@cachedChildren"];
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"cachedChildren",{},smalltalk.ROAbstractGraphLayout)})},
 args: [],
-source: "cachedChildren\x0a\x09\x0a\x09cachedChildren ifNil: [cachedChildren := IdentityDictionary new: 1000].\x0a\x09^cachedChildren",
+source: "cachedChildren\x0a\x09\x0a\x09cachedChildren ifNil: [cachedChildren := Dictionary new: 1000].\x0a\x09^cachedChildren",
 messageSends: ["ifNil:", "new:"],
-referencedClasses: ["IdentityDictionary"]
+referencedClasses: ["Dictionary"]
 }),
 smalltalk.ROAbstractGraphLayout);
 
@@ -1569,15 +1569,14 @@ middleOfTree=_st(_st(x).__plus(_st(treeSize).__slash((2)))).__minus(_st(_st(each
 middleOfTree;
 _st(self["@translator"])._translate_to_(each,_st(middleOfTree).__at(y));
 x=_st(_st(x).__plus(treeSize)).__plus(self._horizontalGap());
-x;
-return self._step();
+return x;
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 $2=_st(_st(x).__minus(_st(aPoint)._x())).__minus(self._horizontalGap());
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"layout:atPoint:atLayer:",{aNodeCollection:aNodeCollection,aPoint:aPoint,aNumber:aNumber,treeSize:treeSize,childrenPosition:childrenPosition,x:x,y:y,middleOfTree:middleOfTree},smalltalk.ROAbstractVerticalTreeLayout)})},
 args: ["aNodeCollection", "aPoint", "aNumber"],
-source: "layout: aNodeCollection atPoint: aPoint atLayer: aNumber\x0a\x09| treeSize childrenPosition x y middleOfTree |\x0a\x09aNodeCollection isEmpty ifTrue: [ ^ 0 ].\x0a\x09x := aPoint x.\x0a\x09y := aPoint y.\x0a\x09alreadyLayoutedNodes addAll: aNodeCollection.\x0a\x09self atLayer: aNumber add: aNodeCollection.\x0a\x09aNodeCollection do: [ :each | \x0a\x09\x09childrenPosition := y + each height + self verticalGap.\x0a\x09\x09treeSize := each width\x0a\x09\x09\x09max: (self layout: (self computeChildrenFor: each) atPoint: x @ childrenPosition atLayer: aNumber + 1).\x0a\x09\x09middleOfTree := x + (treeSize / 2.0) - (each width / 2.0).\x0a\x09\x09translator translate: each to: middleOfTree @ y.\x0a\x09\x09x := x + treeSize + self horizontalGap.\x0a\x09\x09self step ].\x0a\x09^ x - aPoint x - self horizontalGap",
-messageSends: ["ifTrue:", "isEmpty", "x", "y", "addAll:", "atLayer:add:", "do:", "+", "verticalGap", "height", "max:", "layout:atPoint:atLayer:", "computeChildrenFor:", "@", "width", "-", "/", "translate:to:", "horizontalGap", "step"],
+source: "layout: aNodeCollection atPoint: aPoint atLayer: aNumber\x0a\x09| treeSize childrenPosition x y middleOfTree |\x0a\x09aNodeCollection isEmpty ifTrue: [ ^ 0 ].\x0a\x09x := aPoint x.\x0a\x09y := aPoint y.\x0a\x09alreadyLayoutedNodes addAll: aNodeCollection.\x0a\x09self atLayer: aNumber add: aNodeCollection.\x0a\x09aNodeCollection do: [ :each | \x0a\x09\x09childrenPosition := y + each height + self verticalGap.\x0a\x09\x09treeSize := each width\x0a\x09\x09\x09max: (self layout: (self computeChildrenFor: each) atPoint: x @ childrenPosition atLayer: aNumber + 1).\x0a\x09\x09middleOfTree := x + (treeSize / 2.0) - (each width / 2.0).\x0a\x09\x09translator translate: each to: middleOfTree @ y.\x0a\x09\x09x := x + treeSize + self horizontalGap.\x0a\x09\x09\x22self step\x22 ].\x0a\x09^ x - aPoint x - self horizontalGap",
+messageSends: ["ifTrue:", "isEmpty", "x", "y", "addAll:", "atLayer:add:", "do:", "+", "verticalGap", "height", "max:", "layout:atPoint:atLayer:", "computeChildrenFor:", "@", "width", "-", "/", "translate:to:", "horizontalGap"],
 referencedClasses: []
 }),
 smalltalk.ROAbstractVerticalTreeLayout);

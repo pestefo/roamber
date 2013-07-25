@@ -542,12 +542,12 @@ smalltalk.method({
 selector: "cachedChildren",
 fn: function (){
 var self=this;
-function $IdentityDictionary(){return smalltalk.IdentityDictionary||(typeof IdentityDictionary=="undefined"?nil:IdentityDictionary)}
+function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=self["@cachedChildren"];
 if(($receiver = $1) == nil || $receiver == undefined){
-self["@cachedChildren"]=_st($IdentityDictionary())._new_((1000));
+self["@cachedChildren"]=_st($Dictionary())._new_((1000));
 self["@cachedChildren"];
 } else {
 $1;
@@ -1208,13 +1208,12 @@ middleOfTree=_st(_st(x).__plus(_st(treeSize).__slash((2)))).__minus(_st(_st(each
 middleOfTree;
 _st(self["@translator"])._translate_to_(each,_st(middleOfTree).__at(y));
 x=_st(_st(x).__plus(treeSize)).__plus(self._horizontalGap());
-x;
-return self._step();
+return x;
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 $2=_st(_st(x).__minus(_st(aPoint)._x())).__minus(self._horizontalGap());
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"layout:atPoint:atLayer:",{aNodeCollection:aNodeCollection,aPoint:aPoint,aNumber:aNumber,treeSize:treeSize,childrenPosition:childrenPosition,x:x,y:y,middleOfTree:middleOfTree},smalltalk.ROAbstractVerticalTreeLayout)})},
-messageSends: ["ifTrue:", "isEmpty", "x", "y", "addAll:", "atLayer:add:", "do:", "+", "verticalGap", "height", "max:", "layout:atPoint:atLayer:", "computeChildrenFor:", "@", "width", "-", "/", "translate:to:", "horizontalGap", "step"]}),
+messageSends: ["ifTrue:", "isEmpty", "x", "y", "addAll:", "atLayer:add:", "do:", "+", "verticalGap", "height", "max:", "layout:atPoint:atLayer:", "computeChildrenFor:", "@", "width", "-", "/", "translate:to:", "horizontalGap"]}),
 smalltalk.ROAbstractVerticalTreeLayout);
 
 smalltalk.addMethod(

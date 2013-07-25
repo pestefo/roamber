@@ -458,6 +458,7 @@ treeLayout
 	| view elements edges |
 	view := ROView new.
 	elements := ROElement spritesOn: (1 to: 5).
+	elements do:[:el | el addInteraction: RODraggable].
 	view addAll: elements.
 	view addAll: (edges := ROEdge linesFor: { (elements at: 1) -> (elements at: 2) . 
 											  (elements at: 2) -> (elements at: 5) . 
@@ -720,7 +721,7 @@ ROShape subclass: #ROBox
 !ROBox methodsFor: 'configuration'!
 
 defaultSize
-	^ 10
+	^ 20
 ! !
 
 !ROBox methodsFor: 'drawing'!
@@ -769,6 +770,8 @@ initializeSVGElementOn: canvas for: anElement
 		circle: (anElement position x)
 		y: (anElement position y) 
 		r: (self radius) .
+	
+	svgElement attr:'fill' with: 'lightGray'.
 !
 
 radius

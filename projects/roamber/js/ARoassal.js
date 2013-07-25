@@ -1260,11 +1260,16 @@ var self=this;
 var view,elements,edges;
 function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
 function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
+function $RODraggable(){return smalltalk.RODraggable||(typeof RODraggable=="undefined"?nil:RODraggable)}
 function $ROEdge(){return smalltalk.ROEdge||(typeof ROEdge=="undefined"?nil:ROEdge)}
 function $ROTreeLayout(){return smalltalk.ROTreeLayout||(typeof ROTreeLayout=="undefined"?nil:ROTreeLayout)}
 return smalltalk.withContext(function($ctx1) { 
 view=_st($ROView())._new();
 elements=_st($ROElement())._spritesOn_((1)._to_((5)));
+_st(elements)._do_((function(el){
+return smalltalk.withContext(function($ctx2) {
+return _st(el)._addInteraction_($RODraggable());
+}, function($ctx2) {$ctx2.fillBlock({el:el},$ctx1)})}));
 _st(view)._addAll_(elements);
 edges=_st($ROEdge())._linesFor_([_st(_st(elements)._at_((1))).__minus_gt(_st(elements)._at_((2))),_st(_st(elements)._at_((2))).__minus_gt(_st(elements)._at_((5))),_st(_st(elements)._at_((2))).__minus_gt(_st(elements)._at_((3)))]);
 _st(view)._addAll_(edges);
@@ -1272,9 +1277,9 @@ _st($ROTreeLayout())._on_(elements);
 _st(view)._open();
 return self}, function($ctx1) {$ctx1.fill(self,"treeLayout",{view:view,elements:elements,edges:edges},smalltalk.ROExample)})},
 args: [],
-source: "treeLayout \x0a\x09\x22\x0a\x09self new treeLayout\x0a\x09\x22\x0a\x09\x0a\x09| view elements edges |\x0a\x09view := ROView new.\x0a\x09elements := ROElement spritesOn: (1 to: 5).\x0a\x09view addAll: elements.\x0a\x09view addAll: (edges := ROEdge linesFor: { (elements at: 1) -> (elements at: 2) . \x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09  (elements at: 2) -> (elements at: 5) . \x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09  (elements at: 2) -> (elements at: 3) }).\x0a\x09\x0a\x09ROTreeLayout on: elements.\x0a\x0a\x09view open.",
-messageSends: ["new", "spritesOn:", "to:", "addAll:", "linesFor:", "->", "at:", "on:", "open"],
-referencedClasses: ["ROView", "ROElement", "ROEdge", "ROTreeLayout"]
+source: "treeLayout \x0a\x09\x22\x0a\x09self new treeLayout\x0a\x09\x22\x0a\x09\x0a\x09| view elements edges |\x0a\x09view := ROView new.\x0a\x09elements := ROElement spritesOn: (1 to: 5).\x0a\x09elements do:[:el | el addInteraction: RODraggable].\x0a\x09view addAll: elements.\x0a\x09view addAll: (edges := ROEdge linesFor: { (elements at: 1) -> (elements at: 2) . \x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09  (elements at: 2) -> (elements at: 5) . \x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09  (elements at: 2) -> (elements at: 3) }).\x0a\x09\x0a\x09ROTreeLayout on: elements.\x0a\x0a\x09view open.",
+messageSends: ["new", "spritesOn:", "to:", "do:", "addInteraction:", "addAll:", "linesFor:", "->", "at:", "on:", "open"],
+referencedClasses: ["ROView", "ROElement", "RODraggable", "ROEdge", "ROTreeLayout"]
 }),
 smalltalk.ROExample);
 
@@ -1936,12 +1941,13 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "defaultSize",
 category: 'configuration',
-fn: function () {
+fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return (10);
-}, function($ctx1) {$ctx1.fill(self,"defaultSize",{},smalltalk.ROBox)});},
+return smalltalk.withContext(function($ctx1) { 
+return (20);
+}, function($ctx1) {$ctx1.fill(self,"defaultSize",{},smalltalk.ROBox)})},
 args: [],
-source: "defaultSize\x0a\x09^ 10",
+source: "defaultSize\x0a\x09^ 20",
 messageSends: [],
 referencedClasses: []
 }),
@@ -2059,10 +2065,11 @@ fn: function (canvas,anElement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self["@svgElement"]=_st(canvas)._circle_y_r_(_st(_st(anElement)._position())._x(),_st(_st(anElement)._position())._y(),self._radius());
+_st(self["@svgElement"])._attr_with_("fill","lightGray");
 return self}, function($ctx1) {$ctx1.fill(self,"initializeSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROCircle)})},
 args: ["canvas", "anElement"],
-source: "initializeSVGElementOn: canvas for: anElement\x0a\x09svgElement := canvas \x0a\x09\x09circle: (anElement position x)\x0a\x09\x09y: (anElement position y) \x0a\x09\x09r: (self radius) .\x0a\x0a\x09",
-messageSends: ["circle:y:r:", "x", "position", "y", "radius"],
+source: "initializeSVGElementOn: canvas for: anElement\x0a\x09svgElement := canvas \x0a\x09\x09circle: (anElement position x)\x0a\x09\x09y: (anElement position y) \x0a\x09\x09r: (self radius) .\x0a\x09\x0a\x09svgElement attr:'fill' with: 'lightGray'.\x0a\x0a\x09",
+messageSends: ["circle:y:r:", "x", "position", "y", "radius", "attr:with:"],
 referencedClasses: []
 }),
 smalltalk.ROCircle);

@@ -386,7 +386,7 @@ doInitialize: elements
 
 cachedChildren
 	
-	cachedChildren ifNil: [cachedChildren := IdentityDictionary new: 1000].
+	cachedChildren ifNil: [cachedChildren := Dictionary new: 1000].
 	^cachedChildren
 !
 
@@ -602,7 +602,7 @@ layout: aNodeCollection atPoint: aPoint atLayer: aNumber
 		middleOfTree := x + (treeSize / 2.0) - (each width / 2.0).
 		translator translate: each to: middleOfTree @ y.
 		x := x + treeSize + self horizontalGap.
-		self step ].
+		"self step" ].
 	^ x - aPoint x - self horizontalGap
 ! !
 

@@ -939,18 +939,23 @@ var self=this;
 var view,elements,edges;
 function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
 function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
+function $RODraggable(){return smalltalk.RODraggable||(typeof RODraggable=="undefined"?nil:RODraggable)}
 function $ROEdge(){return smalltalk.ROEdge||(typeof ROEdge=="undefined"?nil:ROEdge)}
 function $ROTreeLayout(){return smalltalk.ROTreeLayout||(typeof ROTreeLayout=="undefined"?nil:ROTreeLayout)}
 return smalltalk.withContext(function($ctx1) { 
 view=_st($ROView())._new();
 elements=_st($ROElement())._spritesOn_((1)._to_((5)));
+_st(elements)._do_((function(el){
+return smalltalk.withContext(function($ctx2) {
+return _st(el)._addInteraction_($RODraggable());
+}, function($ctx2) {$ctx2.fillBlock({el:el},$ctx1)})}));
 _st(view)._addAll_(elements);
 edges=_st($ROEdge())._linesFor_([_st(_st(elements)._at_((1))).__minus_gt(_st(elements)._at_((2))),_st(_st(elements)._at_((2))).__minus_gt(_st(elements)._at_((5))),_st(_st(elements)._at_((2))).__minus_gt(_st(elements)._at_((3)))]);
 _st(view)._addAll_(edges);
 _st($ROTreeLayout())._on_(elements);
 _st(view)._open();
 return self}, function($ctx1) {$ctx1.fill(self,"treeLayout",{view:view,elements:elements,edges:edges},smalltalk.ROExample)})},
-messageSends: ["new", "spritesOn:", "to:", "addAll:", "linesFor:", "->", "at:", "on:", "open"]}),
+messageSends: ["new", "spritesOn:", "to:", "do:", "addInteraction:", "addAll:", "linesFor:", "->", "at:", "on:", "open"]}),
 smalltalk.ROExample);
 
 smalltalk.addMethod(
@@ -1435,10 +1440,11 @@ smalltalk.addClass('ROBox', smalltalk.ROShape, [], 'ARoassal');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "defaultSize",
-fn: function () {
+fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return (10);
-}, function($ctx1) {$ctx1.fill(self,"defaultSize",{},smalltalk.ROBox)});},
+return smalltalk.withContext(function($ctx1) { 
+return (20);
+}, function($ctx1) {$ctx1.fill(self,"defaultSize",{},smalltalk.ROBox)})},
 messageSends: []}),
 smalltalk.ROBox);
 
@@ -1523,8 +1529,9 @@ fn: function (canvas,anElement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self["@svgElement"]=_st(canvas)._circle_y_r_(_st(_st(anElement)._position())._x(),_st(_st(anElement)._position())._y(),self._radius());
+_st(self["@svgElement"])._attr_with_("fill","lightGray");
 return self}, function($ctx1) {$ctx1.fill(self,"initializeSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROCircle)})},
-messageSends: ["circle:y:r:", "x", "position", "y", "radius"]}),
+messageSends: ["circle:y:r:", "x", "position", "y", "radius", "attr:with:"]}),
 smalltalk.ROCircle);
 
 smalltalk.addMethod(
