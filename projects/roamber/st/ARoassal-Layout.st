@@ -167,7 +167,7 @@ fromPositions: anArray
 setEdgesFromElements: elements 
 	| view |
 	elements isEmpty ifTrue: [ ^ self ].
-	self assert: [ (elements collect: #view) asSet size = 1 ].
+"	self assert: [ (elements collect: #view) asSet size = 1 ]."
 	
 	elements isEmpty ifTrue: [ ^ self ].
 	
@@ -392,7 +392,7 @@ cachedChildren
 
 cachedParents
 	
-	cachedParents ifNil: [cachedParents := IdentityDictionary new: 1000].
+	cachedParents ifNil: [cachedParents := Dictionary new: 1000].
 	^cachedParents
 !
 

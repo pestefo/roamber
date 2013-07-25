@@ -460,10 +460,6 @@ if(smalltalk.assert($1)){
 $2=self;
 return $2;
 };
-self._assert_((function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st(_st(_st(elements)._collect_("view"))._asSet())._size()).__eq((1));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $3=_st(elements)._isEmpty();
 if(smalltalk.assert($3)){
 $4=self;
@@ -481,7 +477,7 @@ return _st(elements)._includes_(_st(el)._to());
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
 }, function($ctx2) {$ctx2.fillBlock({el:el},$ctx1)})})));
 return self}, function($ctx1) {$ctx1.fill(self,"setEdgesFromElements:",{elements:elements,view:view},smalltalk.ROEdgeDrivenLayout)})},
-messageSends: ["ifTrue:", "isEmpty", "assert:", "=", "size", "asSet", "collect:", "view", "anyOne", "edges:", "elementsSuchThat:", "and:", "includes:", "to", "from", "isKindOf:"]}),
+messageSends: ["ifTrue:", "isEmpty", "view", "anyOne", "edges:", "elementsSuchThat:", "and:", "includes:", "to", "from", "isKindOf:"]}),
 smalltalk.ROEdgeDrivenLayout);
 
 smalltalk.addMethod(
@@ -567,12 +563,12 @@ smalltalk.method({
 selector: "cachedParents",
 fn: function (){
 var self=this;
-function $IdentityDictionary(){return smalltalk.IdentityDictionary||(typeof IdentityDictionary=="undefined"?nil:IdentityDictionary)}
+function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=self["@cachedParents"];
 if(($receiver = $1) == nil || $receiver == undefined){
-self["@cachedParents"]=_st($IdentityDictionary())._new_((1000));
+self["@cachedParents"]=_st($Dictionary())._new_((1000));
 self["@cachedParents"];
 } else {
 $1;

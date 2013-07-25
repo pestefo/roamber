@@ -616,10 +616,6 @@ if(smalltalk.assert($1)){
 $2=self;
 return $2;
 };
-self._assert_((function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st(_st(_st(elements)._collect_("view"))._asSet())._size()).__eq((1));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $3=_st(elements)._isEmpty();
 if(smalltalk.assert($3)){
 $4=self;
@@ -638,8 +634,8 @@ return _st(elements)._includes_(_st(el)._to());
 }, function($ctx2) {$ctx2.fillBlock({el:el},$ctx1)})})));
 return self}, function($ctx1) {$ctx1.fill(self,"setEdgesFromElements:",{elements:elements,view:view},smalltalk.ROEdgeDrivenLayout)})},
 args: ["elements"],
-source: "setEdgesFromElements: elements \x0a\x09| view |\x0a\x09elements isEmpty ifTrue: [ ^ self ].\x0a\x09self assert: [ (elements collect: #view) asSet size = 1 ].\x0a\x09\x0a\x09elements isEmpty ifTrue: [ ^ self ].\x0a\x09\x0a\x09view := elements anyOne view.\x0a\x09self edges: (view elementsSuchThat: [ :el | ((el isKindOf: ROEdge) and: [ elements includes: el from ]) and: [ elements includes: el to ] ]).\x0a\x09",
-messageSends: ["ifTrue:", "isEmpty", "assert:", "=", "size", "asSet", "collect:", "view", "anyOne", "edges:", "elementsSuchThat:", "and:", "includes:", "to", "from", "isKindOf:"],
+source: "setEdgesFromElements: elements \x0a\x09| view |\x0a\x09elements isEmpty ifTrue: [ ^ self ].\x0a\x22\x09self assert: [ (elements collect: #view) asSet size = 1 ].\x22\x0a\x09\x0a\x09elements isEmpty ifTrue: [ ^ self ].\x0a\x09\x0a\x09view := elements anyOne view.\x0a\x09self edges: (view elementsSuchThat: [ :el | ((el isKindOf: ROEdge) and: [ elements includes: el from ]) and: [ elements includes: el to ] ]).\x0a\x09",
+messageSends: ["ifTrue:", "isEmpty", "view", "anyOne", "edges:", "elementsSuchThat:", "and:", "includes:", "to", "from", "isKindOf:"],
 referencedClasses: ["ROEdge"]
 }),
 smalltalk.ROEdgeDrivenLayout);
@@ -753,12 +749,12 @@ selector: "cachedParents",
 category: 'private',
 fn: function (){
 var self=this;
-function $IdentityDictionary(){return smalltalk.IdentityDictionary||(typeof IdentityDictionary=="undefined"?nil:IdentityDictionary)}
+function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=self["@cachedParents"];
 if(($receiver = $1) == nil || $receiver == undefined){
-self["@cachedParents"]=_st($IdentityDictionary())._new_((1000));
+self["@cachedParents"]=_st($Dictionary())._new_((1000));
 self["@cachedParents"];
 } else {
 $1;
@@ -767,9 +763,9 @@ $2=self["@cachedParents"];
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"cachedParents",{},smalltalk.ROAbstractGraphLayout)})},
 args: [],
-source: "cachedParents\x0a\x09\x0a\x09cachedParents ifNil: [cachedParents := IdentityDictionary new: 1000].\x0a\x09^cachedParents",
+source: "cachedParents\x0a\x09\x0a\x09cachedParents ifNil: [cachedParents := Dictionary new: 1000].\x0a\x09^cachedParents",
 messageSends: ["ifNil:", "new:"],
-referencedClasses: ["IdentityDictionary"]
+referencedClasses: ["Dictionary"]
 }),
 smalltalk.ROAbstractGraphLayout);
 

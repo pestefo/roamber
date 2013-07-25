@@ -2,15 +2,272 @@ smalltalk.addPackage('ARoassal');
 smalltalk.addClass('ROObject', smalltalk.Object, [], 'ARoassal');
 
 
-smalltalk.addClass('ROEdge', smalltalk.ROObject, ['model', 'from', 'to', 'shape'], 'ARoassal');
+smalltalk.addClass('ROContainer', smalltalk.ROObject, ['elements', 'attributes'], 'ARoassal');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "elementsDo:",
+category: 'as yet unclassified',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self["@elements"])._copy())._do_(aBlock);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"elementsDo:",{aBlock:aBlock},smalltalk.ROContainer)})},
+args: ["aBlock"],
+source: "elementsDo: aBlock\x0a\x09^ elements copy do: aBlock",
+messageSends: ["do:", "copy"],
+referencedClasses: []
+}),
+smalltalk.ROContainer);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "elementsSuchThat:",
+category: 'as yet unclassified',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@elements"])._select_(aBlock);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"elementsSuchThat:",{aBlock:aBlock},smalltalk.ROContainer)})},
+args: ["aBlock"],
+source: "elementsSuchThat: aBlock\x0a\x09^ elements select: aBlock",
+messageSends: ["select:"],
+referencedClasses: []
+}),
+smalltalk.ROContainer);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+category: 'as yet unclassified',
+fn: function (){
+var self=this;
+function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.ROContainer.superclass.fn.prototype._initialize.apply(_st(self), []);
+self["@elements"]=_st($OrderedCollection())._new();
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROContainer)})},
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a\x09elements := OrderedCollection new.\x0a\x09",
+messageSends: ["initialize", "new"],
+referencedClasses: ["OrderedCollection"]
+}),
+smalltalk.ROContainer);
+
+
+
+smalltalk.addClass('ROAbstractComponent', smalltalk.ROContainer, ['model', 'view', 'interactions', 'shape'], 'ARoassal');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "+",
+category: 'accessing',
+fn: function (aShape){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+self._addShape_(aShape);
+$1=self;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"+",{aShape:aShape},smalltalk.ROAbstractComponent)})},
+args: ["aShape"],
+source: "+ aShape \x0a\x09\x22Add a shape to myself. aShape could either be an instance of a shape class or a class\x22\x0a\x09\x0a\x09self addShape: aShape.\x0a\x09^ self ",
+messageSends: ["addShape:"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractComponent);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "@",
+category: 'as yet unclassified',
+fn: function (anInteractionClassOrInstance){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._addInteraction_(anInteractionClassOrInstance);
+return self}, function($ctx1) {$ctx1.fill(self,"@",{anInteractionClassOrInstance:anInteractionClassOrInstance},smalltalk.ROAbstractComponent)})},
+args: ["anInteractionClassOrInstance"],
+source: "@ anInteractionClassOrInstance\x0a\x09\x22Add an interaction to the node\x22\x0a\x09\x0a\x09self addInteraction: anInteractionClassOrInstance",
+messageSends: ["addInteraction:"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractComponent);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "addShape:",
+category: 'drawing',
+fn: function (aShape){
+var self=this;
+var s;
+return smalltalk.withContext(function($ctx1) { 
+self["@shape"]=aShape;
+return self}, function($ctx1) {$ctx1.fill(self,"addShape:",{aShape:aShape,s:s},smalltalk.ROAbstractComponent)})},
+args: ["aShape"],
+source: "addShape: aShape \x0a\x09\x22Add a shape to myself. aShape could either be an instance of a shape class or simply a class\x22\x0a\x0a\x09| s |\x0a\x22\x09s := (aShape installedOn: self).\x0a\x09s addLast: shape.\x22\x0a\x09shape := aShape.",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROAbstractComponent);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+category: 'as yet unclassified',
+fn: function (){
+var self=this;
+function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.ROAbstractComponent.superclass.fn.prototype._initialize.apply(_st(self), []);
+self["@view"]=_st($ROView())._nullView();
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROAbstractComponent)})},
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a\x22\x09parent := ROView nullView.\x0a\x09\x0a\x09eventHandler := ROAnnouncer new.\x22\x0a\x09view := ROView nullView.\x0a\x09\x0a\x09\x22Actually, I am not sure we need to have a variable interactions\x22\x0a\x22\x09interactions := IdentityDictionary new.\x0a\x0a\x09zIndex := 0\x0a\x22",
+messageSends: ["initialize", "nullView"],
+referencedClasses: ["ROView"]
+}),
+smalltalk.ROAbstractComponent);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isElement",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._isEdge())._not();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isElement",{},smalltalk.ROAbstractComponent)})},
+args: [],
+source: "isElement\x0a\x09^ self isEdge not",
+messageSends: ["not", "isEdge"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractComponent);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isNotEdge",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._isEdge())._not();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isNotEdge",{},smalltalk.ROAbstractComponent)})},
+args: [],
+source: "isNotEdge\x0a\x09^ self isEdge not",
+messageSends: ["not", "isEdge"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractComponent);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "model",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@model"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"model",{},smalltalk.ROAbstractComponent)})},
+args: [],
+source: "model\x0a\x09^ model",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROAbstractComponent);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "model:",
+category: 'accessing',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@model"]=anObject;
+return self}, function($ctx1) {$ctx1.fill(self,"model:",{anObject:anObject},smalltalk.ROAbstractComponent)})},
+args: ["anObject"],
+source: "model: anObject\x0a\x09model := anObject",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROAbstractComponent);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "on:",
+category: 'accessing',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._model_(anObject);
+return self}, function($ctx1) {$ctx1.fill(self,"on:",{anObject:anObject},smalltalk.ROAbstractComponent)})},
+args: ["anObject"],
+source: "on: anObject \x0a\x09\x22Set the object model of myself. The object model is used by the shape when computing metrics that may be used by the shapes\x22\x0a\x0a\x09self model: anObject",
+messageSends: ["model:"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractComponent);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "view",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@view"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"view",{},smalltalk.ROAbstractComponent)})},
+args: [],
+source: "view\x0a\x09\x22Answer the view in which I am defined\x22\x0a\x09^ view",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROAbstractComponent);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "on:",
+category: 'as yet unclassified',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=self._basicNew();
+_st($2)._on_(anObject);
+_st($2)._initialize();
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"on:",{anObject:anObject},smalltalk.ROAbstractComponent.klass)})},
+args: ["anObject"],
+source: "on: anObject \x0a\x09^ self basicNew on: anObject; initialize; yourself",
+messageSends: ["on:", "basicNew", "initialize", "yourself"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractComponent.klass);
+
+
+smalltalk.addClass('ROEdge', smalltalk.ROAbstractComponent, ['from', 'to'], 'ARoassal');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "drawOn:",
 category: 'accessing',
-fn: function (canvas) {
+fn: function (canvas){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self["@shape"])._drawOn_for_(canvas,self);
-return self}, function($ctx1) {$ctx1.fill(self,"drawOn:",{canvas:canvas},smalltalk.ROEdge)});},
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@shape"])._drawOn_for_(canvas,self);
+return self}, function($ctx1) {$ctx1.fill(self,"drawOn:",{canvas:canvas},smalltalk.ROEdge)})},
 args: ["canvas"],
 source: "drawOn: canvas\x0a\x09shape drawOn: canvas for: self",
 messageSends: ["drawOn:for:"],
@@ -20,14 +277,30 @@ smalltalk.ROEdge);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "elementsDo:",
+category: 'testing',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"elementsDo:",{aBlock:aBlock},smalltalk.ROEdge)})},
+args: ["aBlock"],
+source: "elementsDo: aBlock\x0a\x09\x22Do nothing\x22",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROEdge);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "from",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@from"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"from",{},smalltalk.ROEdge)});},
+}, function($ctx1) {$ctx1.fill(self,"from",{},smalltalk.ROEdge)})},
 args: [],
 source: "from\x0a\x09^ from",
 messageSends: [],
@@ -39,10 +312,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "from:",
 category: 'accessing',
-fn: function (anElement) {
+fn: function (anElement){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@from"]=anElement;
-return self}, function($ctx1) {$ctx1.fill(self,"from:",{anElement:anElement},smalltalk.ROEdge)});},
+return smalltalk.withContext(function($ctx1) { 
+self["@from"]=anElement;
+return self}, function($ctx1) {$ctx1.fill(self,"from:",{anElement:anElement},smalltalk.ROEdge)})},
 args: ["anElement"],
 source: "from: anElement\x0a\x09from := anElement",
 messageSends: [],
@@ -52,14 +326,31 @@ smalltalk.ROEdge);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "isEdge",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return true;
+}, function($ctx1) {$ctx1.fill(self,"isEdge",{},smalltalk.ROEdge)})},
+args: [],
+source: "isEdge\x0a\x09^ true",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROEdge);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "shape",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@shape"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"shape",{},smalltalk.ROEdge)});},
+}, function($ctx1) {$ctx1.fill(self,"shape",{},smalltalk.ROEdge)})},
 args: [],
 source: "shape\x0a\x09^ shape",
 messageSends: [],
@@ -71,10 +362,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "shape:",
 category: 'accessing',
-fn: function (aShape) {
+fn: function (aShape){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@shape"]=aShape;
-return self}, function($ctx1) {$ctx1.fill(self,"shape:",{aShape:aShape},smalltalk.ROEdge)});},
+return smalltalk.withContext(function($ctx1) { 
+self["@shape"]=aShape;
+return self}, function($ctx1) {$ctx1.fill(self,"shape:",{aShape:aShape},smalltalk.ROEdge)})},
 args: ["aShape"],
 source: "shape: aShape\x0a\x09shape := aShape",
 messageSends: [],
@@ -86,12 +378,13 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "to",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@to"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"to",{},smalltalk.ROEdge)});},
+}, function($ctx1) {$ctx1.fill(self,"to",{},smalltalk.ROEdge)})},
 args: [],
 source: "to\x0a\x09^ to",
 messageSends: [],
@@ -103,10 +396,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "to:",
 category: 'accessing',
-fn: function (anElement) {
+fn: function (anElement){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@to"]=anElement;
-return self}, function($ctx1) {$ctx1.fill(self,"to:",{anElement:anElement},smalltalk.ROEdge)});},
+return smalltalk.withContext(function($ctx1) { 
+self["@to"]=anElement;
+return self}, function($ctx1) {$ctx1.fill(self,"to:",{anElement:anElement},smalltalk.ROEdge)})},
 args: ["anElement"],
 source: "to: anElement\x0a\x09to := anElement",
 messageSends: [],
@@ -119,16 +413,17 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "from:to:",
 category: 'public',
-fn: function (el1, el2) {
+fn: function (el1,el2){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
-$2=_st(self)._new();
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=self._new();
 _st($2)._from_(el1);
 _st($2)._to_(el2);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"from:to:",{el1:el1,el2:el2},smalltalk.ROEdge.klass)});},
+}, function($ctx1) {$ctx1.fill(self,"from:to:",{el1:el1,el2:el2},smalltalk.ROEdge.klass)})},
 args: ["el1", "el2"],
 source: "from: el1 to: el2\x0a\x09^ self new from: el1; to: el2; yourself",
 messageSends: ["from:", "new", "to:", "yourself"],
@@ -136,8 +431,51 @@ referencedClasses: []
 }),
 smalltalk.ROEdge.klass);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "lineFrom:to:",
+category: 'public',
+fn: function (f,t){
+var self=this;
+function $ROLineShape(){return smalltalk.ROLineShape||(typeof ROLineShape=="undefined"?nil:ROLineShape)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=self._from_to_(f,t);
+_st($2).__plus(_st($ROLineShape())._new());
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"lineFrom:to:",{f:f,t:t},smalltalk.ROEdge.klass)})},
+args: ["f", "t"],
+source: "lineFrom: f to: t\x0a\x09^ (self from: f to: t)\x0a\x09\x09+ (ROLineShape new) ;\x0a\x09\x09yourself\x0a\x09",
+messageSends: ["+", "new", "from:to:", "yourself"],
+referencedClasses: ["ROLineShape"]
+}),
+smalltalk.ROEdge.klass);
 
-smalltalk.addClass('ROElement', smalltalk.ROObject, ['model', 'shape', 'position', 'interactions'], 'ARoassal');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "linesFor:",
+category: 'public',
+fn: function (associations){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(associations)._collect_((function(assoc){
+return smalltalk.withContext(function($ctx2) {
+return self._lineFrom_to_(_st(assoc)._key(),_st(assoc)._value());
+}, function($ctx2) {$ctx2.fillBlock({assoc:assoc},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"linesFor:",{associations:associations},smalltalk.ROEdge.klass)})},
+args: ["associations"],
+source: "linesFor: associations \x0a\x09\x22Return a collection of edges, one for each provided association\x22\x0a\x0a\x09^ associations collect: [ :assoc | self lineFrom: assoc key to: assoc value ]",
+messageSends: ["collect:", "lineFrom:to:", "key", "value"],
+referencedClasses: []
+}),
+smalltalk.ROEdge.klass);
+
+
+smalltalk.addClass('ROElement', smalltalk.ROAbstractComponent, ['position'], 'ARoassal');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "activateInteractions",
@@ -180,12 +518,13 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "bounds",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._position())._extent_(_st(self["@shape"])._extentFor_(self));
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._position())._extent_(_st(self["@shape"])._extentFor_(self));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"bounds",{},smalltalk.ROElement)});},
+}, function($ctx1) {$ctx1.fill(self,"bounds",{},smalltalk.ROElement)})},
 args: [],
 source: "bounds\x0a\x09\x22Return the bounds of the element\x22\x0a\x09\x0a\x09^ self position extent: (shape extentFor: self)",
 messageSends: ["extent:", "extentFor:", "position"],
@@ -197,10 +536,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "drawOn:",
 category: 'drawing',
-fn: function (canvas) {
+fn: function (canvas){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self["@shape"])._drawOn_for_(canvas,self);
-return self}, function($ctx1) {$ctx1.fill(self,"drawOn:",{canvas:canvas},smalltalk.ROElement)});},
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@shape"])._drawOn_for_(canvas,self);
+return self}, function($ctx1) {$ctx1.fill(self,"drawOn:",{canvas:canvas},smalltalk.ROElement)})},
 args: ["canvas"],
 source: "drawOn: canvas\x0a\x09shape drawOn: canvas for: self",
 messageSends: ["drawOn:for:"],
@@ -210,14 +550,55 @@ smalltalk.ROElement);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "extent",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@shape"])._extentFor_(self);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"extent",{},smalltalk.ROElement)})},
+args: [],
+source: "extent\x0a\x09^ shape extentFor: self",
+messageSends: ["extentFor:"],
+referencedClasses: []
+}),
+smalltalk.ROElement);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "extent:",
+category: 'accessing',
+fn: function (aPoint){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(aPoint).__eq(self._extent());
+if(smalltalk.assert($1)){
+$2=self;
+return $2;
+};
+_st(self["@shape"])._extent_(aPoint);
+return self}, function($ctx1) {$ctx1.fill(self,"extent:",{aPoint:aPoint},smalltalk.ROElement)})},
+args: ["aPoint"],
+source: "extent: aPoint \x0a\x09(aPoint = self extent) ifTrue: [ ^ self ].\x0a\x22\x09self announce: ROElementResized.\x22\x0a\x09shape extent: aPoint",
+messageSends: ["ifTrue:", "=", "extent", "extent:"],
+referencedClasses: []
+}),
+smalltalk.ROElement);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "height",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(self["@shape"])._heightFor_(self);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"height",{},smalltalk.ROElement)});},
+}, function($ctx1) {$ctx1.fill(self,"height",{},smalltalk.ROElement)})},
 args: [],
 source: "height\x0a\x09^ shape heightFor: self",
 messageSends: ["heightFor:"],
@@ -232,45 +613,31 @@ category: 'initialize',
 fn: function (){
 var self=this;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+function $RONullShape(){return smalltalk.RONullShape||(typeof RONullShape=="undefined"?nil:RONullShape)}
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.ROElement.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@position"]=(0).__at((0));
 self["@interactions"]=_st($Dictionary())._new();
+self["@shape"]=_st($RONullShape())._new();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROElement)})},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09position := 0 @ 0.\x0a\x09interactions := Dictionary new.",
+source: "initialize\x0a\x09super initialize.\x0a\x09position := 0 @ 0.\x0a\x09interactions := Dictionary new.\x0a\x09shape := RONullShape new.",
 messageSends: ["initialize", "@", "new"],
-referencedClasses: ["Dictionary"]
+referencedClasses: ["Dictionary", "RONullShape"]
 }),
 smalltalk.ROElement);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "model",
-category: 'accessing',
-fn: function () {
+selector: "isEdge",
+category: 'testing',
+fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=self["@model"];
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"model",{},smalltalk.ROElement)});},
+return smalltalk.withContext(function($ctx1) { 
+return false;
+}, function($ctx1) {$ctx1.fill(self,"isEdge",{},smalltalk.ROElement)})},
 args: [],
-source: "model\x0a\x09^ model",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.ROElement);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "model:",
-category: 'accessing',
-fn: function (anObject) {
-var self=this;
-return smalltalk.withContext(function($ctx1) { self["@model"]=anObject;
-return self}, function($ctx1) {$ctx1.fill(self,"model:",{anObject:anObject},smalltalk.ROElement)});},
-args: ["anObject"],
-source: "model: anObject\x0a\x09model := anObject",
+source: "isEdge\x0a\x09^ false",
 messageSends: [],
 referencedClasses: []
 }),
@@ -280,12 +647,13 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "position",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@position"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"position",{},smalltalk.ROElement)});},
+}, function($ctx1) {$ctx1.fill(self,"position",{},smalltalk.ROElement)})},
 args: [],
 source: "position\x0a\x09\x22Return the position of the element. Return a point of floats\x22\x0a\x09\x0a\x09^ position",
 messageSends: [],
@@ -297,12 +665,13 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "shape",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@shape"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"shape",{},smalltalk.ROElement)});},
+}, function($ctx1) {$ctx1.fill(self,"shape",{},smalltalk.ROElement)})},
 args: [],
 source: "shape\x0a\x09^ shape",
 messageSends: [],
@@ -314,10 +683,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "shape:",
 category: 'accessing',
-fn: function (aROShape) {
+fn: function (aROShape){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@shape"]=aROShape;
-return self}, function($ctx1) {$ctx1.fill(self,"shape:",{aROShape:aROShape},smalltalk.ROElement)});},
+return smalltalk.withContext(function($ctx1) { 
+self["@shape"]=aROShape;
+return self}, function($ctx1) {$ctx1.fill(self,"shape:",{aROShape:aROShape},smalltalk.ROElement)})},
 args: ["aROShape"],
 source: "shape: aROShape\x0a\x09shape := aROShape",
 messageSends: [],
@@ -329,10 +699,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "translateTo:",
 category: 'accessing',
-fn: function (aPoint) {
+fn: function (aPoint){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@position"]=aPoint;
-return self}, function($ctx1) {$ctx1.fill(self,"translateTo:",{aPoint:aPoint},smalltalk.ROElement)});},
+return smalltalk.withContext(function($ctx1) { 
+self["@position"]=aPoint;
+return self}, function($ctx1) {$ctx1.fill(self,"translateTo:",{aPoint:aPoint},smalltalk.ROElement)})},
 args: ["aPoint"],
 source: "translateTo: aPoint \x0a\x09position := aPoint",
 messageSends: [],
@@ -344,12 +715,13 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "width",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(self["@shape"])._widthFor_(self);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"width",{},smalltalk.ROElement)});},
+}, function($ctx1) {$ctx1.fill(self,"width",{},smalltalk.ROElement)})},
 args: [],
 source: "width\x0a\x09^ shape widthFor: self",
 messageSends: ["widthFor:"],
@@ -362,21 +734,325 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "on:",
 category: 'public',
-fn: function (anObject) {
+fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
-$2=_st(self)._new();
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=self._new();
 _st($2)._model_(anObject);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"on:",{anObject:anObject},smalltalk.ROElement.klass)});},
+}, function($ctx1) {$ctx1.fill(self,"on:",{anObject:anObject},smalltalk.ROElement.klass)})},
 args: ["anObject"],
 source: "on: anObject\x0a\x09^ self new model: anObject; yourself",
 messageSends: ["model:", "new", "yourself"],
 referencedClasses: []
 }),
 smalltalk.ROElement.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "sprite",
+category: 'public',
+fn: function (){
+var self=this;
+function $RODraggable(){return smalltalk.RODraggable||(typeof RODraggable=="undefined"?nil:RODraggable)}
+function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=self._new();
+_st($2)._extent_((50).__at((50)));
+_st($2)._addInteraction_($RODraggable());
+_st($2)._addShape_(_st($ROBox())._new());
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"sprite",{},smalltalk.ROElement.klass)})},
+args: [],
+source: "sprite\x0a\x0a\x09^ self new\x0a\x09\x09\x09extent: 50 @ 50;\x0a\x09\x09\x09addInteraction: RODraggable;\x0a\x22\x09\x09\x09addShape: (ROBorder new color: Color red);\x22\x0a\x09\x09\x09addShape: (ROBox new);\x0a\x09\x09\x09yourself",
+messageSends: ["extent:", "@", "new", "addInteraction:", "addShape:", "yourself"],
+referencedClasses: ["RODraggable", "ROBox"]
+}),
+smalltalk.ROElement.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "spriteOn:",
+category: 'public',
+fn: function (value){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._sprite())._on_(value);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"spriteOn:",{value:value},smalltalk.ROElement.klass)})},
+args: ["value"],
+source: "spriteOn: value\x0a\x09^ self sprite on: value",
+messageSends: ["on:", "sprite"],
+referencedClasses: []
+}),
+smalltalk.ROElement.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "spritesOn:",
+category: 'public',
+fn: function (values){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(values)._collect_((function(v){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._sprite())._on_(v);
+}, function($ctx2) {$ctx2.fillBlock({v:v},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"spritesOn:",{values:values},smalltalk.ROElement.klass)})},
+args: ["values"],
+source: "spritesOn: values\x0a\x09^ values collect: [:v | self sprite on: v ]",
+messageSends: ["collect:", "on:", "sprite"],
+referencedClasses: []
+}),
+smalltalk.ROElement.klass);
+
+
+smalltalk.addClass('ROView', smalltalk.ROContainer, ['elements', 'svgCanvas'], 'ARoassal');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "add:",
+category: 'adding',
+fn: function (anElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._addElement_(anElement);
+return self}, function($ctx1) {$ctx1.fill(self,"add:",{anElement:anElement},smalltalk.ROView)})},
+args: ["anElement"],
+source: "add: anElement\x0a\x09\x22Add an element in the view. Do nothing if the element is already in\x22\x0a\x09\x22(element view ~~ ROView nullView) ifTrue: [ ^ self ].\x22\x0a\x09\x22\x0a\x09self addElement: element.\x0a\x09element parent: self.\x0a\x09element view: self.\x0a\x0a\x09self addElementRecursivelyToRender: element\x0a\x09\x22\x0a\x09self addElement: anElement",
+messageSends: ["addElement:"],
+referencedClasses: []
+}),
+smalltalk.ROView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "addAll:",
+category: 'adding',
+fn: function (els){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(els)._do_((function(n){
+return smalltalk.withContext(function($ctx2) {
+return self._add_(n);
+}, function($ctx2) {$ctx2.fillBlock({n:n},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"addAll:",{els:els},smalltalk.ROView)})},
+args: ["els"],
+source: "addAll: els \x0a\x09\x22self assert: [ els isKindOf: Collection ].\x22\x0a\x09els do: [:n | self add: n ]",
+messageSends: ["do:", "add:"],
+referencedClasses: []
+}),
+smalltalk.ROView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "addElement:",
+category: 'adding',
+fn: function (element){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@elements"])._add_(element);
+return self}, function($ctx1) {$ctx1.fill(self,"addElement:",{element:element},smalltalk.ROView)})},
+args: ["element"],
+source: "addElement: element\x0a\x09elements add: element.",
+messageSends: ["add:"],
+referencedClasses: []
+}),
+smalltalk.ROView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "clear",
+category: 'public - opening',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._paper())._clear();
+return self}, function($ctx1) {$ctx1.fill(self,"clear",{},smalltalk.ROView)})},
+args: [],
+source: "clear\x0a\x09self paper clear",
+messageSends: ["clear", "paper"],
+referencedClasses: []
+}),
+smalltalk.ROView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "elements",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@elements"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"elements",{},smalltalk.ROView)})},
+args: [],
+source: "elements\x0a\x09^ elements",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+category: 'initialize',
+fn: function (){
+var self=this;
+function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.ROView.superclass.fn.prototype._initialize.apply(_st(self), []);
+self["@elements"]=_st($Array())._new();
+self["@svgCanvas"]=self._paper();
+self._clear();
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROView)})},
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a\x09elements := Array new.\x0a\x09svgCanvas := self paper.\x0a\x09self clear",
+messageSends: ["initialize", "new", "paper", "clear"],
+referencedClasses: ["Array"]
+}),
+smalltalk.ROView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "numberOfElements",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@elements"])._size();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"numberOfElements",{},smalltalk.ROView)})},
+args: [],
+source: "numberOfElements\x0a\x09^ elements size",
+messageSends: ["size"],
+referencedClasses: []
+}),
+smalltalk.ROView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "open",
+category: 'public - opening',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@elements"])._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each)._drawOn_(self["@svgCanvas"]);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"open",{},smalltalk.ROView)})},
+args: [],
+source: "open\x0a\x09\x0a\x09elements do: [ :each | each drawOn: svgCanvas].",
+messageSends: ["do:", "drawOn:"],
+referencedClasses: []
+}),
+smalltalk.ROView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "paper",
+category: 'public - opening',
+fn: function (){
+var self=this;
+function $ROPaper(){return smalltalk.ROPaper||(typeof ROPaper=="undefined"?nil:ROPaper)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st($ROPaper())._default())._canvas();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"paper",{},smalltalk.ROView)})},
+args: [],
+source: "paper\x0a\x09^ ROPaper default canvas",
+messageSends: ["canvas", "default"],
+referencedClasses: ["ROPaper"]
+}),
+smalltalk.ROView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "view",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"view",{},smalltalk.ROView)})},
+args: [],
+source: "view\x0a\x09^ self",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROView);
+
+
+smalltalk.ROView.klass.iVarNames = ['nullView'];
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+category: 'as yet unclassified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._resetNullView();
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROView.klass)})},
+args: [],
+source: "initialize\x0a\x09self resetNullView ",
+messageSends: ["resetNullView"],
+referencedClasses: []
+}),
+smalltalk.ROView.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "nullView",
+category: 'as yet unclassified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@nullView"];
+if(($receiver = $2) == nil || $receiver == undefined){
+self["@nullView"]=self._new();
+$1=self["@nullView"];
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"nullView",{},smalltalk.ROView.klass)})},
+args: [],
+source: "nullView\x0a\x09\x22Used when creating new element. For example, we have the relation:\x0a\x09  ROElement new view == ROView nullView\x22\x0a\x09\x0a\x09^ nullView ifNil: [ nullView := self new ].",
+messageSends: ["ifNil:", "new"],
+referencedClasses: []
+}),
+smalltalk.ROView.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "resetNullView",
+category: 'as yet unclassified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@nullView"]=nil;
+return self}, function($ctx1) {$ctx1.fill(self,"resetNullView",{},smalltalk.ROView.klass)})},
+args: [],
+source: "resetNullView \x0a\x09nullView := nil",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROView.klass);
 
 
 smalltalk.addClass('ROExample', smalltalk.ROObject, [], 'ARoassal');
@@ -572,6 +1248,33 @@ args: [],
 source: "line2\x0a\x0a\x09| view el1 el2 edge el3 el4 edge2 |\x0a\x09view := ROView new.\x0a\x0a\x09el1 := ROCircle element.\x0a\x09el2 := ROCircle element.\x0a\x09\x0a\x09el1 translateTo: 20 @ 30.\x0a\x09el2 translateTo: 300 @ 100.\x0a\x09\x0a\x09edge := ROLineShape edgeFrom: el1 to: el2.\x0a\x09\x0a\x09el3 := ROBox element.\x0a\x09el4 := ROBox element.\x0a\x09\x0a\x09el3 translateTo: 150 @ 20.\x0a\x09el4 translateTo: 150 @ 300.\x0a\x09\x0a\x09edge2 := ROLineShape edgeFrom: el3 to: el4.\x0a\x0a\x09view add: el1; add: el2; add: edge; add: el3; add: el4; add: edge2.\x0a\x09\x0a\x09view open.",
 messageSends: ["new", "element", "translateTo:", "@", "edgeFrom:to:", "add:", "open"],
 referencedClasses: ["ROView", "ROCircle", "ROLineShape", "ROBox"]
+}),
+smalltalk.ROExample);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "treeLayout",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+var view,elements,edges;
+function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
+function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
+function $ROEdge(){return smalltalk.ROEdge||(typeof ROEdge=="undefined"?nil:ROEdge)}
+function $ROTreeLayout(){return smalltalk.ROTreeLayout||(typeof ROTreeLayout=="undefined"?nil:ROTreeLayout)}
+return smalltalk.withContext(function($ctx1) { 
+view=_st($ROView())._new();
+elements=_st($ROElement())._spritesOn_((1)._to_((5)));
+_st(view)._addAll_(elements);
+edges=_st($ROEdge())._linesFor_([_st(_st(elements)._at_((1))).__minus_gt(_st(elements)._at_((2))),_st(_st(elements)._at_((2))).__minus_gt(_st(elements)._at_((5))),_st(_st(elements)._at_((2))).__minus_gt(_st(elements)._at_((3)))]);
+_st(view)._addAll_(edges);
+_st($ROTreeLayout())._on_(elements);
+_st(view)._open();
+return self}, function($ctx1) {$ctx1.fill(self,"treeLayout",{view:view,elements:elements,edges:edges},smalltalk.ROExample)})},
+args: [],
+source: "treeLayout \x0a\x09\x22\x0a\x09self new treeLayout\x0a\x09\x22\x0a\x09\x0a\x09| view elements edges |\x0a\x09view := ROView new.\x0a\x09elements := ROElement spritesOn: (1 to: 5).\x0a\x09view addAll: elements.\x0a\x09view addAll: (edges := ROEdge linesFor: { (elements at: 1) -> (elements at: 2) . \x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09  (elements at: 2) -> (elements at: 5) . \x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09  (elements at: 2) -> (elements at: 3) }).\x0a\x09\x0a\x09ROTreeLayout on: elements.\x0a\x0a\x09view open.",
+messageSends: ["new", "spritesOn:", "to:", "addAll:", "linesFor:", "->", "at:", "on:", "open"],
+referencedClasses: ["ROView", "ROElement", "ROEdge", "ROTreeLayout"]
 }),
 smalltalk.ROExample);
 
@@ -855,6 +1558,24 @@ smalltalk.ROShape);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "defaultExtent",
+category: 'creation',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=(5).__at((5));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultExtent",{},smalltalk.ROShape)})},
+args: [],
+source: "defaultExtent\x0a\x09\x22Each shape has a minimum size of 5@5\x22\x0a\x0a\x09^ 5 @ 5",
+messageSends: ["@"],
+referencedClasses: []
+}),
+smalltalk.ROShape);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "drawOn:for:",
 category: 'drawing',
 fn: function (canvas,anElement){
@@ -864,7 +1585,7 @@ self._initializeSVGElementOn_for_(canvas,anElement);
 self._activateInteractionsOn_(anElement);
 return self}, function($ctx1) {$ctx1.fill(self,"drawOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROShape)})},
 args: ["canvas", "anElement"],
-source: "drawOn: canvas for: anElement\x0a\x09self initializeSVGElementOn: canvas for: anElement.\x0a\x09self activateInteractionsOn: anElement.",
+source: "drawOn: canvas for: anElement\x0a\x09\x22 Update svgElement with current attributes (color, height, width, etc) and show\x22\x0a\x0a\x09self initializeSVGElementOn: canvas for: anElement.\x0a\x09self activateInteractionsOn: anElement.",
 messageSends: ["initializeSVGElementOn:for:", "activateInteractionsOn:"],
 referencedClasses: []
 }),
@@ -977,15 +1698,33 @@ smalltalk.ROShape);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "initialize",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.ROShape.superclass.fn.prototype._initialize.apply(_st(self), []);
+self["@color"]=_st(self._class())._defaultColor();
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROShape)})},
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a\x09color := self class defaultColor.",
+messageSends: ["initialize", "defaultColor", "class"],
+referencedClasses: []
+}),
+smalltalk.ROShape);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "initializeSVGElement",
 category: 'drawing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
 return self}, function($ctx1) {$ctx1.fill(self,"initializeSVGElement",{},smalltalk.ROShape)})},
 args: [],
-source: "initializeSVGElement\x0a\x09\x22abstract method - Please override it to do what you actually need\x22",
-messageSends: [],
+source: "initializeSVGElement\x0a\x09\x22Initialize svgElement with default its properties and hide it\x22\x0a\x09self subclassResponsibility",
+messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
 smalltalk.ROShape);
@@ -1057,6 +1796,22 @@ referencedClasses: []
 }),
 smalltalk.ROShape);
 
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultColor",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "lightGray";
+}, function($ctx1) {$ctx1.fill(self,"defaultColor",{},smalltalk.ROShape.klass)})},
+args: [],
+source: "defaultColor\x0a\x09^ 'lightGray'.",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROShape.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1213,14 +1968,15 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
 category: 'initialize',
-fn: function () {
+fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { smalltalk.ROShape.fn.prototype._initialize.apply(_st(self), []);
-self["@width"]=_st(self)._defaultSize();
-self["@height"]=_st(self)._defaultSize();
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROBox)});},
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.ROBox.superclass.fn.prototype._initialize.apply(_st(self), []);
+self["@width"]=self._defaultSize();
+self["@height"]=self._defaultSize();
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROBox)})},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09width := self defaultSize.\x0a\x09height := self defaultSize.",
+source: "initialize\x0a\x09super initialize.\x0a\x09width := self defaultSize.\x0a\x09height := self defaultSize.\x0a\x09",
 messageSends: ["initialize", "defaultSize"],
 referencedClasses: []
 }),
@@ -1234,10 +1990,11 @@ fn: function (canvas,anElement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self["@svgElement"]=_st(canvas)._rect_y_width_height_(_st(_st(anElement)._position())._x(),_st(_st(anElement)._position())._y(),self._widthFor_(anElement),self._heightFor_(anElement));
+_st(self["@svgElement"])._attr_with_("fill","lightGray");
 return self}, function($ctx1) {$ctx1.fill(self,"initializeSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROBox)})},
 args: ["canvas", "anElement"],
-source: "initializeSVGElementOn: canvas for: anElement\x0a\x09svgElement:= canvas \x0a\x09\x09rect: (anElement position x)\x0a\x09\x09y: (anElement position y) \x0a\x09\x09width: (self widthFor: anElement) \x0a\x09\x09height: (self heightFor: anElement) .",
-messageSends: ["rect:y:width:height:", "x", "position", "y", "widthFor:", "heightFor:"],
+source: "initializeSVGElementOn: canvas for: anElement\x0a\x09svgElement:= canvas \x0a\x09\x09rect: (anElement position x)\x0a\x09\x09y: (anElement position y) \x0a\x09\x09width: (self widthFor: anElement) \x0a\x09\x09height: (self heightFor: anElement).\x0a\x09\x09\x0a\x09svgElement attr:'fill' with: 'lightGray'.\x0a\x22\x09svgElement hide.\x22",
+messageSends: ["rect:y:width:height:", "x", "position", "y", "widthFor:", "heightFor:", "attr:with:"],
 referencedClasses: []
 }),
 smalltalk.ROBox);
@@ -1329,6 +2086,60 @@ smalltalk.ROCircle);
 
 
 
+smalltalk.addClass('RONullShape', smalltalk.ROShape, [], 'ARoassal');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "extent:",
+category: 'hook',
+fn: function (anExtentPoint){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@width"]=_st(anExtentPoint)._x();
+self["@height"]=_st(anExtentPoint)._y();
+return self}, function($ctx1) {$ctx1.fill(self,"extent:",{anExtentPoint:anExtentPoint},smalltalk.RONullShape)})},
+args: ["anExtentPoint"],
+source: "extent: anExtentPoint\x0a\x09width := anExtentPoint x.\x0a\x09height := anExtentPoint y.",
+messageSends: ["x", "y"],
+referencedClasses: []
+}),
+smalltalk.RONullShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "extentFor:",
+category: 'hook',
+fn: function (element){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self["@width"])._roValue_(element)).__at(_st(self["@height"])._roValue_(element));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"extentFor:",{element:element},smalltalk.RONullShape)})},
+args: ["element"],
+source: "extentFor: element\x0a\x09^ (width roValue: element) @ (height roValue: element)",
+messageSends: ["@", "roValue:"],
+referencedClasses: []
+}),
+smalltalk.RONullShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+category: 'hook',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._extent_(self._defaultExtent());
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.RONullShape)})},
+args: [],
+source: "initialize\x0a\x09\x09self extent: self defaultExtent.",
+messageSends: ["extent:", "defaultExtent"],
+referencedClasses: []
+}),
+smalltalk.RONullShape);
+
+
+
 smalltalk.addClass('ROTux', smalltalk.ROShape, [], 'ARoassal');
 smalltalk.addMethod(
 smalltalk.method({
@@ -1345,125 +2156,6 @@ messageSends: ["path:"],
 referencedClasses: []
 }),
 smalltalk.ROTux);
-
-
-
-smalltalk.addClass('ROView', smalltalk.ROObject, ['elements', 'svgCanvas'], 'ARoassal');
-smalltalk.addMethod(
-smalltalk.method({
-selector: "add:",
-category: 'adding',
-fn: function (anElement) {
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self["@elements"])._add_(anElement);
-return self}, function($ctx1) {$ctx1.fill(self,"add:",{anElement:anElement},smalltalk.ROView)});},
-args: ["anElement"],
-source: "add: anElement\x0a\x09elements add: anElement",
-messageSends: ["add:"],
-referencedClasses: []
-}),
-smalltalk.ROView);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "clear",
-category: 'public - opening',
-fn: function () {
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._paper())._clear();
-return self}, function($ctx1) {$ctx1.fill(self,"clear",{},smalltalk.ROView)});},
-args: [],
-source: "clear\x0a\x09self paper clear",
-messageSends: ["clear", "paper"],
-referencedClasses: []
-}),
-smalltalk.ROView);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "elements",
-category: 'accessing',
-fn: function () {
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=self["@elements"];
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"elements",{},smalltalk.ROView)});},
-args: [],
-source: "elements\x0a\x09^ elements",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.ROView);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "initialize",
-category: 'initialize',
-fn: function () {
-var self=this;
-return smalltalk.withContext(function($ctx1) { smalltalk.ROObject.fn.prototype._initialize.apply(_st(self), []);
-self["@elements"]=_st((smalltalk.Array || Array))._new();
-self["@svgCanvas"]=_st(self)._paper();
-_st(self)._clear();
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROView)});},
-args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09elements := Array new.\x0a\x09svgCanvas := self paper.\x0a\x09self clear",
-messageSends: ["initialize", "new", "paper", "clear"],
-referencedClasses: ["Array"]
-}),
-smalltalk.ROView);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "numberOfElements",
-category: 'accessing',
-fn: function () {
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self["@elements"])._size();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"numberOfElements",{},smalltalk.ROView)});},
-args: [],
-source: "numberOfElements\x0a\x09^ elements size",
-messageSends: ["size"],
-referencedClasses: []
-}),
-smalltalk.ROView);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "open",
-category: 'public - opening',
-fn: function () {
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self["@elements"])._do_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(each)._drawOn_(self["@svgCanvas"]);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"open",{},smalltalk.ROView)});},
-args: [],
-source: "open\x0a\x09\x0a\x09elements do: [ :each | each drawOn: svgCanvas].",
-messageSends: ["do:", "drawOn:"],
-referencedClasses: []
-}),
-smalltalk.ROView);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "paper",
-category: 'public - opening',
-fn: function () {
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st((smalltalk.ROPaper || ROPaper))._default())._canvas();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"paper",{},smalltalk.ROView)});},
-args: [],
-source: "paper\x0a\x09^ ROPaper default canvas",
-messageSends: ["canvas", "default"],
-referencedClasses: ["ROPaper"]
-}),
-smalltalk.ROView);
 
 
 
@@ -1500,6 +2192,61 @@ messageSends: ["value:"],
 referencedClasses: []
 }),
 smalltalk.BlockClosure);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "anyOne",
+category: '*ARoassal',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._first();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"anyOne",{},smalltalk.SequenceableCollection)})},
+args: [],
+source: "anyOne\x0a\x09^ self first",
+messageSends: ["first"],
+referencedClasses: []
+}),
+smalltalk.SequenceableCollection);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "at:ifAbsentPut:",
+category: '*ARoassal',
+fn: function (anIndex,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$3,$2,$4;
+$1=_st(anIndex).__lt_eq(self._size());
+if(smalltalk.assert($1)){
+$3=self._at_(anIndex);
+if(($receiver = $3) == nil || $receiver == undefined){
+$2=self._at_put_(anIndex,_st(aBlock)._value());
+} else {
+var index;
+index=$receiver;
+$2=index;
+};
+return $2;
+};
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._size()).__lt(anIndex);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileTrue_((function(){
+return smalltalk.withContext(function($ctx2) {
+return self._add_(nil);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+$4=self._at_put_(anIndex,_st(aBlock)._value());
+return $4;
+}, function($ctx1) {$ctx1.fill(self,"at:ifAbsentPut:",{anIndex:anIndex,aBlock:aBlock},smalltalk.Array)})},
+args: ["anIndex", "aBlock"],
+source: "at: anIndex ifAbsentPut: aBlock \x0a\x09\x22TODO: pass to Js\x22\x0a\x09anIndex <= self size\x0a\x09\x09ifTrue: [^ (self at: anIndex)\x0a\x09\x09\x09\x09ifNil: [self at: anIndex put: aBlock value]\x0a\x09\x09\x09\x09ifNotNil: [:index | index]].\x0a\x09[self size < anIndex]\x0a\x09\x09whileTrue: [self add: nil].\x0a\x09^ self at: anIndex put: aBlock value",
+messageSends: ["ifTrue:", "ifNil:ifNotNil:", "at:put:", "value", "at:", "<=", "size", "whileTrue:", "add:", "<"],
+referencedClasses: []
+}),
+smalltalk.Array);
 
 smalltalk.addMethod(
 smalltalk.method({
