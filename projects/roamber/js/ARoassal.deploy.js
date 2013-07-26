@@ -483,6 +483,19 @@ smalltalk.ROElement);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "positionAsInteger",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._position())._asIntegerPoint();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"positionAsInteger",{},smalltalk.ROElement)})},
+messageSends: ["asIntegerPoint", "position"]}),
+smalltalk.ROElement);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "shape",
 fn: function (){
 var self=this;
@@ -529,6 +542,22 @@ return $1;
 messageSends: ["widthFor:"]}),
 smalltalk.ROElement);
 
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "forCollection:",
+fn: function (aCollection){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(aCollection)._collect_((function(v){
+return smalltalk.withContext(function($ctx2) {
+return self._on_(v);
+}, function($ctx2) {$ctx2.fillBlock({v:v},$ctx1)})})))._asArray();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"forCollection:",{aCollection:aCollection},smalltalk.ROElement.klass)})},
+messageSends: ["asArray", "collect:", "on:"]}),
+smalltalk.ROElement.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -956,6 +985,39 @@ _st($ROTreeLayout())._on_(elements);
 _st(view)._open();
 return self}, function($ctx1) {$ctx1.fill(self,"treeLayout",{view:view,elements:elements,edges:edges},smalltalk.ROExample)})},
 messageSends: ["new", "spritesOn:", "to:", "do:", "addInteraction:", "addAll:", "linesFor:", "->", "at:", "on:", "open"]}),
+smalltalk.ROExample);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "treeLayout2",
+fn: function (){
+var self=this;
+var view,elements;
+function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
+function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
+function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
+function $ROEdge(){return smalltalk.ROEdge||(typeof ROEdge=="undefined"?nil:ROEdge)}
+function $ROTreeLayout(){return smalltalk.ROTreeLayout||(typeof ROTreeLayout=="undefined"?nil:ROTreeLayout)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+elements=_st($ROElement())._forCollection_((1)._to_((20)));
+_st(elements)._do_((function(n){
+return smalltalk.withContext(function($ctx2) {
+$1=n;
+_st($1)._extent_((50).__at((50)));
+$2=_st($1)._addShape_(_st($ROBox())._new());
+return $2;
+}, function($ctx2) {$ctx2.fillBlock({n:n},$ctx1)})}));
+view=_st($ROView())._new();
+_st(view)._addAll_(elements);
+_st(_st(elements)._allButFirst())._do_((function(e){
+return smalltalk.withContext(function($ctx2) {
+return _st(view)._add_(_st($ROEdge())._lineFrom_to_(_st(elements)._first(),e));
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+_st($ROTreeLayout())._on_(elements);
+_st(view)._open();
+return self}, function($ctx1) {$ctx1.fill(self,"treeLayout2",{view:view,elements:elements},smalltalk.ROExample)})},
+messageSends: ["forCollection:", "to:", "do:", "extent:", "@", "addShape:", "new", "addAll:", "add:", "lineFrom:to:", "first", "allButFirst", "on:", "open"]}),
 smalltalk.ROExample);
 
 smalltalk.addMethod(
@@ -1681,4 +1743,17 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"roValue:",{aBlock:aBlock},smalltalk.Number)});},
 messageSends: []}),
 smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "asIntegerPoint",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"asIntegerPoint",{},smalltalk.Point)})},
+messageSends: []}),
+smalltalk.Point);
 

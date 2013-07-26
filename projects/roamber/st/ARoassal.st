@@ -197,6 +197,12 @@ position
 	^ position
 !
 
+positionAsInteger
+	"Return the position as integer"
+	
+	^ self position asIntegerPoint
+!
+
 shape
 	^ shape
 !
@@ -247,6 +253,10 @@ isEdge
 ! !
 
 !ROElement class methodsFor: 'public'!
+
+forCollection: aCollection 
+	^ (aCollection collect: [ :v | self on: v ]) asArray
+!
 
 on: anObject
 	^ self new model: anObject; yourself
@@ -466,6 +476,23 @@ treeLayout
 	
 	ROTreeLayout on: elements.
 
+	view open.
+!
+
+treeLayout2
+	"
+	self new treeLayout
+	"
+	
+	| view elements |
+	elements := ROElement forCollection: (1 to: 20).
+	elements do: [ :n | n extent: 50@50; addShape: (ROBox new) ].
+	view := ROView new.
+	view addAll: elements.
+	elements allButFirst do: [:e | 
+	 	view add: (ROEdge lineFrom: elements first to: e) ].
+
+	ROTreeLayout on: elements.
 	view open.
 !
 
@@ -850,6 +877,13 @@ at: anIndex ifAbsentPut: aBlock
 
 roValue: aBlock
 
+	^ self
+! !
+
+!Point methodsFor: '*ARoassal'!
+
+asIntegerPoint
+	"^ x asInteger @ y asInteger"
 	^ self
 ! !
 

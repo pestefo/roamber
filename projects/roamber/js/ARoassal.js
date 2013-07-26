@@ -663,6 +663,24 @@ smalltalk.ROElement);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "positionAsInteger",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._position())._asIntegerPoint();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"positionAsInteger",{},smalltalk.ROElement)})},
+args: [],
+source: "positionAsInteger\x0a\x09\x22Return the position as integer\x22\x0a\x09\x0a\x09^ self position asIntegerPoint ",
+messageSends: ["asIntegerPoint", "position"],
+referencedClasses: []
+}),
+smalltalk.ROElement);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "shape",
 category: 'accessing',
 fn: function (){
@@ -729,6 +747,27 @@ referencedClasses: []
 }),
 smalltalk.ROElement);
 
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "forCollection:",
+category: 'public',
+fn: function (aCollection){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(aCollection)._collect_((function(v){
+return smalltalk.withContext(function($ctx2) {
+return self._on_(v);
+}, function($ctx2) {$ctx2.fillBlock({v:v},$ctx1)})})))._asArray();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"forCollection:",{aCollection:aCollection},smalltalk.ROElement.klass)})},
+args: ["aCollection"],
+source: "forCollection: aCollection \x0a\x09^ (aCollection collect: [ :v | self on: v ]) asArray",
+messageSends: ["asArray", "collect:", "on:"],
+referencedClasses: []
+}),
+smalltalk.ROElement.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1280,6 +1319,44 @@ args: [],
 source: "treeLayout \x0a\x09\x22\x0a\x09self new treeLayout\x0a\x09\x22\x0a\x09\x0a\x09| view elements edges |\x0a\x09view := ROView new.\x0a\x09elements := ROElement spritesOn: (1 to: 5).\x0a\x09elements do:[:el | el addInteraction: RODraggable].\x0a\x09view addAll: elements.\x0a\x09view addAll: (edges := ROEdge linesFor: { (elements at: 1) -> (elements at: 2) . \x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09  (elements at: 2) -> (elements at: 5) . \x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09  (elements at: 2) -> (elements at: 3) }).\x0a\x09\x0a\x09ROTreeLayout on: elements.\x0a\x0a\x09view open.",
 messageSends: ["new", "spritesOn:", "to:", "do:", "addInteraction:", "addAll:", "linesFor:", "->", "at:", "on:", "open"],
 referencedClasses: ["ROView", "ROElement", "RODraggable", "ROEdge", "ROTreeLayout"]
+}),
+smalltalk.ROExample);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "treeLayout2",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+var view,elements;
+function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
+function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
+function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
+function $ROEdge(){return smalltalk.ROEdge||(typeof ROEdge=="undefined"?nil:ROEdge)}
+function $ROTreeLayout(){return smalltalk.ROTreeLayout||(typeof ROTreeLayout=="undefined"?nil:ROTreeLayout)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+elements=_st($ROElement())._forCollection_((1)._to_((20)));
+_st(elements)._do_((function(n){
+return smalltalk.withContext(function($ctx2) {
+$1=n;
+_st($1)._extent_((50).__at((50)));
+$2=_st($1)._addShape_(_st($ROBox())._new());
+return $2;
+}, function($ctx2) {$ctx2.fillBlock({n:n},$ctx1)})}));
+view=_st($ROView())._new();
+_st(view)._addAll_(elements);
+_st(_st(elements)._allButFirst())._do_((function(e){
+return smalltalk.withContext(function($ctx2) {
+return _st(view)._add_(_st($ROEdge())._lineFrom_to_(_st(elements)._first(),e));
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+_st($ROTreeLayout())._on_(elements);
+_st(view)._open();
+return self}, function($ctx1) {$ctx1.fill(self,"treeLayout2",{view:view,elements:elements},smalltalk.ROExample)})},
+args: [],
+source: "treeLayout2\x0a\x09\x22\x0a\x09self new treeLayout\x0a\x09\x22\x0a\x09\x0a\x09| view elements |\x0a\x09elements := ROElement forCollection: (1 to: 20).\x0a\x09elements do: [ :n | n extent: 50@50; addShape: (ROBox new) ].\x0a\x09view := ROView new.\x0a\x09view addAll: elements.\x0a\x09elements allButFirst do: [:e | \x0a\x09 \x09view add: (ROEdge lineFrom: elements first to: e) ].\x0a\x0a\x09ROTreeLayout on: elements.\x0a\x09view open.",
+messageSends: ["forCollection:", "to:", "do:", "extent:", "@", "addShape:", "new", "addAll:", "add:", "lineFrom:to:", "first", "allButFirst", "on:", "open"],
+referencedClasses: ["ROElement", "ROBox", "ROView", "ROEdge", "ROTreeLayout"]
 }),
 smalltalk.ROExample);
 
@@ -2271,4 +2348,22 @@ messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "asIntegerPoint",
+category: '*ARoassal',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"asIntegerPoint",{},smalltalk.Point)})},
+args: [],
+source: "asIntegerPoint\x0a\x09\x22^ x asInteger @ y asInteger\x22\x0a\x09^ self",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Point);
 
