@@ -10,12 +10,22 @@ applyOn: elements
 	self executeOnElements: elements
 !
 
+doInitialize: elements
+	"Method executed before beginning the layout. Useful when the graph to be ordered need to be prepared"
+	"self announce: (ROLayoutBegin new elements: elements)."
+!
+
+doPost: elements
+	"Method executed after performing the layout"
+	"self announce: (ROLayoutEnd new elements: elements)."
+!
+
 executeOnElements: elements 
 	"Execute the layout, myself, on the elements"
 		
-"	self doInitialize: elements."
+	self doInitialize: elements.
 	self doExecute: elements asOrderedCollection.
-"	self doPost: elements."
+	self doPost: elements.
 !
 
 initialize
@@ -314,8 +324,8 @@ greedyCycleRemoval: aCollection
 	"Di Battista Greedy-Cycle-Removal algorithm. Chapter 9.4, page 297. The last part is not like in the book. The original algorithm only takes
 	 local optimas into account. This will break ordinary trees sometimes. This version also takes global optimas into account."
 	
-	| g sl sr s indeg outdeg degrees vertex |
-	g := aCollection copy asOrderedCollection.
+	| g sl sr s indeg outdeg degrees vertex gcopy gcopy2|
+	g := aCollection copy.
 	sl := OrderedCollection new.
 	sr := OrderedCollection new.	"While g contains a sink (aka leaf)"
 	g copy
@@ -484,12 +494,12 @@ rootNodesFor: aCollection
 
 horizontalGap
 	
-	^3.0
+	^3
 !
 
 verticalGap
 	
-	^20.0
+	^20
 ! !
 
 !ROAbstractGraphLayout class methodsFor: 'public'!

@@ -854,6 +854,20 @@ roValue: anObject
 	^ self value: anObject
 ! !
 
+!Collection methodsFor: '*ARoassal'!
+
+asSortedCollection
+        ^self class new
+                addAll: self asArray sorted;
+                yourself
+!
+
+asSortedCollection: aBlock
+        ^self class new
+                addAll: (self asArray sorted: aBlock);
+                yourself
+! !
+
 !SequenceableCollection methodsFor: '*ARoassal'!
 
 anyOne
@@ -861,6 +875,19 @@ anyOne
 ! !
 
 !Array methodsFor: '*ARoassal'!
+
+addFirst: anObject	
+	|arrayCopy index|
+	arrayCopy := self copy.
+	index := 2.
+	
+	arrayCopy do: [:each | 
+		self at: index put: each.
+		index := index + 1.
+	].
+	self at: 1 put: anObject.
+	^ anObject.
+!
 
 at: anIndex ifAbsentPut: aBlock 
 	"TODO: pass to Js"

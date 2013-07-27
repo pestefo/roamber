@@ -2279,6 +2279,48 @@ smalltalk.BlockClosure);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "asSortedCollection",
+category: '*ARoassal',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=_st(self._class())._new();
+_st($2)._addAll_(_st(self._asArray())._sorted());
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"asSortedCollection",{},smalltalk.Collection)})},
+args: [],
+source: "asSortedCollection\x0a        ^self class new\x0a                addAll: self asArray sorted;\x0a                yourself",
+messageSends: ["addAll:", "sorted", "asArray", "new", "class", "yourself"],
+referencedClasses: []
+}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "asSortedCollection:",
+category: '*ARoassal',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=_st(self._class())._new();
+_st($2)._addAll_(_st(self._asArray())._sorted_(aBlock));
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"asSortedCollection:",{aBlock:aBlock},smalltalk.Collection)})},
+args: ["aBlock"],
+source: "asSortedCollection: aBlock\x0a        ^self class new\x0a                addAll: (self asArray sorted: aBlock);\x0a                yourself",
+messageSends: ["addAll:", "sorted:", "asArray", "new", "class", "yourself"],
+referencedClasses: []
+}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "anyOne",
 category: '*ARoassal',
 fn: function (){
@@ -2294,6 +2336,34 @@ messageSends: ["first"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "addFirst:",
+category: '*ARoassal',
+fn: function (anObject){
+var self=this;
+var arrayCopy,index;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+arrayCopy=self._copy();
+index=(2);
+_st(arrayCopy)._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+self._at_put_(index,each);
+index=_st(index).__plus((1));
+return index;
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+self._at_put_((1),anObject);
+$1=anObject;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"addFirst:",{anObject:anObject,arrayCopy:arrayCopy,index:index},smalltalk.Array)})},
+args: ["anObject"],
+source: "addFirst: anObject\x09\x0a\x09|arrayCopy index|\x0a\x09arrayCopy := self copy.\x0a\x09index := 2.\x0a\x09\x0a\x09arrayCopy do: [:each | \x0a\x09\x09self at: index put: each.\x0a\x09\x09index := index + 1.\x0a\x09].\x0a\x09self at: 1 put: anObject.\x0a\x09^ anObject.\x0a\x09\x0a\x0a\x09\x0a\x09",
+messageSends: ["copy", "do:", "at:put:", "+"],
+referencedClasses: []
+}),
+smalltalk.Array);
 
 smalltalk.addMethod(
 smalltalk.method({

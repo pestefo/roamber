@@ -12,12 +12,35 @@ smalltalk.ROLayout);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "executeOnElements:",
-fn: function (elements) {
+selector: "doInitialize:",
+fn: function (elements){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._doExecute_(_st(elements)._asOrderedCollection());
-return self}, function($ctx1) {$ctx1.fill(self,"executeOnElements:",{elements:elements},smalltalk.ROLayout)});},
-messageSends: ["doExecute:", "asOrderedCollection"]}),
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"doInitialize:",{elements:elements},smalltalk.ROLayout)})},
+messageSends: []}),
+smalltalk.ROLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "doPost:",
+fn: function (elements){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"doPost:",{elements:elements},smalltalk.ROLayout)})},
+messageSends: []}),
+smalltalk.ROLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "executeOnElements:",
+fn: function (elements){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._doInitialize_(elements);
+self._doExecute_(_st(elements)._asOrderedCollection());
+self._doPost_(elements);
+return self}, function($ctx1) {$ctx1.fill(self,"executeOnElements:",{elements:elements},smalltalk.ROLayout)})},
+messageSends: ["doInitialize:", "doExecute:", "asOrderedCollection", "doPost:"]}),
 smalltalk.ROLayout);
 
 smalltalk.addMethod(
@@ -160,18 +183,20 @@ smalltalk.ROHorizontalLineLayout);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "doExecute:",
-fn: function (elements) {
+fn: function (elements){
 var self=this;
 var pointer,delta;
-return smalltalk.withContext(function($ctx1) { pointer=_st(self)._positionOriginalPointer_(elements);
+return smalltalk.withContext(function($ctx1) { 
+pointer=self._positionOriginalPointer_(elements);
 _st(elements)._do_((function(element){
-return smalltalk.withContext(function($ctx2) {delta=_st(self)._deltaFor_(element);
+return smalltalk.withContext(function($ctx2) {
+delta=self._deltaFor_(element);
 delta;
 _st(self["@translator"])._translate_to_(element,_st(pointer).__minus(delta));
-pointer=_st(self)._movePointer_accordingToFigure_(pointer,element);
+pointer=self._movePointer_accordingToFigure_(pointer,element);
 return pointer;
 }, function($ctx2) {$ctx2.fillBlock({element:element},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"doExecute:",{elements:elements,pointer:pointer,delta:delta},smalltalk.ROHorizontalLineLayout)});},
+return self}, function($ctx1) {$ctx1.fill(self,"doExecute:",{elements:elements,pointer:pointer,delta:delta},smalltalk.ROHorizontalLineLayout)})},
 messageSends: ["positionOriginalPointer:", "do:", "deltaFor:", "translate:to:", "-", "movePointer:accordingToFigure:"]}),
 smalltalk.ROHorizontalLineLayout);
 
@@ -722,12 +747,12 @@ smalltalk.method({
 selector: "greedyCycleRemoval:",
 fn: function (aCollection){
 var self=this;
-var g,sl,sr,s,indeg,outdeg,degrees,vertex;
+var g,sl,sr,s,indeg,outdeg,degrees,vertex,gcopy,gcopy2;
 function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 function $IdentityDictionary(){return smalltalk.IdentityDictionary||(typeof IdentityDictionary=="undefined"?nil:IdentityDictionary)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$4;
-g=_st(_st(aCollection)._copy())._asOrderedCollection();
+g=_st(aCollection)._copy();
 sl=_st($OrderedCollection())._new();
 sr=_st($OrderedCollection())._new();
 _st(_st(g)._copy())._do_((function(node){
@@ -790,8 +815,8 @@ return _st(self._edges())._remove_(edge);
 }, function($ctx2) {$ctx2.fillBlock({edge:edge},$ctx1)})}));
 };
 self._clear();
-return self}, function($ctx1) {$ctx1.fill(self,"greedyCycleRemoval:",{aCollection:aCollection,g:g,sl:sl,sr:sr,s:s,indeg:indeg,outdeg:outdeg,degrees:degrees,vertex:vertex},smalltalk.ROAbstractGraphLayout)})},
-messageSends: ["asOrderedCollection", "copy", "new", "do:", "ifTrue:", "addFirst:", "remove:", "isEmpty", "childrenFor:", "addLast:", "parentsFor:", "size", "at:put:", "-", "asSortedCollection:", ">=", "at:", "whileFalse:", "detect:ifNone:", "anySatisfy:", "includes:", "first", ",", "edges", ">", "indexOf:", "target", "source", "notNil", "clear"]}),
+return self}, function($ctx1) {$ctx1.fill(self,"greedyCycleRemoval:",{aCollection:aCollection,g:g,sl:sl,sr:sr,s:s,indeg:indeg,outdeg:outdeg,degrees:degrees,vertex:vertex,gcopy:gcopy,gcopy2:gcopy2},smalltalk.ROAbstractGraphLayout)})},
+messageSends: ["copy", "new", "do:", "ifTrue:", "addFirst:", "remove:", "isEmpty", "childrenFor:", "addLast:", "parentsFor:", "size", "at:put:", "-", "asSortedCollection:", ">=", "at:", "whileFalse:", "detect:ifNone:", "anySatisfy:", "includes:", "first", ",", "edges", ">", "indexOf:", "target", "source", "notNil", "clear"]}),
 smalltalk.ROAbstractGraphLayout);
 
 smalltalk.addMethod(

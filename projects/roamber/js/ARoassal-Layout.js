@@ -17,15 +17,48 @@ smalltalk.ROLayout);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "doInitialize:",
+category: 'not yet classified',
+fn: function (elements){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"doInitialize:",{elements:elements},smalltalk.ROLayout)})},
+args: ["elements"],
+source: "doInitialize: elements\x0a\x09\x22Method executed before beginning the layout. Useful when the graph to be ordered need to be prepared\x22\x0a\x09\x22self announce: (ROLayoutBegin new elements: elements).\x22",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "doPost:",
+category: 'not yet classified',
+fn: function (elements){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"doPost:",{elements:elements},smalltalk.ROLayout)})},
+args: ["elements"],
+source: "doPost: elements\x0a\x09\x22Method executed after performing the layout\x22\x0a\x09\x22self announce: (ROLayoutEnd new elements: elements).\x22",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "executeOnElements:",
 category: 'not yet classified',
-fn: function (elements) {
+fn: function (elements){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._doExecute_(_st(elements)._asOrderedCollection());
-return self}, function($ctx1) {$ctx1.fill(self,"executeOnElements:",{elements:elements},smalltalk.ROLayout)});},
+return smalltalk.withContext(function($ctx1) { 
+self._doInitialize_(elements);
+self._doExecute_(_st(elements)._asOrderedCollection());
+self._doPost_(elements);
+return self}, function($ctx1) {$ctx1.fill(self,"executeOnElements:",{elements:elements},smalltalk.ROLayout)})},
 args: ["elements"],
-source: "executeOnElements: elements \x0a\x09\x22Execute the layout, myself, on the elements\x22\x0a\x09\x09\x0a\x22\x09self doInitialize: elements.\x22\x0a\x09self doExecute: elements asOrderedCollection.\x0a\x22\x09self doPost: elements.\x22",
-messageSends: ["doExecute:", "asOrderedCollection"],
+source: "executeOnElements: elements \x0a\x09\x22Execute the layout, myself, on the elements\x22\x0a\x09\x09\x0a\x09self doInitialize: elements.\x0a\x09self doExecute: elements asOrderedCollection.\x0a\x09self doPost: elements.",
+messageSends: ["doInitialize:", "doExecute:", "asOrderedCollection", "doPost:"],
 referencedClasses: []
 }),
 smalltalk.ROLayout);
@@ -221,18 +254,20 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "doExecute:",
 category: 'not yet classified',
-fn: function (elements) {
+fn: function (elements){
 var self=this;
 var pointer,delta;
-return smalltalk.withContext(function($ctx1) { pointer=_st(self)._positionOriginalPointer_(elements);
+return smalltalk.withContext(function($ctx1) { 
+pointer=self._positionOriginalPointer_(elements);
 _st(elements)._do_((function(element){
-return smalltalk.withContext(function($ctx2) {delta=_st(self)._deltaFor_(element);
+return smalltalk.withContext(function($ctx2) {
+delta=self._deltaFor_(element);
 delta;
 _st(self["@translator"])._translate_to_(element,_st(pointer).__minus(delta));
-pointer=_st(self)._movePointer_accordingToFigure_(pointer,element);
+pointer=self._movePointer_accordingToFigure_(pointer,element);
 return pointer;
 }, function($ctx2) {$ctx2.fillBlock({element:element},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"doExecute:",{elements:elements,pointer:pointer,delta:delta},smalltalk.ROHorizontalLineLayout)});},
+return self}, function($ctx1) {$ctx1.fill(self,"doExecute:",{elements:elements,pointer:pointer,delta:delta},smalltalk.ROHorizontalLineLayout)})},
 args: ["elements"],
 source: "doExecute: elements \x0a\x09| pointer delta |\x0a\x09pointer := self positionOriginalPointer: elements.\x0a\x22\x0a\x09horizontallyStretchable ifTrue: \x0a\x09\x09[ self doStretchHorizontal: elements ].\x0a\x22\x0a\x09elements do: \x0a\x09\x09[ :element | \x0a\x09\x09delta := self deltaFor: element.\x0a\x09\x09translator translate: element to: pointer - delta.\x0a\x09\x09pointer := self \x0a\x09\x09\x09\x09\x09movePointer: pointer\x0a\x09\x09\x09\x09\x09accordingToFigure: element.\x0a ].\x09\x0a\x22\x0a\x09verticallyStretchable ifTrue: \x0a\x09\x09[ self doStretchVertical: elements ]\x0a\x22",
 messageSends: ["positionOriginalPointer:", "do:", "deltaFor:", "translate:to:", "-", "movePointer:accordingToFigure:"],
@@ -953,12 +988,12 @@ selector: "greedyCycleRemoval:",
 category: 'battista',
 fn: function (aCollection){
 var self=this;
-var g,sl,sr,s,indeg,outdeg,degrees,vertex;
+var g,sl,sr,s,indeg,outdeg,degrees,vertex,gcopy,gcopy2;
 function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 function $IdentityDictionary(){return smalltalk.IdentityDictionary||(typeof IdentityDictionary=="undefined"?nil:IdentityDictionary)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$4;
-g=_st(_st(aCollection)._copy())._asOrderedCollection();
+g=_st(aCollection)._copy();
 sl=_st($OrderedCollection())._new();
 sr=_st($OrderedCollection())._new();
 _st(_st(g)._copy())._do_((function(node){
@@ -1021,10 +1056,10 @@ return _st(self._edges())._remove_(edge);
 }, function($ctx2) {$ctx2.fillBlock({edge:edge},$ctx1)})}));
 };
 self._clear();
-return self}, function($ctx1) {$ctx1.fill(self,"greedyCycleRemoval:",{aCollection:aCollection,g:g,sl:sl,sr:sr,s:s,indeg:indeg,outdeg:outdeg,degrees:degrees,vertex:vertex},smalltalk.ROAbstractGraphLayout)})},
+return self}, function($ctx1) {$ctx1.fill(self,"greedyCycleRemoval:",{aCollection:aCollection,g:g,sl:sl,sr:sr,s:s,indeg:indeg,outdeg:outdeg,degrees:degrees,vertex:vertex,gcopy:gcopy,gcopy2:gcopy2},smalltalk.ROAbstractGraphLayout)})},
 args: ["aCollection"],
-source: "greedyCycleRemoval: aCollection\x0a\x09\x22Di Battista Greedy-Cycle-Removal algorithm. Chapter 9.4, page 297. The last part is not like in the book. The original algorithm only takes\x0a\x09 local optimas into account. This will break ordinary trees sometimes. This version also takes global optimas into account.\x22\x0a\x09\x0a\x09| g sl sr s indeg outdeg degrees vertex |\x0a\x09g := aCollection copy asOrderedCollection.\x0a\x09sl := OrderedCollection new.\x0a\x09sr := OrderedCollection new.\x09\x22While g contains a sink (aka leaf)\x22\x0a\x09g copy\x0a\x09\x09do:\x0a\x09\x09\x09[:node | \x0a\x09\x09\x09(self childrenFor: node) isEmpty\x0a\x09\x09\x09\x09ifTrue:\x0a\x09\x09\x09\x09\x09[sr addFirst: node.\x0a\x09\x09\x09\x09\x09g remove: node]\x09\x22self edges detect: [:edge | edge fromFigure == node] ifNone: [sr addFirst: node. g remove: node]\x22].\x09\x22While g contains a source (aka root)\x22\x0a\x09g copy\x0a\x09\x09do:\x0a\x09\x09\x09[:node | \x0a\x09\x09\x09(self parentsFor: node) isEmpty\x0a\x09\x09\x09\x09ifTrue:\x0a\x09\x09\x09\x09\x09[sl addLast: node.\x0a\x09\x09\x09\x09\x09g remove: node]\x09\x22self edges detect: [:edge | edge toFigure == node] ifNone: [sl addLast: node. g remove: node]\x22].\x09\x22Calculate deg for all remaining vertices\x22\x0a\x09degrees := IdentityDictionary new.\x0a\x09g\x0a\x09\x09do:\x0a\x09\x09\x09[:node | \x0a\x09\x09\x09indeg := (self parentsFor: node) size.\x0a\x09\x09\x09outdeg := (self childrenFor: node) size.\x09\x22indeg := self edges inject: 0 into: [:sum :edge | (edge toFigure == node) ifTrue: [sum + 1] ifFalse: [sum]].\x0a\x09\x09outdeg := self edges inject: 0 into: [:sum :edge | (edge fromFigure == node) ifTrue: [sum + 1] ifFalse: [sum]].\x22\x0a\x09\x09\x09degrees\x0a\x09\x09\x09\x09at: node\x0a\x09\x09\x09\x09put: outdeg - indeg].\x09\x22While g not empty\x22\x0a\x09g := g asSortedCollection: [:a :b | (degrees at: a) >= (degrees at: b)].\x0a\x09[g isEmpty]\x0a\x09\x09whileFalse:\x0a\x09\x09\x09[vertex := g\x0a\x09\x09\x09\x09detect: [:v | (self parentsFor: v) anySatisfy: [:w | sl includes: w]]\x0a\x09\x09\x09\x09ifNone: [g first].\x09\x22Corner case: Closed cycle with not root at all. Eg 1 -> 2 -> 3 -> 1\x22\x0a\x09\x09\x09sl addLast: vertex.\x0a\x09\x09\x09g remove: vertex].\x09\x22Remove all leftward edges\x22\x0a\x09s := sl , sr.\x0a\x09self edges notNil\x0a\x09\x09ifTrue: \x0a\x09\x09\x09[ self edges copy\x0a\x09\x09\x09\x09do:\x0a\x09\x09\x09\x09\x09[:edge | \x0a\x09\x09\x09\x09\x09(s indexOf: edge source) > (s indexOf: edge target)\x0a\x09\x09\x09\x09\x09\x09ifTrue: [self edges remove: edge ] ] ].\x09\x0a\x09\x22Reset the cache\x22\x0a\x09self clear",
-messageSends: ["asOrderedCollection", "copy", "new", "do:", "ifTrue:", "addFirst:", "remove:", "isEmpty", "childrenFor:", "addLast:", "parentsFor:", "size", "at:put:", "-", "asSortedCollection:", ">=", "at:", "whileFalse:", "detect:ifNone:", "anySatisfy:", "includes:", "first", ",", "edges", ">", "indexOf:", "target", "source", "notNil", "clear"],
+source: "greedyCycleRemoval: aCollection\x0a\x09\x22Di Battista Greedy-Cycle-Removal algorithm. Chapter 9.4, page 297. The last part is not like in the book. The original algorithm only takes\x0a\x09 local optimas into account. This will break ordinary trees sometimes. This version also takes global optimas into account.\x22\x0a\x09\x0a\x09| g sl sr s indeg outdeg degrees vertex gcopy gcopy2|\x0a\x09g := aCollection copy.\x0a\x09sl := OrderedCollection new.\x0a\x09sr := OrderedCollection new.\x09\x22While g contains a sink (aka leaf)\x22\x0a\x09g copy\x0a\x09\x09do:\x0a\x09\x09\x09[:node | \x0a\x09\x09\x09(self childrenFor: node) isEmpty\x0a\x09\x09\x09\x09ifTrue:\x0a\x09\x09\x09\x09\x09[sr addFirst: node.\x0a\x09\x09\x09\x09\x09g remove: node]\x09\x22self edges detect: [:edge | edge fromFigure == node] ifNone: [sr addFirst: node. g remove: node]\x22].\x09\x22While g contains a source (aka root)\x22\x0a\x09g copy\x0a\x09\x09do:\x0a\x09\x09\x09[:node | \x0a\x09\x09\x09(self parentsFor: node) isEmpty\x0a\x09\x09\x09\x09ifTrue:\x0a\x09\x09\x09\x09\x09[sl addLast: node.\x0a\x09\x09\x09\x09\x09g remove: node]\x09\x22self edges detect: [:edge | edge toFigure == node] ifNone: [sl addLast: node. g remove: node]\x22].\x09\x22Calculate deg for all remaining vertices\x22\x0a\x09degrees := IdentityDictionary new.\x0a\x09g\x0a\x09\x09do:\x0a\x09\x09\x09[:node | \x0a\x09\x09\x09indeg := (self parentsFor: node) size.\x0a\x09\x09\x09outdeg := (self childrenFor: node) size.\x09\x22indeg := self edges inject: 0 into: [:sum :edge | (edge toFigure == node) ifTrue: [sum + 1] ifFalse: [sum]].\x0a\x09\x09outdeg := self edges inject: 0 into: [:sum :edge | (edge fromFigure == node) ifTrue: [sum + 1] ifFalse: [sum]].\x22\x0a\x09\x09\x09degrees\x0a\x09\x09\x09\x09at: node\x0a\x09\x09\x09\x09put: outdeg - indeg].\x09\x22While g not empty\x22\x0a\x09g := g asSortedCollection: [:a :b | (degrees at: a) >= (degrees at: b)].\x0a\x09[g isEmpty]\x0a\x09\x09whileFalse:\x0a\x09\x09\x09[vertex := g\x0a\x09\x09\x09\x09detect: [:v | (self parentsFor: v) anySatisfy: [:w | sl includes: w]]\x0a\x09\x09\x09\x09ifNone: [g first].\x09\x22Corner case: Closed cycle with not root at all. Eg 1 -> 2 -> 3 -> 1\x22\x0a\x09\x09\x09sl addLast: vertex.\x0a\x09\x09\x09g remove: vertex].\x09\x22Remove all leftward edges\x22\x0a\x09s := sl , sr.\x0a\x09self edges notNil\x0a\x09\x09ifTrue: \x0a\x09\x09\x09[ self edges copy\x0a\x09\x09\x09\x09do:\x0a\x09\x09\x09\x09\x09[:edge | \x0a\x09\x09\x09\x09\x09(s indexOf: edge source) > (s indexOf: edge target)\x0a\x09\x09\x09\x09\x09\x09ifTrue: [self edges remove: edge ] ] ].\x09\x0a\x09\x22Reset the cache\x22\x0a\x09self clear",
+messageSends: ["copy", "new", "do:", "ifTrue:", "addFirst:", "remove:", "isEmpty", "childrenFor:", "addLast:", "parentsFor:", "size", "at:put:", "-", "asSortedCollection:", ">=", "at:", "whileFalse:", "detect:ifNone:", "anySatisfy:", "includes:", "first", ",", "edges", ">", "indexOf:", "target", "source", "notNil", "clear"],
 referencedClasses: ["OrderedCollection", "IdentityDictionary"]
 }),
 smalltalk.ROAbstractGraphLayout);
@@ -1259,7 +1294,7 @@ return smalltalk.withContext(function($ctx1) {
 return (3);
 }, function($ctx1) {$ctx1.fill(self,"horizontalGap",{},smalltalk.ROAbstractGraphLayout.klass)})},
 args: [],
-source: "horizontalGap\x0a\x09\x0a\x09^3.0",
+source: "horizontalGap\x0a\x09\x0a\x09^3",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1296,7 +1331,7 @@ return smalltalk.withContext(function($ctx1) {
 return (20);
 }, function($ctx1) {$ctx1.fill(self,"verticalGap",{},smalltalk.ROAbstractGraphLayout.klass)})},
 args: [],
-source: "verticalGap\x0a\x09\x0a\x09^20.0",
+source: "verticalGap\x0a\x09\x0a\x09^20",
 messageSends: [],
 referencedClasses: []
 }),
