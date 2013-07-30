@@ -324,18 +324,28 @@ greedyCycleRemoval: aCollection
 	"Di Battista Greedy-Cycle-Removal algorithm. Chapter 9.4, page 297. The last part is not like in the book. The original algorithm only takes
 	 local optimas into account. This will break ordinary trees sometimes. This version also takes global optimas into account."
 	
-	| g sl sr s indeg outdeg degrees vertex gcopy gcopy2|
+	| g sl sr s indeg outdeg degrees vertex gcopy |
 	g := aCollection copy.
 	sl := OrderedCollection new.
 	sr := OrderedCollection new.	"While g contains a sink (aka leaf)"
-	g copy
+
+	" - - - " 
+	(g isEmpty) ifTrue: [self halt].
+	gcopy  := g copy.
+	(gcopy isEmpty) ifTrue: [self halt].	
+	" - - - " 
+	gcopy "g copy"
 		do:
-			[:node | 
+			[:node |			
 			(self childrenFor: node) isEmpty
 				ifTrue:
-					[sr addFirst: node.
+					[sr addFirst: node.					
 					g remove: node]	"self edges detect: [:edge | edge fromFigure == node] ifNone: [sr addFirst: node. g remove: node]"].	"While g contains a source (aka root)"
-	g copy
+	" - - - " 
+	gcopy := nil.
+	gcopy := g copy.	
+	" - - - " 	
+	gcopy "g copy"
 		do:
 			[:node | 
 			(self parentsFor: node) isEmpty

@@ -747,26 +747,37 @@ smalltalk.method({
 selector: "greedyCycleRemoval:",
 fn: function (aCollection){
 var self=this;
-var g,sl,sr,s,indeg,outdeg,degrees,vertex,gcopy,gcopy2;
+var g,sl,sr,s,indeg,outdeg,degrees,vertex,gcopy;
 function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 function $IdentityDictionary(){return smalltalk.IdentityDictionary||(typeof IdentityDictionary=="undefined"?nil:IdentityDictionary)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4;
+var $1,$2,$3,$4,$5,$6;
 g=_st(aCollection)._copy();
 sl=_st($OrderedCollection())._new();
 sr=_st($OrderedCollection())._new();
-_st(_st(g)._copy())._do_((function(node){
-return smalltalk.withContext(function($ctx2) {
-$1=_st(self._childrenFor_(node))._isEmpty();
+$1=_st(g)._isEmpty();
 if(smalltalk.assert($1)){
+self._halt();
+};
+gcopy=_st(g)._copy();
+$2=_st(gcopy)._isEmpty();
+if(smalltalk.assert($2)){
+self._halt();
+};
+_st(gcopy)._do_((function(node){
+return smalltalk.withContext(function($ctx2) {
+$3=_st(self._childrenFor_(node))._isEmpty();
+if(smalltalk.assert($3)){
 _st(sr)._addFirst_(node);
 return _st(g)._remove_(node);
 };
 }, function($ctx2) {$ctx2.fillBlock({node:node},$ctx1)})}));
-_st(_st(g)._copy())._do_((function(node){
+gcopy=nil;
+gcopy=_st(g)._copy();
+_st(gcopy)._do_((function(node){
 return smalltalk.withContext(function($ctx2) {
-$2=_st(self._parentsFor_(node))._isEmpty();
-if(smalltalk.assert($2)){
+$4=_st(self._parentsFor_(node))._isEmpty();
+if(smalltalk.assert($4)){
 _st(sl)._addLast_(node);
 return _st(g)._remove_(node);
 };
@@ -804,19 +815,19 @@ _st(sl)._addLast_(vertex);
 return _st(g)._remove_(vertex);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 s=_st(sl).__comma(sr);
-$3=_st(self._edges())._notNil();
-if(smalltalk.assert($3)){
+$5=_st(self._edges())._notNil();
+if(smalltalk.assert($5)){
 _st(_st(self._edges())._copy())._do_((function(edge){
 return smalltalk.withContext(function($ctx2) {
-$4=_st(_st(s)._indexOf_(_st(edge)._source())).__gt(_st(s)._indexOf_(_st(edge)._target()));
-if(smalltalk.assert($4)){
+$6=_st(_st(s)._indexOf_(_st(edge)._source())).__gt(_st(s)._indexOf_(_st(edge)._target()));
+if(smalltalk.assert($6)){
 return _st(self._edges())._remove_(edge);
 };
 }, function($ctx2) {$ctx2.fillBlock({edge:edge},$ctx1)})}));
 };
 self._clear();
-return self}, function($ctx1) {$ctx1.fill(self,"greedyCycleRemoval:",{aCollection:aCollection,g:g,sl:sl,sr:sr,s:s,indeg:indeg,outdeg:outdeg,degrees:degrees,vertex:vertex,gcopy:gcopy,gcopy2:gcopy2},smalltalk.ROAbstractGraphLayout)})},
-messageSends: ["copy", "new", "do:", "ifTrue:", "addFirst:", "remove:", "isEmpty", "childrenFor:", "addLast:", "parentsFor:", "size", "at:put:", "-", "asSortedCollection:", ">=", "at:", "whileFalse:", "detect:ifNone:", "anySatisfy:", "includes:", "first", ",", "edges", ">", "indexOf:", "target", "source", "notNil", "clear"]}),
+return self}, function($ctx1) {$ctx1.fill(self,"greedyCycleRemoval:",{aCollection:aCollection,g:g,sl:sl,sr:sr,s:s,indeg:indeg,outdeg:outdeg,degrees:degrees,vertex:vertex,gcopy:gcopy},smalltalk.ROAbstractGraphLayout)})},
+messageSends: ["copy", "new", "ifTrue:", "halt", "isEmpty", "do:", "addFirst:", "remove:", "childrenFor:", "addLast:", "parentsFor:", "size", "at:put:", "-", "asSortedCollection:", ">=", "at:", "whileFalse:", "detect:ifNone:", "anySatisfy:", "includes:", "first", ",", "edges", ">", "indexOf:", "target", "source", "notNil", "clear"]}),
 smalltalk.ROAbstractGraphLayout);
 
 smalltalk.addMethod(
