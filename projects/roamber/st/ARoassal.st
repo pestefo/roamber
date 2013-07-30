@@ -478,7 +478,7 @@ treeLayout
 											  (elements at: 2) -> (elements at: 5) . 
 											  (elements at: 2) -> (elements at: 3) }).
 	
-	ROTreeLayout on: elements.
+	ROTreeLayout on: elements edges: edges.
 
 	view open.
 !

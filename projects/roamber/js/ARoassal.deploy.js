@@ -984,10 +984,10 @@ return _st(el)._addInteraction_($RODraggable());
 _st(view)._addAll_(elements);
 edges=_st($ROEdge())._linesFor_([_st(_st(elements)._at_((1))).__minus_gt(_st(elements)._at_((2))),_st(_st(elements)._at_((2))).__minus_gt(_st(elements)._at_((5))),_st(_st(elements)._at_((2))).__minus_gt(_st(elements)._at_((3)))]);
 _st(view)._addAll_(edges);
-_st($ROTreeLayout())._on_(elements);
+_st($ROTreeLayout())._on_edges_(elements,edges);
 _st(view)._open();
 return self}, function($ctx1) {$ctx1.fill(self,"treeLayout",{view:view,elements:elements,edges:edges},smalltalk.ROExample)})},
-messageSends: ["new", "spritesOn:", "to:", "do:", "addInteraction:", "addAll:", "linesFor:", "->", "at:", "on:", "open"]}),
+messageSends: ["new", "spritesOn:", "to:", "do:", "addInteraction:", "addAll:", "linesFor:", "->", "at:", "on:edges:", "open"]}),
 smalltalk.ROExample);
 
 smalltalk.addMethod(

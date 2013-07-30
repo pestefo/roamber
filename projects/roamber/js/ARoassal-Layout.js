@@ -992,23 +992,15 @@ var g,sl,sr,s,indeg,outdeg,degrees,vertex,gcopy;
 function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 function $IdentityDictionary(){return smalltalk.IdentityDictionary||(typeof IdentityDictionary=="undefined"?nil:IdentityDictionary)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5,$6;
+var $1,$2,$3,$4;
 g=_st(aCollection)._copy();
 sl=_st($OrderedCollection())._new();
 sr=_st($OrderedCollection())._new();
-$1=_st(g)._isEmpty();
-if(smalltalk.assert($1)){
-self._halt();
-};
 gcopy=_st(g)._copy();
-$2=_st(gcopy)._isEmpty();
-if(smalltalk.assert($2)){
-self._halt();
-};
 _st(gcopy)._do_((function(node){
 return smalltalk.withContext(function($ctx2) {
-$3=_st(self._childrenFor_(node))._isEmpty();
-if(smalltalk.assert($3)){
+$1=_st(self._childrenFor_(node))._isEmpty();
+if(smalltalk.assert($1)){
 _st(sr)._addFirst_(node);
 return _st(g)._remove_(node);
 };
@@ -1017,8 +1009,8 @@ gcopy=nil;
 gcopy=_st(g)._copy();
 _st(gcopy)._do_((function(node){
 return smalltalk.withContext(function($ctx2) {
-$4=_st(self._parentsFor_(node))._isEmpty();
-if(smalltalk.assert($4)){
+$2=_st(self._parentsFor_(node))._isEmpty();
+if(smalltalk.assert($2)){
 _st(sl)._addLast_(node);
 return _st(g)._remove_(node);
 };
@@ -1056,12 +1048,12 @@ _st(sl)._addLast_(vertex);
 return _st(g)._remove_(vertex);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 s=_st(sl).__comma(sr);
-$5=_st(self._edges())._notNil();
-if(smalltalk.assert($5)){
+$3=_st(self._edges())._notNil();
+if(smalltalk.assert($3)){
 _st(_st(self._edges())._copy())._do_((function(edge){
 return smalltalk.withContext(function($ctx2) {
-$6=_st(_st(s)._indexOf_(_st(edge)._source())).__gt(_st(s)._indexOf_(_st(edge)._target()));
-if(smalltalk.assert($6)){
+$4=_st(_st(s)._indexOf_(_st(edge)._from())).__gt(_st(s)._indexOf_(_st(edge)._to()));
+if(smalltalk.assert($4)){
 return _st(self._edges())._remove_(edge);
 };
 }, function($ctx2) {$ctx2.fillBlock({edge:edge},$ctx1)})}));
@@ -1069,8 +1061,8 @@ return _st(self._edges())._remove_(edge);
 self._clear();
 return self}, function($ctx1) {$ctx1.fill(self,"greedyCycleRemoval:",{aCollection:aCollection,g:g,sl:sl,sr:sr,s:s,indeg:indeg,outdeg:outdeg,degrees:degrees,vertex:vertex,gcopy:gcopy},smalltalk.ROAbstractGraphLayout)})},
 args: ["aCollection"],
-source: "greedyCycleRemoval: aCollection\x0a\x09\x22Di Battista Greedy-Cycle-Removal algorithm. Chapter 9.4, page 297. The last part is not like in the book. The original algorithm only takes\x0a\x09 local optimas into account. This will break ordinary trees sometimes. This version also takes global optimas into account.\x22\x0a\x09\x0a\x09| g sl sr s indeg outdeg degrees vertex gcopy |\x0a\x09g := aCollection copy.\x0a\x09sl := OrderedCollection new.\x0a\x09sr := OrderedCollection new.\x09\x22While g contains a sink (aka leaf)\x22\x0a\x0a\x09\x22 - - - \x22 \x0a\x09(g isEmpty) ifTrue: [self halt].\x0a\x09gcopy  := g copy.\x0a\x09(gcopy isEmpty) ifTrue: [self halt].\x09\x0a\x09\x22 - - - \x22 \x0a\x09gcopy \x22g copy\x22\x0a\x09\x09do:\x0a\x09\x09\x09[:node |\x09\x09\x09\x0a\x09\x09\x09(self childrenFor: node) isEmpty\x0a\x09\x09\x09\x09ifTrue:\x0a\x09\x09\x09\x09\x09[sr addFirst: node.\x09\x09\x09\x09\x09\x0a\x09\x09\x09\x09\x09g remove: node]\x09\x22self edges detect: [:edge | edge fromFigure == node] ifNone: [sr addFirst: node. g remove: node]\x22].\x09\x22While g contains a source (aka root)\x22\x0a\x09\x22 - - - \x22 \x0a\x09gcopy := nil.\x0a\x09gcopy := g copy.\x09\x0a\x09\x22 - - - \x22 \x09\x0a\x09gcopy \x22g copy\x22\x0a\x09\x09do:\x0a\x09\x09\x09[:node | \x0a\x09\x09\x09(self parentsFor: node) isEmpty\x0a\x09\x09\x09\x09ifTrue:\x0a\x09\x09\x09\x09\x09[sl addLast: node.\x0a\x09\x09\x09\x09\x09g remove: node]\x09\x22self edges detect: [:edge | edge toFigure == node] ifNone: [sl addLast: node. g remove: node]\x22].\x09\x22Calculate deg for all remaining vertices\x22\x0a\x09degrees := IdentityDictionary new.\x0a\x09g\x0a\x09\x09do:\x0a\x09\x09\x09[:node | \x0a\x09\x09\x09indeg := (self parentsFor: node) size.\x0a\x09\x09\x09outdeg := (self childrenFor: node) size.\x09\x22indeg := self edges inject: 0 into: [:sum :edge | (edge toFigure == node) ifTrue: [sum + 1] ifFalse: [sum]].\x0a\x09\x09outdeg := self edges inject: 0 into: [:sum :edge | (edge fromFigure == node) ifTrue: [sum + 1] ifFalse: [sum]].\x22\x0a\x09\x09\x09degrees\x0a\x09\x09\x09\x09at: node\x0a\x09\x09\x09\x09put: outdeg - indeg].\x09\x22While g not empty\x22\x0a\x09g := g asSortedCollection: [:a :b | (degrees at: a) >= (degrees at: b)].\x0a\x09[g isEmpty]\x0a\x09\x09whileFalse:\x0a\x09\x09\x09[vertex := g\x0a\x09\x09\x09\x09detect: [:v | (self parentsFor: v) anySatisfy: [:w | sl includes: w]]\x0a\x09\x09\x09\x09ifNone: [g first].\x09\x22Corner case: Closed cycle with not root at all. Eg 1 -> 2 -> 3 -> 1\x22\x0a\x09\x09\x09sl addLast: vertex.\x0a\x09\x09\x09g remove: vertex].\x09\x22Remove all leftward edges\x22\x0a\x09s := sl , sr.\x0a\x09self edges notNil\x0a\x09\x09ifTrue: \x0a\x09\x09\x09[ self edges copy\x0a\x09\x09\x09\x09do:\x0a\x09\x09\x09\x09\x09[:edge | \x0a\x09\x09\x09\x09\x09(s indexOf: edge source) > (s indexOf: edge target)\x0a\x09\x09\x09\x09\x09\x09ifTrue: [self edges remove: edge ] ] ].\x09\x0a\x09\x22Reset the cache\x22\x0a\x09self clear",
-messageSends: ["copy", "new", "ifTrue:", "halt", "isEmpty", "do:", "addFirst:", "remove:", "childrenFor:", "addLast:", "parentsFor:", "size", "at:put:", "-", "asSortedCollection:", ">=", "at:", "whileFalse:", "detect:ifNone:", "anySatisfy:", "includes:", "first", ",", "edges", ">", "indexOf:", "target", "source", "notNil", "clear"],
+source: "greedyCycleRemoval: aCollection\x0a\x09\x22Di Battista Greedy-Cycle-Removal algorithm. Chapter 9.4, page 297. The last part is not like in the book. The original algorithm only takes\x0a\x09local optimas into account. This will break ordinary trees sometimes. This version also takes global optimas into account.\x22\x0a\x0a\x09| g sl sr s indeg outdeg degrees vertex gcopy |\x0a\x09g := aCollection copy.\x0a\x09sl := OrderedCollection new.\x0a\x09sr := OrderedCollection new. \x22While g contains a sink (aka leaf)\x22\x0a\x0a\x22 - - - \x22 \x0agcopy := g copy.\x0a\x22 - - - \x22 \x0agcopy \x22g copy\x22\x0ado:\x0a[:node |\x09\x0a(self childrenFor: node) isEmpty\x0aifTrue:\x0a[sr addFirst: node.\x09\x0ag remove: node]\x09].\x09\x22While g contains a source (aka root)\x22\x0a\x22 - - - \x22 \x0agcopy := nil.\x0agcopy := g copy.\x09\x0a\x22 - - - \x22 \x0agcopy \x22g copy\x22\x0ado:\x0a[:node | \x0a(self parentsFor: node) isEmpty\x0aifTrue:\x0a[sl addLast: node.\x0ag remove: node]\x09].\x09\x22Calculate deg for all remaining vertices\x22\x0adegrees := IdentityDictionary new.\x0ag\x0ado:\x0a[:node | \x0aindeg := (self parentsFor: node) size.\x0aoutdeg := (self childrenFor: node) size.\x09\x22indeg := self edges inject: 0 into: [:sum :edge | (edge toFigure == node) ifTrue: [sum + 1] ifFalse: [sum]].\x0aoutdeg := self edges inject: 0 into: [:sum :edge | (edge fromFigure == node) ifTrue: [sum + 1] ifFalse: [sum]].\x22\x0adegrees\x0aat: node\x0aput: outdeg - indeg].\x09\x22While g not empty\x22\x0ag := g asSortedCollection: [:a :b | (degrees at: a) >= (degrees at: b)].\x0a[g isEmpty]\x0awhileFalse:\x0a[vertex := g\x0adetect: [:v | (self parentsFor: v) anySatisfy: [:w | sl includes: w]]\x0aifNone: [g first].\x09\x22Corner case: Closed cycle with not root at all. Eg 1 -> 2 -> 3 -> 1\x22\x0asl addLast: vertex.\x0ag remove: vertex].\x09\x22Remove all leftward edges\x22\x0as := sl , sr.\x0aself edges notNil\x0aifTrue: \x0a[ self edges copy\x0ado:\x0a[:edge | \x0a(s indexOf: edge from) > (s indexOf: edge to)\x0aifTrue: [self edges remove: edge ] ] ].\x09\x0a\x22Reset the cache\x22\x0aself clear",
+messageSends: ["copy", "new", "do:", "ifTrue:", "addFirst:", "remove:", "isEmpty", "childrenFor:", "addLast:", "parentsFor:", "size", "at:put:", "-", "asSortedCollection:", ">=", "at:", "whileFalse:", "detect:ifNone:", "anySatisfy:", "includes:", "first", ",", "edges", ">", "indexOf:", "to", "from", "notNil", "clear"],
 referencedClasses: ["OrderedCollection", "IdentityDictionary"]
 }),
 smalltalk.ROAbstractGraphLayout);
