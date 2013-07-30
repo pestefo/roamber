@@ -1094,6 +1094,9 @@ referencedClasses: []
 smalltalk.ROView.klass);
 
 
+smalltalk.addClass('ROEvent', smalltalk.ROObject, [], 'ARoassal');
+
+
 smalltalk.addClass('ROExample', smalltalk.ROObject, [], 'ARoassal');
 smalltalk.addMethod(
 smalltalk.method({

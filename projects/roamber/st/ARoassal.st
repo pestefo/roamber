@@ -365,6 +365,10 @@ resetNullView
 	nullView := nil
 ! !
 
+ROObject subclass: #ROEvent
+	instanceVariableNames: ''
+	package: 'ARoassal'!
+
 ROObject subclass: #ROExample
 	instanceVariableNames: ''
 	package: 'ARoassal'!
