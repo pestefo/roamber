@@ -5,6 +5,62 @@ smalltalk.addClass('ROObject', smalltalk.Object, [], 'ARoassal');
 smalltalk.addClass('ROContainer', smalltalk.ROObject, ['elements', 'attributes'], 'ARoassal');
 smalltalk.addMethod(
 smalltalk.method({
+selector: "elementFromModel:",
+category: 'actions',
+fn: function (object){
+var self=this;
+var v;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6;
+var $early={};
+try {
+$1=_st(self._model()).__eq(object);
+if(smalltalk.assert($1)){
+$2=self;
+return $2;
+};
+v=_st(_st(self["@elements"])._reverse())._detect_ifNone_((function(e){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(_st(e)._model()).__eq(object))._and_((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(e)._isElement();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}),(function(){
+return smalltalk.withContext(function($ctx2) {
+return nil;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+$3=v;
+if(($receiver = $3) == nil || $receiver == undefined){
+$3;
+} else {
+$4=v;
+return $4;
+};
+_st(_st(self["@elements"])._reverse())._do_((function(e){
+return smalltalk.withContext(function($ctx2) {
+v=_st(e)._elementFromModel_(object);
+v;
+$5=v;
+if(($receiver = $5) == nil || $receiver == undefined){
+return $5;
+} else {
+$6=v;
+throw $early=[$6];
+};
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+return nil;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"elementFromModel:",{object:object,v:v},smalltalk.ROContainer)})},
+args: ["object"],
+source: "elementFromModel: object\x0a\x09\x22Recursively look for the element with a model object\x22\x0a\x09| v |\x0a\x09\x0a\x09(self model = object) ifTrue: [ ^ self ].\x0a\x09\x0a\x09v :=  elements reverse\x0a\x09\x09\x09\x09detect: [ :e | (e model = object) and: [ e isElement ] ]\x0a\x09\x09\x09\x09ifNone: [ nil ].\x0a\x09v ifNotNil: [ ^ v ].\x0a\x09\x0a\x09elements reverse do: [ :e |\x0a\x09\x09v := e elementFromModel: object.\x0a\x09\x09v ifNotNil: [ ^ v ] ].\x0a\x09\x0a\x09^ nil\x0a\x0a\x09\x22^ (self elementsSuchThat: [ :el | object = el model ]) first\x22",
+messageSends: ["ifTrue:", "=", "model", "detect:ifNone:", "and:", "isElement", "reverse", "ifNotNil:", "do:", "elementFromModel:"],
+referencedClasses: []
+}),
+smalltalk.ROContainer);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "elementsDo:",
 category: 'as yet unclassified',
 fn: function (aBlock){
@@ -963,6 +1019,24 @@ smalltalk.ROView);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "model",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"model",{},smalltalk.ROView)})},
+args: [],
+source: "model\x0a\x09\x22To be polymorphic with ROElement\x22\x0a\x09\x0a\x09^ self ",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROView);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "numberOfElements",
 category: 'accessing',
 fn: function (){
@@ -1113,6 +1187,55 @@ args: [],
 source: "circle\x0a\x09| view |\x0a\x09view := ROView new.\x0a\x09view add: (ROCircle element translateTo: 50 @ 50).\x0a\x09view open.",
 messageSends: ["new", "add:", "translateTo:", "@", "element", "open"],
 referencedClasses: ["ROView", "ROCircle"]
+}),
+smalltalk.ROExample);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "collectionHierarchy",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+var view,classElements,edges,associations;
+function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
+function $Collection(){return smalltalk.Collection||(typeof Collection=="undefined"?nil:Collection)}
+function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
+function $ROBorder(){return smalltalk.ROBorder||(typeof ROBorder=="undefined"?nil:ROBorder)}
+function $RODraggable(){return smalltalk.RODraggable||(typeof RODraggable=="undefined"?nil:RODraggable)}
+function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
+function $ROEdge(){return smalltalk.ROEdge||(typeof ROEdge=="undefined"?nil:ROEdge)}
+function $ROTreeLayout(){return smalltalk.ROTreeLayout||(typeof ROTreeLayout=="undefined"?nil:ROTreeLayout)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+view=_st($ROView())._new();
+classElements=_st($ROElement())._forCollection_(_st($Collection())._withAllSubclasses());
+_st(classElements)._do_((function(c){
+return smalltalk.withContext(function($ctx2) {
+_st(_st(c)._shape())._width_(_st(_st(_st(c)._model())._instVarNames())._size());
+_st(_st(c)._shape())._height_(_st(_st(_st(c)._model())._methods())._size());
+_st(c).__plus($ROBorder());
+return _st(c).__at($RODraggable());
+}, function($ctx2) {$ctx2.fillBlock({c:c},$ctx1)})}));
+_st(view)._addAll_(classElements);
+associations=_st(classElements)._collect_thenSelect_((function(c){
+return smalltalk.withContext(function($ctx2) {
+$1=_st(_st(_st(c)._model())._superclass()).__eq($Object());
+if(! smalltalk.assert($1)){
+return _st(_st(view)._elementFromModel_(_st(_st(c)._model())._superclass())).__minus_gt(c);
+};
+}, function($ctx2) {$ctx2.fillBlock({c:c},$ctx1)})}),(function(assoc){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(assoc)._isNil())._not();
+}, function($ctx2) {$ctx2.fillBlock({assoc:assoc},$ctx1)})}));
+edges=_st($ROEdge())._linesFor_(associations);
+_st(view)._addAll_(edges);
+_st($ROTreeLayout())._on_edges_(_st(view)._elements(),edges);
+_st(view)._open();
+return self}, function($ctx1) {$ctx1.fill(self,"collectionHierarchy",{view:view,classElements:classElements,edges:edges,associations:associations},smalltalk.ROExample)})},
+args: [],
+source: "collectionHierarchy\x0a|view classElements edges associations|\x0aview := ROView new.\x0aclassElements := ROElement forCollection: Collection withAllSubclasses.\x0aclassElements\x0a\x09do: [:c |\x0a\x09\x09c shape width: c model instVarNames size.\x0a\x09\x09c shape height: c model methods size.\x0a\x09\x09c + ROBorder.\x0a\x09\x09c @ RODraggable ].\x0a\x09\x09view addAll: classElements.\x0aassociations := classElements collect: [:c |\x0a\x09\x09\x09(c model superclass = Object)\x0a\x09\x09\x09ifFalse: [ (view elementFromModel: c\x0a\x09\x09\x09\x09model superclass) -> c]\x0a\x09\x09\x09] thenSelect: [:assoc | assoc isNil not ].\x0aedges := ROEdge linesFor: associations.\x0aview addAll: edges.\x0aROTreeLayout on: (view elements) edges: edges.\x0a\x22ROTreeLayout new on: view elements.\x22\x0a\x0aview open",
+messageSends: ["new", "forCollection:", "withAllSubclasses", "do:", "width:", "size", "instVarNames", "model", "shape", "height:", "methods", "+", "@", "addAll:", "collect:thenSelect:", "ifFalse:", "->", "elementFromModel:", "superclass", "=", "not", "isNil", "linesFor:", "on:edges:", "elements", "open"],
+referencedClasses: ["ROView", "Collection", "ROElement", "ROBorder", "RODraggable", "Object", "ROEdge", "ROTreeLayout"]
 }),
 smalltalk.ROExample);
 
@@ -2248,40 +2371,6 @@ smalltalk.ROTux);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "roValue:",
-category: '*ARoassal',
-fn: function (anElement) {
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=self;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"roValue:",{anElement:anElement},smalltalk.Object)});},
-args: ["anElement"],
-source: "roValue: anElement\x0a\x09^ self",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Object);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "roValue:",
-category: '*ARoassal',
-fn: function (anObject) {
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._value_(anObject);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"roValue:",{anObject:anObject},smalltalk.BlockClosure)});},
-args: ["anObject"],
-source: "roValue: anObject\x0a\x09^ self value: anObject",
-messageSends: ["value:"],
-referencedClasses: []
-}),
-smalltalk.BlockClosure);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "asSortedCollection",
 category: '*ARoassal',
 fn: function (){
@@ -2324,6 +2413,24 @@ smalltalk.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "collect:thenSelect:",
+category: '*ARoassal',
+fn: function (collectBlock,selectBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._collect_(collectBlock))._select_(selectBlock);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"collect:thenSelect:",{collectBlock:collectBlock,selectBlock:selectBlock},smalltalk.Collection)})},
+args: ["collectBlock", "selectBlock"],
+source: "collect: collectBlock thenSelect: selectBlock\x0a\x09\x22Utility method to improve readability.\x22\x0a\x0a\x09^ (self collect: collectBlock) select: selectBlock",
+messageSends: ["select:", "collect:"],
+referencedClasses: []
+}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "anyOne",
 category: '*ARoassal',
 fn: function (){
@@ -2342,71 +2449,6 @@ smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "addFirst:",
-category: '*ARoassal',
-fn: function (anObject){
-var self=this;
-var arrayCopy,index;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-arrayCopy=self._copy();
-index=(2);
-_st(arrayCopy)._do_((function(each){
-return smalltalk.withContext(function($ctx2) {
-self._at_put_(index,each);
-index=_st(index).__plus((1));
-return index;
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-self._at_put_((1),anObject);
-$1=anObject;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"addFirst:",{anObject:anObject,arrayCopy:arrayCopy,index:index},smalltalk.Array)})},
-args: ["anObject"],
-source: "addFirst: anObject\x09\x0a\x09|arrayCopy index|\x0a\x09arrayCopy := self copy.\x0a\x09index := 2.\x0a\x09\x0a\x09arrayCopy do: [:each | \x0a\x09\x09self at: index put: each.\x0a\x09\x09index := index + 1.\x0a\x09].\x0a\x09self at: 1 put: anObject.\x0a\x09^ anObject.\x0a\x09\x0a\x0a\x09\x0a\x09",
-messageSends: ["copy", "do:", "at:put:", "+"],
-referencedClasses: []
-}),
-smalltalk.Array);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "at:ifAbsentPut:",
-category: '*ARoassal',
-fn: function (anIndex,aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$2,$4;
-$1=_st(anIndex).__lt_eq(self._size());
-if(smalltalk.assert($1)){
-$3=self._at_(anIndex);
-if(($receiver = $3) == nil || $receiver == undefined){
-$2=self._at_put_(anIndex,_st(aBlock)._value());
-} else {
-var index;
-index=$receiver;
-$2=index;
-};
-return $2;
-};
-_st((function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(self._size()).__lt(anIndex);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileTrue_((function(){
-return smalltalk.withContext(function($ctx2) {
-return self._add_(nil);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-$4=self._at_put_(anIndex,_st(aBlock)._value());
-return $4;
-}, function($ctx1) {$ctx1.fill(self,"at:ifAbsentPut:",{anIndex:anIndex,aBlock:aBlock},smalltalk.Array)})},
-args: ["anIndex", "aBlock"],
-source: "at: anIndex ifAbsentPut: aBlock \x0a\x09\x22TODO: pass to Js\x22\x0a\x09anIndex <= self size\x0a\x09\x09ifTrue: [^ (self at: anIndex)\x0a\x09\x09\x09\x09ifNil: [self at: anIndex put: aBlock value]\x0a\x09\x09\x09\x09ifNotNil: [:index | index]].\x0a\x09[self size < anIndex]\x0a\x09\x09whileTrue: [self add: nil].\x0a\x09^ self at: anIndex put: aBlock value",
-messageSends: ["ifTrue:", "ifNil:ifNotNil:", "at:put:", "value", "at:", "<=", "size", "whileTrue:", "add:", "<"],
-referencedClasses: []
-}),
-smalltalk.Array);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "roValue:",
 category: '*ARoassal',
 fn: function (aBlock) {
@@ -2421,22 +2463,4 @@ messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Number);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "asIntegerPoint",
-category: '*ARoassal',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"asIntegerPoint",{},smalltalk.Point)})},
-args: [],
-source: "asIntegerPoint\x0a\x09\x22^ x asInteger @ y asInteger\x22\x0a\x09^ self",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Point);
 
