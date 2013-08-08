@@ -1,4 +1,8 @@
 Smalltalk current createPackage: 'ARoassal'!
+Announcer subclass: #ROAnnouncer
+	instanceVariableNames: ''
+	package: 'ARoassal'!
+
 Object subclass: #ROObject
 	instanceVariableNames: ''
 	package: 'ARoassal'!
@@ -7,8 +11,45 @@ ROObject subclass: #ROContainer
 	instanceVariableNames: 'elements attributes'
 	package: 'ARoassal'!
 
+!ROContainer methodsFor: 'actions'!
+
+elementFromModel: object
+	"Recursively look for the element with a model object"
+	| v |
+	
+	(self model = object) ifTrue: [ ^ self ].
+	
+	v :=  elements reverse
+				detect: [ :e | (e model = object) and: [ e isElement ] ]
+				ifNone: [ nil ].
+	v ifNotNil: [ ^ v ].
+	
+	elements reverse do: [ :e |
+		v := e elementFromModel: object.
+		v ifNotNil: [ ^ v ] ].
+	
+	^ nil
+
+	"^ (self elementsSuchThat: [ :el | object = el model ]) first"
+! !
+
+!ROContainer methodsFor: 'as yet unclassified'!
+
+elementsDo: aBlock
+	^ elements copy do: aBlock
+!
+
+elementsSuchThat: aBlock
+	^ elements select: aBlock
+!
+
+initialize
+	super initialize.
+	elements := OrderedCollection new.
+! !
+
 ROContainer subclass: #ROAbstractComponent
-	instanceVariableNames: 'model view interactions shape'
+	instanceVariableNames: 'model view interactions shape eventHandler'
 	package: 'ARoassal'!
 
 !ROAbstractComponent methodsFor: 'accessing'!
@@ -37,6 +78,11 @@ on: anObject
 view
 	"Answer the view in which I am defined"
 	^ view
+!
+
+view: aView
+	"Set the view in which I am defined. All my elements should also belong to the same view"
+	view := aView.
 ! !
 
 !ROAbstractComponent methodsFor: 'as yet unclassified'!
@@ -49,9 +95,9 @@ view
 
 initialize
 	super initialize.
-"	parent := ROView nullView.
+"	parent := ROView nullView."
 	
-	eventHandler := ROAnnouncer new."
+	eventHandler := ROAnnouncer new.
 	view := ROView nullView.
 	
 	"Actually, I am not sure we need to have a variable interactions"
@@ -70,6 +116,53 @@ addShape: aShape
 "	s := (aShape installedOn: self).
 	s addLast: shape."
 	shape := aShape.
+! !
+
+!ROAbstractComponent methodsFor: 'events'!
+
+announce: anEvent
+	"trigger an event. Objects who registered to me will get notified"
+
+	| eventToBeSent |
+	eventToBeSent := anEvent isBehavior 
+						ifTrue: [ anEvent new ]
+						ifFalse: [ anEvent ]. 
+	
+	eventToBeSent element: self.
+	eventHandler announce: eventToBeSent
+!
+
+on: eventClass do: aBlock
+	"Register a block as an handler for eventClass"
+	
+
+	eventHandler when: eventClass do: aBlock.
+	"interactions at: eventClass put: aBlock"
+!
+
+on: eventClass doOnce: aBlock
+	"Register a block as an handler for eventClass. The callback is removed when exected"
+	
+	eventHandler when: eventClass do: [ :arg | 
+		aBlock value: arg.
+		eventHandler unsubscribeForEvent: eventClass.
+		"self removeInteraction: eventClass "]
+!
+
+removeInteraction: anInteractionClass
+	"Remove an interaction from the receiver. No error is raised if no interaction is found"
+	
+	| ds |
+	ds := interactions select: [ :d | d isKindOf: anInteractionClass ].
+	ds associationsDo: [ :assoc | 
+		interactions removeKey: assoc key.
+		eventHandler unsubscribe: assoc value ].
+!
+
+signalUpdate
+	"Trigger a redisplay of the view"
+	
+	^ view signalUpdate
 ! !
 
 !ROAbstractComponent methodsFor: 'testing'!
@@ -301,7 +394,8 @@ add: anElement
 
 	self addElementRecursivelyToRender: element
 	"
-	self addElement: anElement
+	self addElement: anElement.
+	anElement view: self.
 !
 
 addAll: els 
@@ -335,6 +429,12 @@ open
 
 paper
 	^ ROPaper default canvas
+!
+
+signalUpdate
+	"self announce: RORefreshNeeded"
+	
+	self elements do: [:el | el drawOn: svgCanvas].
 ! !
 
 ROView class instanceVariableNames: 'nullView'!
@@ -355,10 +455,6 @@ nullView
 resetNullView 
 	nullView := nil
 ! !
-
-ROObject subclass: #ROEvent
-	instanceVariableNames: ''
-	package: 'ARoassal'!
 
 ROObject subclass: #ROExample
 	instanceVariableNames: ''
@@ -523,66 +619,6 @@ tux
 	view open
 ! !
 
-ROObject subclass: #ROInteraction
-	instanceVariableNames: ''
-	package: 'ARoassal'!
-
-!ROInteraction methodsFor: 'as yet unclassified'!
-
-elementToBeAdded
-	^ self
-!
-
-initializeElement: element
-	self subclassResponsibility
-!
-
-key 
-	"Used in the dictionary each element has"
-
-	^ self class
-! !
-
-!ROInteraction class methodsFor: 'as yet unclassified'!
-
-elementToBeAdded
-	^ self new
-!
-
-initializeElement: element
-	^ self elementToBeAdded initializeElement: element; yourself
-!
-
-key 
-	"Used in the dictionary each element has"
-
-	^ self
-! !
-
-ROInteraction subclass: #RODraggable
-	instanceVariableNames: ''
-	package: 'ARoassal'!
-
-!RODraggable methodsFor: 'as yet unclassified'!
-
-initializeElement: element
-	| svgElement |
-	svgElement := element shape svgElement.
-	svgElement	
-		drag: [ :dx :dy |
-			| bboxCurrent |
-			bboxCurrent := svgElement getBBox.
-			svgElement translate: ((element position x) - (bboxCurrent x) + dx) y: ((element position y) -(bboxCurrent y) + dy).
-		]
-  		onStart: [ "do nothing"]
-      	onEnd: [ 
-			| bboxAfterDrag | 
-			bboxAfterDrag := svgElement getBBox.
-			"update current position"
-			element translateTo: (bboxAfterDrag x)@(bboxAfterDrag y)
-		].
-! !
-
 ROObject subclass: #ROPaper
 	instanceVariableNames: 'svgCanvas'
 	package: 'ARoassal'!
@@ -680,9 +716,11 @@ activateInteractionsOn: anElement
 
 drawOn: canvas for: anElement
 	" Update svgElement with current attributes (color, height, width, etc) and show"
-
-	self initializeSVGElementOn: canvas for: anElement.
-	self activateInteractionsOn: anElement.
+	(svgElement isNil) 
+		ifTrue: [
+			self initializeSVGElementOn: canvas for: anElement.
+			self activateInteractionsOn: anElement.]
+		ifFalse: [self updateSVGElementOn: canvas for: anElement ].
 !
 
 extentFor: element
@@ -743,7 +781,10 @@ ROAbstractLineShape subclass: #ROLineShape
 !ROLineShape methodsFor: 'drawing'!
 
 drawOn: canvas for: anEdge
-	self initializeSVGElementOn: canvas for: anEdge.
+
+	(svgElement isNil) 
+		ifTrue: [ self initializeSVGElementOn: canvas for: anEdge ]
+		ifFalse: [self updateSVGElementOn: canvas for: anEdge ].
 !
 
 initializeSVGElementOn: canvas for: anEdge
@@ -758,6 +799,17 @@ initializeSVGElementOn: canvas for: anEdge
 
 "	canvas path: 'M10 10L90 90'
 "
+!
+
+updateSVGElementOn: canvas for: anEdge 
+	| x1 y1 x2 y2 |
+	x1 := anEdge from position x.
+	y1 := anEdge from position y.
+
+	x2 := anEdge to position x.
+	y2 := anEdge to position y.
+	
+	svgElement attr: 'path' with: 'M', x1,' ', y1, 'L', x2, ' ', y2 .
 ! !
 
 ROShape subclass: #ROBox
@@ -780,6 +832,16 @@ initializeSVGElementOn: canvas for: anElement
 		height: (self heightFor: anElement).
 		
 	svgElement attr:'fill' with: 'lightGray'.
+"	svgElement hide."
+!
+
+updateSVGElementOn: canvas for: anElement
+	svgElement 
+		attr: 'x' with: (anElement position x);
+		attr: 'y' with: (anElement position y);
+		attr: 'width' with: (self widthFor: anElement);
+		attr: 'height' with: (self heightFor: anElement);
+		attr:'fill' with: 'lightGray'.
 "	svgElement hide."
 ! !
 
@@ -822,6 +884,15 @@ initializeSVGElementOn: canvas for: anElement
 
 radius
 	^ radius
+!
+
+updateSVGElementOn: canvas for: anElement
+	svgElement 
+		attr: 'cx' with: (anElement position x);
+		attr: 'cy' with: (anElement position y);
+		attr: 'r' with: (self radius);
+		attr:'fill' with: 'lightGray'.
+"	svgElement hide."
 ! !
 
 !ROCircle methodsFor: 'initialize'!
