@@ -90,22 +90,18 @@ var self=this;
 var svgElement;
 return smalltalk.withContext(function($ctx1) { 
 svgElement=_st(_st(element)._shape())._svgElement();
-_st(svgElement)._drag_onStart_onEnd_((function(dx,dy){
-var bboxCurrent;
+_st(svgElement)._drag_onStart_onEnd_((function(dx,dy,x,y){
 return smalltalk.withContext(function($ctx2) {
-bboxCurrent=_st(svgElement)._getBBox();
-bboxCurrent;
-return _st(svgElement)._translate_y_(_st(_st(_st(_st(element)._position())._x()).__minus(_st(bboxCurrent)._x())).__plus(dx),_st(_st(_st(_st(element)._position())._y()).__minus(_st(bboxCurrent)._y())).__plus(dy));
-}, function($ctx2) {$ctx2.fillBlock({dx:dx,dy:dy,bboxCurrent:bboxCurrent},$ctx1)})}),(function(){
+_st(element)._translateTo_(_st(_st(x).__minus(_st(_st(element)._width()).__star((1.5)))).__at(_st(y).__minus(_st(_st(element)._height()).__star((1.5)))));
+return _st(element)._signalUpdate();
+}, function($ctx2) {$ctx2.fillBlock({dx:dx,dy:dy,x:x,y:y},$ctx1)})}),(function(){
+var bboxStart;
 return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(function(){
-var bboxAfterDrag;
+}, function($ctx2) {$ctx2.fillBlock({bboxStart:bboxStart},$ctx1)})}),(function(){
 return smalltalk.withContext(function($ctx2) {
-bboxAfterDrag=_st(svgElement)._getBBox();
-return bboxAfterDrag;
-}, function($ctx2) {$ctx2.fillBlock({bboxAfterDrag:bboxAfterDrag},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"initializeElement:",{element:element,svgElement:svgElement},smalltalk.RODraggable)})},
-messageSends: ["svgElement", "shape", "drag:onStart:onEnd:", "getBBox", "translate:y:", "+", "-", "x", "position", "y"]}),
+messageSends: ["svgElement", "shape", "drag:onStart:onEnd:", "translateTo:", "@", "-", "*", "height", "width", "signalUpdate"]}),
 smalltalk.RODraggable);
 
 

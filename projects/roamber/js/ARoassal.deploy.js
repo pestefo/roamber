@@ -1049,27 +1049,24 @@ smalltalk.method({
 selector: "drag",
 fn: function (){
 var self=this;
-var view,elements;
+var view,elements,b;
 function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
 function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
-function $ROCircle(){return smalltalk.ROCircle||(typeof ROCircle=="undefined"?nil:ROCircle)}
 function $RODraggable(){return smalltalk.RODraggable||(typeof RODraggable=="undefined"?nil:RODraggable)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
 view=_st($ROView())._new();
 elements=_st($OrderedCollection())._new();
-$1=elements;
-_st($1)._add_(_st(_st($ROBox())._element())._translateTo_((50).__at((50))));
-$2=_st($1)._add_(_st(_st($ROCircle())._element())._translateTo_((200).__at((150))));
+b=_st(_st($ROBox())._element())._translateTo_((50).__at((50)));
+_st(elements)._add_(b);
 _st(elements)._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 _st(each)._addInteraction_($RODraggable());
 return _st(view)._add_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 _st(view)._open();
-return self}, function($ctx1) {$ctx1.fill(self,"drag",{view:view,elements:elements},smalltalk.ROExample)})},
-messageSends: ["new", "add:", "translateTo:", "@", "element", "do:", "addInteraction:", "open"]}),
+return self}, function($ctx1) {$ctx1.fill(self,"drag",{view:view,elements:elements,b:b},smalltalk.ROExample)})},
+messageSends: ["new", "translateTo:", "@", "element", "add:", "do:", "addInteraction:", "open"]}),
 smalltalk.ROExample);
 
 smalltalk.addMethod(
@@ -1345,6 +1342,32 @@ $1=(5).__at((5));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultExtent",{},smalltalk.ROShape)})},
 messageSends: ["@"]}),
+smalltalk.ROShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "drag:",
+fn: function (element){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@svgElement"])._drag_onStart_onEnd_((function(dx,dy){
+var bboxCurrent;
+return smalltalk.withContext(function($ctx2) {
+bboxCurrent=_st(self["@svgElement"])._getBBox();
+bboxCurrent;
+_st(self["@svgElement"])._translate_y_(_st(dx).__minus(_st(bboxCurrent)._x()),_st(dy).__minus(_st(bboxCurrent)._y()));
+_st(element)._translateTo_(_st(dx).__at(dy));
+return _st(element)._signalUpdate();
+}, function($ctx2) {$ctx2.fillBlock({dx:dx,dy:dy,bboxCurrent:bboxCurrent},$ctx1)})}),(function(){
+return smalltalk.withContext(function($ctx2) {
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(function(){
+var bboxAfterDrag;
+return smalltalk.withContext(function($ctx2) {
+bboxAfterDrag=_st(self["@svgElement"])._getBBox();
+return bboxAfterDrag;
+}, function($ctx2) {$ctx2.fillBlock({bboxAfterDrag:bboxAfterDrag},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"drag:",{element:element},smalltalk.ROShape)})},
+messageSends: ["drag:onStart:onEnd:", "getBBox", "translate:y:", "-", "x", "y", "translateTo:", "@", "signalUpdate"]}),
 smalltalk.ROShape);
 
 smalltalk.addMethod(

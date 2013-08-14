@@ -45,18 +45,23 @@ initializeElement: element
 	| svgElement |
 	svgElement := element shape svgElement.
 	svgElement	
-		drag: [ :dx :dy |
-			| bboxCurrent |
-			bboxCurrent := svgElement getBBox.
-			svgElement translate: ((element position x) - (bboxCurrent x) + dx) y: ((element position y) -(bboxCurrent y) + dy).
+		drag: [ :dx :dy :x :y |
+			"Transcript show: 'el-x ',(element position x),' x ',x,' el-y ', (element position y) ,' y ',y,String cr."
 
+			"update element position and redraw"
+			element translateTo: (x - (element width * 1.5)) @ (y - (element height * 1.5)). "width/height * 1.5 for mouse position correction"
+			element signalUpdate.
 		]
-  		onStart: [ "do nothing"]
-      	onEnd: [ 
-			| bboxAfterDrag | 
-			bboxAfterDrag := svgElement getBBox.
-			"update current position"
-			"element translateTo: (bboxAfterDrag x)@(bboxAfterDrag y)."
+ 		onStart: [ "do nothing"
+			| bboxStart |
+			"
+			Transcript clear.
+			Transcript show: 'Element ',(element position asString),String cr.
+			bboxStart := svgElement getBBox.
+			Transcript show: 'BBox ',(bboxStart x),'@',(bboxStart y),String cr.
+			"
+		]
+     	onEnd: [ "do nothing"
 		].
 ! !
 

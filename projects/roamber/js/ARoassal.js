@@ -1405,30 +1405,27 @@ selector: "drag",
 category: 'not yet classified',
 fn: function (){
 var self=this;
-var view,elements;
+var view,elements,b;
 function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
 function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
-function $ROCircle(){return smalltalk.ROCircle||(typeof ROCircle=="undefined"?nil:ROCircle)}
 function $RODraggable(){return smalltalk.RODraggable||(typeof RODraggable=="undefined"?nil:RODraggable)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
 view=_st($ROView())._new();
 elements=_st($OrderedCollection())._new();
-$1=elements;
-_st($1)._add_(_st(_st($ROBox())._element())._translateTo_((50).__at((50))));
-$2=_st($1)._add_(_st(_st($ROCircle())._element())._translateTo_((200).__at((150))));
+b=_st(_st($ROBox())._element())._translateTo_((50).__at((50)));
+_st(elements)._add_(b);
 _st(elements)._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 _st(each)._addInteraction_($RODraggable());
 return _st(view)._add_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 _st(view)._open();
-return self}, function($ctx1) {$ctx1.fill(self,"drag",{view:view,elements:elements},smalltalk.ROExample)})},
+return self}, function($ctx1) {$ctx1.fill(self,"drag",{view:view,elements:elements,b:b},smalltalk.ROExample)})},
 args: [],
-source: "drag\x0a\x09| view elements |\x0a\x09view := ROView new.\x0a\x09elements := OrderedCollection new.\x0a\x09elements add: (ROBox element translateTo: 50 @ 50); \x0a\x09\x09\x09 add: (ROCircle element translateTo: 200 @ 150). \x0a\x09\x0a\x09elements do: [:each | each addInteraction: RODraggable. view add: each].\x0a\x09view open.",
-messageSends: ["new", "add:", "translateTo:", "@", "element", "do:", "addInteraction:", "open"],
-referencedClasses: ["ROView", "OrderedCollection", "ROBox", "ROCircle", "RODraggable"]
+source: "drag\x0a\x09| view elements b |\x0a\x09view := ROView new.\x0a\x09elements := OrderedCollection new.\x0a\x09b := (ROBox element translateTo: 50 @ 50).\x0a\x09elements add: b.\x22; \x0a\x09\x09\x09 add: (ROCircle element translateTo: 200 @ 150). \x22\x0a\x09\x0a\x09elements do: [:each | each addInteraction: RODraggable. view add: each].\x0a\x09view open.",
+messageSends: ["new", "translateTo:", "@", "element", "add:", "do:", "addInteraction:", "open"],
+referencedClasses: ["ROView", "OrderedCollection", "ROBox", "RODraggable"]
 }),
 smalltalk.ROExample);
 
@@ -1773,6 +1770,37 @@ return $1;
 args: [],
 source: "defaultExtent\x0a\x09\x22Each shape has a minimum size of 5@5\x22\x0a\x0a\x09^ 5 @ 5",
 messageSends: ["@"],
+referencedClasses: []
+}),
+smalltalk.ROShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "drag:",
+category: 'accessing',
+fn: function (element){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@svgElement"])._drag_onStart_onEnd_((function(dx,dy){
+var bboxCurrent;
+return smalltalk.withContext(function($ctx2) {
+bboxCurrent=_st(self["@svgElement"])._getBBox();
+bboxCurrent;
+_st(self["@svgElement"])._translate_y_(_st(dx).__minus(_st(bboxCurrent)._x()),_st(dy).__minus(_st(bboxCurrent)._y()));
+_st(element)._translateTo_(_st(dx).__at(dy));
+return _st(element)._signalUpdate();
+}, function($ctx2) {$ctx2.fillBlock({dx:dx,dy:dy,bboxCurrent:bboxCurrent},$ctx1)})}),(function(){
+return smalltalk.withContext(function($ctx2) {
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(function(){
+var bboxAfterDrag;
+return smalltalk.withContext(function($ctx2) {
+bboxAfterDrag=_st(self["@svgElement"])._getBBox();
+return bboxAfterDrag;
+}, function($ctx2) {$ctx2.fillBlock({bboxAfterDrag:bboxAfterDrag},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"drag:",{element:element},smalltalk.ROShape)})},
+args: ["element"],
+source: "drag: element\x0a\x09svgElement\x09\x0a\x09\x09drag: [ :dx :dy |\x0a\x09\x09\x09| bboxCurrent |\x0a\x09\x09\x09bboxCurrent := svgElement getBBox.\x0a\x09\x09\x09svgElement translate:  (dx - (bboxCurrent x) ) y: (dy -(bboxCurrent y)).\x0a\x09\x09\x09\x0a\x09\x09\x09\x22update element position and redraw\x22\x0a\x09\x09\x09element translateTo: dx @ dy.\x0a\x09\x09\x09element signalUpdate.\x0a\x09\x09]\x0a \x09\x09onStart: [ \x22do nothing\x22]\x0a     \x09onEnd: [ \x0a\x09\x09\x09| bboxAfterDrag | \x0a\x09\x09\x09bboxAfterDrag := svgElement getBBox.\x0a\x09\x09\x09\x22update current position\x22\x0a\x09\x09\x09\x22element translateTo: (bboxAfterDrag x)@(bboxAfterDrag y). <-- moved to drag block\x22\x0a\x09\x09].",
+messageSends: ["drag:onStart:onEnd:", "getBBox", "translate:y:", "-", "x", "y", "translateTo:", "@", "signalUpdate"],
 referencedClasses: []
 }),
 smalltalk.ROShape);

@@ -121,24 +121,20 @@ var self=this;
 var svgElement;
 return smalltalk.withContext(function($ctx1) { 
 svgElement=_st(_st(element)._shape())._svgElement();
-_st(svgElement)._drag_onStart_onEnd_((function(dx,dy){
-var bboxCurrent;
+_st(svgElement)._drag_onStart_onEnd_((function(dx,dy,x,y){
 return smalltalk.withContext(function($ctx2) {
-bboxCurrent=_st(svgElement)._getBBox();
-bboxCurrent;
-return _st(svgElement)._translate_y_(_st(_st(_st(_st(element)._position())._x()).__minus(_st(bboxCurrent)._x())).__plus(dx),_st(_st(_st(_st(element)._position())._y()).__minus(_st(bboxCurrent)._y())).__plus(dy));
-}, function($ctx2) {$ctx2.fillBlock({dx:dx,dy:dy,bboxCurrent:bboxCurrent},$ctx1)})}),(function(){
+_st(element)._translateTo_(_st(_st(x).__minus(_st(_st(element)._width()).__star((1.5)))).__at(_st(y).__minus(_st(_st(element)._height()).__star((1.5)))));
+return _st(element)._signalUpdate();
+}, function($ctx2) {$ctx2.fillBlock({dx:dx,dy:dy,x:x,y:y},$ctx1)})}),(function(){
+var bboxStart;
 return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(function(){
-var bboxAfterDrag;
+}, function($ctx2) {$ctx2.fillBlock({bboxStart:bboxStart},$ctx1)})}),(function(){
 return smalltalk.withContext(function($ctx2) {
-bboxAfterDrag=_st(svgElement)._getBBox();
-return bboxAfterDrag;
-}, function($ctx2) {$ctx2.fillBlock({bboxAfterDrag:bboxAfterDrag},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"initializeElement:",{element:element,svgElement:svgElement},smalltalk.RODraggable)})},
 args: ["element"],
-source: "initializeElement: element\x0a\x09| svgElement |\x0a\x09svgElement := element shape svgElement.\x0a\x09svgElement\x09\x0a\x09\x09drag: [ :dx :dy |\x0a\x09\x09\x09| bboxCurrent |\x0a\x09\x09\x09bboxCurrent := svgElement getBBox.\x0a\x09\x09\x09svgElement translate: ((element position x) - (bboxCurrent x) + dx) y: ((element position y) -(bboxCurrent y) + dy).\x0a\x0a\x09\x09]\x0a  \x09\x09onStart: [ \x22do nothing\x22]\x0a      \x09onEnd: [ \x0a\x09\x09\x09| bboxAfterDrag | \x0a\x09\x09\x09bboxAfterDrag := svgElement getBBox.\x0a\x09\x09\x09\x22update current position\x22\x0a\x09\x09\x09\x22element translateTo: (bboxAfterDrag x)@(bboxAfterDrag y).\x22\x0a\x09\x09].",
-messageSends: ["svgElement", "shape", "drag:onStart:onEnd:", "getBBox", "translate:y:", "+", "-", "x", "position", "y"],
+source: "initializeElement: element\x0a\x09| svgElement |\x0a\x09svgElement := element shape svgElement.\x0a\x09svgElement\x09\x0a\x09\x09drag: [ :dx :dy :x :y |\x0a\x09\x09\x09\x22Transcript show: 'el-x ',(element position x),' x ',x,' el-y ', (element position y) ,' y ',y,String cr.\x22\x0a\x0a\x09\x09\x09\x22update element position and redraw\x22\x0a\x09\x09\x09element translateTo: (x - (element width * 1.5)) @ (y - (element height * 1.5)). \x22width/height * 1.5 for mouse position correction\x22\x0a\x09\x09\x09element signalUpdate.\x0a\x09\x09]\x0a \x09\x09onStart: [ \x22do nothing\x22\x0a\x09\x09\x09| bboxStart |\x0a\x09\x09\x09\x22\x0a\x09\x09\x09Transcript clear.\x0a\x09\x09\x09Transcript show: 'Element ',(element position asString),String cr.\x0a\x09\x09\x09bboxStart := svgElement getBBox.\x0a\x09\x09\x09Transcript show: 'BBox ',(bboxStart x),'@',(bboxStart y),String cr.\x0a\x09\x09\x09\x22\x0a\x09\x09]\x0a     \x09onEnd: [ \x22do nothing\x22\x0a\x09\x09].",
+messageSends: ["svgElement", "shape", "drag:onStart:onEnd:", "translateTo:", "@", "-", "*", "height", "width", "signalUpdate"],
 referencedClasses: []
 }),
 smalltalk.RODraggable);

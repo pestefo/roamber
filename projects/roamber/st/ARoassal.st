@@ -247,56 +247,6 @@ ROAbstractComponent subclass: #ROElement
 	instanceVariableNames: 'position'
 	package: 'ARoassal'!
 
-!ROElement methodsFor: 'accessing'!
-
-bounds
-	"Return the bounds of the element"
-	
-	^ self position extent: (shape extentFor: self)
-!
-
-extent
-	^ shape extentFor: self
-!
-
-extent: aPoint 
-	(aPoint = self extent) ifTrue: [ ^ self ].
-"	self announce: ROElementResized."
-	shape extent: aPoint
-!
-
-height
-	^ shape heightFor: self
-!
-
-position
-	"Return the position of the element. Return a point of floats"
-	
-	^ position
-!
-
-positionAsInteger
-	"Return the position as integer"
-	
-	^ self position asIntegerPoint
-!
-
-shape
-	^ shape
-!
-
-shape: aROShape
-	shape := aROShape
-!
-
-translateTo: aPoint 
-	position := aPoint
-!
-
-width
-	^ shape widthFor: self
-! !
-
 !ROElement methodsFor: 'as yet unclassified'!
 
 activateInteractions
@@ -501,11 +451,12 @@ create
 !
 
 drag
-	| view elements |
+	| view elements b |
 	view := ROView new.
 	elements := OrderedCollection new.
-	elements add: (ROBox element translateTo: 50 @ 50); 
-			 add: (ROCircle element translateTo: 200 @ 150). 
+	b := (ROBox element translateTo: 50 @ 50).
+	elements add: b."; 
+			 add: (ROCircle element translateTo: 200 @ 150). "
 	
 	elements do: [:each | each addInteraction: RODraggable. view add: each].
 	view open.
@@ -657,6 +608,26 @@ ROObject subclass: #ROShape
 	package: 'ARoassal'!
 
 !ROShape methodsFor: 'accessing'!
+
+drag: element
+	svgElement	
+		drag: [ :dx :dy |
+			| bboxCurrent |
+			bboxCurrent := svgElement getBBox.
+			svgElement translate:  (dx - (bboxCurrent x) ) y: (dy -(bboxCurrent y)).
+			
+			"update element position and redraw"
+			element translateTo: dx @ dy.
+			element signalUpdate.
+		]
+ 		onStart: [ "do nothing"]
+     	onEnd: [ 
+			| bboxAfterDrag | 
+			bboxAfterDrag := svgElement getBBox.
+			"update current position"
+			"element translateTo: (bboxAfterDrag x)@(bboxAfterDrag y). <-- moved to drag block"
+		].
+!
 
 height
 	^ height
