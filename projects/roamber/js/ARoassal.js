@@ -1342,7 +1342,7 @@ var view,classElements,edges,associations;
 function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
 function $Collection(){return smalltalk.Collection||(typeof Collection=="undefined"?nil:Collection)}
 function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
-function $ROBorder(){return smalltalk.ROBorder||(typeof ROBorder=="undefined"?nil:ROBorder)}
+function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
 function $RODraggable(){return smalltalk.RODraggable||(typeof RODraggable=="undefined"?nil:RODraggable)}
 function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
 function $ROEdge(){return smalltalk.ROEdge||(typeof ROEdge=="undefined"?nil:ROEdge)}
@@ -1355,7 +1355,7 @@ _st(classElements)._do_((function(c){
 return smalltalk.withContext(function($ctx2) {
 _st(_st(c)._shape())._width_(_st(_st(_st(c)._model())._instVarNames())._size());
 _st(_st(c)._shape())._height_(_st(_st(_st(c)._model())._methods())._size());
-_st(c).__plus($ROBorder());
+_st(c).__plus($ROBox());
 return _st(c).__at($RODraggable());
 }, function($ctx2) {$ctx2.fillBlock({c:c},$ctx1)})}));
 _st(view)._addAll_(classElements);
@@ -1375,9 +1375,9 @@ _st($ROTreeLayout())._on_edges_(_st(view)._elements(),edges);
 _st(view)._open();
 return self}, function($ctx1) {$ctx1.fill(self,"collectionHierarchy",{view:view,classElements:classElements,edges:edges,associations:associations},smalltalk.ROExample)})},
 args: [],
-source: "collectionHierarchy\x0a|view classElements edges associations|\x0aview := ROView new.\x0aclassElements := ROElement forCollection: Collection withAllSubclasses.\x0aclassElements\x0a\x09do: [:c |\x0a\x09\x09c shape width: c model instVarNames size.\x0a\x09\x09c shape height: c model methods size.\x0a\x09\x09c + ROBorder.\x0a\x09\x09c @ RODraggable ].\x0a\x09\x09view addAll: classElements.\x0aassociations := classElements collect: [:c |\x0a\x09\x09\x09(c model superclass = Object)\x0a\x09\x09\x09ifFalse: [ (view elementFromModel: c\x0a\x09\x09\x09\x09model superclass) -> c]\x0a\x09\x09\x09] thenSelect: [:assoc | assoc isNil not ].\x0aedges := ROEdge linesFor: associations.\x0aview addAll: edges.\x0aROTreeLayout on: (view elements) edges: edges.\x0a\x22ROTreeLayout new on: view elements.\x22\x0a\x0aview open",
+source: "collectionHierarchy\x0a|view classElements edges associations|\x0aview := ROView new.\x0aclassElements := ROElement forCollection: Collection withAllSubclasses.\x0aclassElements\x0a\x09do: [:c |\x0a\x09\x09c shape width: c model instVarNames size.\x0a\x09\x09c shape height: c model methods size.\x0a\x09\x09c + ROBox.\x0a\x09\x09c @ RODraggable ].\x0a\x09\x09view addAll: classElements.\x0aassociations := classElements collect: [:c |\x0a\x09\x09\x09(c model superclass = Object)\x0a\x09\x09\x09ifFalse: [ (view elementFromModel: c\x0a\x09\x09\x09\x09model superclass) -> c]\x0a\x09\x09\x09] thenSelect: [:assoc | assoc isNil not ].\x0aedges := ROEdge linesFor: associations.\x0aview addAll: edges.\x0aROTreeLayout on: (view elements) edges: edges.\x0a\x22ROTreeLayout new on: view elements.\x22\x0a\x0aview open",
 messageSends: ["new", "forCollection:", "withAllSubclasses", "do:", "width:", "size", "instVarNames", "model", "shape", "height:", "methods", "+", "@", "addAll:", "collect:thenSelect:", "ifFalse:", "->", "elementFromModel:", "superclass", "=", "not", "isNil", "linesFor:", "on:edges:", "elements", "open"],
-referencedClasses: ["ROView", "Collection", "ROElement", "ROBorder", "RODraggable", "Object", "ROEdge", "ROTreeLayout"]
+referencedClasses: ["ROView", "Collection", "ROElement", "ROBox", "RODraggable", "Object", "ROEdge", "ROTreeLayout"]
 }),
 smalltalk.ROExample);
 

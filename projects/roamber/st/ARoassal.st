@@ -247,6 +247,56 @@ ROAbstractComponent subclass: #ROElement
 	instanceVariableNames: 'position'
 	package: 'ARoassal'!
 
+!ROElement methodsFor: 'accessing'!
+
+bounds
+	"Return the bounds of the element"
+	
+	^ self position extent: (shape extentFor: self)
+!
+
+extent
+	^ shape extentFor: self
+!
+
+extent: aPoint 
+	(aPoint = self extent) ifTrue: [ ^ self ].
+"	self announce: ROElementResized."
+	shape extent: aPoint
+!
+
+height
+	^ shape heightFor: self
+!
+
+position
+	"Return the position of the element. Return a point of floats"
+	
+	^ position
+!
+
+positionAsInteger
+	"Return the position as integer"
+	
+	^ self position asIntegerPoint
+!
+
+shape
+	^ shape
+!
+
+shape: aROShape
+	shape := aROShape
+!
+
+translateTo: aPoint 
+	position := aPoint
+!
+
+width
+	^ shape widthFor: self
+! !
+
 !ROElement methodsFor: 'as yet unclassified'!
 
 activateInteractions
@@ -427,7 +477,7 @@ classElements
 	do: [:c |
 		c shape width: c model instVarNames size.
 		c shape height: c model methods size.
-		c + ROBorder.
+		c + ROBox.
 		c @ RODraggable ].
 		view addAll: classElements.
 associations := classElements collect: [:c |

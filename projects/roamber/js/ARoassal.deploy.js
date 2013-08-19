@@ -996,7 +996,7 @@ var view,classElements,edges,associations;
 function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
 function $Collection(){return smalltalk.Collection||(typeof Collection=="undefined"?nil:Collection)}
 function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
-function $ROBorder(){return smalltalk.ROBorder||(typeof ROBorder=="undefined"?nil:ROBorder)}
+function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
 function $RODraggable(){return smalltalk.RODraggable||(typeof RODraggable=="undefined"?nil:RODraggable)}
 function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
 function $ROEdge(){return smalltalk.ROEdge||(typeof ROEdge=="undefined"?nil:ROEdge)}
@@ -1009,7 +1009,7 @@ _st(classElements)._do_((function(c){
 return smalltalk.withContext(function($ctx2) {
 _st(_st(c)._shape())._width_(_st(_st(_st(c)._model())._instVarNames())._size());
 _st(_st(c)._shape())._height_(_st(_st(_st(c)._model())._methods())._size());
-_st(c).__plus($ROBorder());
+_st(c).__plus($ROBox());
 return _st(c).__at($RODraggable());
 }, function($ctx2) {$ctx2.fillBlock({c:c},$ctx1)})}));
 _st(view)._addAll_(classElements);
