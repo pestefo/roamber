@@ -162,11 +162,18 @@ fn: function (aShape){
 var self=this;
 var s;
 return smalltalk.withContext(function($ctx1) { 
-self["@shape"]=aShape;
+var $1;
+s=_st(aShape)._installedOn_(self);
+$1=_st(self._shape())._isNil();
+if(! smalltalk.assert($1)){
+_st(s)._width_(_st(self._shape())._width());
+_st(s)._height_(_st(self._shape())._height());
+};
+self["@shape"]=s;
 return self}, function($ctx1) {$ctx1.fill(self,"addShape:",{aShape:aShape,s:s},smalltalk.ROAbstractComponent)})},
 args: ["aShape"],
-source: "addShape: aShape \x0a\x09\x22Add a shape to myself. aShape could either be an instance of a shape class or simply a class\x22\x0a\x0a\x09| s |\x0a\x22\x09s := (aShape installedOn: self).\x0a\x09s addLast: shape.\x22\x0a\x09shape := aShape.",
-messageSends: [],
+source: "addShape: aShape \x0a\x09\x22Add a shape to myself. aShape could either be an instance of a shape class or simply a class\x22\x0a\x0a\x09| s |\x0a\x09s := (aShape installedOn: self).\x0a\x22\x09s addLast: shape.\x22\x0a\x09\x0a\x09\x22 set height and width from previous shape <--- needs to be changed when implementing chain of shapes \x22\x0a\x09self shape isNil ifFalse: [\x0a\x09\x09s width: self shape width.\x0a\x09\x09s height: self shape height.\x09\x0a\x09].\x0a\x09shape := s.",
+messageSends: ["installedOn:", "ifFalse:", "width:", "width", "shape", "height:", "height", "isNil"],
 referencedClasses: []
 }),
 smalltalk.ROAbstractComponent);
@@ -1347,22 +1354,34 @@ function $RODraggable(){return smalltalk.RODraggable||(typeof RODraggable=="unde
 function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
 function $ROEdge(){return smalltalk.ROEdge||(typeof ROEdge=="undefined"?nil:ROEdge)}
 function $ROTreeLayout(){return smalltalk.ROTreeLayout||(typeof ROTreeLayout=="undefined"?nil:ROTreeLayout)}
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
+function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$3,$2,$4;
 view=_st($ROView())._new();
 classElements=_st($ROElement())._forCollection_(_st($Collection())._withAllSubclasses());
 _st(classElements)._do_((function(c){
+var instVar;
 return smalltalk.withContext(function($ctx2) {
-_st(_st(c)._shape())._width_(_st(_st(_st(c)._model())._instVarNames())._size());
-_st(_st(c)._shape())._height_(_st(_st(_st(c)._model())._methods())._size());
+instVar=_st(_st(_st(c)._model())._instVarNames())._size();
+instVar;
+$1=_st(c)._shape();
+$3=_st(instVar).__eq((0));
+if(smalltalk.assert($3)){
+$2=(10);
+} else {
+$2=_st(instVar).__star((15));
+};
+_st($1)._width_($2);
+_st(_st(c)._shape())._height_(_st(_st(_st(c)._model())._allSelectors())._size());
 _st(c).__plus($ROBox());
 return _st(c).__at($RODraggable());
-}, function($ctx2) {$ctx2.fillBlock({c:c},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({c:c,instVar:instVar},$ctx1)})}));
 _st(view)._addAll_(classElements);
 associations=_st(classElements)._collect_thenSelect_((function(c){
 return smalltalk.withContext(function($ctx2) {
-$1=_st(_st(_st(c)._model())._superclass()).__eq($Object());
-if(! smalltalk.assert($1)){
+$4=_st(_st(_st(c)._model())._superclass()).__eq($Object());
+if(! smalltalk.assert($4)){
 return _st(_st(view)._elementFromModel_(_st(_st(c)._model())._superclass())).__minus_gt(c);
 };
 }, function($ctx2) {$ctx2.fillBlock({c:c},$ctx1)})}),(function(assoc){
@@ -1373,11 +1392,15 @@ edges=_st($ROEdge())._linesFor_(associations);
 _st(view)._addAll_(edges);
 _st($ROTreeLayout())._on_edges_(_st(view)._elements(),edges);
 _st(view)._open();
+_st(classElements)._do_((function(c){
+return smalltalk.withContext(function($ctx2) {
+return _st($Transcript())._show_(_st(_st(_st(_st(c)._height())._asString()).__comma("  ")).__comma(_st($String())._cr()));
+}, function($ctx2) {$ctx2.fillBlock({c:c},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"collectionHierarchy",{view:view,classElements:classElements,edges:edges,associations:associations},smalltalk.ROExample)})},
 args: [],
-source: "collectionHierarchy\x0a|view classElements edges associations|\x0aview := ROView new.\x0aclassElements := ROElement forCollection: Collection withAllSubclasses.\x0aclassElements\x0a\x09do: [:c |\x0a\x09\x09c shape width: c model instVarNames size.\x0a\x09\x09c shape height: c model methods size.\x0a\x09\x09c + ROBox.\x0a\x09\x09c @ RODraggable ].\x0a\x09\x09view addAll: classElements.\x0aassociations := classElements collect: [:c |\x0a\x09\x09\x09(c model superclass = Object)\x0a\x09\x09\x09ifFalse: [ (view elementFromModel: c\x0a\x09\x09\x09\x09model superclass) -> c]\x0a\x09\x09\x09] thenSelect: [:assoc | assoc isNil not ].\x0aedges := ROEdge linesFor: associations.\x0aview addAll: edges.\x0aROTreeLayout on: (view elements) edges: edges.\x0a\x22ROTreeLayout new on: view elements.\x22\x0a\x0aview open",
-messageSends: ["new", "forCollection:", "withAllSubclasses", "do:", "width:", "size", "instVarNames", "model", "shape", "height:", "methods", "+", "@", "addAll:", "collect:thenSelect:", "ifFalse:", "->", "elementFromModel:", "superclass", "=", "not", "isNil", "linesFor:", "on:edges:", "elements", "open"],
-referencedClasses: ["ROView", "Collection", "ROElement", "ROBox", "RODraggable", "Object", "ROEdge", "ROTreeLayout"]
+source: "collectionHierarchy\x0a|view classElements edges associations|\x0aview := ROView new.\x0aclassElements := ROElement forCollection: Collection withAllSubclasses.\x0aclassElements\x0a\x09do: [:c | | instVar |\x0a\x09\x09instVar := c model instVarNames size.\x0a\x09\x09c shape width: (( instVar = 0) ifTrue: [ 10 ] ifFalse: [ instVar * 15]) .\x0a\x22\x09\x09c shape height: c model methods size.\x22\x0a\x09\x09c shape height: c model allSelectors size.\x09\x0a\x09\x09c + ROBox.\x0a\x09\x09c @ RODraggable ].\x0a\x09\x09view addAll: classElements.\x0aassociations := classElements collect: [:c |\x0a\x09\x09\x09(c model superclass = Object)\x0a\x09\x09\x09ifFalse: [ (view elementFromModel: c\x0a\x09\x09\x09\x09model superclass) -> c]\x0a\x09\x09\x09] thenSelect: [:assoc | assoc isNil not ].\x0aedges := ROEdge linesFor: associations.\x0aview addAll: edges.\x0aROTreeLayout on: (view elements) edges: edges.\x0a\x22ROTreeLayout new on: view elements.\x22\x0a\x0aview open.\x0a\x0aclassElements do: [:c |\x0a\x09Transcript show: (c height asString),'  ',(String cr).\x0a\x09].",
+messageSends: ["new", "forCollection:", "withAllSubclasses", "do:", "size", "instVarNames", "model", "width:", "ifTrue:ifFalse:", "*", "=", "shape", "height:", "allSelectors", "+", "@", "addAll:", "collect:thenSelect:", "ifFalse:", "->", "elementFromModel:", "superclass", "not", "isNil", "linesFor:", "on:edges:", "elements", "open", "show:", ",", "cr", "asString", "height"],
+referencedClasses: ["ROView", "Collection", "ROElement", "ROBox", "RODraggable", "Object", "ROEdge", "ROTreeLayout", "String", "Transcript"]
 }),
 smalltalk.ROExample);
 
@@ -1968,6 +1991,21 @@ smalltalk.ROShape);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "installedOn:",
+category: 'accessing',
+fn: function (element){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"installedOn:",{element:element},smalltalk.ROShape)})},
+args: ["element"],
+source: "installedOn: element\x0a\x09\x22This method is meant to be overriden in case a special treatment has to be realized on the element\x22\x0a\x09\x0a\x09\x22self extent: (self preferedExtentFor: element).\x22\x0a\x09\x22element extent: (element extent max: extent).\x22\x0a\x09",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROShape);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "svgElement",
 category: 'accessing',
 fn: function (){
@@ -2084,6 +2122,27 @@ args: ["object"],
 source: "elementOn: object\x0a\x09\x22Easy way to create element from a shape\x22\x0a\x09\x0a\x09^ (ROElement on: object) shape: self; yourself",
 messageSends: ["shape:", "on:", "yourself"],
 referencedClasses: ["ROElement"]
+}),
+smalltalk.ROShape.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "installedOn:",
+category: 'not yet classified',
+fn: function (element){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=self._new();
+_st($2)._installedOn_(element);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"installedOn:",{element:element},smalltalk.ROShape.klass)})},
+args: ["element"],
+source: "installedOn: element\x0a\x09^ self new installedOn: element; yourself",
+messageSends: ["installedOn:", "new", "yourself"],
+referencedClasses: []
 }),
 smalltalk.ROShape.klass);
 

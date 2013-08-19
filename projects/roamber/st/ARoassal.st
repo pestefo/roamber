@@ -113,9 +113,15 @@ addShape: aShape
 	"Add a shape to myself. aShape could either be an instance of a shape class or simply a class"
 
 	| s |
-"	s := (aShape installedOn: self).
-	s addLast: shape."
-	shape := aShape.
+	s := (aShape installedOn: self).
+"	s addLast: shape."
+	
+	" set height and width from previous shape <--- needs to be changed when implementing chain of shapes "
+	self shape isNil ifFalse: [
+		s width: self shape width.
+		s height: self shape height.	
+	].
+	shape := s.
 ! !
 
 !ROAbstractComponent methodsFor: 'events'!
@@ -474,9 +480,11 @@ collectionHierarchy
 view := ROView new.
 classElements := ROElement forCollection: Collection withAllSubclasses.
 classElements
-	do: [:c |
-		c shape width: c model instVarNames size.
-		c shape height: c model methods size.
+	do: [:c | | instVar |
+		instVar := c model instVarNames size.
+		c shape width: (( instVar = 0) ifTrue: [ 10 ] ifFalse: [ instVar * 15]) .
+"		c shape height: c model methods size."
+		c shape height: c model allSelectors size.	
 		c + ROBox.
 		c @ RODraggable ].
 		view addAll: classElements.
@@ -490,7 +498,11 @@ view addAll: edges.
 ROTreeLayout on: (view elements) edges: edges.
 "ROTreeLayout new on: view elements."
 
-view open
+view open.
+
+classElements do: [:c |
+	Transcript show: (c height asString),'  ',(String cr).
+	].
 !
 
 create
@@ -696,6 +708,13 @@ initialize
 	color := self class defaultColor.
 !
 
+installedOn: element
+	"This method is meant to be overriden in case a special treatment has to be realized on the element"
+	
+	"self extent: (self preferedExtentFor: element)."
+	"element extent: (element extent max: extent)."
+!
+
 svgElement
 	^ svgElement
 !
@@ -779,6 +798,10 @@ elementOn: object
 	"Easy way to create element from a shape"
 	
 	^ (ROElement on: object) shape: self; yourself
+!
+
+installedOn: element
+	^ self new installedOn: element; yourself
 ! !
 
 ROShape subclass: #ROAbstractLineShape
