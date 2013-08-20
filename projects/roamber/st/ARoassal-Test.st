@@ -1,5 +1,9 @@
 Smalltalk current createPackage: 'ARoassal-Test'!
-TestCase subclass: #ROEdgeTest
+TestCase subclass: #ROTest
+	instanceVariableNames: ''
+	package: 'ARoassal-Test'!
+
+ROTest subclass: #ROEdgeTest
 	instanceVariableNames: ''
 	package: 'ARoassal-Test'!
 
@@ -23,7 +27,7 @@ testCreationFromShape
 	self assert: edge class == ROEdge.
 ! !
 
-TestCase subclass: #ROElementTest
+ROTest subclass: #ROElementTest
 	instanceVariableNames: ''
 	package: 'ARoassal-Test'!
 
@@ -58,7 +62,7 @@ testShapeSize
 	self assert: (el height = 6).
 ! !
 
-TestCase subclass: #ROViewTest
+ROTest subclass: #ROViewTest
 	instanceVariableNames: 'view'
 	package: 'ARoassal-Test'!
 
