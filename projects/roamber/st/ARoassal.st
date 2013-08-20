@@ -255,6 +255,16 @@ ROAbstractComponent subclass: #ROElement
 
 !ROElement methodsFor: 'accessing'!
 
+absolutePosition
+	"Return the absolute position of the element, the top left corner"
+
+"	^ parent 
+		ifNil: [ self position ]
+		ifNotNil: [ self position + parent absolutePosition ]"
+		
+	^ self position
+!
+
 bounds
 	"Return the bounds of the element"
 	
@@ -414,6 +424,10 @@ addElement: element
 ! !
 
 !ROView methodsFor: 'initialize'!
+
+absolutePosition
+	^ 0 @ 0
+!
 
 initialize
 	super initialize.
@@ -805,8 +819,35 @@ installedOn: element
 ! !
 
 ROShape subclass: #ROAbstractLineShape
-	instanceVariableNames: ''
+	instanceVariableNames: 'attachPoint'
 	package: 'ARoassal'!
+
+!ROAbstractLineShape methodsFor: 'not yet classified'!
+
+attachPoint
+	
+	^ attachPoint
+!
+
+attachPoint: attach
+	
+	attachPoint := attach
+!
+
+endingPointOf: anEdge
+	 ^ attachPoint endingPointOf: anEdge
+!
+
+initialize
+	super initialize.
+	attachPoint := ROShorterDistanceAttachPoint instance.
+"	strokeWidth := self defaultWidth.
+	arrows := OrderedCollection new"
+!
+
+startingPointOf: anEdge
+	^ attachPoint startingPointOf: anEdge
+! !
 
 !ROAbstractLineShape class methodsFor: 'not yet classified'!
 
@@ -845,15 +886,47 @@ initializeSVGElementOn: canvas for: anEdge
 "
 !
 
-updateSVGElementOn: canvas for: anEdge 
-	| x1 y1 x2 y2 |
-	x1 := anEdge from position x.
+updateSVGElementOn: canvas for: anEdge
+	| x1 y1 x2 y2 maxArrowSize unit startingPoint endingPoint rawStartingPoint rawEndingPoint |
+	
+	rawEndingPoint  := attachPoint startingPointOf: anEdge.
+	x2 = rawEndingPoint x.
+	y2 = rawEndingPoint y.
+	rawStartingPoint := attachPoint endingPointOf: anEdge.
+	x1 = rawStartingPoint x.
+	y1 = rawStartingPoint y.
+	(rawStartingPoint = rawEndingPoint)
+		ifTrue: [ ^ self ].
+
+	Transcript show: 'x1 ', x1,' y1', y1, ' x2 ', x2, ' y2 ', y2, (String cr).
+
+	svgElement attr: 'path' with: 'M', x1,' ', y1, 'L', x2, ' ', y2 .
+	
+
+	
+"	x1 := anEdge from position x.
 	y1 := anEdge from position y.
 
 	x2 := anEdge to position x.
 	y2 := anEdge to position y.
 	
-	svgElement attr: 'path' with: 'M', x1,' ', y1, 'L', x2, ' ', y2 .
+	svgElement attr: 'path' with: 'M', x1,' ', y1, 'L', x2, ' ', y2 ."
+	
+	"We draw a line before each arrow"
+"	
+	arrows do: [ :arrow | 
+		| arr |
+		arr := arrow drawOn: aCanvas for: anEdge line: self.
+		aCanvas 
+			line: rawStartingPoint 
+			to: arr first 
+			width: (self widthFor: anEdge) 
+			color: (self colorFor: anEdge).
+		rawStartingPoint := arr second.
+		 ].
+"	
+	"We draw a line after the arrow"
+"	aCanvas line: rawStartingPoint to: rawEndingPoint width: (self widthFor: anEdge) color: (self colorFor: anEdge)."
 ! !
 
 ROShape subclass: #ROBox

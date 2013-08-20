@@ -666,6 +666,24 @@ smalltalk.ROEdge.klass);
 smalltalk.addClass('ROElement', smalltalk.ROAbstractComponent, ['position'], 'ARoassal');
 smalltalk.addMethod(
 smalltalk.method({
+selector: "absolutePosition",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._position();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"absolutePosition",{},smalltalk.ROElement)})},
+args: [],
+source: "absolutePosition\x0a\x09\x22Return the absolute position of the element, the top left corner\x22\x0a\x0a\x22\x09^ parent \x0a\x09\x09ifNil: [ self position ]\x0a\x09\x09ifNotNil: [ self position + parent absolutePosition ]\x22\x0a\x09\x09\x0a\x09^ self position",
+messageSends: ["position"],
+referencedClasses: []
+}),
+smalltalk.ROElement);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "activateInteractions",
 category: 'as yet unclassified',
 fn: function (){
@@ -1044,6 +1062,24 @@ smalltalk.ROElement.klass);
 
 
 smalltalk.addClass('ROView', smalltalk.ROContainer, ['elements', 'svgCanvas'], 'ARoassal');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "absolutePosition",
+category: 'initialize',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=(0).__at((0));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"absolutePosition",{},smalltalk.ROView)})},
+args: [],
+source: "absolutePosition\x0a\x09^ 0 @ 0",
+messageSends: ["@"],
+referencedClasses: []
+}),
+smalltalk.ROView);
+
 smalltalk.addMethod(
 smalltalk.method({
 selector: "add:",
@@ -2147,7 +2183,95 @@ referencedClasses: []
 smalltalk.ROShape.klass);
 
 
-smalltalk.addClass('ROAbstractLineShape', smalltalk.ROShape, [], 'ARoassal');
+smalltalk.addClass('ROAbstractLineShape', smalltalk.ROShape, ['attachPoint'], 'ARoassal');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "attachPoint",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@attachPoint"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"attachPoint",{},smalltalk.ROAbstractLineShape)})},
+args: [],
+source: "attachPoint\x0a\x09\x0a\x09^ attachPoint",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROAbstractLineShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "attachPoint:",
+category: 'not yet classified',
+fn: function (attach){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@attachPoint"]=attach;
+return self}, function($ctx1) {$ctx1.fill(self,"attachPoint:",{attach:attach},smalltalk.ROAbstractLineShape)})},
+args: ["attach"],
+source: "attachPoint: attach\x0a\x09\x0a\x09attachPoint := attach",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROAbstractLineShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "endingPointOf:",
+category: 'not yet classified',
+fn: function (anEdge){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@attachPoint"])._endingPointOf_(anEdge);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"endingPointOf:",{anEdge:anEdge},smalltalk.ROAbstractLineShape)})},
+args: ["anEdge"],
+source: "endingPointOf: anEdge\x0a\x09 ^ attachPoint endingPointOf: anEdge",
+messageSends: ["endingPointOf:"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractLineShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+function $ROShorterDistanceAttachPoint(){return smalltalk.ROShorterDistanceAttachPoint||(typeof ROShorterDistanceAttachPoint=="undefined"?nil:ROShorterDistanceAttachPoint)}
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.ROAbstractLineShape.superclass.fn.prototype._initialize.apply(_st(self), []);
+self["@attachPoint"]=_st($ROShorterDistanceAttachPoint())._instance();
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROAbstractLineShape)})},
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a\x09attachPoint := ROShorterDistanceAttachPoint instance.\x0a\x22\x09strokeWidth := self defaultWidth.\x0a\x09arrows := OrderedCollection new\x22",
+messageSends: ["initialize", "instance"],
+referencedClasses: ["ROShorterDistanceAttachPoint"]
+}),
+smalltalk.ROAbstractLineShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "startingPointOf:",
+category: 'not yet classified',
+fn: function (anEdge){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@attachPoint"])._startingPointOf_(anEdge);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"startingPointOf:",{anEdge:anEdge},smalltalk.ROAbstractLineShape)})},
+args: ["anEdge"],
+source: "startingPointOf: anEdge\x0a\x09^ attachPoint startingPointOf: anEdge\x0a\x09",
+messageSends: ["startingPointOf:"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractLineShape);
+
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2237,18 +2361,29 @@ selector: "updateSVGElementOn:for:",
 category: 'drawing',
 fn: function (canvas,anEdge){
 var self=this;
-var x1,y1,x2,y2;
+var x1,y1,x2,y2,maxArrowSize,unit,startingPoint,endingPoint,rawStartingPoint,rawEndingPoint;
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
+function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 return smalltalk.withContext(function($ctx1) { 
-x1=_st(_st(_st(anEdge)._from())._position())._x();
-y1=_st(_st(_st(anEdge)._from())._position())._y();
-x2=_st(_st(_st(anEdge)._to())._position())._x();
-y2=_st(_st(_st(anEdge)._to())._position())._y();
+var $1,$2;
+rawEndingPoint=_st(self["@attachPoint"])._startingPointOf_(anEdge);
+_st(x2).__eq(_st(rawEndingPoint)._x());
+_st(y2).__eq(_st(rawEndingPoint)._y());
+rawStartingPoint=_st(self["@attachPoint"])._endingPointOf_(anEdge);
+_st(x1).__eq(_st(rawStartingPoint)._x());
+_st(y1).__eq(_st(rawStartingPoint)._y());
+$1=_st(rawStartingPoint).__eq(rawEndingPoint);
+if(smalltalk.assert($1)){
+$2=self;
+return $2;
+};
+_st($Transcript())._show_(_st(_st(_st(_st(_st(_st(_st("x1 ".__comma(x1)).__comma(" y1")).__comma(y1)).__comma(" x2 ")).__comma(x2)).__comma(" y2 ")).__comma(y2)).__comma(_st($String())._cr()));
 _st(self["@svgElement"])._attr_with_("path",_st(_st(_st(_st(_st(_st("M".__comma(x1)).__comma(" ")).__comma(y1)).__comma("L")).__comma(x2)).__comma(" ")).__comma(y2));
-return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anEdge:anEdge,x1:x1,y1:y1,x2:x2,y2:y2},smalltalk.ROLineShape)})},
+return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anEdge:anEdge,x1:x1,y1:y1,x2:x2,y2:y2,maxArrowSize:maxArrowSize,unit:unit,startingPoint:startingPoint,endingPoint:endingPoint,rawStartingPoint:rawStartingPoint,rawEndingPoint:rawEndingPoint},smalltalk.ROLineShape)})},
 args: ["canvas", "anEdge"],
-source: "updateSVGElementOn: canvas for: anEdge \x0a\x09| x1 y1 x2 y2 |\x0a\x09x1 := anEdge from position x.\x0a\x09y1 := anEdge from position y.\x0a\x0a\x09x2 := anEdge to position x.\x0a\x09y2 := anEdge to position y.\x0a\x09\x0a\x09svgElement attr: 'path' with: 'M', x1,' ', y1, 'L', x2, ' ', y2 .\x0a\x0a\x09",
-messageSends: ["x", "position", "from", "y", "to", "attr:with:", ","],
-referencedClasses: []
+source: "updateSVGElementOn: canvas for: anEdge\x0a\x09| x1 y1 x2 y2 maxArrowSize unit startingPoint endingPoint rawStartingPoint rawEndingPoint |\x0a\x09\x0a\x09rawEndingPoint  := attachPoint startingPointOf: anEdge.\x0a\x09x2 = rawEndingPoint x.\x0a\x09y2 = rawEndingPoint y.\x0a\x09rawStartingPoint := attachPoint endingPointOf: anEdge.\x0a\x09x1 = rawStartingPoint x.\x0a\x09y1 = rawStartingPoint y.\x0a\x09(rawStartingPoint = rawEndingPoint)\x0a\x09\x09ifTrue: [ ^ self ].\x0a\x0a\x09Transcript show: 'x1 ', x1,' y1', y1, ' x2 ', x2, ' y2 ', y2, (String cr).\x0a\x0a\x09svgElement attr: 'path' with: 'M', x1,' ', y1, 'L', x2, ' ', y2 .\x0a\x09\x0a\x0a\x09\x0a\x22\x09x1 := anEdge from position x.\x0a\x09y1 := anEdge from position y.\x0a\x0a\x09x2 := anEdge to position x.\x0a\x09y2 := anEdge to position y.\x0a\x09\x0a\x09svgElement attr: 'path' with: 'M', x1,' ', y1, 'L', x2, ' ', y2 .\x22\x0a\x09\x0a\x09\x22We draw a line before each arrow\x22\x0a\x22\x09\x0a\x09arrows do: [ :arrow | \x0a\x09\x09| arr |\x0a\x09\x09arr := arrow drawOn: aCanvas for: anEdge line: self.\x0a\x09\x09aCanvas \x0a\x09\x09\x09line: rawStartingPoint \x0a\x09\x09\x09to: arr first \x0a\x09\x09\x09width: (self widthFor: anEdge) \x0a\x09\x09\x09color: (self colorFor: anEdge).\x0a\x09\x09rawStartingPoint := arr second.\x0a\x09\x09 ].\x0a\x22\x09\x0a\x09\x22We draw a line after the arrow\x22\x0a\x22\x09aCanvas line: rawStartingPoint to: rawEndingPoint width: (self widthFor: anEdge) color: (self colorFor: anEdge).\x22",
+messageSends: ["startingPointOf:", "=", "x", "y", "endingPointOf:", "ifTrue:", "show:", ",", "cr", "attr:with:"],
+referencedClasses: ["String", "Transcript"]
 }),
 smalltalk.ROLineShape);
 
