@@ -887,21 +887,17 @@ initializeSVGElementOn: canvas for: anEdge
 !
 
 updateSVGElementOn: canvas for: anEdge
-	| x1 y1 x2 y2 maxArrowSize unit startingPoint endingPoint rawStartingPoint rawEndingPoint |
-	
+	| maxArrowSize unit startingPoint endingPoint rawStartingPoint rawEndingPoint |
 	rawEndingPoint  := attachPoint startingPointOf: anEdge.
-	x2 = rawEndingPoint x.
-	y2 = rawEndingPoint y.
 	rawStartingPoint := attachPoint endingPointOf: anEdge.
-	x1 = rawStartingPoint x.
-	y1 = rawStartingPoint y.
+
 	(rawStartingPoint = rawEndingPoint)
 		ifTrue: [ ^ self ].
 
-	Transcript show: 'x1 ', x1,' y1', y1, ' x2 ', x2, ' y2 ', y2, (String cr).
+"	Transcript show: 'x1 ', x,' y1', y, ' x2 ', z, ' y2 ', w, (String cr)."
 
-	svgElement attr: 'path' with: 'M', x1,' ', y1, 'L', x2, ' ', y2 .
-	
+	svgElement attr: 'path' with: 'M', ( rawEndingPoint x asInteger),' ',  (rawEndingPoint y asInteger), 'L', ( rawStartingPoint x asInteger), ' ', ( rawStartingPoint y asInteger) .
+
 
 	
 "	x1 := anEdge from position x.

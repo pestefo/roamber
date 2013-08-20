@@ -1780,26 +1780,19 @@ smalltalk.method({
 selector: "updateSVGElementOn:for:",
 fn: function (canvas,anEdge){
 var self=this;
-var x1,y1,x2,y2,maxArrowSize,unit,startingPoint,endingPoint,rawStartingPoint,rawEndingPoint;
-function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
-function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
+var maxArrowSize,unit,startingPoint,endingPoint,rawStartingPoint,rawEndingPoint;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 rawEndingPoint=_st(self["@attachPoint"])._startingPointOf_(anEdge);
-_st(x2).__eq(_st(rawEndingPoint)._x());
-_st(y2).__eq(_st(rawEndingPoint)._y());
 rawStartingPoint=_st(self["@attachPoint"])._endingPointOf_(anEdge);
-_st(x1).__eq(_st(rawStartingPoint)._x());
-_st(y1).__eq(_st(rawStartingPoint)._y());
 $1=_st(rawStartingPoint).__eq(rawEndingPoint);
 if(smalltalk.assert($1)){
 $2=self;
 return $2;
 };
-_st($Transcript())._show_(_st(_st(_st(_st(_st(_st(_st("x1 ".__comma(x1)).__comma(" y1")).__comma(y1)).__comma(" x2 ")).__comma(x2)).__comma(" y2 ")).__comma(y2)).__comma(_st($String())._cr()));
-_st(self["@svgElement"])._attr_with_("path",_st(_st(_st(_st(_st(_st("M".__comma(x1)).__comma(" ")).__comma(y1)).__comma("L")).__comma(x2)).__comma(" ")).__comma(y2));
-return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anEdge:anEdge,x1:x1,y1:y1,x2:x2,y2:y2,maxArrowSize:maxArrowSize,unit:unit,startingPoint:startingPoint,endingPoint:endingPoint,rawStartingPoint:rawStartingPoint,rawEndingPoint:rawEndingPoint},smalltalk.ROLineShape)})},
-messageSends: ["startingPointOf:", "=", "x", "y", "endingPointOf:", "ifTrue:", "show:", ",", "cr", "attr:with:"]}),
+_st(self["@svgElement"])._attr_with_("path",_st(_st(_st(_st(_st(_st("M".__comma(_st(_st(rawEndingPoint)._x())._asInteger())).__comma(" ")).__comma(_st(_st(rawEndingPoint)._y())._asInteger())).__comma("L")).__comma(_st(_st(rawStartingPoint)._x())._asInteger())).__comma(" ")).__comma(_st(_st(rawStartingPoint)._y())._asInteger()));
+return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anEdge:anEdge,maxArrowSize:maxArrowSize,unit:unit,startingPoint:startingPoint,endingPoint:endingPoint,rawStartingPoint:rawStartingPoint,rawEndingPoint:rawEndingPoint},smalltalk.ROLineShape)})},
+messageSends: ["startingPointOf:", "endingPointOf:", "ifTrue:", "=", "attr:with:", ",", "asInteger", "y", "x"]}),
 smalltalk.ROLineShape);
 
 
