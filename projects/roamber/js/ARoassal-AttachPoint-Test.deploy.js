@@ -10,7 +10,6 @@ function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"
 function $RODraggable(){return smalltalk.RODraggable||(typeof RODraggable=="undefined"?nil:RODraggable)}
 function $ROEdge(){return smalltalk.ROEdge||(typeof ROEdge=="undefined"?nil:ROEdge)}
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
-function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
 function $ROLine(){return smalltalk.ROLine||(typeof ROLine=="undefined"?nil:ROLine)}
 function $ROHorizontalLineLayout(){return smalltalk.ROHorizontalLineLayout||(typeof ROHorizontalLineLayout=="undefined"?nil:ROHorizontalLineLayout)}
 return smalltalk.withContext(function($ctx1) { 
@@ -21,11 +20,11 @@ _st(self["@el1"]).__at($RODraggable());
 _st(self["@el2"]).__at($RODraggable());
 self["@edge"]=_st($ROEdge())._from_to_(self["@el1"],self["@el2"]);
 _st(self["@view"])._addAll_(_st($Array())._with_with_with_(self["@el1"],self["@el2"],self["@edge"]));
-self["@shape"]=_st(_st($ROLine())._new())._color_(_st($Color())._black());
+self["@shape"]=_st($ROLine())._new();
 _st(self["@edge"]).__plus(self["@shape"]);
 _st($ROHorizontalLineLayout())._on_(_st($Array())._with_with_(self["@el1"],self["@el2"]));
 return self}, function($ctx1) {$ctx1.fill(self,"setUp",{},smalltalk.ROAttachPointTest)})},
-messageSends: ["new", "spriteOn:", "@", "from:to:", "addAll:", "with:with:with:", "color:", "black", "+", "on:", "with:with:"]}),
+messageSends: ["new", "spriteOn:", "@", "from:to:", "addAll:", "with:with:with:", "+", "on:", "with:with:"]}),
 smalltalk.ROAttachPointTest);
 
 smalltalk.addMethod(

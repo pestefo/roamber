@@ -11,7 +11,6 @@ function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"
 function $RODraggable(){return smalltalk.RODraggable||(typeof RODraggable=="undefined"?nil:RODraggable)}
 function $ROEdge(){return smalltalk.ROEdge||(typeof ROEdge=="undefined"?nil:ROEdge)}
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
-function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
 function $ROLine(){return smalltalk.ROLine||(typeof ROLine=="undefined"?nil:ROLine)}
 function $ROHorizontalLineLayout(){return smalltalk.ROHorizontalLineLayout||(typeof ROHorizontalLineLayout=="undefined"?nil:ROHorizontalLineLayout)}
 return smalltalk.withContext(function($ctx1) { 
@@ -22,14 +21,14 @@ _st(self["@el1"]).__at($RODraggable());
 _st(self["@el2"]).__at($RODraggable());
 self["@edge"]=_st($ROEdge())._from_to_(self["@el1"],self["@el2"]);
 _st(self["@view"])._addAll_(_st($Array())._with_with_with_(self["@el1"],self["@el2"],self["@edge"]));
-self["@shape"]=_st(_st($ROLine())._new())._color_(_st($Color())._black());
+self["@shape"]=_st($ROLine())._new();
 _st(self["@edge"]).__plus(self["@shape"]);
 _st($ROHorizontalLineLayout())._on_(_st($Array())._with_with_(self["@el1"],self["@el2"]));
 return self}, function($ctx1) {$ctx1.fill(self,"setUp",{},smalltalk.ROAttachPointTest)})},
 args: [],
-source: "setUp\x0a\x09\x0a\x09view := ROView new.\x0a\x09el1 := ROElement spriteOn: 1.\x0a\x09el2 := ROElement spriteOn: 2.\x0a\x22\x09el1 @ ROPopup.\x0a\x09el2 @ ROPopup.\x22\x0a\x09el1 @ RODraggable.\x0a\x09el2 @ RODraggable.\x0a\x09\x0a\x09edge := ROEdge from: el1 to: el2.\x0a\x09view addAll: (Array with: el1 with: el2 with: edge).\x0a\x09shape := ROLine new color: Color black.\x0a\x09edge + shape.\x0a\x09ROHorizontalLineLayout on: (Array with: el1 with: el2)",
-messageSends: ["new", "spriteOn:", "@", "from:to:", "addAll:", "with:with:with:", "color:", "black", "+", "on:", "with:with:"],
-referencedClasses: ["ROView", "ROElement", "RODraggable", "ROEdge", "Array", "Color", "ROLine", "ROHorizontalLineLayout"]
+source: "setUp\x0a\x09\x0a\x09view := ROView new.\x0a\x09el1 := ROElement spriteOn: 1.\x0a\x09el2 := ROElement spriteOn: 2.\x0a\x09el1 @ RODraggable.\x0a\x09el2 @ RODraggable.\x0a\x09\x0a\x09edge := ROEdge from: el1 to: el2.\x0a\x09view addAll: (Array with: el1 with: el2 with: edge).\x0a\x09shape := ROLine new.\x0a\x09edge + shape.\x0a\x09ROHorizontalLineLayout on: (Array with: el1 with: el2)",
+messageSends: ["new", "spriteOn:", "@", "from:to:", "addAll:", "with:with:with:", "+", "on:", "with:with:"],
+referencedClasses: ["ROView", "ROElement", "RODraggable", "ROEdge", "Array", "ROLine", "ROHorizontalLineLayout"]
 }),
 smalltalk.ROAttachPointTest);
 

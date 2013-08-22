@@ -45,14 +45,12 @@ setUp
 	view := ROView new.
 	el1 := ROElement spriteOn: 1.
 	el2 := ROElement spriteOn: 2.
-"	el1 @ ROPopup.
-	el2 @ ROPopup."
 	el1 @ RODraggable.
 	el2 @ RODraggable.
 	
 	edge := ROEdge from: el1 to: el2.
 	view addAll: (Array with: el1 with: el2 with: edge).
-	shape := ROLine new color: Color black.
+	shape := ROLine new.
 	edge + shape.
 	ROHorizontalLineLayout on: (Array with: el1 with: el2)
 ! !
