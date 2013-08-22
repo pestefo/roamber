@@ -23,7 +23,7 @@ testCreationFromShape
 	el1 := ROBox element.
 	el2 := ROBox element.
 
-	edge := ROLineShape elementFrom: el1 to: el2.
+	edge := ROLine elementFrom: el1 to: el2.
 	self assert: edge class == ROEdge.
 ! !
 

@@ -469,11 +469,11 @@ smalltalk.method({
 selector: "lineFrom:to:",
 fn: function (f,t){
 var self=this;
-function $ROLineShape(){return smalltalk.ROLineShape||(typeof ROLineShape=="undefined"?nil:ROLineShape)}
+function $ROLine(){return smalltalk.ROLine||(typeof ROLine=="undefined"?nil:ROLine)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
 $2=self._from_to_(f,t);
-_st($2).__plus(_st($ROLineShape())._new());
+_st($2).__plus(_st($ROLine())._new());
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
@@ -1741,7 +1741,7 @@ messageSends: ["edgeFrom:to:"]}),
 smalltalk.ROAbstractLineShape.klass);
 
 
-smalltalk.addClass('ROLineShape', smalltalk.ROAbstractLineShape, [], 'ARoassal');
+smalltalk.addClass('ROLine', smalltalk.ROAbstractLineShape, [], 'ARoassal');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "drawOn:for:",
@@ -1755,9 +1755,9 @@ self._initializeSVGElementOn_for_(canvas,anEdge);
 } else {
 self._updateSVGElementOn_for_(canvas,anEdge);
 };
-return self}, function($ctx1) {$ctx1.fill(self,"drawOn:for:",{canvas:canvas,anEdge:anEdge},smalltalk.ROLineShape)})},
+return self}, function($ctx1) {$ctx1.fill(self,"drawOn:for:",{canvas:canvas,anEdge:anEdge},smalltalk.ROLine)})},
 messageSends: ["ifTrue:ifFalse:", "initializeSVGElementOn:for:", "updateSVGElementOn:for:", "isNil"]}),
-smalltalk.ROLineShape);
+smalltalk.ROLine);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1771,9 +1771,9 @@ y1=_st(_st(_st(anEdge)._from())._position())._y();
 x2=_st(_st(_st(anEdge)._to())._position())._x();
 y2=_st(_st(_st(anEdge)._to())._position())._y();
 self["@svgElement"]=_st(canvas)._path_(_st(_st(_st(_st(_st(_st("M".__comma(x1)).__comma(" ")).__comma(y1)).__comma("L")).__comma(x2)).__comma(" ")).__comma(y2));
-return self}, function($ctx1) {$ctx1.fill(self,"initializeSVGElementOn:for:",{canvas:canvas,anEdge:anEdge,x1:x1,y1:y1,x2:x2,y2:y2},smalltalk.ROLineShape)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initializeSVGElementOn:for:",{canvas:canvas,anEdge:anEdge,x1:x1,y1:y1,x2:x2,y2:y2},smalltalk.ROLine)})},
 messageSends: ["x", "position", "from", "y", "to", "path:", ","]}),
-smalltalk.ROLineShape);
+smalltalk.ROLine);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1791,9 +1791,9 @@ $2=self;
 return $2;
 };
 _st(self["@svgElement"])._attr_with_("path",_st(_st(_st(_st(_st(_st("M".__comma(_st(_st(rawEndingPoint)._x())._asInteger())).__comma(" ")).__comma(_st(_st(rawEndingPoint)._y())._asInteger())).__comma("L")).__comma(_st(_st(rawStartingPoint)._x())._asInteger())).__comma(" ")).__comma(_st(_st(rawStartingPoint)._y())._asInteger()));
-return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anEdge:anEdge,maxArrowSize:maxArrowSize,unit:unit,startingPoint:startingPoint,endingPoint:endingPoint,rawStartingPoint:rawStartingPoint,rawEndingPoint:rawEndingPoint},smalltalk.ROLineShape)})},
+return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anEdge:anEdge,maxArrowSize:maxArrowSize,unit:unit,startingPoint:startingPoint,endingPoint:endingPoint,rawStartingPoint:rawStartingPoint,rawEndingPoint:rawEndingPoint},smalltalk.ROLine)})},
 messageSends: ["startingPointOf:", "endingPointOf:", "ifTrue:", "=", "attr:with:", ",", "asInteger", "y", "x"]}),
-smalltalk.ROLineShape);
+smalltalk.ROLine);
 
 
 

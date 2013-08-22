@@ -625,19 +625,19 @@ selector: "lineFrom:to:",
 category: 'public',
 fn: function (f,t){
 var self=this;
-function $ROLineShape(){return smalltalk.ROLineShape||(typeof ROLineShape=="undefined"?nil:ROLineShape)}
+function $ROLine(){return smalltalk.ROLine||(typeof ROLine=="undefined"?nil:ROLine)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
 $2=self._from_to_(f,t);
-_st($2).__plus(_st($ROLineShape())._new());
+_st($2).__plus(_st($ROLine())._new());
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"lineFrom:to:",{f:f,t:t},smalltalk.ROEdge.klass)})},
 args: ["f", "t"],
-source: "lineFrom: f to: t\x0a\x09^ (self from: f to: t)\x0a\x09\x09+ (ROLineShape new) ;\x0a\x09\x09yourself\x0a\x09",
+source: "lineFrom: f to: t\x0a\x09^ (self from: f to: t)\x0a\x09\x09+ (ROLine new) ;\x0a\x09\x09yourself\x0a\x09",
 messageSends: ["+", "new", "from:to:", "yourself"],
-referencedClasses: ["ROLineShape"]
+referencedClasses: ["ROLine"]
 }),
 smalltalk.ROEdge.klass);
 
@@ -2311,7 +2311,7 @@ referencedClasses: []
 smalltalk.ROAbstractLineShape.klass);
 
 
-smalltalk.addClass('ROLineShape', smalltalk.ROAbstractLineShape, [], 'ARoassal');
+smalltalk.addClass('ROLine', smalltalk.ROAbstractLineShape, [], 'ARoassal');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "drawOn:for:",
@@ -2326,13 +2326,13 @@ self._initializeSVGElementOn_for_(canvas,anEdge);
 } else {
 self._updateSVGElementOn_for_(canvas,anEdge);
 };
-return self}, function($ctx1) {$ctx1.fill(self,"drawOn:for:",{canvas:canvas,anEdge:anEdge},smalltalk.ROLineShape)})},
+return self}, function($ctx1) {$ctx1.fill(self,"drawOn:for:",{canvas:canvas,anEdge:anEdge},smalltalk.ROLine)})},
 args: ["canvas", "anEdge"],
 source: "drawOn: canvas for: anEdge\x0a\x0a\x09(svgElement isNil) \x0a\x09\x09ifTrue: [ self initializeSVGElementOn: canvas for: anEdge ]\x0a\x09\x09ifFalse: [self updateSVGElementOn: canvas for: anEdge ].\x0a\x0a\x09",
 messageSends: ["ifTrue:ifFalse:", "initializeSVGElementOn:for:", "updateSVGElementOn:for:", "isNil"],
 referencedClasses: []
 }),
-smalltalk.ROLineShape);
+smalltalk.ROLine);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2347,13 +2347,13 @@ y1=_st(_st(_st(anEdge)._from())._position())._y();
 x2=_st(_st(_st(anEdge)._to())._position())._x();
 y2=_st(_st(_st(anEdge)._to())._position())._y();
 self["@svgElement"]=_st(canvas)._path_(_st(_st(_st(_st(_st(_st("M".__comma(x1)).__comma(" ")).__comma(y1)).__comma("L")).__comma(x2)).__comma(" ")).__comma(y2));
-return self}, function($ctx1) {$ctx1.fill(self,"initializeSVGElementOn:for:",{canvas:canvas,anEdge:anEdge,x1:x1,y1:y1,x2:x2,y2:y2},smalltalk.ROLineShape)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initializeSVGElementOn:for:",{canvas:canvas,anEdge:anEdge,x1:x1,y1:y1,x2:x2,y2:y2},smalltalk.ROLine)})},
 args: ["canvas", "anEdge"],
 source: "initializeSVGElementOn: canvas for: anEdge\x0a\x09| x1 y1 x2 y2 |\x0a\x09x1 := anEdge from position x.\x0a\x09y1 := anEdge from position y.\x0a\x0a\x09x2 := anEdge to position x.\x0a\x09y2 := anEdge to position y.\x0a\x0a\x09svgElement := canvas path: 'M', x1,' ', y1, 'L', x2, ' ', y2 \x0a\x0a\x22\x09canvas path: 'M10 10L90 90'\x0a\x22",
 messageSends: ["x", "position", "from", "y", "to", "path:", ","],
 referencedClasses: []
 }),
-smalltalk.ROLineShape);
+smalltalk.ROLine);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2372,13 +2372,13 @@ $2=self;
 return $2;
 };
 _st(self["@svgElement"])._attr_with_("path",_st(_st(_st(_st(_st(_st("M".__comma(_st(_st(rawEndingPoint)._x())._asInteger())).__comma(" ")).__comma(_st(_st(rawEndingPoint)._y())._asInteger())).__comma("L")).__comma(_st(_st(rawStartingPoint)._x())._asInteger())).__comma(" ")).__comma(_st(_st(rawStartingPoint)._y())._asInteger()));
-return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anEdge:anEdge,maxArrowSize:maxArrowSize,unit:unit,startingPoint:startingPoint,endingPoint:endingPoint,rawStartingPoint:rawStartingPoint,rawEndingPoint:rawEndingPoint},smalltalk.ROLineShape)})},
+return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anEdge:anEdge,maxArrowSize:maxArrowSize,unit:unit,startingPoint:startingPoint,endingPoint:endingPoint,rawStartingPoint:rawStartingPoint,rawEndingPoint:rawEndingPoint},smalltalk.ROLine)})},
 args: ["canvas", "anEdge"],
 source: "updateSVGElementOn: canvas for: anEdge\x0a\x09| maxArrowSize unit startingPoint endingPoint rawStartingPoint rawEndingPoint |\x0a\x09rawEndingPoint  := attachPoint startingPointOf: anEdge.\x0a\x09rawStartingPoint := attachPoint endingPointOf: anEdge.\x0a\x0a\x09(rawStartingPoint = rawEndingPoint)\x0a\x09\x09ifTrue: [ ^ self ].\x0a\x0a\x22\x09Transcript show: 'x1 ', x,' y1', y, ' x2 ', z, ' y2 ', w, (String cr).\x22\x0a\x0a\x09svgElement attr: 'path' with: 'M', ( rawEndingPoint x asInteger),' ',  (rawEndingPoint y asInteger), 'L', ( rawStartingPoint x asInteger), ' ', ( rawStartingPoint y asInteger) .\x0a\x0a\x0a\x09\x0a\x22\x09x1 := anEdge from position x.\x0a\x09y1 := anEdge from position y.\x0a\x0a\x09x2 := anEdge to position x.\x0a\x09y2 := anEdge to position y.\x0a\x09\x0a\x09svgElement attr: 'path' with: 'M', x1,' ', y1, 'L', x2, ' ', y2 .\x22\x0a\x09\x0a\x09\x22We draw a line before each arrow\x22\x0a\x22\x09\x0a\x09arrows do: [ :arrow | \x0a\x09\x09| arr |\x0a\x09\x09arr := arrow drawOn: aCanvas for: anEdge line: self.\x0a\x09\x09aCanvas \x0a\x09\x09\x09line: rawStartingPoint \x0a\x09\x09\x09to: arr first \x0a\x09\x09\x09width: (self widthFor: anEdge) \x0a\x09\x09\x09color: (self colorFor: anEdge).\x0a\x09\x09rawStartingPoint := arr second.\x0a\x09\x09 ].\x0a\x22\x09\x0a\x09\x22We draw a line after the arrow\x22\x0a\x22\x09aCanvas line: rawStartingPoint to: rawEndingPoint width: (self widthFor: anEdge) color: (self colorFor: anEdge).\x22",
 messageSends: ["startingPointOf:", "endingPointOf:", "ifTrue:", "=", "attr:with:", ",", "asInteger", "y", "x"],
 referencedClasses: []
 }),
-smalltalk.ROLineShape);
+smalltalk.ROLine);
 
 
 

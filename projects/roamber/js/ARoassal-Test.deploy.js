@@ -28,12 +28,12 @@ fn: function (){
 var self=this;
 var el1,el2,edge;
 function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
-function $ROLineShape(){return smalltalk.ROLineShape||(typeof ROLineShape=="undefined"?nil:ROLineShape)}
+function $ROLine(){return smalltalk.ROLine||(typeof ROLine=="undefined"?nil:ROLine)}
 function $ROEdge(){return smalltalk.ROEdge||(typeof ROEdge=="undefined"?nil:ROEdge)}
 return smalltalk.withContext(function($ctx1) { 
 el1=_st($ROBox())._element();
 el2=_st($ROBox())._element();
-edge=_st($ROLineShape())._elementFrom_to_(el1,el2);
+edge=_st($ROLine())._elementFrom_to_(el1,el2);
 self._assert_(_st(_st(edge)._class()).__eq_eq($ROEdge()));
 return self}, function($ctx1) {$ctx1.fill(self,"testCreationFromShape",{el1:el1,el2:el2,edge:edge},smalltalk.ROEdgeTest)})},
 messageSends: ["element", "elementFrom:to:", "assert:", "==", "class"]}),

@@ -239,7 +239,7 @@ from: el1 to: el2
 
 lineFrom: f to: t
 	^ (self from: f to: t)
-		+ (ROLineShape new) ;
+		+ (ROLine new) ;
 		yourself
 !
 
@@ -859,11 +859,11 @@ elementFrom: el1 to: el2
 	^ self edgeFrom: el1 to: el2
 ! !
 
-ROAbstractLineShape subclass: #ROLineShape
+ROAbstractLineShape subclass: #ROLine
 	instanceVariableNames: ''
 	package: 'ARoassal'!
 
-!ROLineShape methodsFor: 'drawing'!
+!ROLine methodsFor: 'drawing'!
 
 drawOn: canvas for: anEdge
 
