@@ -1430,11 +1430,10 @@ $1=_st(self["@svgElement"])._isNil();
 if(smalltalk.assert($1)){
 self._initializeSVGElementOn_for_(canvas,anElement);
 self._activateInteractionsOn_(anElement);
-} else {
-self._updateSVGElementOn_for_(canvas,anElement);
 };
+self._updateSVGElementOn_for_(canvas,anElement);
 return self}, function($ctx1) {$ctx1.fill(self,"drawOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROShape)})},
-messageSends: ["ifTrue:ifFalse:", "initializeSVGElementOn:for:", "activateInteractionsOn:", "updateSVGElementOn:for:", "isNil"]}),
+messageSends: ["ifTrue:", "initializeSVGElementOn:for:", "activateInteractionsOn:", "isNil", "updateSVGElementOn:for:"]}),
 smalltalk.ROShape);
 
 smalltalk.addMethod(
@@ -1526,12 +1525,12 @@ smalltalk.ROShape);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "initializeSVGElement",
-fn: function (){
+selector: "initializeSVGElementOn:for:",
+fn: function (canvas,anElement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"initializeSVGElement",{},smalltalk.ROShape)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initializeSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROShape)})},
 messageSends: ["subclassResponsibility"]}),
 smalltalk.ROShape);
 
@@ -1556,6 +1555,17 @@ $1=self["@svgElement"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"svgElement",{},smalltalk.ROShape)})},
 messageSends: []}),
+smalltalk.ROShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "updateSVGElementOn:for:",
+fn: function (canvas,anElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROShape)})},
+messageSends: ["subclassResponsibility"]}),
 smalltalk.ROShape);
 
 smalltalk.addMethod(
@@ -1744,19 +1754,12 @@ smalltalk.ROAbstractLineShape.klass);
 smalltalk.addClass('ROLine', smalltalk.ROAbstractLineShape, [], 'ARoassal');
 smalltalk.addMethod(
 smalltalk.method({
-selector: "drawOn:for:",
-fn: function (canvas,anEdge){
+selector: "activateInteractionsOn:",
+fn: function (anElement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self["@svgElement"])._isNil();
-if(smalltalk.assert($1)){
-self._initializeSVGElementOn_for_(canvas,anEdge);
-} else {
-self._updateSVGElementOn_for_(canvas,anEdge);
-};
-return self}, function($ctx1) {$ctx1.fill(self,"drawOn:for:",{canvas:canvas,anEdge:anEdge},smalltalk.ROLine)})},
-messageSends: ["ifTrue:ifFalse:", "initializeSVGElementOn:for:", "updateSVGElementOn:for:", "isNil"]}),
+return self}, function($ctx1) {$ctx1.fill(self,"activateInteractionsOn:",{anElement:anElement},smalltalk.ROLine)})},
+messageSends: []}),
 smalltalk.ROLine);
 
 smalltalk.addMethod(
@@ -1841,9 +1844,8 @@ fn: function (canvas,anElement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self["@svgElement"]=_st(canvas)._rect_y_width_height_(_st(_st(anElement)._position())._x(),_st(_st(anElement)._position())._y(),self._widthFor_(anElement),self._heightFor_(anElement));
-_st(self["@svgElement"])._attr_with_("fill","lightGray");
 return self}, function($ctx1) {$ctx1.fill(self,"initializeSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROBox)})},
-messageSends: ["rect:y:width:height:", "x", "position", "y", "widthFor:", "heightFor:", "attr:with:"]}),
+messageSends: ["rect:y:width:height:", "x", "position", "y", "widthFor:", "heightFor:"]}),
 smalltalk.ROBox);
 
 smalltalk.addMethod(
@@ -1907,9 +1909,8 @@ fn: function (canvas,anElement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self["@svgElement"]=_st(canvas)._circle_y_r_(_st(_st(anElement)._position())._x(),_st(_st(anElement)._position())._y(),self._radius());
-_st(self["@svgElement"])._attr_with_("fill","lightGray");
 return self}, function($ctx1) {$ctx1.fill(self,"initializeSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROCircle)})},
-messageSends: ["circle:y:r:", "x", "position", "y", "radius", "attr:with:"]}),
+messageSends: ["circle:y:r:", "x", "position", "y", "radius"]}),
 smalltalk.ROCircle);
 
 smalltalk.addMethod(

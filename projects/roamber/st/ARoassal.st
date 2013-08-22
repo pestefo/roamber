@@ -769,12 +769,13 @@ activateInteractionsOn: anElement
 !
 
 drawOn: canvas for: anElement
-	" Update svgElement with current attributes (color, height, width, etc) and show"
+	"Create svgElement if necessary and redraw with current attributes"
 	(svgElement isNil) 
 		ifTrue: [
 			self initializeSVGElementOn: canvas for: anElement.
-			self activateInteractionsOn: anElement.]
-		ifFalse: [self updateSVGElementOn: canvas for: anElement ].
+			self activateInteractionsOn: anElement.].
+
+		self updateSVGElementOn: canvas for: anElement.
 !
 
 extentFor: element
@@ -793,8 +794,13 @@ extentFor: element
 	^ res
 !
 
-initializeSVGElement
-	"Initialize svgElement with default its properties and hide it"
+initializeSVGElementOn: canvas for: anElement
+	"Initialize svgElement"
+	self subclassResponsibility
+!
+
+updateSVGElementOn: canvas for: anElement
+	"Redraw svgElement with current attributes"
 	self subclassResponsibility
 ! !
 
@@ -865,11 +871,7 @@ ROAbstractLineShape subclass: #ROLine
 
 !ROLine methodsFor: 'drawing'!
 
-drawOn: canvas for: anEdge
-
-	(svgElement isNil) 
-		ifTrue: [ self initializeSVGElementOn: canvas for: anEdge ]
-		ifFalse: [self updateSVGElementOn: canvas for: anEdge ].
+activateInteractionsOn: anElement
 !
 
 initializeSVGElementOn: canvas for: anEdge
@@ -943,9 +945,6 @@ initializeSVGElementOn: canvas for: anElement
 		y: (anElement position y) 
 		width: (self widthFor: anElement) 
 		height: (self heightFor: anElement).
-		
-	svgElement attr:'fill' with: 'lightGray'.
-"	svgElement hide."
 !
 
 updateSVGElementOn: canvas for: anElement
@@ -955,7 +954,6 @@ updateSVGElementOn: canvas for: anElement
 		attr: 'width' with: (self widthFor: anElement);
 		attr: 'height' with: (self heightFor: anElement);
 		attr:'fill' with: 'lightGray'.
-"	svgElement hide."
 ! !
 
 !ROBox methodsFor: 'initialize'!
@@ -991,8 +989,6 @@ initializeSVGElementOn: canvas for: anElement
 		circle: (anElement position x)
 		y: (anElement position y) 
 		r: (self radius) .
-	
-	svgElement attr:'fill' with: 'lightGray'.
 !
 
 radius
@@ -1005,7 +1001,6 @@ updateSVGElementOn: canvas for: anElement
 		attr: 'cy' with: (anElement position y);
 		attr: 'r' with: (self radius);
 		attr:'fill' with: 'lightGray'.
-"	svgElement hide."
 ! !
 
 !ROCircle methodsFor: 'initialize'!

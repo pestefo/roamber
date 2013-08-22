@@ -1876,13 +1876,12 @@ $1=_st(self["@svgElement"])._isNil();
 if(smalltalk.assert($1)){
 self._initializeSVGElementOn_for_(canvas,anElement);
 self._activateInteractionsOn_(anElement);
-} else {
-self._updateSVGElementOn_for_(canvas,anElement);
 };
+self._updateSVGElementOn_for_(canvas,anElement);
 return self}, function($ctx1) {$ctx1.fill(self,"drawOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROShape)})},
 args: ["canvas", "anElement"],
-source: "drawOn: canvas for: anElement\x0a\x09\x22 Update svgElement with current attributes (color, height, width, etc) and show\x22\x0a\x09(svgElement isNil) \x0a\x09\x09ifTrue: [\x0a\x09\x09\x09self initializeSVGElementOn: canvas for: anElement.\x0a\x09\x09\x09self activateInteractionsOn: anElement.]\x0a\x09\x09ifFalse: [self updateSVGElementOn: canvas for: anElement ].\x0a\x09\x0a\x09",
-messageSends: ["ifTrue:ifFalse:", "initializeSVGElementOn:for:", "activateInteractionsOn:", "updateSVGElementOn:for:", "isNil"],
+source: "drawOn: canvas for: anElement\x0a\x09\x22Create svgElement if necessary and redraw with current attributes\x22\x0a\x09(svgElement isNil) \x0a\x09\x09ifTrue: [\x0a\x09\x09\x09self initializeSVGElementOn: canvas for: anElement.\x0a\x09\x09\x09self activateInteractionsOn: anElement.].\x0a\x0a\x09\x09self updateSVGElementOn: canvas for: anElement.\x0a\x09\x0a\x09",
+messageSends: ["ifTrue:", "initializeSVGElementOn:for:", "activateInteractionsOn:", "isNil", "updateSVGElementOn:for:"],
 referencedClasses: []
 }),
 smalltalk.ROShape);
@@ -2011,15 +2010,15 @@ smalltalk.ROShape);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "initializeSVGElement",
+selector: "initializeSVGElementOn:for:",
 category: 'drawing',
-fn: function (){
+fn: function (canvas,anElement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"initializeSVGElement",{},smalltalk.ROShape)})},
-args: [],
-source: "initializeSVGElement\x0a\x09\x22Initialize svgElement with default its properties and hide it\x22\x0a\x09self subclassResponsibility",
+return self}, function($ctx1) {$ctx1.fill(self,"initializeSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROShape)})},
+args: ["canvas", "anElement"],
+source: "initializeSVGElementOn: canvas for: anElement\x0a\x09\x22Initialize svgElement\x22\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
@@ -2054,6 +2053,22 @@ return $1;
 args: [],
 source: "svgElement\x0a\x09^ svgElement",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "updateSVGElementOn:for:",
+category: 'drawing',
+fn: function (canvas,anElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROShape)})},
+args: ["canvas", "anElement"],
+source: "updateSVGElementOn: canvas for: anElement\x0a\x09\x22Redraw svgElement with current attributes\x22\x0a\x09self subclassResponsibility\x0a\x09\x0a\x09",
+messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
 smalltalk.ROShape);
@@ -2314,22 +2329,15 @@ smalltalk.ROAbstractLineShape.klass);
 smalltalk.addClass('ROLine', smalltalk.ROAbstractLineShape, [], 'ARoassal');
 smalltalk.addMethod(
 smalltalk.method({
-selector: "drawOn:for:",
+selector: "activateInteractionsOn:",
 category: 'drawing',
-fn: function (canvas,anEdge){
+fn: function (anElement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self["@svgElement"])._isNil();
-if(smalltalk.assert($1)){
-self._initializeSVGElementOn_for_(canvas,anEdge);
-} else {
-self._updateSVGElementOn_for_(canvas,anEdge);
-};
-return self}, function($ctx1) {$ctx1.fill(self,"drawOn:for:",{canvas:canvas,anEdge:anEdge},smalltalk.ROLine)})},
-args: ["canvas", "anEdge"],
-source: "drawOn: canvas for: anEdge\x0a\x0a\x09(svgElement isNil) \x0a\x09\x09ifTrue: [ self initializeSVGElementOn: canvas for: anEdge ]\x0a\x09\x09ifFalse: [self updateSVGElementOn: canvas for: anEdge ].\x0a\x0a\x09",
-messageSends: ["ifTrue:ifFalse:", "initializeSVGElementOn:for:", "updateSVGElementOn:for:", "isNil"],
+return self}, function($ctx1) {$ctx1.fill(self,"activateInteractionsOn:",{anElement:anElement},smalltalk.ROLine)})},
+args: ["anElement"],
+source: "activateInteractionsOn: anElement",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.ROLine);
@@ -2442,11 +2450,10 @@ fn: function (canvas,anElement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self["@svgElement"]=_st(canvas)._rect_y_width_height_(_st(_st(anElement)._position())._x(),_st(_st(anElement)._position())._y(),self._widthFor_(anElement),self._heightFor_(anElement));
-_st(self["@svgElement"])._attr_with_("fill","lightGray");
 return self}, function($ctx1) {$ctx1.fill(self,"initializeSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROBox)})},
 args: ["canvas", "anElement"],
-source: "initializeSVGElementOn: canvas for: anElement\x0a\x09svgElement:= canvas \x0a\x09\x09rect: (anElement position x)\x0a\x09\x09y: (anElement position y) \x0a\x09\x09width: (self widthFor: anElement) \x0a\x09\x09height: (self heightFor: anElement).\x0a\x09\x09\x0a\x09svgElement attr:'fill' with: 'lightGray'.\x0a\x22\x09svgElement hide.\x22",
-messageSends: ["rect:y:width:height:", "x", "position", "y", "widthFor:", "heightFor:", "attr:with:"],
+source: "initializeSVGElementOn: canvas for: anElement\x0a\x09svgElement:= canvas \x0a\x09\x09rect: (anElement position x)\x0a\x09\x09y: (anElement position y) \x0a\x09\x09width: (self widthFor: anElement) \x0a\x09\x09height: (self heightFor: anElement).\x0a\x09\x09",
+messageSends: ["rect:y:width:height:", "x", "position", "y", "widthFor:", "heightFor:"],
 referencedClasses: []
 }),
 smalltalk.ROBox);
@@ -2467,7 +2474,7 @@ _st($1)._attr_with_("height",self._heightFor_(anElement));
 $2=_st($1)._attr_with_("fill","lightGray");
 return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROBox)})},
 args: ["canvas", "anElement"],
-source: "updateSVGElementOn: canvas for: anElement\x0a\x09svgElement \x0a\x09\x09attr: 'x' with: (anElement position x);\x0a\x09\x09attr: 'y' with: (anElement position y);\x0a\x09\x09attr: 'width' with: (self widthFor: anElement);\x0a\x09\x09attr: 'height' with: (self heightFor: anElement);\x0a\x09\x09attr:'fill' with: 'lightGray'.\x0a\x22\x09svgElement hide.\x22",
+source: "updateSVGElementOn: canvas for: anElement\x0a\x09svgElement \x0a\x09\x09attr: 'x' with: (anElement position x);\x0a\x09\x09attr: 'y' with: (anElement position y);\x0a\x09\x09attr: 'width' with: (self widthFor: anElement);\x0a\x09\x09attr: 'height' with: (self heightFor: anElement);\x0a\x09\x09attr:'fill' with: 'lightGray'.",
 messageSends: ["attr:with:", "x", "position", "y", "widthFor:", "heightFor:"],
 referencedClasses: []
 }),
@@ -2533,11 +2540,10 @@ fn: function (canvas,anElement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self["@svgElement"]=_st(canvas)._circle_y_r_(_st(_st(anElement)._position())._x(),_st(_st(anElement)._position())._y(),self._radius());
-_st(self["@svgElement"])._attr_with_("fill","lightGray");
 return self}, function($ctx1) {$ctx1.fill(self,"initializeSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROCircle)})},
 args: ["canvas", "anElement"],
-source: "initializeSVGElementOn: canvas for: anElement\x0a\x09svgElement := canvas \x0a\x09\x09circle: (anElement position x)\x0a\x09\x09y: (anElement position y) \x0a\x09\x09r: (self radius) .\x0a\x09\x0a\x09svgElement attr:'fill' with: 'lightGray'.\x0a\x0a\x09",
-messageSends: ["circle:y:r:", "x", "position", "y", "radius", "attr:with:"],
+source: "initializeSVGElementOn: canvas for: anElement\x0a\x09svgElement := canvas \x0a\x09\x09circle: (anElement position x)\x0a\x09\x09y: (anElement position y) \x0a\x09\x09r: (self radius) .\x0a\x0a\x09",
+messageSends: ["circle:y:r:", "x", "position", "y", "radius"],
 referencedClasses: []
 }),
 smalltalk.ROCircle);
@@ -2574,7 +2580,7 @@ _st($1)._attr_with_("r",self._radius());
 $2=_st($1)._attr_with_("fill","lightGray");
 return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROCircle)})},
 args: ["canvas", "anElement"],
-source: "updateSVGElementOn: canvas for: anElement\x0a\x09svgElement \x0a\x09\x09attr: 'cx' with: (anElement position x);\x0a\x09\x09attr: 'cy' with: (anElement position y);\x0a\x09\x09attr: 'r' with: (self radius);\x0a\x09\x09attr:'fill' with: 'lightGray'.\x0a\x22\x09svgElement hide.\x22",
+source: "updateSVGElementOn: canvas for: anElement\x0a\x09svgElement \x0a\x09\x09attr: 'cx' with: (anElement position x);\x0a\x09\x09attr: 'cy' with: (anElement position y);\x0a\x09\x09attr: 'r' with: (self radius);\x0a\x09\x09attr:'fill' with: 'lightGray'.",
 messageSends: ["attr:with:", "x", "position", "y", "radius"],
 referencedClasses: []
 }),
