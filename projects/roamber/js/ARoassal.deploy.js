@@ -1,5 +1,125 @@
 smalltalk.addPackage('ARoassal');
-smalltalk.addClass('ROAnnouncer', smalltalk.Announcer, [], 'ARoassal');
+smalltalk.addClass('ROAnnouncer', smalltalk.Object, ['forwarding', 'announcer'], 'ARoassal');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "announce:",
+fn: function (anAnnouncementClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@announcer"])._announce_(anAnnouncementClass);
+return self}, function($ctx1) {$ctx1.fill(self,"announce:",{anAnnouncementClass:anAnnouncementClass},smalltalk.ROAnnouncer)})},
+messageSends: ["announce:"]}),
+smalltalk.ROAnnouncer);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "forward",
+fn: function (){
+var self=this;
+function $ROEvent(){return smalltalk.ROEvent||(typeof ROEvent=="undefined"?nil:ROEvent)}
+return smalltalk.withContext(function($ctx1) { 
+self._forward_($ROEvent());
+return self}, function($ctx1) {$ctx1.fill(self,"forward",{},smalltalk.ROAnnouncer)})},
+messageSends: ["forward:"]}),
+smalltalk.ROAnnouncer);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "forward:",
+fn: function (anEventClass){
+var self=this;
+function $IdentitySet(){return smalltalk.IdentitySet||(typeof IdentitySet=="undefined"?nil:IdentitySet)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@forwarding"];
+if(($receiver = $1) == nil || $receiver == undefined){
+self["@forwarding"]=_st($IdentitySet())._new();
+self["@forwarding"];
+} else {
+$1;
+};
+_st(self["@forwarding"])._add_(anEventClass);
+return self}, function($ctx1) {$ctx1.fill(self,"forward:",{anEventClass:anEventClass},smalltalk.ROAnnouncer)})},
+messageSends: ["ifNil:", "new", "add:"]}),
+smalltalk.ROAnnouncer);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isForwarded:",
+fn: function (anEventClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4;
+$1=_st(anEventClass)._isBehavior();
+if(! smalltalk.assert($1)){
+$2=self._isForwarded_(_st(anEventClass)._class());
+return $2;
+};
+$3=self["@forwarding"];
+if(($receiver = $3) == nil || $receiver == undefined){
+return false;
+} else {
+$3;
+};
+$4=_st(self["@forwarding"])._anySatisfy_((function(c){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(c).__eq_eq(anEventClass))._or_((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(anEventClass)._inheritsFrom_(c);
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
+}, function($ctx2) {$ctx2.fillBlock({c:c},$ctx1)})}));
+return $4;
+}, function($ctx1) {$ctx1.fill(self,"isForwarded:",{anEventClass:anEventClass},smalltalk.ROAnnouncer)})},
+messageSends: ["ifFalse:", "isForwarded:", "class", "isBehavior", "ifNil:", "anySatisfy:", "or:", "inheritsFrom:", "=="]}),
+smalltalk.ROAnnouncer);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isForwarder",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self["@forwarding"])._notNil())._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self["@forwarding"])._notEmpty();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isForwarder",{},smalltalk.ROAnnouncer)})},
+messageSends: ["and:", "notEmpty", "notNil"]}),
+smalltalk.ROAnnouncer);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "on:do:",
+fn: function (anAnnouncementClass,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@announcer"])._on_do_(anAnnouncementClass,aBlock);
+return self}, function($ctx1) {$ctx1.fill(self,"on:do:",{anAnnouncementClass:anAnnouncementClass,aBlock:aBlock},smalltalk.ROAnnouncer)})},
+messageSends: ["on:do:"]}),
+smalltalk.ROAnnouncer);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "sendToParent:",
+fn: function (event){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+$1=_st(event)._isBehavior();
+if(smalltalk.assert($1)){
+$2=self;
+return $2;
+};
+$3=_st(event)._hasElement();
+if(smalltalk.assert($3)){
+_st(_st(event)._element())._parentAnnounce_(event);
+};
+return self}, function($ctx1) {$ctx1.fill(self,"sendToParent:",{event:event},smalltalk.ROAnnouncer)})},
+messageSends: ["ifTrue:", "isBehavior", "parentAnnounce:", "element", "hasElement"]}),
+smalltalk.ROAnnouncer);
+
 
 
 smalltalk.addClass('ROObject', smalltalk.Object, [], 'ARoassal');
@@ -682,6 +802,17 @@ return smalltalk.withContext(function($ctx1) {
 self["@shape"]=aROShape;
 return self}, function($ctx1) {$ctx1.fill(self,"shape:",{aROShape:aROShape},smalltalk.ROElement)})},
 messageSends: []}),
+smalltalk.ROElement);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "size:",
+fn: function (d){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._extent_(_st(d).__at(d));
+return self}, function($ctx1) {$ctx1.fill(self,"size:",{d:d},smalltalk.ROElement)})},
+messageSends: ["extent:", "@"]}),
 smalltalk.ROElement);
 
 smalltalk.addMethod(

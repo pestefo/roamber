@@ -516,9 +516,6 @@ referencedClasses: []
 smalltalk.ROMouseDragging.klass);
 
 
-smalltalk.addClass('ROMouseDragging2', smalltalk.ROAbstractMouseDragging, [], 'ARoassal-Event');
-
-
 smalltalk.addClass('ROElementEvent', smalltalk.ROComponentEvent, [], 'ARoassal-Event');
 
 

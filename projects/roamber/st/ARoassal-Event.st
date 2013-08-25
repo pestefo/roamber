@@ -171,10 +171,6 @@ step: value
 	^ self new step: value
 ! !
 
-ROAbstractMouseDragging subclass: #ROMouseDragging2
-	instanceVariableNames: ''
-	package: 'ARoassal-Event'!
-
 ROComponentEvent subclass: #ROElementEvent
 	instanceVariableNames: ''
 	package: 'ARoassal-Event'!

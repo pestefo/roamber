@@ -1,7 +1,51 @@
 Smalltalk current createPackage: 'ARoassal'!
-Announcer subclass: #ROAnnouncer
-	instanceVariableNames: ''
+Object subclass: #ROAnnouncer
+	instanceVariableNames: 'forwarding announcer'
 	package: 'ARoassal'!
+!ROAnnouncer commentStamp!
+A ROAnnouncer is a wrapper of Announcer, this object receive and emit events. Each roassal element has an roannouncer.!
+
+!ROAnnouncer methodsFor: 'announce'!
+
+sendToParent: event
+	"Do nothing if an event class"
+	event isBehavior ifTrue: [ ^ self ].
+	
+	event hasElement ifTrue: [ event element parentAnnounce: event ]
+! !
+
+!ROAnnouncer methodsFor: 'forwarding'!
+
+announce: anAnnouncementClass
+	announcer announce: anAnnouncementClass.
+!
+
+forward
+	self forward: ROEvent
+!
+
+forward: anEventClass
+
+	forwarding ifNil: [ forwarding := IdentitySet new ].
+	forwarding add: anEventClass
+!
+
+on: anAnnouncementClass do: aBlock
+	announcer on: anAnnouncementClass do: aBlock.
+! !
+
+!ROAnnouncer methodsFor: 'testing'!
+
+isForwarded: anEventClass
+	anEventClass isBehavior ifFalse: [ ^ self isForwarded: anEventClass class ].
+	 
+	forwarding ifNil: [ ^ false ].
+	^ forwarding anySatisfy: [ :c | (c == anEventClass) or: [ anEventClass inheritsFrom: c ] ]
+!
+
+isForwarder
+	^ forwarding notNil and: [ forwarding notEmpty ]
+! !
 
 Object subclass: #ROObject
 	instanceVariableNames: ''
@@ -303,6 +347,10 @@ shape
 
 shape: aROShape
 	shape := aROShape
+!
+
+size: d
+	self extent: d @ d
 !
 
 translateTo: aPoint 
