@@ -903,10 +903,10 @@ category: 'as yet unclassified',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
- return Raphael("container", 800, 600);;
+ return Raphael("roassal-canvas", 800, 600);;
 return self}, function($ctx1) {$ctx1.fill(self,"paper",{},smalltalk.RORaphaelCanvas)})},
 args: [],
-source: "paper\x0a\x09< return Raphael(\x22container\x22, 800, 600);>",
+source: "paper\x0a\x09< return Raphael(\x22roassal-canvas\x22, 800, 600);>",
 messageSends: [],
 referencedClasses: []
 }),

@@ -696,7 +696,7 @@ selector: "paper",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
- return Raphael("container", 800, 600);;
+ return Raphael("roassal-canvas", 800, 600);;
 return self}, function($ctx1) {$ctx1.fill(self,"paper",{},smalltalk.RORaphaelCanvas)})},
 messageSends: []}),
 smalltalk.RORaphaelCanvas);
