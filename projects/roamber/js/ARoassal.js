@@ -61,6 +61,24 @@ smalltalk.ROAnnouncer);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "initialize",
+category: 'forwarding',
+fn: function (){
+var self=this;
+function $SystemAnnouncer(){return smalltalk.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.ROAnnouncer.superclass.fn.prototype._initialize.apply(_st(self), []);
+self["@announcer"]=_st($SystemAnnouncer())._current();
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROAnnouncer)})},
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a\x09announcer := SystemAnnouncer current.\x0a\x09",
+messageSends: ["initialize", "current"],
+referencedClasses: ["SystemAnnouncer"]
+}),
+smalltalk.ROAnnouncer);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "isForwarded:",
 category: 'testing',
 fn: function (anEventClass){
@@ -472,11 +490,11 @@ category: 'events',
 fn: function (eventClass,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self["@eventHandler"])._when_do_(eventClass,aBlock);
+_st(self["@eventHandler"])._on_do_(eventClass,aBlock);
 return self}, function($ctx1) {$ctx1.fill(self,"on:do:",{eventClass:eventClass,aBlock:aBlock},smalltalk.ROAbstractComponent)})},
 args: ["eventClass", "aBlock"],
-source: "on: eventClass do: aBlock\x0a\x09\x22Register a block as an handler for eventClass\x22\x0a\x09\x0a\x0a\x09eventHandler when: eventClass do: aBlock.\x0a\x09\x22interactions at: eventClass put: aBlock\x22",
-messageSends: ["when:do:"],
+source: "on: eventClass do: aBlock\x0a\x09\x22Register a block as an handler for eventClass\x22\x0a\x09\x0a\x0a\x09eventHandler on: eventClass do: aBlock.\x0a\x09\x22interactions at: eventClass put: aBlock\x22",
+messageSends: ["on:do:"],
 referencedClasses: []
 }),
 smalltalk.ROAbstractComponent);
@@ -488,15 +506,15 @@ category: 'events',
 fn: function (eventClass,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self["@eventHandler"])._when_do_(eventClass,(function(arg){
+_st(self["@eventHandler"])._on_do_(eventClass,(function(arg){
 return smalltalk.withContext(function($ctx2) {
 _st(aBlock)._value_(arg);
 return _st(self["@eventHandler"])._unsubscribeForEvent_(eventClass);
 }, function($ctx2) {$ctx2.fillBlock({arg:arg},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"on:doOnce:",{eventClass:eventClass,aBlock:aBlock},smalltalk.ROAbstractComponent)})},
 args: ["eventClass", "aBlock"],
-source: "on: eventClass doOnce: aBlock\x0a\x09\x22Register a block as an handler for eventClass. The callback is removed when exected\x22\x0a\x09\x0a\x09eventHandler when: eventClass do: [ :arg | \x0a\x09\x09aBlock value: arg.\x0a\x09\x09eventHandler unsubscribeForEvent: eventClass.\x0a\x09\x09\x22self removeInteraction: eventClass \x22]",
-messageSends: ["when:do:", "value:", "unsubscribeForEvent:"],
+source: "on: eventClass doOnce: aBlock\x0a\x09\x22Register a block as an handler for eventClass. The callback is removed when exected\x22\x0a\x09\x0a\x09eventHandler on: eventClass do: [ :arg | \x0a\x09\x09aBlock value: arg.\x0a\x09\x09eventHandler unsubscribeForEvent: eventClass.\x0a\x09\x09\x22self removeInteraction: eventClass \x22]",
+messageSends: ["on:do:", "value:", "unsubscribeForEvent:"],
 referencedClasses: []
 }),
 smalltalk.ROAbstractComponent);
@@ -1419,16 +1437,16 @@ selector: "paper",
 category: 'public - opening',
 fn: function (){
 var self=this;
-function $ROPaper(){return smalltalk.ROPaper||(typeof ROPaper=="undefined"?nil:ROPaper)}
+function $RORaphaelCanvas(){return smalltalk.RORaphaelCanvas||(typeof RORaphaelCanvas=="undefined"?nil:RORaphaelCanvas)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st($ROPaper())._default())._canvas();
+$1=_st($RORaphaelCanvas())._canvas();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"paper",{},smalltalk.ROView)})},
 args: [],
-source: "paper\x0a\x09^ ROPaper default canvas",
-messageSends: ["canvas", "default"],
-referencedClasses: ["ROPaper"]
+source: "paper\x0a\x09^ RORaphaelCanvas canvas",
+messageSends: ["canvas"],
+referencedClasses: ["RORaphaelCanvas"]
 }),
 smalltalk.ROView);
 
@@ -1788,6 +1806,35 @@ smalltalk.ROExample);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "mouseclick",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+var view,element;
+function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
+function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
+function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
+function $ROMouseClick(){return smalltalk.ROMouseClick||(typeof ROMouseClick=="undefined"?nil:ROMouseClick)}
+return smalltalk.withContext(function($ctx1) { 
+view=_st($ROView())._new();
+element=_st(_st($ROElement())._new())._size_((100));
+_st(element).__plus($ROBox());
+_st(element)._on_do_($ROMouseClick(),(function(event){
+return smalltalk.withContext(function($ctx2) {
+return _st(event)._inspect();
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
+_st(view)._add_(element);
+_st(view)._open();
+return self}, function($ctx1) {$ctx1.fill(self,"mouseclick",{view:view,element:element},smalltalk.ROExample)})},
+args: [],
+source: "mouseclick\x0a|view element|\x0aview := ROView new.\x0aelement := ROElement new size: 100.\x0aelement + ROBox.\x0a\x22Open an inspector when clicking\x22\x0aelement on: ROMouseClick do: [ :event | event inspect ].\x0aview add: element.\x0aview open.",
+messageSends: ["new", "size:", "+", "on:do:", "inspect", "add:", "open"],
+referencedClasses: ["ROView", "ROElement", "ROBox", "ROMouseClick"]
+}),
+smalltalk.ROExample);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "treeLayout",
 category: 'not yet classified',
 fn: function (){
@@ -1874,100 +1921,6 @@ referencedClasses: ["ROView", "ROTux"]
 }),
 smalltalk.ROExample);
 
-
-
-smalltalk.addClass('ROPaper', smalltalk.ROObject, ['svgCanvas'], 'ARoassal');
-smalltalk.addMethod(
-smalltalk.method({
-selector: "canvas",
-category: 'as yet unclassified',
-fn: function () {
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=self["@svgCanvas"];
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"canvas",{},smalltalk.ROPaper)});},
-args: [],
-source: "canvas\x0a\x09^ svgCanvas",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.ROPaper);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "initialize",
-category: 'as yet unclassified',
-fn: function () {
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-smalltalk.ROObject.fn.prototype._initialize.apply(_st(self), []);
-self["@svgCanvas"]=_st(self)._paper();
-$1=self;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROPaper)});},
-args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09svgCanvas := self paper.\x0a\x09^ self",
-messageSends: ["initialize", "paper"],
-referencedClasses: []
-}),
-smalltalk.ROPaper);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "paper",
-category: 'as yet unclassified',
-fn: function () {
-var self=this;
-return smalltalk.withContext(function($ctx1) {  return Raphael("container", 800, 600);;
-return self}, function($ctx1) {$ctx1.fill(self,"paper",{},smalltalk.ROPaper)});},
-args: [],
-source: "paper\x0a\x09< return Raphael(\x22container\x22, 800, 600);>",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.ROPaper);
-
-
-smalltalk.ROPaper.klass.iVarNames = ['paper'];
-smalltalk.addMethod(
-smalltalk.method({
-selector: "default",
-category: 'as yet unclassified',
-fn: function () {
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
-$1=self["@paper"];
-if(($receiver = $1) == nil || $receiver == undefined){
-self["@paper"]=_st(_st(self)._basicNew())._initialize();
-self["@paper"];
-} else {
-$1;
-};
-$2=self["@paper"];
-return $2;
-}, function($ctx1) {$ctx1.fill(self,"default",{},smalltalk.ROPaper.klass)});},
-args: [],
-source: "default\x0apaper ifNil: [paper := self basicNew initialize].\x0a       ^paper",
-messageSends: ["ifNil:", "initialize", "basicNew"],
-referencedClasses: []
-}),
-smalltalk.ROPaper.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "new",
-category: 'as yet unclassified',
-fn: function () {
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._error_("Use default instead.");
-return self}, function($ctx1) {$ctx1.fill(self,"new",{},smalltalk.ROPaper.klass)});},
-args: [],
-source: "new\x09\x0a\x09self error: 'Use default instead.'",
-messageSends: ["error:"],
-referencedClasses: []
-}),
-smalltalk.ROPaper.klass);
 
 
 smalltalk.addClass('ROShape', smalltalk.ROObject, ['svgElement', 'height', 'width', 'color'], 'ARoassal');

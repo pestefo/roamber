@@ -30,6 +30,11 @@ forward: anEventClass
 	forwarding add: anEventClass
 !
 
+initialize
+	super initialize.
+	announcer := SystemAnnouncer current.
+!
+
 on: anAnnouncementClass do: aBlock
 	announcer on: anAnnouncementClass do: aBlock.
 ! !
@@ -186,14 +191,14 @@ on: eventClass do: aBlock
 	"Register a block as an handler for eventClass"
 	
 
-	eventHandler when: eventClass do: aBlock.
+	eventHandler on: eventClass do: aBlock.
 	"interactions at: eventClass put: aBlock"
 !
 
 on: eventClass doOnce: aBlock
 	"Register a block as an handler for eventClass. The callback is removed when exected"
 	
-	eventHandler when: eventClass do: [ :arg | 
+	eventHandler on: eventClass do: [ :arg | 
 		aBlock value: arg.
 		eventHandler unsubscribeForEvent: eventClass.
 		"self removeInteraction: eventClass "]
@@ -496,7 +501,7 @@ open
 !
 
 paper
-	^ ROPaper default canvas
+	^ RORaphaelCanvas canvas
 !
 
 signalUpdate
@@ -650,6 +655,17 @@ line2
 	view open.
 !
 
+mouseclick
+|view element|
+view := ROView new.
+element := ROElement new size: 100.
+element + ROBox.
+"Open an inspector when clicking"
+element on: ROMouseClick do: [ :event | event inspect ].
+view add: element.
+view open.
+!
+
 treeLayout 
 	"
 	self new treeLayout
@@ -692,39 +708,6 @@ tux
 	view := ROView new.
 	view add: (ROTux element).
 	view open
-! !
-
-ROObject subclass: #ROPaper
-	instanceVariableNames: 'svgCanvas'
-	package: 'ARoassal'!
-
-!ROPaper methodsFor: 'as yet unclassified'!
-
-canvas
-	^ svgCanvas
-!
-
-initialize
-	super initialize.
-	svgCanvas := self paper.
-	^ self
-!
-
-paper
-	< return Raphael("container", 800, 600);>
-! !
-
-ROPaper class instanceVariableNames: 'paper'!
-
-!ROPaper class methodsFor: 'as yet unclassified'!
-
-default
-paper ifNil: [paper := self basicNew initialize].
-       ^paper
-!
-
-new	
-	self error: 'Use default instead.'
 ! !
 
 ROObject subclass: #ROShape
