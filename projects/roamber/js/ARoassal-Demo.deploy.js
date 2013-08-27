@@ -62,7 +62,8 @@ var selectorList,ul,li,a;
 function $RODemo(){return smalltalk.RODemo||(typeof RODemo=="undefined"?nil:RODemo)}
 function $ROExample(){return smalltalk.ROExample||(typeof ROExample=="undefined"?nil:ROExample)}
 return smalltalk.withContext(function($ctx1) { 
-selectorList="#selectorList"._asJQuery();
+ul=_st(html)._ul();
+_st(ul)._class_("dropdown-menu");
 _st(_st($ROExample())._selectors())._do_((function(selector){
 return smalltalk.withContext(function($ctx2) {
 li=_st(html)._li();
@@ -76,10 +77,10 @@ return _st(_st($RODemo())._new())._show_(selector);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
 _st(a)._with_(selector);
 _st(li)._append_(a);
-return _st(selectorList)._append_(li);
+return _st(ul)._append_(li);
 }, function($ctx2) {$ctx2.fillBlock({selector:selector},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html,selectorList:selectorList,ul:ul,li:li,a:a},smalltalk.RODemo)})},
-messageSends: ["asJQuery", "do:", "li", "a", "href:", "onClick:", "show:", "new", "with:", "append:", "selectors"]}),
+messageSends: ["ul", "class:", "do:", "li", "a", "href:", "onClick:", "show:", "new", "with:", "append:", "selectors"]}),
 smalltalk.RODemo);
 
 smalltalk.addMethod(
@@ -125,7 +126,7 @@ selector: "init",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self._new())._appendToJQuery_("body"._asJQuery());
+_st(self._new())._appendToJQuery_("#selectorList"._asJQuery());
 return self}, function($ctx1) {$ctx1.fill(self,"init",{},smalltalk.RODemo.klass)})},
 messageSends: ["appendToJQuery:", "asJQuery", "new"]}),
 smalltalk.RODemo.klass);

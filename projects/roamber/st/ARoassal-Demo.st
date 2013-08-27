@@ -34,9 +34,9 @@ initializeDropdown2
 
 renderOn: html
 	| selectorList ul li a |
-	"selectorListDiv := '#selectorListDiv' asJQuery."
-	"ul := html ul."
-	selectorList := '#selectorList' asJQuery.
+	ul := html ul.
+	ul class: 'dropdown-menu'.
+	
 	ROExample selectors do: [:selector |
 
 		li := html li.
@@ -45,7 +45,7 @@ renderOn: html
 		a onClick: [RODemo new show: selector].
 		a with: selector.
 		li append: a.
-		selectorList append: li.
+		ul append: li.
 	].
 !
 
@@ -67,7 +67,7 @@ updateTextArea: selector
 !RODemo class methodsFor: 'not yet classified'!
 
 init
-	self new appendToJQuery: 'body' asJQuery
+	self new appendToJQuery: '#selectorList' asJQuery
 !
 
 show: selector

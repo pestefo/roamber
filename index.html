@@ -7,57 +7,51 @@
     <meta name="author" content="Pablo Estefo and Amber team" /> 
     <script src="projects/roamber/js/raphael-min.js" charset="utf-8"></script>
     
-    <script src="js/lib/jQuery/jquery-1.8.2.min.js"></script>
-    <script src="js/lib/bootstrap/js/bootstrap.js"></script>
     <link href="js/lib/bootstrap/css/bootstrap.css" rel="stylesheet" >
 
     
   </head> 
 
   <body>
-    l<script type='text/javascript' src='js/amber.js'></script>  
+    <script type='text/javascript' src='js/amber.js'></script>  
     <script type='text/javascript'> 
       loadAmber({
         files: [
           'RoassalD3.js',
           'ARoassal.js', 
           'ARoassal-Test.js',
+          'ARoassal-Demo.js',
           'ARoassal-Interaction.js',
           'ARoassal-AttachPoint.js', 
           'ARoassal-AttachPoint-Test.js', 
-          'ARoassal-Event.js', 
+          'ARoassal-Event.js',
+          'ARoassal-Raphaeljs.js', 
           'ARoassal-Layout.js', 
           'ARoassal-Layout-Test.js',
           'Roassal-Amber-Extentions.js',
           'Roassal-Amber-Extensions.js',],
         prefix: 'projects/roamber/js',
         ready: function() {
-          
-          // smalltalk.ROPaper._default();
-          smalltalk.ROExample._new()._collectionHierarchy();
           smalltalk.Browser._open();
-
+          smalltalk.RODemo._init();
         }}) 
       window.onbeforeunload = function() {
           return 'Do you want to close Amber? All uncommitted changes will be lost.';
         };
     </script> 
 
+
       <div class="row-fluid">&nbsp;</div>
       <div class="row-fluid">&nbsp;</div>
       <div class="row-fluid">&nbsp;</div>
       <div class="row-fluid">
         <div class="offset2 span2">
-          <div class="btn-group">
+          <div id="selectorList"class="btn-group">
             <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
               Choose example
               <span class="caret"></span>
             </a>
-            <ul class="dropdown-menu">
-              <li><a>dsa</a></li>
-              <li><a>dsa</a></li>
-              <li><a>dsa</a></li>
-            </ul>
+            
           </div>
           
         </div>
@@ -66,27 +60,19 @@
           <!-- <a href="http://localhost:4000/projects/roamber/index.html">GO TO localhost:4000</a> -->
         </div>
       </div>
+    <div class="row-fluid">&nbsp;</div>
      <div class="row-fluid">
         <div class="offset2 span2">
           <textarea id="roassal-text" rows="10"></textarea>
         </div>
-        <div class="span5">
-          <div id="roassal-canvas" style="background-color:yellow;">dsadsaad</div>
+        <div class="span6">
+          <div id="roassal-canvas">
+          </div>
         </div>
       </div>
 
 
-
-    
-
-
-    
-
-
-    <div id="container" style="color:red;"></div>
-
-
-
-  
+  <!-- <script src="js/lib/jQuery/jquery-1.8.2.min.js"></script> -->
+  <script src="js/lib/bootstrap/js/bootstrap.js"></script>
   </body> 
 </html> 
