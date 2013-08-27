@@ -31,7 +31,7 @@
         prefix: 'projects/roamber/js',
         ready: function() {
           smalltalk.Browser._open();
-          smalltalk.RODemo._new()._initializeDropdown();
+          smalltalk.RODemo._init();
         }}) 
       window.onbeforeunload = function() {
           return 'Do you want to close Amber? All uncommitted changes will be lost.';
@@ -40,8 +40,9 @@
 
     <button onclick="smalltalk.Browser._open()">class browser</button>
     <a href="http://localhost:4000/projects/roamber/index.html">GO TO localhost:4000</a>
+    <div id="selectorListDiv">
     <ul id="selectorList"></ul><textarea id="roassal-text" rows="10"></textarea>
-
+    </div>
     <div id="roassal-canvas"></div>
 
   </body> 
