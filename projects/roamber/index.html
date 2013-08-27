@@ -18,6 +18,7 @@
           'RoassalD3.js',
           'ARoassal.js', 
           'ARoassal-Test.js',
+          'ARoassal-Demo.js',
           'ARoassal-Interaction.js',
           'ARoassal-AttachPoint.js', 
           'ARoassal-AttachPoint-Test.js', 
@@ -28,7 +29,10 @@
           'Roassal-Amber-Extentions.js',
           'Roassal-Amber-Extensions.js',],
         prefix: 'projects/roamber/js',
-        ready: function() {smalltalk.Browser._open()}}) 
+        ready: function() {
+          smalltalk.Browser._open();
+          smalltalk.RODemo._new()._initializeDropdown();
+        }}) 
       window.onbeforeunload = function() {
           return 'Do you want to close Amber? All uncommitted changes will be lost.';
         };
@@ -36,7 +40,7 @@
 
     <button onclick="smalltalk.Browser._open()">class browser</button>
     <a href="http://localhost:4000/projects/roamber/index.html">GO TO localhost:4000</a>
-
+    <ul id="selectorList"></ul><textarea id="roassal-text" rows="10"></textarea>
 
     <div id="roassal-canvas"></div>
 
