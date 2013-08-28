@@ -42,27 +42,22 @@ ROInteraction subclass: #RODraggable
 !RODraggable methodsFor: 'as yet unclassified'!
 
 initializeElement: element
-	| svgElement |
+	| svgElement originX originY |
 	svgElement := element shape svgElement.
 	
 	svgElement	
 		drag: [ :dx :dy :x :y |
-			"Transcript show: 'el-x ',(element position x),' x ',x,' el-y ', (element position y) ,' y ',y,String cr."
-
 			"update element position and redraw"
-			element translateTo: (x  - (RORaphaelCanvas origin x) ) @ (y  - (RORaphaelCanvas origin y)). "width/height * 1.5 for mouse position correction"
+			element translateTo: (x  - (RORaphaelCanvas origin x) - originX ) @ (y  - (RORaphaelCanvas origin y) - originY). 
 			element signalUpdate.
 		]
- 		onStart: [ "do nothing"
-			| bboxStart |
-			"
-			Transcript clear.
-			Transcript show: 'Element ',(element position asString),String cr.
-			bboxStart := svgElement getBBox.
-			Transcript show: 'BBox ',(bboxStart x),'@',(bboxStart y),String cr.
-			"
+ 		onStart: [ :x :y |
+			" Save mouse position when click"
+			originX := (x - (RORaphaelCanvas origin x)) - element position x.
+			originY := (y - (RORaphaelCanvas origin y)) - element position y.
 		]
-     	onEnd: [ "do nothing"
+     	onEnd: [ 
+			"do nothing"
 		].
 ! !
 

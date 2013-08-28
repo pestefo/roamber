@@ -87,22 +87,25 @@ smalltalk.method({
 selector: "initializeElement:",
 fn: function (element){
 var self=this;
-var svgElement;
+var svgElement,originX,originY;
 function $RORaphaelCanvas(){return smalltalk.RORaphaelCanvas||(typeof RORaphaelCanvas=="undefined"?nil:RORaphaelCanvas)}
 return smalltalk.withContext(function($ctx1) { 
 svgElement=_st(_st(element)._shape())._svgElement();
 _st(svgElement)._drag_onStart_onEnd_((function(dx,dy,x,y){
 return smalltalk.withContext(function($ctx2) {
-_st(element)._translateTo_(_st(_st(x).__minus(_st(_st($RORaphaelCanvas())._origin())._x())).__at(_st(y).__minus(_st(_st($RORaphaelCanvas())._origin())._y())));
+_st(element)._translateTo_(_st(_st(_st(x).__minus(_st(_st($RORaphaelCanvas())._origin())._x())).__minus(originX)).__at(_st(_st(y).__minus(_st(_st($RORaphaelCanvas())._origin())._y())).__minus(originY)));
 return _st(element)._signalUpdate();
-}, function($ctx2) {$ctx2.fillBlock({dx:dx,dy:dy,x:x,y:y},$ctx1)})}),(function(){
-var bboxStart;
+}, function($ctx2) {$ctx2.fillBlock({dx:dx,dy:dy,x:x,y:y},$ctx1)})}),(function(x,y){
 return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({bboxStart:bboxStart},$ctx1)})}),(function(){
+originX=_st(_st(x).__minus(_st(_st($RORaphaelCanvas())._origin())._x())).__minus(_st(_st(element)._position())._x());
+originX;
+originY=_st(_st(y).__minus(_st(_st($RORaphaelCanvas())._origin())._y())).__minus(_st(_st(element)._position())._y());
+return originY;
+}, function($ctx2) {$ctx2.fillBlock({x:x,y:y},$ctx1)})}),(function(){
 return smalltalk.withContext(function($ctx2) {
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"initializeElement:",{element:element,svgElement:svgElement},smalltalk.RODraggable)})},
-messageSends: ["svgElement", "shape", "drag:onStart:onEnd:", "translateTo:", "@", "-", "y", "origin", "x", "signalUpdate"]}),
+return self}, function($ctx1) {$ctx1.fill(self,"initializeElement:",{element:element,svgElement:svgElement,originX:originX,originY:originY},smalltalk.RODraggable)})},
+messageSends: ["svgElement", "shape", "drag:onStart:onEnd:", "translateTo:", "@", "-", "y", "origin", "x", "signalUpdate", "position"]}),
 smalltalk.RODraggable);
 
 
