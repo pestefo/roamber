@@ -734,4 +734,17 @@ return self}, function($ctx1) {$ctx1.fill(self,"new",{},smalltalk.RORaphaelCanva
 messageSends: ["error:"]}),
 smalltalk.RORaphaelCanvas.klass);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "origin",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(_st(self._canvas())._canvas())._offsetLeft()).__at(_st(_st(self._canvas())._canvas())._offsetTop());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"origin",{},smalltalk.RORaphaelCanvas.klass)})},
+messageSends: ["@", "offsetTop", "canvas", "offsetLeft"]}),
+smalltalk.RORaphaelCanvas.klass);
+
 

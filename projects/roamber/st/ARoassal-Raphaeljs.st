@@ -431,5 +431,9 @@ paper ifNil: [paper := self basicNew initialize].
 
 new	
 	self error: 'Use canvas instead.'
+!
+
+origin
+	^ (self canvas canvas offsetLeft) @ (self canvas canvas offsetTop)
 ! !
 

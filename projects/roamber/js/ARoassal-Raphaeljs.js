@@ -955,4 +955,22 @@ referencedClasses: []
 }),
 smalltalk.RORaphaelCanvas.klass);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "origin",
+category: 'as yet unclassified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(_st(self._canvas())._canvas())._offsetLeft()).__at(_st(_st(self._canvas())._canvas())._offsetTop());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"origin",{},smalltalk.RORaphaelCanvas.klass)})},
+args: [],
+source: "origin\x0a\x09^ (self canvas canvas offsetLeft) @ (self canvas canvas offsetTop)",
+messageSends: ["@", "offsetTop", "canvas", "offsetLeft"],
+referencedClasses: []
+}),
+smalltalk.RORaphaelCanvas.klass);
+
 
