@@ -369,8 +369,8 @@ function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROVi
 function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
 function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
 function $ROMouseLeftClick(){return smalltalk.ROMouseLeftClick||(typeof ROMouseLeftClick=="undefined"?nil:ROMouseLeftClick)}
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
 function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
-function $ROPopup(){return smalltalk.ROPopup||(typeof ROPopup=="undefined"?nil:ROPopup)}
 function $ROHorizontalLineLayout(){return smalltalk.ROHorizontalLineLayout||(typeof ROHorizontalLineLayout=="undefined"?nil:ROHorizontalLineLayout)}
 return smalltalk.withContext(function($ctx1) { 
 view=_st($ROView())._new();
@@ -380,19 +380,18 @@ _st(element).__plus($ROBox());
 _st(element2).__plus($ROBox());
 _st(element)._on_do_($ROMouseLeftClick(),(function(event){
 return smalltalk.withContext(function($ctx2) {
-return _st($Transcript())._show_("elemen clicked");
+return _st($Transcript())._show_("e1".__comma(_st($String())._cr()));
 }, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
-_st(element).__at($ROPopup());
 _st(element2)._on_do_($ROMouseLeftClick(),(function(event){
 return smalltalk.withContext(function($ctx2) {
-return _st($Transcript())._show_("element2 clicked");
+return _st($Transcript())._show_("-e2-".__comma(_st($String())._cr()));
 }, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
 _st(view)._add_(element);
 _st(view)._add_(element2);
 _st($ROHorizontalLineLayout())._on_([element,element2]);
 _st(view)._open();
 return self}, function($ctx1) {$ctx1.fill(self,"mouseclick3",{view:view,element:element,element2:element2},smalltalk.ROExample)})},
-messageSends: ["new", "size:", "+", "on:do:", "show:", "@", "add:", "on:", "open"]}),
+messageSends: ["new", "size:", "+", "on:do:", "show:", ",", "cr", "add:", "on:", "open"]}),
 smalltalk.ROExample);
 
 smalltalk.addMethod(

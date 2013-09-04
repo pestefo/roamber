@@ -450,8 +450,8 @@ function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROVi
 function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
 function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
 function $ROMouseLeftClick(){return smalltalk.ROMouseLeftClick||(typeof ROMouseLeftClick=="undefined"?nil:ROMouseLeftClick)}
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
 function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
-function $ROPopup(){return smalltalk.ROPopup||(typeof ROPopup=="undefined"?nil:ROPopup)}
 function $ROHorizontalLineLayout(){return smalltalk.ROHorizontalLineLayout||(typeof ROHorizontalLineLayout=="undefined"?nil:ROHorizontalLineLayout)}
 return smalltalk.withContext(function($ctx1) { 
 view=_st($ROView())._new();
@@ -461,12 +461,11 @@ _st(element).__plus($ROBox());
 _st(element2).__plus($ROBox());
 _st(element)._on_do_($ROMouseLeftClick(),(function(event){
 return smalltalk.withContext(function($ctx2) {
-return _st($Transcript())._show_("elemen clicked");
+return _st($Transcript())._show_("e1".__comma(_st($String())._cr()));
 }, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
-_st(element).__at($ROPopup());
 _st(element2)._on_do_($ROMouseLeftClick(),(function(event){
 return smalltalk.withContext(function($ctx2) {
-return _st($Transcript())._show_("element2 clicked");
+return _st($Transcript())._show_("-e2-".__comma(_st($String())._cr()));
 }, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
 _st(view)._add_(element);
 _st(view)._add_(element2);
@@ -474,9 +473,9 @@ _st($ROHorizontalLineLayout())._on_([element,element2]);
 _st(view)._open();
 return self}, function($ctx1) {$ctx1.fill(self,"mouseclick3",{view:view,element:element,element2:element2},smalltalk.ROExample)})},
 args: [],
-source: "mouseclick3\x0a|view element element2|\x0aview := ROView new.\x0aelement := ROElement new size: 100.\x0aelement2 := ROElement new size: 50.\x0aelement + ROBox.\x0aelement2 + ROBox.\x0a\x22Open an inspector when clicking\x22\x0aelement on: ROMouseLeftClick do: [ :event | Transcript show: 'elemen clicked'].\x0aelement @ ROPopup.\x0aelement2 on: ROMouseLeftClick do: [ :event | Transcript show: 'element2 clicked'].\x0aview add: element.\x0aview add: element2.\x0aROHorizontalLineLayout on: {element . element2}.\x0aview open.",
-messageSends: ["new", "size:", "+", "on:do:", "show:", "@", "add:", "on:", "open"],
-referencedClasses: ["ROView", "ROElement", "ROBox", "ROMouseLeftClick", "Transcript", "ROPopup", "ROHorizontalLineLayout"]
+source: "mouseclick3\x0a|view element element2|\x0aview := ROView new.\x0aelement := ROElement new size: 100.\x0aelement2 := ROElement new size: 50.\x0aelement + ROBox.\x0aelement2 + ROBox.\x0a\x22Open an inspector when clicking\x22\x0aelement on: ROMouseLeftClick do: [ :event | Transcript show: 'e1',(String cr)].\x0aelement2 on: ROMouseLeftClick do: [ :event | Transcript show: '-e2-',(String cr)].\x0aview add: element.\x0aview add: element2.\x0aROHorizontalLineLayout on: {element . element2}.\x0aview open.",
+messageSends: ["new", "size:", "+", "on:do:", "show:", ",", "cr", "add:", "on:", "open"],
+referencedClasses: ["ROView", "ROElement", "ROBox", "ROMouseLeftClick", "String", "Transcript", "ROHorizontalLineLayout"]
 }),
 smalltalk.ROExample);
 

@@ -206,9 +206,8 @@ element2 := ROElement new size: 50.
 element + ROBox.
 element2 + ROBox.
 "Open an inspector when clicking"
-element on: ROMouseLeftClick do: [ :event | Transcript show: 'elemen clicked'].
-element @ ROPopup.
-element2 on: ROMouseLeftClick do: [ :event | Transcript show: 'element2 clicked'].
+element on: ROMouseLeftClick do: [ :event | Transcript show: 'e1',(String cr)].
+element2 on: ROMouseLeftClick do: [ :event | Transcript show: '-e2-',(String cr)].
 view add: element.
 view add: element2.
 ROHorizontalLineLayout on: {element . element2}.
