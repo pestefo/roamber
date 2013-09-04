@@ -1,5 +1,5 @@
 Smalltalk current createPackage: 'ARoassal'!
-Object subclass: #ROAnnouncer
+SystemAnnouncer subclass: #ROAnnouncer
 	instanceVariableNames: 'forwarding announcer'
 	package: 'ARoassal'!
 !ROAnnouncer commentStamp!
@@ -16,10 +16,6 @@ sendToParent: event
 
 !ROAnnouncer methodsFor: 'forwarding'!
 
-announce: anAnnouncementClass
-	announcer announce: anAnnouncementClass.
-!
-
 forward
 	self forward: ROEvent
 !
@@ -28,15 +24,6 @@ forward: anEventClass
 
 	forwarding ifNil: [ forwarding := IdentitySet new ].
 	forwarding add: anEventClass
-!
-
-initialize
-	super initialize.
-	announcer := SystemAnnouncer current.
-!
-
-on: anAnnouncementClass do: aBlock
-	announcer on: anAnnouncementClass do: aBlock.
 ! !
 
 !ROAnnouncer methodsFor: 'testing'!
@@ -146,7 +133,7 @@ initialize
 	super initialize.
 "	parent := ROView nullView."
 	
-	eventHandler := ROAnnouncer new.
+	eventHandler := ROAnnouncer current.
 	view := ROView nullView.
 	
 	"Actually, I am not sure we need to have a variable interactions"
@@ -191,7 +178,7 @@ on: eventClass do: aBlock
 	"Register a block as an handler for eventClass"
 	
 
-	eventHandler on: eventClass do: aBlock.
+	eventHandler when: eventClass do: aBlock.
 	"interactions at: eventClass put: aBlock"
 !
 
@@ -391,6 +378,7 @@ initialize
 	position := 0 @ 0.
 	interactions := Dictionary new.
 	shape := RONullShape new.
+	self @ ROClickable.
 ! !
 
 !ROElement methodsFor: 'testing'!
@@ -529,212 +517,11 @@ resetNullView
 	nullView := nil
 ! !
 
-ROObject subclass: #ROExample
-	instanceVariableNames: ''
-	package: 'ARoassal'!
-
-!ROExample methodsFor: 'not yet classified'!
-
-circle
-	| view |
-	view := ROView new.
-	view add: (ROCircle element translateTo: 50 @ 50).
-	view open.
-!
-
-collectionHierarchy
-|view classElements edges associations|
-view := ROView new.
-classElements := ROElement forCollection: Collection withAllSubclasses.
-classElements
-	do: [:c | | instVar |
-		instVar := c model instVarNames size.
-		c shape width: (( instVar = 0) ifTrue: [ 10 ] ifFalse: [ instVar * 15]) .
-"		c shape height: c model methods size."
-		c shape height: c model allSelectors size.	
-		c + ROBox.
-		c @ RODraggable ].
-		view addAll: classElements.
-associations := classElements collect: [:c |
-			(c model superclass = Object)
-			ifFalse: [ (view elementFromModel: c
-				model superclass) -> c]
-			] thenSelect: [:assoc | assoc isNil not ].
-edges := ROEdge linesFor: associations.
-view addAll: edges.
-ROTreeLayout on: (view elements) edges: edges.
-"ROTreeLayout new on: view elements."
-
-view open.
-
-classElements do: [:c |
-	Transcript show: (c height asString),'  ',(String cr).
-	].
-!
-
-create
-	| view |
-	view := ROView new.
-	view add: (ROElement new shape: (ROBox new)).
-	view open.
-!
-
-drag
-	| view elements b |
-	view := ROView new.
-	elements := OrderedCollection new.
-	b := (ROBox element translateTo: 50 @ 50).
-	elements add: b."; 
-			 add: (ROCircle element translateTo: 200 @ 150). "
-	
-	elements do: [:each | each addInteraction: RODraggable. view add: each].
-	view open.
-!
-
-horizontalLayout
-	| view |
-	view := ROView new.
-	view clear.
-	10 timesRepeat: [view add: (ROElement new shape: (ROBox new))].
-	ROHorizontalLineLayout on: view elements.
-	view open.
-	^ view.
-!
-
-horizontalLayout2
-	| view |
-	view := ROView new.
-	view clear.
-	1 to: 20 do: [ :i |
-		view add: ((ROElement new model: i) shape: 
-			(ROBox new height: [ :el | el model * 13 ]; width: [ :el | el model * 5 ])) ].
-	ROHorizontalLineLayout on: view elements.
-	view open.
-!
-
-line
-	| view el1 el2 edge |
-	view := ROView new.
-
-	el1 := ROBox element.
-	el2 := ROBox element.
-	
-	el1 translateTo: 20 @ 30.
-	el2 translateTo: 300 @ 100.
-	
-	edge := ROLineShape edgeFrom: el1 to: el2.
-
-	view add: el1; add: el2; add: edge.
-	
-	view open.
-!
-
-line2
-
-	| view el1 el2 edge el3 el4 edge2 |
-	view := ROView new.
-
-	el1 := ROCircle element.
-	el2 := ROCircle element.
-	
-	el1 translateTo: 20 @ 30.
-	el2 translateTo: 300 @ 100.
-	
-	edge := ROLineShape edgeFrom: el1 to: el2.
-	
-	el3 := ROBox element.
-	el4 := ROBox element.
-	
-	el3 translateTo: 150 @ 20.
-	el4 translateTo: 150 @ 300.
-	
-	edge2 := ROLineShape edgeFrom: el3 to: el4.
-
-	view add: el1; add: el2; add: edge; add: el3; add: el4; add: edge2.
-	
-	view open.
-!
-
-mouseclick
-|view element|
-view := ROView new.
-element := ROElement new size: 100.
-element + ROBox.
-"Open an inspector when clicking"
-element on: ROMouseClick do: [ :event | event inspect ].
-view add: element.
-view open.
-!
-
-treeLayout 
-	"
-	self new treeLayout
-	"
-	
-	| view elements edges |
-	view := ROView new.
-	elements := ROElement spritesOn: (1 to: 5).
-	elements do:[:el | el addInteraction: RODraggable].
-	view addAll: elements.
-	view addAll: (edges := ROEdge linesFor: { (elements at: 1) -> (elements at: 2) . 
-											  (elements at: 2) -> (elements at: 5) . 
-											  (elements at: 2) -> (elements at: 3) }).
-	
-	ROTreeLayout on: elements edges: edges.
-
-	view open.
-!
-
-treeLayout2
-	"
-	self new treeLayout
-	"
-	
-	| view elements |
-	elements := ROElement forCollection: (1 to: 20).
-	elements do: [ :n | n extent: 50@50; addShape: (ROBox new) ].
-	view := ROView new.
-	view addAll: elements.
-	elements allButFirst do: [:e | 
-	 	view add: (ROEdge lineFrom: elements first to: e) ].
-
-	ROTreeLayout on: elements.
-	view open.
-!
-
-tux
-
-	| view |
-	view := ROView new.
-	view add: (ROTux element).
-	view open
-! !
-
 ROObject subclass: #ROShape
 	instanceVariableNames: 'svgElement height width color'
 	package: 'ARoassal'!
 
 !ROShape methodsFor: 'accessing'!
-
-drag: element
-	svgElement	
-		drag: [ :dx :dy |
-			| bboxCurrent |
-			bboxCurrent := svgElement getBBox.
-			svgElement translate:  (dx - (bboxCurrent x) ) y: (dy -(bboxCurrent y)).
-			
-			"update element position and redraw"
-			element translateTo: dx @ dy.
-			element signalUpdate.
-		]
- 		onStart: [ "do nothing"]
-     	onEnd: [ 
-			| bboxAfterDrag | 
-			bboxAfterDrag := svgElement getBBox.
-			"update current position"
-			"element translateTo: (bboxAfterDrag x)@(bboxAfterDrag y). <-- moved to drag block"
-		].
-!
 
 height
 	^ height
@@ -1039,6 +826,47 @@ updateSVGElementOn: canvas for: anElement
 initialize
 	super initialize.
 	radius := self defaultRadius
+! !
+
+ROShape subclass: #ROLabel
+	instanceVariableNames: ''
+	package: 'ARoassal'!
+
+!ROLabel methodsFor: 'not yet classified'!
+
+drawOn: canvas for: anElement
+	self initializeSVGElementOn: canvas for: anElement
+!
+
+initializeSVGElementOn: canvas for: anElement
+	"Paper.print(x, y, string, font, [size], [origin], [letter_spacing])
+	x - position of the text
+	y - position of the text
+	string - text to print
+	font - font object, see --> Paper.getFont(family, [weight], [style], [stretch])
+	size - size of the font, default is 16
+	origin - could be baseline' or 'middle' (default)
+	letter_spacing - number number in range -1..1, default is 0
+	Returns: object resulting path element, which consist of all letters
+
+	"
+	svgElement:= canvas 
+		print: 100
+		y: 50
+		string: 'texto de prueba' 
+		font: (canvas getFont: 'Times').
+!
+
+updateSVGElementOn: canvas for: anElement
+	self initializeSVGElementOn: canvas for: anElement
+"
+	svgElement 
+		attr: 'x' with: (anElement position x);
+		attr: 'y' with: (anElement position y);
+		attr: 'width' with: (self widthFor: anElement);
+		attr: 'height' with: (self heightFor: anElement);
+		attr:'fill' with: 'lightGray'.
+"
 ! !
 
 ROShape subclass: #RONullShape

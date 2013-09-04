@@ -1,5 +1,5 @@
 Smalltalk current createPackage: 'ARoassal-Event'!
-Object subclass: #ROEvent
+SystemAnnouncement subclass: #ROEvent
 	instanceVariableNames: ''
 	package: 'ARoassal-Event'!
 

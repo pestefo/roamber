@@ -111,6 +111,35 @@ referencedClasses: []
 smalltalk.ROInteraction.klass);
 
 
+smalltalk.addClass('ROClickable', smalltalk.ROInteraction, [], 'ARoassal-Interaction');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initializeElement:",
+category: 'not yet classified',
+fn: function (element){
+var self=this;
+var svgElement;
+function $ROMouseLeftClick(){return smalltalk.ROMouseLeftClick||(typeof ROMouseLeftClick=="undefined"?nil:ROMouseLeftClick)}
+return smalltalk.withContext(function($ctx1) { 
+svgElement=_st(_st(element)._shape())._svgElement();
+_st(svgElement)._unclick();
+_st(svgElement)._click_((function(){
+var ev;
+return smalltalk.withContext(function($ctx2) {
+ev=_st($ROMouseLeftClick())._new();
+ev;
+return _st(element)._announce_(ev);
+}, function($ctx2) {$ctx2.fillBlock({ev:ev},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"initializeElement:",{element:element,svgElement:svgElement},smalltalk.ROClickable)})},
+args: ["element"],
+source: "initializeElement: element\x0a\x09| svgElement |\x0a\x09svgElement := element shape svgElement.\x0a\x09svgElement unclick.\x0a\x09svgElement\x09click: [ \x0a\x09\x09| ev |\x0a\x09\x09\x22 see ROMorph>>roMouseClick:\x22\x0a\x09\x09ev := ROMouseLeftClick new.\x0a\x09\x09element announce: ev.\x0a\x09\x09].",
+messageSends: ["svgElement", "shape", "unclick", "click:", "new", "announce:"],
+referencedClasses: ["ROMouseLeftClick"]
+}),
+smalltalk.ROClickable);
+
+
+
 smalltalk.addClass('RODraggable', smalltalk.ROInteraction, [], 'ARoassal-Interaction');
 smalltalk.addMethod(
 smalltalk.method({

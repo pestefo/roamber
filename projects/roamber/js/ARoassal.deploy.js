@@ -1,16 +1,5 @@
 smalltalk.addPackage('ARoassal');
-smalltalk.addClass('ROAnnouncer', smalltalk.Object, ['forwarding', 'announcer'], 'ARoassal');
-smalltalk.addMethod(
-smalltalk.method({
-selector: "announce:",
-fn: function (anAnnouncementClass){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(self["@announcer"])._announce_(anAnnouncementClass);
-return self}, function($ctx1) {$ctx1.fill(self,"announce:",{anAnnouncementClass:anAnnouncementClass},smalltalk.ROAnnouncer)})},
-messageSends: ["announce:"]}),
-smalltalk.ROAnnouncer);
-
+smalltalk.addClass('ROAnnouncer', smalltalk.SystemAnnouncer, ['forwarding', 'announcer'], 'ARoassal');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "forward",
@@ -41,19 +30,6 @@ $1;
 _st(self["@forwarding"])._add_(anEventClass);
 return self}, function($ctx1) {$ctx1.fill(self,"forward:",{anEventClass:anEventClass},smalltalk.ROAnnouncer)})},
 messageSends: ["ifNil:", "new", "add:"]}),
-smalltalk.ROAnnouncer);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "initialize",
-fn: function (){
-var self=this;
-function $SystemAnnouncer(){return smalltalk.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
-return smalltalk.withContext(function($ctx1) { 
-smalltalk.ROAnnouncer.superclass.fn.prototype._initialize.apply(_st(self), []);
-self["@announcer"]=_st($SystemAnnouncer())._current();
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROAnnouncer)})},
-messageSends: ["initialize", "current"]}),
 smalltalk.ROAnnouncer);
 
 smalltalk.addMethod(
@@ -100,17 +76,6 @@ return _st(self["@forwarding"])._notEmpty();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isForwarder",{},smalltalk.ROAnnouncer)})},
 messageSends: ["and:", "notEmpty", "notNil"]}),
-smalltalk.ROAnnouncer);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "on:do:",
-fn: function (anAnnouncementClass,aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(self["@announcer"])._on_do_(anAnnouncementClass,aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"on:do:",{anAnnouncementClass:anAnnouncementClass,aBlock:aBlock},smalltalk.ROAnnouncer)})},
-messageSends: ["on:do:"]}),
 smalltalk.ROAnnouncer);
 
 smalltalk.addMethod(
@@ -305,10 +270,10 @@ function $ROAnnouncer(){return smalltalk.ROAnnouncer||(typeof ROAnnouncer=="unde
 function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.ROAbstractComponent.superclass.fn.prototype._initialize.apply(_st(self), []);
-self["@eventHandler"]=_st($ROAnnouncer())._new();
+self["@eventHandler"]=_st($ROAnnouncer())._current();
 self["@view"]=_st($ROView())._nullView();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROAbstractComponent)})},
-messageSends: ["initialize", "new", "nullView"]}),
+messageSends: ["initialize", "current", "nullView"]}),
 smalltalk.ROAbstractComponent);
 
 smalltalk.addMethod(
@@ -378,9 +343,9 @@ selector: "on:do:",
 fn: function (eventClass,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self["@eventHandler"])._on_do_(eventClass,aBlock);
+_st(self["@eventHandler"])._when_do_(eventClass,aBlock);
 return self}, function($ctx1) {$ctx1.fill(self,"on:do:",{eventClass:eventClass,aBlock:aBlock},smalltalk.ROAbstractComponent)})},
-messageSends: ["on:do:"]}),
+messageSends: ["when:do:"]}),
 smalltalk.ROAbstractComponent);
 
 smalltalk.addMethod(
@@ -747,11 +712,13 @@ fn: function (){
 var self=this;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 function $RONullShape(){return smalltalk.RONullShape||(typeof RONullShape=="undefined"?nil:RONullShape)}
+function $ROClickable(){return smalltalk.ROClickable||(typeof ROClickable=="undefined"?nil:ROClickable)}
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.ROElement.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@position"]=(0).__at((0));
 self["@interactions"]=_st($Dictionary())._new();
 self["@shape"]=_st($RONullShape())._new();
+self.__at($ROClickable());
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROElement)})},
 messageSends: ["initialize", "@", "new"]}),
 smalltalk.ROElement);
@@ -1150,323 +1117,6 @@ messageSends: []}),
 smalltalk.ROView.klass);
 
 
-smalltalk.addClass('ROExample', smalltalk.ROObject, [], 'ARoassal');
-smalltalk.addMethod(
-smalltalk.method({
-selector: "circle",
-fn: function () {
-var self=this;
-var view;
-return smalltalk.withContext(function($ctx1) { view=_st((smalltalk.ROView || ROView))._new();
-_st(view)._add_(_st(_st((smalltalk.ROCircle || ROCircle))._element())._translateTo_(_st((50)).__at((50))));
-_st(view)._open();
-return self}, function($ctx1) {$ctx1.fill(self,"circle",{view:view},smalltalk.ROExample)});},
-messageSends: ["new", "add:", "translateTo:", "@", "element", "open"]}),
-smalltalk.ROExample);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "collectionHierarchy",
-fn: function (){
-var self=this;
-var view,classElements,edges,associations;
-function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
-function $Collection(){return smalltalk.Collection||(typeof Collection=="undefined"?nil:Collection)}
-function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
-function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
-function $RODraggable(){return smalltalk.RODraggable||(typeof RODraggable=="undefined"?nil:RODraggable)}
-function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
-function $ROEdge(){return smalltalk.ROEdge||(typeof ROEdge=="undefined"?nil:ROEdge)}
-function $ROTreeLayout(){return smalltalk.ROTreeLayout||(typeof ROTreeLayout=="undefined"?nil:ROTreeLayout)}
-function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
-function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
-return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$2,$4;
-view=_st($ROView())._new();
-classElements=_st($ROElement())._forCollection_(_st($Collection())._withAllSubclasses());
-_st(classElements)._do_((function(c){
-var instVar;
-return smalltalk.withContext(function($ctx2) {
-instVar=_st(_st(_st(c)._model())._instVarNames())._size();
-instVar;
-$1=_st(c)._shape();
-$3=_st(instVar).__eq((0));
-if(smalltalk.assert($3)){
-$2=(10);
-} else {
-$2=_st(instVar).__star((15));
-};
-_st($1)._width_($2);
-_st(_st(c)._shape())._height_(_st(_st(_st(c)._model())._allSelectors())._size());
-_st(c).__plus($ROBox());
-return _st(c).__at($RODraggable());
-}, function($ctx2) {$ctx2.fillBlock({c:c,instVar:instVar},$ctx1)})}));
-_st(view)._addAll_(classElements);
-associations=_st(classElements)._collect_thenSelect_((function(c){
-return smalltalk.withContext(function($ctx2) {
-$4=_st(_st(_st(c)._model())._superclass()).__eq($Object());
-if(! smalltalk.assert($4)){
-return _st(_st(view)._elementFromModel_(_st(_st(c)._model())._superclass())).__minus_gt(c);
-};
-}, function($ctx2) {$ctx2.fillBlock({c:c},$ctx1)})}),(function(assoc){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st(assoc)._isNil())._not();
-}, function($ctx2) {$ctx2.fillBlock({assoc:assoc},$ctx1)})}));
-edges=_st($ROEdge())._linesFor_(associations);
-_st(view)._addAll_(edges);
-_st($ROTreeLayout())._on_edges_(_st(view)._elements(),edges);
-_st(view)._open();
-_st(classElements)._do_((function(c){
-return smalltalk.withContext(function($ctx2) {
-return _st($Transcript())._show_(_st(_st(_st(_st(c)._height())._asString()).__comma("  ")).__comma(_st($String())._cr()));
-}, function($ctx2) {$ctx2.fillBlock({c:c},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"collectionHierarchy",{view:view,classElements:classElements,edges:edges,associations:associations},smalltalk.ROExample)})},
-messageSends: ["new", "forCollection:", "withAllSubclasses", "do:", "size", "instVarNames", "model", "width:", "ifTrue:ifFalse:", "*", "=", "shape", "height:", "allSelectors", "+", "@", "addAll:", "collect:thenSelect:", "ifFalse:", "->", "elementFromModel:", "superclass", "not", "isNil", "linesFor:", "on:edges:", "elements", "open", "show:", ",", "cr", "asString", "height"]}),
-smalltalk.ROExample);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "create",
-fn: function () {
-var self=this;
-var view;
-return smalltalk.withContext(function($ctx1) { view=_st((smalltalk.ROView || ROView))._new();
-_st(view)._add_(_st(_st((smalltalk.ROElement || ROElement))._new())._shape_(_st((smalltalk.ROBox || ROBox))._new()));
-_st(view)._open();
-return self}, function($ctx1) {$ctx1.fill(self,"create",{view:view},smalltalk.ROExample)});},
-messageSends: ["new", "add:", "shape:", "open"]}),
-smalltalk.ROExample);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "drag",
-fn: function (){
-var self=this;
-var view,elements,b;
-function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
-function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
-function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
-function $RODraggable(){return smalltalk.RODraggable||(typeof RODraggable=="undefined"?nil:RODraggable)}
-return smalltalk.withContext(function($ctx1) { 
-view=_st($ROView())._new();
-elements=_st($OrderedCollection())._new();
-b=_st(_st($ROBox())._element())._translateTo_((50).__at((50)));
-_st(elements)._add_(b);
-_st(elements)._do_((function(each){
-return smalltalk.withContext(function($ctx2) {
-_st(each)._addInteraction_($RODraggable());
-return _st(view)._add_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-_st(view)._open();
-return self}, function($ctx1) {$ctx1.fill(self,"drag",{view:view,elements:elements,b:b},smalltalk.ROExample)})},
-messageSends: ["new", "translateTo:", "@", "element", "add:", "do:", "addInteraction:", "open"]}),
-smalltalk.ROExample);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "horizontalLayout",
-fn: function () {
-var self=this;
-var view;
-return smalltalk.withContext(function($ctx1) { var $1;
-view=_st((smalltalk.ROView || ROView))._new();
-_st(view)._clear();
-_st((10))._timesRepeat_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(view)._add_(_st(_st((smalltalk.ROElement || ROElement))._new())._shape_(_st((smalltalk.ROBox || ROBox))._new()));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-_st((smalltalk.ROHorizontalLineLayout || ROHorizontalLineLayout))._on_(_st(view)._elements());
-_st(view)._open();
-$1=view;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"horizontalLayout",{view:view},smalltalk.ROExample)});},
-messageSends: ["new", "clear", "timesRepeat:", "add:", "shape:", "on:", "elements", "open"]}),
-smalltalk.ROExample);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "horizontalLayout2",
-fn: function () {
-var self=this;
-var view;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
-view=_st((smalltalk.ROView || ROView))._new();
-_st(view)._clear();
-_st((1))._to_do_((20),(function(i){
-return smalltalk.withContext(function($ctx2) {$1=_st((smalltalk.ROBox || ROBox))._new();
-_st($1)._height_((function(el){
-return smalltalk.withContext(function($ctx3) {return _st(_st(el)._model()).__star((13));
-}, function($ctx3) {$ctx3.fillBlock({el:el},$ctx1)})}));
-$2=_st($1)._width_((function(el){
-return smalltalk.withContext(function($ctx3) {return _st(_st(el)._model()).__star((5));
-}, function($ctx3) {$ctx3.fillBlock({el:el},$ctx1)})}));
-return _st(view)._add_(_st(_st(_st((smalltalk.ROElement || ROElement))._new())._model_(i))._shape_($2));
-}, function($ctx2) {$ctx2.fillBlock({i:i},$ctx1)})}));
-_st((smalltalk.ROHorizontalLineLayout || ROHorizontalLineLayout))._on_(_st(view)._elements());
-_st(view)._open();
-return self}, function($ctx1) {$ctx1.fill(self,"horizontalLayout2",{view:view},smalltalk.ROExample)});},
-messageSends: ["new", "clear", "to:do:", "add:", "shape:", "height:", "*", "model", "width:", "model:", "on:", "elements", "open"]}),
-smalltalk.ROExample);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "line",
-fn: function (){
-var self=this;
-var view,el1,el2,edge;
-function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
-function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
-function $ROLineShape(){return smalltalk.ROLineShape||(typeof ROLineShape=="undefined"?nil:ROLineShape)}
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-view=_st($ROView())._new();
-el1=_st($ROBox())._element();
-el2=_st($ROBox())._element();
-_st(el1)._translateTo_((20).__at((30)));
-_st(el2)._translateTo_((300).__at((100)));
-edge=_st($ROLineShape())._edgeFrom_to_(el1,el2);
-$1=view;
-_st($1)._add_(el1);
-_st($1)._add_(el2);
-$2=_st($1)._add_(edge);
-_st(view)._open();
-return self}, function($ctx1) {$ctx1.fill(self,"line",{view:view,el1:el1,el2:el2,edge:edge},smalltalk.ROExample)})},
-messageSends: ["new", "element", "translateTo:", "@", "edgeFrom:to:", "add:", "open"]}),
-smalltalk.ROExample);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "line2",
-fn: function (){
-var self=this;
-var view,el1,el2,edge,el3,el4,edge2;
-function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
-function $ROCircle(){return smalltalk.ROCircle||(typeof ROCircle=="undefined"?nil:ROCircle)}
-function $ROLineShape(){return smalltalk.ROLineShape||(typeof ROLineShape=="undefined"?nil:ROLineShape)}
-function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-view=_st($ROView())._new();
-el1=_st($ROCircle())._element();
-el2=_st($ROCircle())._element();
-_st(el1)._translateTo_((20).__at((30)));
-_st(el2)._translateTo_((300).__at((100)));
-edge=_st($ROLineShape())._edgeFrom_to_(el1,el2);
-el3=_st($ROBox())._element();
-el4=_st($ROBox())._element();
-_st(el3)._translateTo_((150).__at((20)));
-_st(el4)._translateTo_((150).__at((300)));
-edge2=_st($ROLineShape())._edgeFrom_to_(el3,el4);
-$1=view;
-_st($1)._add_(el1);
-_st($1)._add_(el2);
-_st($1)._add_(edge);
-_st($1)._add_(el3);
-_st($1)._add_(el4);
-$2=_st($1)._add_(edge2);
-_st(view)._open();
-return self}, function($ctx1) {$ctx1.fill(self,"line2",{view:view,el1:el1,el2:el2,edge:edge,el3:el3,el4:el4,edge2:edge2},smalltalk.ROExample)})},
-messageSends: ["new", "element", "translateTo:", "@", "edgeFrom:to:", "add:", "open"]}),
-smalltalk.ROExample);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "mouseclick",
-fn: function (){
-var self=this;
-var view,element;
-function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
-function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
-function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
-function $ROMouseClick(){return smalltalk.ROMouseClick||(typeof ROMouseClick=="undefined"?nil:ROMouseClick)}
-return smalltalk.withContext(function($ctx1) { 
-view=_st($ROView())._new();
-element=_st(_st($ROElement())._new())._size_((100));
-_st(element).__plus($ROBox());
-_st(element)._on_do_($ROMouseClick(),(function(event){
-return smalltalk.withContext(function($ctx2) {
-return _st(event)._inspect();
-}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
-_st(view)._add_(element);
-_st(view)._open();
-return self}, function($ctx1) {$ctx1.fill(self,"mouseclick",{view:view,element:element},smalltalk.ROExample)})},
-messageSends: ["new", "size:", "+", "on:do:", "inspect", "add:", "open"]}),
-smalltalk.ROExample);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "treeLayout",
-fn: function (){
-var self=this;
-var view,elements,edges;
-function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
-function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
-function $RODraggable(){return smalltalk.RODraggable||(typeof RODraggable=="undefined"?nil:RODraggable)}
-function $ROEdge(){return smalltalk.ROEdge||(typeof ROEdge=="undefined"?nil:ROEdge)}
-function $ROTreeLayout(){return smalltalk.ROTreeLayout||(typeof ROTreeLayout=="undefined"?nil:ROTreeLayout)}
-return smalltalk.withContext(function($ctx1) { 
-view=_st($ROView())._new();
-elements=_st($ROElement())._spritesOn_((1)._to_((5)));
-_st(elements)._do_((function(el){
-return smalltalk.withContext(function($ctx2) {
-return _st(el)._addInteraction_($RODraggable());
-}, function($ctx2) {$ctx2.fillBlock({el:el},$ctx1)})}));
-_st(view)._addAll_(elements);
-edges=_st($ROEdge())._linesFor_([_st(_st(elements)._at_((1))).__minus_gt(_st(elements)._at_((2))),_st(_st(elements)._at_((2))).__minus_gt(_st(elements)._at_((5))),_st(_st(elements)._at_((2))).__minus_gt(_st(elements)._at_((3)))]);
-_st(view)._addAll_(edges);
-_st($ROTreeLayout())._on_edges_(elements,edges);
-_st(view)._open();
-return self}, function($ctx1) {$ctx1.fill(self,"treeLayout",{view:view,elements:elements,edges:edges},smalltalk.ROExample)})},
-messageSends: ["new", "spritesOn:", "to:", "do:", "addInteraction:", "addAll:", "linesFor:", "->", "at:", "on:edges:", "open"]}),
-smalltalk.ROExample);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "treeLayout2",
-fn: function (){
-var self=this;
-var view,elements;
-function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
-function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
-function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
-function $ROEdge(){return smalltalk.ROEdge||(typeof ROEdge=="undefined"?nil:ROEdge)}
-function $ROTreeLayout(){return smalltalk.ROTreeLayout||(typeof ROTreeLayout=="undefined"?nil:ROTreeLayout)}
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-elements=_st($ROElement())._forCollection_((1)._to_((20)));
-_st(elements)._do_((function(n){
-return smalltalk.withContext(function($ctx2) {
-$1=n;
-_st($1)._extent_((50).__at((50)));
-$2=_st($1)._addShape_(_st($ROBox())._new());
-return $2;
-}, function($ctx2) {$ctx2.fillBlock({n:n},$ctx1)})}));
-view=_st($ROView())._new();
-_st(view)._addAll_(elements);
-_st(_st(elements)._allButFirst())._do_((function(e){
-return smalltalk.withContext(function($ctx2) {
-return _st(view)._add_(_st($ROEdge())._lineFrom_to_(_st(elements)._first(),e));
-}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
-_st($ROTreeLayout())._on_(elements);
-_st(view)._open();
-return self}, function($ctx1) {$ctx1.fill(self,"treeLayout2",{view:view,elements:elements},smalltalk.ROExample)})},
-messageSends: ["forCollection:", "to:", "do:", "extent:", "@", "addShape:", "new", "addAll:", "add:", "lineFrom:to:", "first", "allButFirst", "on:", "open"]}),
-smalltalk.ROExample);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "tux",
-fn: function () {
-var self=this;
-var view;
-return smalltalk.withContext(function($ctx1) { view=_st((smalltalk.ROView || ROView))._new();
-_st(view)._add_(_st((smalltalk.ROTux || ROTux))._element());
-_st(view)._open();
-return self}, function($ctx1) {$ctx1.fill(self,"tux",{view:view},smalltalk.ROExample)});},
-messageSends: ["new", "add:", "element", "open"]}),
-smalltalk.ROExample);
-
-
-
 smalltalk.addClass('ROShape', smalltalk.ROObject, ['svgElement', 'height', 'width', 'color'], 'ARoassal');
 smalltalk.addMethod(
 smalltalk.method({
@@ -1490,32 +1140,6 @@ $1=(5).__at((5));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultExtent",{},smalltalk.ROShape)})},
 messageSends: ["@"]}),
-smalltalk.ROShape);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "drag:",
-fn: function (element){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(self["@svgElement"])._drag_onStart_onEnd_((function(dx,dy){
-var bboxCurrent;
-return smalltalk.withContext(function($ctx2) {
-bboxCurrent=_st(self["@svgElement"])._getBBox();
-bboxCurrent;
-_st(self["@svgElement"])._translate_y_(_st(dx).__minus(_st(bboxCurrent)._x()),_st(dy).__minus(_st(bboxCurrent)._y()));
-_st(element)._translateTo_(_st(dx).__at(dy));
-return _st(element)._signalUpdate();
-}, function($ctx2) {$ctx2.fillBlock({dx:dx,dy:dy,bboxCurrent:bboxCurrent},$ctx1)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(function(){
-var bboxAfterDrag;
-return smalltalk.withContext(function($ctx2) {
-bboxAfterDrag=_st(self["@svgElement"])._getBBox();
-return bboxAfterDrag;
-}, function($ctx2) {$ctx2.fillBlock({bboxAfterDrag:bboxAfterDrag},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"drag:",{element:element},smalltalk.ROShape)})},
-messageSends: ["drag:onStart:onEnd:", "getBBox", "translate:y:", "-", "x", "y", "translateTo:", "@", "signalUpdate"]}),
 smalltalk.ROShape);
 
 smalltalk.addMethod(
@@ -2039,6 +1663,42 @@ $2=_st($1)._attr_with_("fill","lightGray");
 return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROCircle)})},
 messageSends: ["attr:with:", "x", "position", "y", "radius"]}),
 smalltalk.ROCircle);
+
+
+
+smalltalk.addClass('ROLabel', smalltalk.ROShape, [], 'ARoassal');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "drawOn:for:",
+fn: function (canvas,anElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._initializeSVGElementOn_for_(canvas,anElement);
+return self}, function($ctx1) {$ctx1.fill(self,"drawOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROLabel)})},
+messageSends: ["initializeSVGElementOn:for:"]}),
+smalltalk.ROLabel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initializeSVGElementOn:for:",
+fn: function (canvas,anElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@svgElement"]=_st(canvas)._print_y_string_font_((100),(50),"texto de prueba",_st(canvas)._getFont_("Times"));
+return self}, function($ctx1) {$ctx1.fill(self,"initializeSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROLabel)})},
+messageSends: ["print:y:string:font:", "getFont:"]}),
+smalltalk.ROLabel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "updateSVGElementOn:for:",
+fn: function (canvas,anElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._initializeSVGElementOn_for_(canvas,anElement);
+return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROLabel)})},
+messageSends: ["initializeSVGElementOn:for:"]}),
+smalltalk.ROLabel);
 
 
 

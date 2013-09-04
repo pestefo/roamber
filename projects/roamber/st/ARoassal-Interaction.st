@@ -35,6 +35,24 @@ key
 	^ self
 ! !
 
+ROInteraction subclass: #ROClickable
+	instanceVariableNames: ''
+	package: 'ARoassal-Interaction'!
+
+!ROClickable methodsFor: 'not yet classified'!
+
+initializeElement: element
+	| svgElement |
+	svgElement := element shape svgElement.
+	svgElement unclick.
+	svgElement	click: [ 
+		| ev |
+		" see ROMorph>>roMouseClick:"
+		ev := ROMouseLeftClick new.
+		element announce: ev.
+		].
+! !
+
 ROInteraction subclass: #RODraggable
 	instanceVariableNames: ''
 	package: 'ARoassal-Interaction'!

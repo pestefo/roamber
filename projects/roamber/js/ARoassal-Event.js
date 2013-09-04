@@ -1,5 +1,5 @@
 smalltalk.addPackage('ARoassal-Event');
-smalltalk.addClass('ROEvent', smalltalk.Object, [], 'ARoassal-Event');
+smalltalk.addClass('ROEvent', smalltalk.SystemAnnouncement, [], 'ARoassal-Event');
 
 smalltalk.addMethod(
 smalltalk.method({

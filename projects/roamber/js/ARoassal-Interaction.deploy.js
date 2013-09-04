@@ -81,6 +81,30 @@ messageSends: []}),
 smalltalk.ROInteraction.klass);
 
 
+smalltalk.addClass('ROClickable', smalltalk.ROInteraction, [], 'ARoassal-Interaction');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initializeElement:",
+fn: function (element){
+var self=this;
+var svgElement;
+function $ROMouseLeftClick(){return smalltalk.ROMouseLeftClick||(typeof ROMouseLeftClick=="undefined"?nil:ROMouseLeftClick)}
+return smalltalk.withContext(function($ctx1) { 
+svgElement=_st(_st(element)._shape())._svgElement();
+_st(svgElement)._unclick();
+_st(svgElement)._click_((function(){
+var ev;
+return smalltalk.withContext(function($ctx2) {
+ev=_st($ROMouseLeftClick())._new();
+ev;
+return _st(element)._announce_(ev);
+}, function($ctx2) {$ctx2.fillBlock({ev:ev},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"initializeElement:",{element:element,svgElement:svgElement},smalltalk.ROClickable)})},
+messageSends: ["svgElement", "shape", "unclick", "click:", "new", "announce:"]}),
+smalltalk.ROClickable);
+
+
+
 smalltalk.addClass('RODraggable', smalltalk.ROInteraction, [], 'ARoassal-Interaction');
 smalltalk.addMethod(
 smalltalk.method({
