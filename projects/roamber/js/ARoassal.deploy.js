@@ -1,5 +1,5 @@
 smalltalk.addPackage('ARoassal');
-smalltalk.addClass('ROAnnouncer', smalltalk.SystemAnnouncer, ['forwarding', 'announcer'], 'ARoassal');
+smalltalk.addClass('ROAnnouncer', smalltalk.Announcer, ['forwarding', 'announcer'], 'ARoassal');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "forward",
@@ -270,10 +270,10 @@ function $ROAnnouncer(){return smalltalk.ROAnnouncer||(typeof ROAnnouncer=="unde
 function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.ROAbstractComponent.superclass.fn.prototype._initialize.apply(_st(self), []);
-self["@eventHandler"]=_st($ROAnnouncer())._current();
+self["@eventHandler"]=_st($ROAnnouncer())._new();
 self["@view"]=_st($ROView())._nullView();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROAbstractComponent)})},
-messageSends: ["initialize", "current", "nullView"]}),
+messageSends: ["initialize", "new", "nullView"]}),
 smalltalk.ROAbstractComponent);
 
 smalltalk.addMethod(
@@ -1684,9 +1684,9 @@ selector: "initializeSVGElementOn:for:",
 fn: function (canvas,anElement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self["@svgElement"]=_st(canvas)._print_y_string_font_((100),(50),"texto de prueba",_st(canvas)._getFont_("Times"));
+self["@svgElement"]=_st(canvas)._text_y_string_((100),(50),"texto de prueba");
 return self}, function($ctx1) {$ctx1.fill(self,"initializeSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROLabel)})},
-messageSends: ["print:y:string:font:", "getFont:"]}),
+messageSends: ["text:y:string:"]}),
 smalltalk.ROLabel);
 
 smalltalk.addMethod(

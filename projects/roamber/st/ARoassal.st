@@ -1,5 +1,5 @@
 Smalltalk current createPackage: 'ARoassal'!
-SystemAnnouncer subclass: #ROAnnouncer
+Announcer subclass: #ROAnnouncer
 	instanceVariableNames: 'forwarding announcer'
 	package: 'ARoassal'!
 !ROAnnouncer commentStamp!
@@ -133,7 +133,7 @@ initialize
 	super initialize.
 "	parent := ROView nullView."
 	
-	eventHandler := ROAnnouncer current.
+	eventHandler := ROAnnouncer new.
 	view := ROView nullView.
 	
 	"Actually, I am not sure we need to have a variable interactions"
@@ -848,13 +848,14 @@ initializeSVGElementOn: canvas for: anElement
 	origin - could be baseline' or 'middle' (default)
 	letter_spacing - number number in range -1..1, default is 0
 	Returns: object resulting path element, which consist of all letters
-
+   ----------- how to use getFont?????
+   
+   using paper.text() instead
 	"
 	svgElement:= canvas 
-		print: 100
+		text: 100
 		y: 50
-		string: 'texto de prueba' 
-		font: (canvas getFont: 'Times').
+		string: 'texto de prueba'.
 !
 
 updateSVGElementOn: canvas for: anElement

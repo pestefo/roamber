@@ -1,5 +1,5 @@
 smalltalk.addPackage('ARoassal');
-smalltalk.addClass('ROAnnouncer', smalltalk.SystemAnnouncer, ['forwarding', 'announcer'], 'ARoassal');
+smalltalk.addClass('ROAnnouncer', smalltalk.Announcer, ['forwarding', 'announcer'], 'ARoassal');
 smalltalk.ROAnnouncer.comment="A ROAnnouncer is a wrapper of Announcer, this object receive and emit events. Each roassal element has an roannouncer.\x0a";
 smalltalk.addMethod(
 smalltalk.method({
@@ -337,12 +337,12 @@ function $ROAnnouncer(){return smalltalk.ROAnnouncer||(typeof ROAnnouncer=="unde
 function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.ROAbstractComponent.superclass.fn.prototype._initialize.apply(_st(self), []);
-self["@eventHandler"]=_st($ROAnnouncer())._current();
+self["@eventHandler"]=_st($ROAnnouncer())._new();
 self["@view"]=_st($ROView())._nullView();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROAbstractComponent)})},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x22\x09parent := ROView nullView.\x22\x0a\x09\x0a\x09eventHandler := ROAnnouncer current.\x0a\x09view := ROView nullView.\x0a\x09\x0a\x09\x22Actually, I am not sure we need to have a variable interactions\x22\x0a\x22\x09interactions := IdentityDictionary new.\x0a\x0a\x09zIndex := 0\x0a\x22",
-messageSends: ["initialize", "current", "nullView"],
+source: "initialize\x0a\x09super initialize.\x0a\x22\x09parent := ROView nullView.\x22\x0a\x09\x0a\x09eventHandler := ROAnnouncer new.\x0a\x09view := ROView nullView.\x0a\x09\x0a\x09\x22Actually, I am not sure we need to have a variable interactions\x22\x0a\x22\x09interactions := IdentityDictionary new.\x0a\x0a\x09zIndex := 0\x0a\x22",
+messageSends: ["initialize", "new", "nullView"],
 referencedClasses: ["ROAnnouncer", "ROView"]
 }),
 smalltalk.ROAbstractComponent);
@@ -2281,11 +2281,11 @@ category: 'not yet classified',
 fn: function (canvas,anElement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self["@svgElement"]=_st(canvas)._print_y_string_font_((100),(50),"texto de prueba",_st(canvas)._getFont_("Times"));
+self["@svgElement"]=_st(canvas)._text_y_string_((100),(50),"texto de prueba");
 return self}, function($ctx1) {$ctx1.fill(self,"initializeSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROLabel)})},
 args: ["canvas", "anElement"],
-source: "initializeSVGElementOn: canvas for: anElement\x0a\x09\x22Paper.print(x, y, string, font, [size], [origin], [letter_spacing])\x0a\x09x - position of the text\x0a\x09y - position of the text\x0a\x09string - text to print\x0a\x09font - font object, see --> Paper.getFont(family, [weight], [style], [stretch])\x0a\x09size - size of the font, default is 16\x0a\x09origin - could be baseline' or 'middle' (default)\x0a\x09letter_spacing - number number in range -1..1, default is 0\x0a\x09Returns: object resulting path element, which consist of all letters\x0a\x0a\x09\x22\x0a\x09svgElement:= canvas \x0a\x09\x09print: 100\x0a\x09\x09y: 50\x0a\x09\x09string: 'texto de prueba' \x0a\x09\x09font: (canvas getFont: 'Times').\x0a\x09\x09",
-messageSends: ["print:y:string:font:", "getFont:"],
+source: "initializeSVGElementOn: canvas for: anElement\x0a\x09\x22Paper.print(x, y, string, font, [size], [origin], [letter_spacing])\x0a\x09x - position of the text\x0a\x09y - position of the text\x0a\x09string - text to print\x0a\x09font - font object, see --> Paper.getFont(family, [weight], [style], [stretch])\x0a\x09size - size of the font, default is 16\x0a\x09origin - could be baseline' or 'middle' (default)\x0a\x09letter_spacing - number number in range -1..1, default is 0\x0a\x09Returns: object resulting path element, which consist of all letters\x0a   ----------- how to use getFont?????\x0a   \x0a   using paper.text() instead\x0a\x09\x22\x0a\x09svgElement:= canvas \x0a\x09\x09text: 100\x0a\x09\x09y: 50\x0a\x09\x09string: 'texto de prueba'.\x0a\x09\x09",
+messageSends: ["text:y:string:"],
 referencedClasses: []
 }),
 smalltalk.ROLabel);
