@@ -35,6 +35,109 @@ key
 	^ self
 ! !
 
+ROInteraction subclass: #ROAbstractPopup
+	instanceVariableNames: ''
+	package: 'ARoassal-Interaction'!
+
+!ROAbstractPopup methodsFor: 'not yet classified'!
+
+createPopupFor: element
+	| el |
+	el := self createElementFor: element.
+	el on: ROMouseLeave do: [ :e | el view remove: el ifAbsent: [  ] ].
+
+	(self receivingViewFor: element) add: el.	
+
+	self popups add: el.
+
+	^ el
+!
+
+initializeElement: element
+	| svgElement  popup |
+	svgElement := element shape svgElement.
+	
+	svgElement	
+		mouseover: [ :x :y |
+			| el popupPosition |
+			self removeAllPopups.
+			
+			el := self createPopupFor: element.
+
+			
+"	
+			popupPosition := self 
+			closestPositionOf: el 
+			from: event 
+			realPosition 
+			in: (self receivingViewFor: element).
+			el translateTo: popupPosition.
+"	
+			popupPosition := (element position x + 10)@(element position y + 10)
+			popup translateTo: popupPosition.
+			element signalUpdate.
+
+		].
+
+"
+	element on: ROMouseLeave do: [ :event | 
+"
+	svgElement
+		unmouseover: [
+		" remove popup and redraw"
+		self removeAllPopups.
+		element signalUpdate  
+	].
+			
+	element on: ROMouseDragging do: [ :event | 
+	self removeAllPopups ].
+!
+
+popups
+	^self class popups
+!
+
+receivingViewFor: element
+	^ element view
+!
+
+removeAllPopups
+	" TODO "
+! !
+
+ROAbstractPopup class instanceVariableNames: 'popups'!
+
+!ROAbstractPopup class methodsFor: 'not yet classified'!
+
+popups
+
+	^ popups ifNil: [ popups := OrderedCollection new ]
+!
+
+resetPopups
+
+	popups := nil
+! !
+
+ROAbstractPopup subclass: #ROPopup
+	instanceVariableNames: ''
+	package: 'ARoassal-Interaction'!
+
+!ROPopup methodsFor: 'not yet classified'!
+
+createElementFor: anElement
+"
+	^ ROElement new
+			add: (ROElement new 
+					+ ((ROLabel 
+						text: (text roValue: element model)) color: textColor))
+					+ box copy;
+			yourself
+"			
+			
+		^ (ROElement on: (anElement model)) + ROLabel.
+! !
+
 ROInteraction subclass: #ROClickable
 	instanceVariableNames: ''
 	package: 'ARoassal-Interaction'!

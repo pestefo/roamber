@@ -169,7 +169,7 @@ line2
 	el3 translateTo: 150 @ 20.
 	el4 translateTo: 150 @ 300.
 	
-	edge2 := ROLineShape edgeFrom: el3 to: el4.
+	edge2 := ROLine edgeFrom: el3 to: el4.
 
 	view add: el1; add: el2; add: edge; add: el3; add: el4; add: edge2.
 	
@@ -211,6 +211,18 @@ element2 on: ROMouseLeftClick do: [ :event | Transcript show: '-e2-',(String cr)
 view add: element.
 view add: element2.
 ROHorizontalLineLayout on: {element . element2}.
+view open.
+!
+
+popup
+|view element|
+view := ROView new.
+element := ROElement new size: 100.
+element + ROBox.
+element @ ROPopup.
+"Open an inspector when clicking"
+
+view add: element.
 view open.
 !
 

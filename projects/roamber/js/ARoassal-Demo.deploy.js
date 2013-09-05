@@ -285,7 +285,6 @@ function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROVi
 function $ROCircle(){return smalltalk.ROCircle||(typeof ROCircle=="undefined"?nil:ROCircle)}
 function $ROLine(){return smalltalk.ROLine||(typeof ROLine=="undefined"?nil:ROLine)}
 function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
-function $ROLineShape(){return smalltalk.ROLineShape||(typeof ROLineShape=="undefined"?nil:ROLineShape)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 view=_st($ROView())._new();
@@ -298,7 +297,7 @@ el3=_st($ROBox())._element();
 el4=_st($ROBox())._element();
 _st(el3)._translateTo_((150).__at((20)));
 _st(el4)._translateTo_((150).__at((300)));
-edge2=_st($ROLineShape())._edgeFrom_to_(el3,el4);
+edge2=_st($ROLine())._edgeFrom_to_(el3,el4);
 $1=view;
 _st($1)._add_(el1);
 _st($1)._add_(el2);
@@ -392,6 +391,27 @@ _st($ROHorizontalLineLayout())._on_([element,element2]);
 _st(view)._open();
 return self}, function($ctx1) {$ctx1.fill(self,"mouseclick3",{view:view,element:element,element2:element2},smalltalk.ROExample)})},
 messageSends: ["new", "size:", "+", "on:do:", "show:", ",", "cr", "add:", "on:", "open"]}),
+smalltalk.ROExample);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "popup",
+fn: function (){
+var self=this;
+var view,element;
+function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
+function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
+function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
+function $ROPopup(){return smalltalk.ROPopup||(typeof ROPopup=="undefined"?nil:ROPopup)}
+return smalltalk.withContext(function($ctx1) { 
+view=_st($ROView())._new();
+element=_st(_st($ROElement())._new())._size_((100));
+_st(element).__plus($ROBox());
+_st(element).__at($ROPopup());
+_st(view)._add_(element);
+_st(view)._open();
+return self}, function($ctx1) {$ctx1.fill(self,"popup",{view:view,element:element},smalltalk.ROExample)})},
+messageSends: ["new", "size:", "+", "@", "add:", "open"]}),
 smalltalk.ROExample);
 
 smalltalk.addMethod(
