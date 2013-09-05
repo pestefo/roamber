@@ -2386,11 +2386,11 @@ category: 'not yet classified',
 fn: function (canvas,anElement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._initializeElementOn_for_(canvas,anElement);
+self._initializeSVGElementOn_for_(canvas,anElement);
 return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROTux)})},
 args: ["canvas", "anElement"],
-source: "updateSVGElementOn: canvas for: anElement\x0a\x09self initializeElementOn: canvas for: anElement.",
-messageSends: ["initializeElementOn:for:"],
+source: "updateSVGElementOn: canvas for: anElement\x0a\x09self initializeSVGElementOn: canvas for: anElement.",
+messageSends: ["initializeSVGElementOn:for:"],
 referencedClasses: []
 }),
 smalltalk.ROTux);

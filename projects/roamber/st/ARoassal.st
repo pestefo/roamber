@@ -901,7 +901,7 @@ initializeSVGElementOn: canvas for: anElement
 !
 
 updateSVGElementOn: canvas for: anElement
-	self initializeElementOn: canvas for: anElement.
+	self initializeSVGElementOn: canvas for: anElement.
 ! !
 
 !Collection methodsFor: '*ARoassal'!

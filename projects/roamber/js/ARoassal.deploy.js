@@ -1759,9 +1759,9 @@ selector: "updateSVGElementOn:for:",
 fn: function (canvas,anElement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._initializeElementOn_for_(canvas,anElement);
+self._initializeSVGElementOn_for_(canvas,anElement);
 return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROTux)})},
-messageSends: ["initializeElementOn:for:"]}),
+messageSends: ["initializeSVGElementOn:for:"]}),
 smalltalk.ROTux);
 
 
