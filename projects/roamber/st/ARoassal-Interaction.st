@@ -54,7 +54,7 @@ createPopupFor: element
 !
 
 initializeElement: element
-	| svgElement  popup |
+	| svgElement   |
 	svgElement := element shape svgElement.
 	
 	svgElement	
@@ -63,7 +63,6 @@ initializeElement: element
 			self removeAllPopups.
 			
 			el := self createPopupFor: element.
-
 			
 "	
 			popupPosition := self 
@@ -73,8 +72,8 @@ initializeElement: element
 			in: (self receivingViewFor: element).
 			el translateTo: popupPosition.
 "	
-			popupPosition := (element position x + 10)@(element position y + 10)
-			popup translateTo: popupPosition.
+			popupPosition := (element position x + 10)@(element position y + 10).
+			el translateTo: popupPosition.
 			element signalUpdate.
 
 		].
@@ -86,6 +85,7 @@ initializeElement: element
 		unmouseover: [
 		" remove popup and redraw"
 		self removeAllPopups.
+		element announce: ROMouseLeave.
 		element signalUpdate  
 	].
 			

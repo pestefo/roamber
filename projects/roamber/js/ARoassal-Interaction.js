@@ -147,7 +147,8 @@ selector: "initializeElement:",
 category: 'not yet classified',
 fn: function (element){
 var self=this;
-var svgElement,popup;
+var svgElement;
+function $ROMouseLeave(){return smalltalk.ROMouseLeave||(typeof ROMouseLeave=="undefined"?nil:ROMouseLeave)}
 function $ROMouseDragging(){return smalltalk.ROMouseDragging||(typeof ROMouseDragging=="undefined"?nil:ROMouseDragging)}
 return smalltalk.withContext(function($ctx1) { 
 svgElement=_st(_st(element)._shape())._svgElement();
@@ -157,24 +158,26 @@ return smalltalk.withContext(function($ctx2) {
 self._removeAllPopups();
 el=self._createPopupFor_(element);
 el;
-popupPosition=_st(_st(_st(_st(_st(element)._position())._x()).__plus((10))).__at(_st(_st(_st(_st(element)._position())._y()).__plus((10)))._popup()))._translateTo_(popupPosition);
+popupPosition=_st(_st(_st(_st(element)._position())._x()).__plus((10))).__at(_st(_st(_st(element)._position())._y()).__plus((10)));
 popupPosition;
+_st(el)._translateTo_(popupPosition);
 return _st(element)._signalUpdate();
 }, function($ctx2) {$ctx2.fillBlock({x:x,y:y,el:el,popupPosition:popupPosition},$ctx1)})}));
 _st(svgElement)._unmouseover_((function(){
 return smalltalk.withContext(function($ctx2) {
 self._removeAllPopups();
+_st(element)._announce_($ROMouseLeave());
 return _st(element)._signalUpdate();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 _st(element)._on_do_($ROMouseDragging(),(function(event){
 return smalltalk.withContext(function($ctx2) {
 return self._removeAllPopups();
 }, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"initializeElement:",{element:element,svgElement:svgElement,popup:popup},smalltalk.ROAbstractPopup)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initializeElement:",{element:element,svgElement:svgElement},smalltalk.ROAbstractPopup)})},
 args: ["element"],
-source: "initializeElement: element\x0a\x09| svgElement  popup |\x0a\x09svgElement := element shape svgElement.\x0a\x09\x0a\x09svgElement\x09\x0a\x09\x09mouseover: [ :x :y |\x0a\x09\x09\x09| el popupPosition |\x0a\x09\x09\x09self removeAllPopups.\x0a\x09\x09\x09\x0a\x09\x09\x09el := self createPopupFor: element.\x0a\x0a\x09\x09\x09\x0a\x22\x09\x0a\x09\x09\x09popupPosition := self \x0a\x09\x09\x09closestPositionOf: el \x0a\x09\x09\x09from: event \x0a\x09\x09\x09realPosition \x0a\x09\x09\x09in: (self receivingViewFor: element).\x0a\x09\x09\x09el translateTo: popupPosition.\x0a\x22\x09\x0a\x09\x09\x09popupPosition := (element position x + 10)@(element position y + 10)\x0a\x09\x09\x09popup translateTo: popupPosition.\x0a\x09\x09\x09element signalUpdate.\x0a\x0a\x09\x09].\x0a\x0a\x22\x0a\x09element on: ROMouseLeave do: [ :event | \x0a\x22\x0a\x09svgElement\x0a\x09\x09unmouseover: [\x0a\x09\x09\x22 remove popup and redraw\x22\x0a\x09\x09self removeAllPopups.\x0a\x09\x09element signalUpdate  \x0a\x09].\x0a\x09\x09\x09\x0a\x09element on: ROMouseDragging do: [ :event | \x0a\x09self removeAllPopups ].\x09",
-messageSends: ["svgElement", "shape", "mouseover:", "removeAllPopups", "createPopupFor:", "translateTo:", "@", "popup", "+", "y", "position", "x", "signalUpdate", "unmouseover:", "on:do:"],
-referencedClasses: ["ROMouseDragging"]
+source: "initializeElement: element\x0a\x09| svgElement   |\x0a\x09svgElement := element shape svgElement.\x0a\x09\x0a\x09svgElement\x09\x0a\x09\x09mouseover: [ :x :y |\x0a\x09\x09\x09| el popupPosition |\x0a\x09\x09\x09self removeAllPopups.\x0a\x09\x09\x09\x0a\x09\x09\x09el := self createPopupFor: element.\x0a\x09\x09\x09\x0a\x22\x09\x0a\x09\x09\x09popupPosition := self \x0a\x09\x09\x09closestPositionOf: el \x0a\x09\x09\x09from: event \x0a\x09\x09\x09realPosition \x0a\x09\x09\x09in: (self receivingViewFor: element).\x0a\x09\x09\x09el translateTo: popupPosition.\x0a\x22\x09\x0a\x09\x09\x09popupPosition := (element position x + 10)@(element position y + 10).\x0a\x09\x09\x09el translateTo: popupPosition.\x0a\x09\x09\x09element signalUpdate.\x0a\x0a\x09\x09].\x0a\x0a\x22\x0a\x09element on: ROMouseLeave do: [ :event | \x0a\x22\x0a\x09svgElement\x0a\x09\x09unmouseover: [\x0a\x09\x09\x22 remove popup and redraw\x22\x0a\x09\x09self removeAllPopups.\x0a\x09\x09element announce: ROMouseLeave.\x0a\x09\x09element signalUpdate  \x0a\x09].\x0a\x09\x09\x09\x0a\x09element on: ROMouseDragging do: [ :event | \x0a\x09self removeAllPopups ].\x09",
+messageSends: ["svgElement", "shape", "mouseover:", "removeAllPopups", "createPopupFor:", "@", "+", "y", "position", "x", "translateTo:", "signalUpdate", "unmouseover:", "announce:", "on:do:"],
+referencedClasses: ["ROMouseLeave", "ROMouseDragging"]
 }),
 smalltalk.ROAbstractPopup);
 

@@ -111,7 +111,8 @@ smalltalk.method({
 selector: "initializeElement:",
 fn: function (element){
 var self=this;
-var svgElement,popup;
+var svgElement;
+function $ROMouseLeave(){return smalltalk.ROMouseLeave||(typeof ROMouseLeave=="undefined"?nil:ROMouseLeave)}
 function $ROMouseDragging(){return smalltalk.ROMouseDragging||(typeof ROMouseDragging=="undefined"?nil:ROMouseDragging)}
 return smalltalk.withContext(function($ctx1) { 
 svgElement=_st(_st(element)._shape())._svgElement();
@@ -121,21 +122,23 @@ return smalltalk.withContext(function($ctx2) {
 self._removeAllPopups();
 el=self._createPopupFor_(element);
 el;
-popupPosition=_st(_st(_st(_st(_st(element)._position())._x()).__plus((10))).__at(_st(_st(_st(_st(element)._position())._y()).__plus((10)))._popup()))._translateTo_(popupPosition);
+popupPosition=_st(_st(_st(_st(element)._position())._x()).__plus((10))).__at(_st(_st(_st(element)._position())._y()).__plus((10)));
 popupPosition;
+_st(el)._translateTo_(popupPosition);
 return _st(element)._signalUpdate();
 }, function($ctx2) {$ctx2.fillBlock({x:x,y:y,el:el,popupPosition:popupPosition},$ctx1)})}));
 _st(svgElement)._unmouseover_((function(){
 return smalltalk.withContext(function($ctx2) {
 self._removeAllPopups();
+_st(element)._announce_($ROMouseLeave());
 return _st(element)._signalUpdate();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 _st(element)._on_do_($ROMouseDragging(),(function(event){
 return smalltalk.withContext(function($ctx2) {
 return self._removeAllPopups();
 }, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"initializeElement:",{element:element,svgElement:svgElement,popup:popup},smalltalk.ROAbstractPopup)})},
-messageSends: ["svgElement", "shape", "mouseover:", "removeAllPopups", "createPopupFor:", "translateTo:", "@", "popup", "+", "y", "position", "x", "signalUpdate", "unmouseover:", "on:do:"]}),
+return self}, function($ctx1) {$ctx1.fill(self,"initializeElement:",{element:element,svgElement:svgElement},smalltalk.ROAbstractPopup)})},
+messageSends: ["svgElement", "shape", "mouseover:", "removeAllPopups", "createPopupFor:", "@", "+", "y", "position", "x", "translateTo:", "signalUpdate", "unmouseover:", "announce:", "on:do:"]}),
 smalltalk.ROAbstractPopup);
 
 smalltalk.addMethod(
