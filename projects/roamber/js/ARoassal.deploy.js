@@ -1868,8 +1868,10 @@ selector: "updateSVGElementOn:for:",
 fn: function (canvas,anElement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+_st(self["@svgElement"])._translate_y_((0),(0));
+_st(self["@svgElement"])._translate_y_(_st(_st(anElement)._position())._x(),_st(_st(anElement)._position())._y());
 return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROLabel)})},
-messageSends: []}),
+messageSends: ["translate:y:", "x", "position", "y"]}),
 smalltalk.ROLabel);
 
 

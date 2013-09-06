@@ -90,6 +90,8 @@ var self=this;
 var popupElement,popupPosition;
 function $ROMouseLeave(){return smalltalk.ROMouseLeave||(typeof ROMouseLeave=="undefined"?nil:ROMouseLeave)}
 function $ROMouseDragged(){return smalltalk.ROMouseDragged||(typeof ROMouseDragged=="undefined"?nil:ROMouseDragged)}
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
+function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 popupElement=self._createElementFor_(element);
@@ -102,13 +104,15 @@ return smalltalk.withContext(function($ctx3) {
 }, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
 _st(popupElement)._on_do_($ROMouseDragged(),(function(e){
 return smalltalk.withContext(function($ctx2) {
+_st($Transcript())._show_("ROMouseDragged event catched".__comma(_st($String())._cr()));
+_st(_st(popupElement)._svgElement())._translate_y_(_st(_st(_st(element)._position())._x()).__minus(_st(_st(popupElement)._position())._x()),_st(_st(_st(element)._position())._y()).__minus(_st(_st(popupElement)._position())._y()));
 return _st(popupElement)._translateTo_(self._popupPositionFor_(_st(e)._element()));
 }, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
 _st(self._receivingViewFor_(element))._add_(popupElement);
 $1=popupElement;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"createPopupFor:",{element:element,popupElement:popupElement,popupPosition:popupPosition},smalltalk.ROAbstractPopup)})},
-messageSends: ["createElementFor:", "translateTo:", "popupPositionFor:", "on:do:", "remove:ifAbsent:", "view", "element", "add:", "receivingViewFor:"]}),
+messageSends: ["createElementFor:", "translateTo:", "popupPositionFor:", "on:do:", "remove:ifAbsent:", "view", "show:", ",", "cr", "translate:y:", "-", "x", "position", "y", "svgElement", "element", "add:", "receivingViewFor:"]}),
 smalltalk.ROAbstractPopup);
 
 smalltalk.addMethod(
@@ -116,26 +120,32 @@ smalltalk.method({
 selector: "initializeElement:",
 fn: function (element){
 var self=this;
-var svgElement,popup;
+var svgElement,popupElement;
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
+function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 function $ROMouseDragging(){return smalltalk.ROMouseDragging||(typeof ROMouseDragging=="undefined"?nil:ROMouseDragging)}
 return smalltalk.withContext(function($ctx1) { 
 svgElement=_st(_st(element)._shape())._svgElement();
-popup=self._createPopupFor_(element);
+popupElement=self._createPopupFor_(element);
 _st(element)._signalUpdate();
-_st(popup)._hide();
+_st(popupElement)._hide();
 _st(svgElement)._hover_whenLeave_((function(x,y){
 return smalltalk.withContext(function($ctx2) {
-return _st(popup)._show();
+_st($Transcript())._show_(_st(_st(_st(_st(_st(_st(element)._position())._x())._asString()).__comma(" ")).__comma(_st(_st(_st(element)._position())._y())._asString())).__comma(_st($String())._cr()));
+_st($Transcript())._show_(_st(_st(_st(_st(_st(self._popupPositionFor_(element))._x())._asString()).__comma(" ")).__comma(_st(_st(self._popupPositionFor_(element))._y())._asString())).__comma(_st($String())._cr()));
+return _st(popupElement)._show();
 }, function($ctx2) {$ctx2.fillBlock({x:x,y:y},$ctx1)})}),(function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(popup)._hide();
+_st(popupElement)._translateTo_(self._popupPositionFor_(element));
+return _st(popupElement)._hide();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 _st(element)._on_do_($ROMouseDragging(),(function(event){
 return smalltalk.withContext(function($ctx2) {
-return _st(popup)._hide();
+_st(popupElement)._translateTo_(self._popupPositionFor_(element));
+return _st(popupElement)._hide();
 }, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"initializeElement:",{element:element,svgElement:svgElement,popup:popup},smalltalk.ROAbstractPopup)})},
-messageSends: ["svgElement", "shape", "createPopupFor:", "signalUpdate", "hide", "hover:whenLeave:", "show", "on:do:"]}),
+return self}, function($ctx1) {$ctx1.fill(self,"initializeElement:",{element:element,svgElement:svgElement,popupElement:popupElement},smalltalk.ROAbstractPopup)})},
+messageSends: ["svgElement", "shape", "createPopupFor:", "signalUpdate", "hide", "hover:whenLeave:", "show:", ",", "cr", "asString", "y", "position", "x", "popupPositionFor:", "show", "translateTo:", "on:do:"]}),
 smalltalk.ROAbstractPopup);
 
 smalltalk.addMethod(
@@ -310,6 +320,8 @@ var svgElement,originX,originY;
 function $RORaphaelCanvas(){return smalltalk.RORaphaelCanvas||(typeof RORaphaelCanvas=="undefined"?nil:RORaphaelCanvas)}
 function $ROMouseDragging(){return smalltalk.ROMouseDragging||(typeof ROMouseDragging=="undefined"?nil:ROMouseDragging)}
 function $ROMouseDragged(){return smalltalk.ROMouseDragged||(typeof ROMouseDragged=="undefined"?nil:ROMouseDragged)}
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
+function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 return smalltalk.withContext(function($ctx1) { 
 svgElement=_st(_st(element)._shape())._svgElement();
 _st(svgElement)._drag_onStart_onEnd_((function(dx,dy,x,y){
@@ -331,10 +343,11 @@ var evt;
 return smalltalk.withContext(function($ctx2) {
 evt=_st($ROMouseDragged())._new();
 evt;
-return _st(element)._announce_(evt);
+_st(element)._announce_(evt);
+return _st($Transcript())._show_("ROMouseDragged announced".__comma(_st($String())._cr()));
 }, function($ctx2) {$ctx2.fillBlock({evt:evt},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"initializeElement:",{element:element,svgElement:svgElement,originX:originX,originY:originY},smalltalk.RODraggable)})},
-messageSends: ["svgElement", "shape", "drag:onStart:onEnd:", "translateTo:", "@", "-", "y", "origin", "x", "signalUpdate", "position", "new", "announce:"]}),
+messageSends: ["svgElement", "shape", "drag:onStart:onEnd:", "translateTo:", "@", "-", "y", "origin", "x", "signalUpdate", "position", "new", "announce:", "show:", ",", "cr"]}),
 smalltalk.RODraggable);
 
 

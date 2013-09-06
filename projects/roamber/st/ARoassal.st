@@ -956,6 +956,8 @@ textFor: aROElement
 !
 
 updateSVGElementOn: canvas for: anElement
+	svgElement translate: 0 y: 0.
+	svgElement translate: (anElement position x) y: (anElement position y).
 ! !
 
 !ROLabel class methodsFor: 'not yet classified'!

@@ -50,7 +50,14 @@ createPopupFor: element
 	popupElement translateTo: (self popupPositionFor: element).
 
 	popupElement on: ROMouseLeave do: [ :e | popupElement view remove: popupElement ifAbsent: [  ] ].
-	popupElement on: ROMouseDragged do: [ :e | popupElement translateTo: (self popupPositionFor: (e element)) ].
+	popupElement on: ROMouseDragged do: [ :e | 
+		Transcript show: 'ROMouseDragged event catched',(String cr).
+		popupElement svgElement 
+				translate: (element position x - (popupElement position x) )
+				y: (element position y - (popupElement position y) ).
+		popupElement translateTo: (self popupPositionFor: (e element)).
+
+	].
 
 	(self receivingViewFor: element) add: popupElement.	
 
@@ -61,18 +68,28 @@ createPopupFor: element
 !
 
 initializeElement: element
-	| svgElement popup     |
+	| svgElement popupElement     |
 	svgElement := element shape svgElement.
 	
-	popup := self createPopupFor: element.
+	popupElement := self createPopupFor: element.
 	
 	element signalUpdate.
-	popup hide.
+	popupElement hide.
 
 	
 	svgElement	
 		hover: [ :x :y |
-			popup show.
+			Transcript show: (element position x asString),' ',(element position y asString),(String cr).
+			Transcript show: ((self popupPositionFor: element) x asString),' ',((self popupPositionFor: element) y asString),(String cr).
+"			popupElement translateTo: (self popupPositionFor: element)."
+
+	"
+			popupElement shape svgElement 
+				translate: (element position x - (popupElement position x) )
+				y: (element position y - (popupElement position y) ).
+			popupElement translateTo: (self popupPositionFor: element).
+"		
+			popupElement show.
 
 "
 			self removeAllPopups.
@@ -86,7 +103,8 @@ initializeElement: element
 		]
 		whenLeave: [
 		" remove popup and redraw"
-		popup hide.
+		popupElement translateTo: (self popupPositionFor: element).
+		popupElement hide.
 "		self removeAllPopups.
 		element announce: ROMouseLeave.
 		element signalUpdate  
@@ -94,7 +112,8 @@ initializeElement: element
 	].
 			
 	element on: ROMouseDragging do: [ :event | 
-			popup hide.		
+			popupElement translateTo: (self popupPositionFor: element).
+			popupElement hide.		
 "			self removeAllPopups.
 			element announce: ROMouseLeave.
 			element signalUpdate   
@@ -209,6 +228,7 @@ initializeElement: element
 			" Announce that an element is was dragged"
 			evt := ROMouseDragged new.
 			element announce: evt.
+			Transcript show: 'ROMouseDragged announced',(String cr).
 		].
 ! !
 
