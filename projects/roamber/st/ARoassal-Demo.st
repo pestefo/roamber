@@ -226,6 +226,20 @@ view add: element.
 view open.
 !
 
+popupAndDrag
+"not working properly right now"
+|view element|
+view := ROView new.
+element := ROElement new size: 100.
+element + ROBox.
+element @ RODraggable.
+element @ ROPopup.
+"Open an inspector when clicking"
+
+view add: element.
+view open.
+!
+
 treeLayout 
 	"
 	self new treeLayout

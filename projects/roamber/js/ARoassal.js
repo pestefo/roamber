@@ -938,6 +938,22 @@ smalltalk.ROElement);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "hide",
+category: 'initialize',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@shape"])._hide();
+return self}, function($ctx1) {$ctx1.fill(self,"hide",{},smalltalk.ROElement)})},
+args: [],
+source: "hide\x0a\x09shape hide",
+messageSends: ["hide"],
+referencedClasses: []
+}),
+smalltalk.ROElement);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "initialize",
 category: 'initialize',
 fn: function (){
@@ -1073,6 +1089,22 @@ return self}, function($ctx1) {$ctx1.fill(self,"shape:",{aROShape:aROShape},smal
 args: ["aROShape"],
 source: "shape: aROShape\x0a\x09shape := aROShape",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROElement);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "show",
+category: 'initialize',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@shape"])._show();
+return self}, function($ctx1) {$ctx1.fill(self,"show",{},smalltalk.ROElement)})},
+args: [],
+source: "show\x0a\x09shape show",
+messageSends: ["show"],
 referencedClasses: []
 }),
 smalltalk.ROElement);
@@ -1711,6 +1743,25 @@ smalltalk.ROShape);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "hide",
+category: 'creation',
+fn: function (){
+var self=this;
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
+function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@svgElement"])._hide();
+_st($Transcript())._show_("hide".__comma(_st($String())._cr()));
+return self}, function($ctx1) {$ctx1.fill(self,"hide",{},smalltalk.ROShape)})},
+args: [],
+source: "hide\x0a\x09svgElement hide.\x0a\x09Transcript show: 'hide',(String cr).",
+messageSends: ["hide", "show:", ",", "cr"],
+referencedClasses: ["String", "Transcript"]
+}),
+smalltalk.ROShape);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "initialize",
 category: 'accessing',
 fn: function (){
@@ -1769,6 +1820,22 @@ return self}, function($ctx1) {$ctx1.fill(self,"removeSVGElement",{},smalltalk.R
 args: [],
 source: "removeSVGElement\x0a\x09svgElement remove.",
 messageSends: ["remove"],
+referencedClasses: []
+}),
+smalltalk.ROShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "show",
+category: 'creation',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@svgElement"])._show();
+return self}, function($ctx1) {$ctx1.fill(self,"show",{},smalltalk.ROShape)})},
+args: [],
+source: "show\x0a\x09svgElement show\x0a\x09",
+messageSends: ["show"],
 referencedClasses: []
 }),
 smalltalk.ROShape);
@@ -2325,22 +2392,6 @@ smalltalk.ROCircle);
 smalltalk.addClass('ROLabel', smalltalk.ROShape, ['text'], 'ARoassal');
 smalltalk.addMethod(
 smalltalk.method({
-selector: "drawOn:for:",
-category: 'not yet classified',
-fn: function (canvas,anElement){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self._initializeSVGElementOn_for_(canvas,anElement);
-return self}, function($ctx1) {$ctx1.fill(self,"drawOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROLabel)})},
-args: ["canvas", "anElement"],
-source: "drawOn: canvas for: anElement\x0a\x09self initializeSVGElementOn: canvas for: anElement\x0a\x09\x0a\x09\x09",
-messageSends: ["initializeSVGElementOn:for:"],
-referencedClasses: []
-}),
-smalltalk.ROLabel);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "initialize",
 category: 'not yet classified',
 fn: function (){
@@ -2363,6 +2414,8 @@ category: 'not yet classified',
 fn: function (canvas,anElement){
 var self=this;
 var str,svgText,svgRect;
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
+function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 str=self._textFor_(anElement);
@@ -2381,11 +2434,12 @@ _st(svgText)._attr_value_("x",_st(_st(_st(svgRect)._attr_("width")).__slash((2))
 _st(svgText)._attr_value_("text-anchor","middle");
 _st(svgText)._attr_value_("y",_st(_st(_st(svgRect)._attr_("height")).__slash((2)))._asInteger());
 _st(self["@svgElement"])._translate_y_(_st(_st(anElement)._position())._x(),_st(_st(anElement)._position())._y());
+_st($Transcript())._show_(_st("initialize svg element: ".__comma(_st(anElement)._model())).__comma(_st($String())._cr()));
 return self}, function($ctx1) {$ctx1.fill(self,"initializeSVGElementOn:for:",{canvas:canvas,anElement:anElement,str:str,svgText:svgText,svgRect:svgRect},smalltalk.ROLabel)})},
 args: ["canvas", "anElement"],
-source: "initializeSVGElementOn: canvas for: anElement\x0a\x09\x22Paper.print(x, y, string, font, [size], [origin], [letter_spacing])\x0a\x09x - position of the text\x0a\x09y - position of the text\x0a\x09string - text to print\x0a\x09font - font object, see --> Paper.getFont(family, [weight], [style], [stretch])\x0a\x09size - size of the font, default is 16\x0a\x09origin - could be baseline' or 'middle' (default)\x0a\x09letter_spacing - number number in range -1..1, default is 0\x0a\x09Returns: object resulting path element, which consist of all letters\x0a   ----------- how to use getFont?????\x0a   \x0a   using paper.text() instead\x0a\x09\x22\x0a\x09\x0a\x09\x22example from: http://stackoverflow.com/questions/8771635/wrap-text-to-fit-into-a-rectangle-raphael\x22\x0a\x09|str svgText svgRect |\x0a\x09str := self textFor: anElement.\x0a\x09\x0a\x09\x22 container rectangle\x22\x0a\x09svgRect := canvas rect: 0\x0a\x09\x09\x09\x09y: 0 \x0a\x09\x09\x09\x09width: 1\x0a\x09\x09\x09\x09rect: 1.\x0a\x09svgRect attr: 'fill' value: 'white'.\x09\x09\x09\x0a\x09svgRect attr: 'stroke' value: 'gray'.\x0a\x09svgRect attr: 'stroke-width' value: 2.\x0a\x09\x09\x09\x09\x0a\x09\x22 text \x22\x0a\x09svgText := canvas text: 0\x0a\x09\x09\x09y:10\x0a\x09\x09\x09string: str.\x0a\x09\x0a\x09\x22 create set and add the elements \x22\x0a\x09svgElement := canvas  set.\x0a\x09svgElement push: svgRect; push: svgText.\x0a\x09\x0a\x09\x22 adapt the size of rectangle \x22\x0a\x09svgRect attr: 'width'  value: svgElement getBBox width + 10.\x0a\x09svgRect attr: 'height' value: svgElement getBBox height + 10.\x0a\x0a\x09\x22 aling text in the middle first horizontally and then vertically\x22\x0a\x09svgText attr: 'x' value: ((svgRect attr: 'width') / 2) asInteger.\x0a\x09svgText  attr: 'text-anchor' value: 'middle'.\x09\x09\x09\x22 fill:'#ff0000','font-size': 14});\x09\x09\x09\x22\x09\x0a\x09svgText attr: 'y' value: ((svgRect attr: 'height') / 2) asInteger.\x0a\x09\x0a\x09\x22 enable translating \x22\x0a\x09svgElement translate:  (anElement position x) y: (anElement position y).",
-messageSends: ["textFor:", "rect:y:width:rect:", "attr:value:", "text:y:string:", "set", "push:", "+", "width", "getBBox", "height", "asInteger", "/", "attr:", "translate:y:", "x", "position", "y"],
-referencedClasses: []
+source: "initializeSVGElementOn: canvas for: anElement\x0a\x09\x22Paper.print(x, y, string, font, [size], [origin], [letter_spacing])\x0a\x09x - position of the text\x0a\x09y - position of the text\x0a\x09string - text to print\x0a\x09font - font object, see --> Paper.getFont(family, [weight], [style], [stretch])\x0a\x09size - size of the font, default is 16\x0a\x09origin - could be baseline' or 'middle' (default)\x0a\x09letter_spacing - number number in range -1..1, default is 0\x0a\x09Returns: object resulting path element, which consist of all letters\x0a   ----------- how to use getFont?????\x0a   \x0a   using paper.text() instead\x0a\x09\x22\x0a\x09\x0a\x09\x22example from: http://stackoverflow.com/questions/8771635/wrap-text-to-fit-into-a-rectangle-raphael\x22\x0a\x09|str svgText svgRect |\x0a\x09str := self textFor: anElement.\x0a\x09\x0a\x09\x22 container rectangle\x22\x0a\x09svgRect := canvas rect: 0\x0a\x09\x09\x09\x09y: 0 \x0a\x09\x09\x09\x09width: 1\x0a\x09\x09\x09\x09rect: 1.\x0a\x09svgRect attr: 'fill' value: 'white'.\x09\x09\x09\x0a\x09svgRect attr: 'stroke' value: 'gray'.\x0a\x09svgRect attr: 'stroke-width' value: 2.\x0a\x09\x09\x09\x09\x0a\x09\x22 text \x22\x0a\x09svgText := canvas text: 0\x0a\x09\x09\x09y:10\x0a\x09\x09\x09string: str.\x0a\x09\x0a\x09\x22 create set and add the elements \x22\x0a\x09svgElement := canvas  set.\x0a\x09svgElement push: svgRect; push: svgText.\x0a\x09\x0a\x09\x22 adapt the size of rectangle \x22\x0a\x09svgRect attr: 'width'  value: svgElement getBBox width + 10.\x0a\x09svgRect attr: 'height' value: svgElement getBBox height + 10.\x0a\x0a\x09\x22 aling text in the middle first horizontally and then vertically\x22\x0a\x09svgText attr: 'x' value: ((svgRect attr: 'width') / 2) asInteger.\x0a\x09svgText  attr: 'text-anchor' value: 'middle'.\x09\x09\x09\x22 fill:'#ff0000','font-size': 14});\x09\x09\x09\x22\x09\x0a\x09svgText attr: 'y' value: ((svgRect attr: 'height') / 2) asInteger.\x0a\x09\x0a\x09\x22 enable translating \x22\x0a\x09svgElement translate:  (anElement position x) y: (anElement position y).\x0a\x09\x0a\x09\x0a\x09Transcript show: 'initialize svg element: ',(anElement model),(String cr).",
+messageSends: ["textFor:", "rect:y:width:rect:", "attr:value:", "text:y:string:", "set", "push:", "+", "width", "getBBox", "height", "asInteger", "/", "attr:", "translate:y:", "x", "position", "y", "show:", ",", "cr", "model"],
+referencedClasses: ["String", "Transcript"]
 }),
 smalltalk.ROLabel);
 
@@ -2395,13 +2449,16 @@ selector: "removeSVGElement",
 category: 'not yet classified',
 fn: function (){
 var self=this;
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
+function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 return smalltalk.withContext(function($ctx1) { 
 _st(self["@svgElement"])._clear();
+_st($Transcript())._show_("It is supposed that it was deleted".__comma(_st($String())._cr()));
 return self}, function($ctx1) {$ctx1.fill(self,"removeSVGElement",{},smalltalk.ROLabel)})},
 args: [],
-source: "removeSVGElement\x0a\x09svgElement clear.",
-messageSends: ["clear"],
-referencedClasses: []
+source: "removeSVGElement\x0a\x09svgElement clear.\x0a\x09Transcript show: 'It is supposed that it was deleted',(String cr).",
+messageSends: ["clear", "show:", ",", "cr"],
+referencedClasses: ["String", "Transcript"]
 }),
 smalltalk.ROLabel);
 
@@ -2471,11 +2528,10 @@ category: 'not yet classified',
 fn: function (canvas,anElement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._initializeSVGElementOn_for_(canvas,anElement);
 return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROLabel)})},
 args: ["canvas", "anElement"],
-source: "updateSVGElementOn: canvas for: anElement\x0a\x09self initializeSVGElementOn: canvas for: anElement\x0a\x22\x0a\x09svgElement \x0a\x09\x09attr: 'x' with: (anElement position x);\x0a\x09\x09attr: 'y' with: (anElement position y);\x0a\x09\x09attr: 'width' with: (self widthFor: anElement);\x0a\x09\x09attr: 'height' with: (self heightFor: anElement);\x0a\x09\x09attr:'fill' with: 'lightGray'.\x0a\x22",
-messageSends: ["initializeSVGElementOn:for:"],
+source: "updateSVGElementOn: canvas for: anElement\x0a\x0a\x22\x0a\x09svgElement \x0a\x09\x09attr: 'x' with: (anElement position x);\x0a\x09\x09attr: 'y' with: (anElement position y);\x0a\x09\x09attr: 'width' with: (self widthFor: anElement);\x0a\x09\x09attr: 'height' with: (self heightFor: anElement);\x0a\x09\x09attr:'fill' with: 'lightGray'.\x0a\x22",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.ROLabel);
@@ -2501,22 +2557,6 @@ smalltalk.ROLabel.klass);
 
 
 smalltalk.addClass('ROLabel2', smalltalk.ROShape, ['text'], 'ARoassal');
-smalltalk.addMethod(
-smalltalk.method({
-selector: "drawOn:for:",
-category: 'not yet classified',
-fn: function (canvas,anElement){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self._initializeSVGElementOn_for_(canvas,anElement);
-return self}, function($ctx1) {$ctx1.fill(self,"drawOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROLabel2)})},
-args: ["canvas", "anElement"],
-source: "drawOn: canvas for: anElement\x0a\x09self initializeSVGElementOn: canvas for: anElement\x0a\x09\x0a\x09\x09",
-messageSends: ["initializeSVGElementOn:for:"],
-referencedClasses: []
-}),
-smalltalk.ROLabel2);
-
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",

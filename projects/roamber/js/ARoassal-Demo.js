@@ -506,6 +506,34 @@ smalltalk.ROExample);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "popupAndDrag",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+var view,element;
+function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
+function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
+function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
+function $RODraggable(){return smalltalk.RODraggable||(typeof RODraggable=="undefined"?nil:RODraggable)}
+function $ROPopup(){return smalltalk.ROPopup||(typeof ROPopup=="undefined"?nil:ROPopup)}
+return smalltalk.withContext(function($ctx1) { 
+view=_st($ROView())._new();
+element=_st(_st($ROElement())._new())._size_((100));
+_st(element).__plus($ROBox());
+_st(element).__at($RODraggable());
+_st(element).__at($ROPopup());
+_st(view)._add_(element);
+_st(view)._open();
+return self}, function($ctx1) {$ctx1.fill(self,"popupAndDrag",{view:view,element:element},smalltalk.ROExample)})},
+args: [],
+source: "popupAndDrag\x0a\x22not working properly right now\x22\x0a|view element|\x0aview := ROView new.\x0aelement := ROElement new size: 100.\x0aelement + ROBox.\x0aelement @ RODraggable.\x0aelement @ ROPopup.\x0a\x22Open an inspector when clicking\x22\x0a\x0aview add: element.\x0aview open.",
+messageSends: ["new", "size:", "+", "@", "add:", "open"],
+referencedClasses: ["ROView", "ROElement", "ROBox", "RODraggable", "ROPopup"]
+}),
+smalltalk.ROExample);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "treeLayout",
 category: 'not yet classified',
 fn: function (){

@@ -416,6 +416,29 @@ smalltalk.ROExample);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "popupAndDrag",
+fn: function (){
+var self=this;
+var view,element;
+function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
+function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
+function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
+function $RODraggable(){return smalltalk.RODraggable||(typeof RODraggable=="undefined"?nil:RODraggable)}
+function $ROPopup(){return smalltalk.ROPopup||(typeof ROPopup=="undefined"?nil:ROPopup)}
+return smalltalk.withContext(function($ctx1) { 
+view=_st($ROView())._new();
+element=_st(_st($ROElement())._new())._size_((100));
+_st(element).__plus($ROBox());
+_st(element).__at($RODraggable());
+_st(element).__at($ROPopup());
+_st(view)._add_(element);
+_st(view)._open();
+return self}, function($ctx1) {$ctx1.fill(self,"popupAndDrag",{view:view,element:element},smalltalk.ROExample)})},
+messageSends: ["new", "size:", "+", "@", "add:", "open"]}),
+smalltalk.ROExample);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "treeLayout",
 fn: function (){
 var self=this;

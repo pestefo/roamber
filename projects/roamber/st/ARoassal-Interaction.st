@@ -42,53 +42,68 @@ ROInteraction subclass: #ROAbstractPopup
 !ROAbstractPopup methodsFor: 'not yet classified'!
 
 createPopupFor: element
-	| el |
-	el := self createElementFor: element.
-"	el := (ROElement on: 'toasty!!') + ROBox."
-	el on: ROMouseLeave do: [ :e | el view remove: el ifAbsent: [  ] ].
+	| popupElement popupPosition |
+	popupElement := self createElementFor: element.
+	"	popupElement := (ROElement on: 'toasty!!') + ROBox."
+	
+	" positioning "
+	popupElement translateTo: (self popupPositionFor: element).
 
-	(self receivingViewFor: element) add: el.	
+	popupElement on: ROMouseLeave do: [ :e | popupElement view remove: popupElement ifAbsent: [  ] ].
+	popupElement on: ROMouseDragged do: [ :e | popupElement translateTo: (self popupPositionFor: (e element)) ].
 
-	self popups add: el.
+	(self receivingViewFor: element) add: popupElement.	
 
-	^ el
+
+"	self popups add: popupElement."
+
+	^ popupElement
 !
 
 initializeElement: element
-	| svgElement   |
+	| svgElement popup     |
 	svgElement := element shape svgElement.
+	
+	popup := self createPopupFor: element.
+	
+	element signalUpdate.
+	popup hide.
+
 	
 	svgElement	
 		hover: [ :x :y |
-			| el popupPosition |
+			popup show.
+
+"
 			self removeAllPopups.
 			
 			el := self createPopupFor: element.
 			
-"	
-			popupPosition := self 
-			closestPositionOf: el 
-			from: event 
-			realPosition 
-			in: (self receivingViewFor: element).
-			el translateTo: popupPosition.
-"	
 			popupPosition := (element position x + 10)@(element position y + 10).
 			el translateTo: popupPosition.
 			element signalUpdate.
+"			
 		]
 		whenLeave: [
 		" remove popup and redraw"
-		self removeAllPopups.
+		popup hide.
+"		self removeAllPopups.
 		element announce: ROMouseLeave.
 		element signalUpdate  
+"
 	].
 			
 	element on: ROMouseDragging do: [ :event | 
-			self removeAllPopups.
+			popup hide.		
+"			self removeAllPopups.
 			element announce: ROMouseLeave.
 			element signalUpdate   
+"		
 	].
+!
+
+popupPositionFor: element
+	^  (element position x + 10)@(element position y + 10).
 !
 
 popups
@@ -131,7 +146,7 @@ ROAbstractPopup subclass: #ROPopup
 
 createElementFor: anElement
 
-	^ ROElement new
+	^ (ROElement on: 'popup label')
 			+ (ROLabel 
 			text: (text roValue: anElement model));
 			yourself
@@ -190,7 +205,10 @@ initializeElement: element
 			element announce: evt.
 		]
      	onEnd: [ 
-			"do nothing"
+			| evt |
+			" Announce that an element is was dragged"
+			evt := ROMouseDragged new.
+			element announce: evt.
 		].
 ! !
 
