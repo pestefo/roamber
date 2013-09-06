@@ -1013,6 +1013,38 @@ smalltalk.ROElement);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "remove",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._removeShape();
+return self}, function($ctx1) {$ctx1.fill(self,"remove",{},smalltalk.ROElement)})},
+args: [],
+source: "remove\x0a\x09\x22Remove myself from the view I belong to (if I actually belong to the view, else do nothing) and from my parent.\x22\x0a\x0a\x22\x09self removeFromParent.\x22\x0a\x22\x09self view removeElementToRender: self.\x22\x09\x22We remove all the subelements\x22\x0a\x22\x09self allElementsDo: #remove\x22\x0a\x09self removeShape",
+messageSends: ["removeShape"],
+referencedClasses: []
+}),
+smalltalk.ROElement);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "removeShape",
+category: 'initialize',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@shape"])._removeSVGElement();
+return self}, function($ctx1) {$ctx1.fill(self,"removeShape",{},smalltalk.ROElement)})},
+args: [],
+source: "removeShape\x0a\x09shape removeSVGElement",
+messageSends: ["removeSVGElement"],
+referencedClasses: []
+}),
+smalltalk.ROElement);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "shape",
 category: 'accessing',
 fn: function (){
@@ -1404,6 +1436,23 @@ smalltalk.ROView);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "remove:",
+category: 'accessing',
+fn: function (element){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(element)._removeShape();
+_st(self["@elements"])._remove_(element);
+return self}, function($ctx1) {$ctx1.fill(self,"remove:",{element:element},smalltalk.ROView)})},
+args: ["element"],
+source: "remove: element\x0a\x09\x22Remove the element from myself. However, the element is not removed from the visualization. Send #remove to element to actually remove it.\x22\x0a\x09element removeShape.\x0a\x09elements remove: element",
+messageSends: ["removeShape", "remove:"],
+referencedClasses: []
+}),
+smalltalk.ROView);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "signalUpdate",
 category: 'public - opening',
 fn: function (){
@@ -1704,6 +1753,22 @@ return self}, function($ctx1) {$ctx1.fill(self,"installedOn:",{element:element},
 args: ["element"],
 source: "installedOn: element\x0a\x09\x22This method is meant to be overriden in case a special treatment has to be realized on the element\x22\x0a\x09\x0a\x09\x22self extent: (self preferedExtentFor: element).\x22\x0a\x09\x22element extent: (element extent max: extent).\x22\x0a\x09",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "removeSVGElement",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@svgElement"])._hide();
+return self}, function($ctx1) {$ctx1.fill(self,"removeSVGElement",{},smalltalk.ROShape)})},
+args: [],
+source: "removeSVGElement\x0a\x09svgElement hide.",
+messageSends: ["hide"],
 referencedClasses: []
 }),
 smalltalk.ROShape);
@@ -2257,7 +2322,7 @@ smalltalk.ROCircle);
 
 
 
-smalltalk.addClass('ROLabel', smalltalk.ROShape, [], 'ARoassal');
+smalltalk.addClass('ROLabel', smalltalk.ROShape, ['text'], 'ARoassal');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "drawOn:for:",
@@ -2276,16 +2341,94 @@ smalltalk.ROLabel);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "initialize",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.ROLabel.superclass.fn.prototype._initialize.apply(_st(self), []);
+self["@text"]="model";
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROLabel)})},
+args: [],
+source: "initialize \x0a\x09super initialize.\x0a\x09text := #model.",
+messageSends: ["initialize"],
+referencedClasses: []
+}),
+smalltalk.ROLabel);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "initializeSVGElementOn:for:",
 category: 'not yet classified',
 fn: function (canvas,anElement){
 var self=this;
+var str;
 return smalltalk.withContext(function($ctx1) { 
-self["@svgElement"]=_st(canvas)._text_y_string_((100),(50),"texto de prueba");
-return self}, function($ctx1) {$ctx1.fill(self,"initializeSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROLabel)})},
+str=self._textFor_(anElement);
+self["@svgElement"]=_st(canvas)._text_y_string_((100),(50),str);
+return self}, function($ctx1) {$ctx1.fill(self,"initializeSVGElementOn:for:",{canvas:canvas,anElement:anElement,str:str},smalltalk.ROLabel)})},
 args: ["canvas", "anElement"],
-source: "initializeSVGElementOn: canvas for: anElement\x0a\x09\x22Paper.print(x, y, string, font, [size], [origin], [letter_spacing])\x0a\x09x - position of the text\x0a\x09y - position of the text\x0a\x09string - text to print\x0a\x09font - font object, see --> Paper.getFont(family, [weight], [style], [stretch])\x0a\x09size - size of the font, default is 16\x0a\x09origin - could be baseline' or 'middle' (default)\x0a\x09letter_spacing - number number in range -1..1, default is 0\x0a\x09Returns: object resulting path element, which consist of all letters\x0a   ----------- how to use getFont?????\x0a   \x0a   using paper.text() instead\x0a\x09\x22\x0a\x09svgElement:= canvas \x0a\x09\x09text: 100\x0a\x09\x09y: 50\x0a\x09\x09string: 'texto de prueba'.\x0a\x09\x09",
-messageSends: ["text:y:string:"],
+source: "initializeSVGElementOn: canvas for: anElement\x0a\x09\x22Paper.print(x, y, string, font, [size], [origin], [letter_spacing])\x0a\x09x - position of the text\x0a\x09y - position of the text\x0a\x09string - text to print\x0a\x09font - font object, see --> Paper.getFont(family, [weight], [style], [stretch])\x0a\x09size - size of the font, default is 16\x0a\x09origin - could be baseline' or 'middle' (default)\x0a\x09letter_spacing - number number in range -1..1, default is 0\x0a\x09Returns: object resulting path element, which consist of all letters\x0a   ----------- how to use getFont?????\x0a   \x0a   using paper.text() instead\x0a\x09\x22\x0a\x09|str|\x0a\x09str := self textFor: anElement.\x0a\x09svgElement:= canvas \x0a\x09\x09text: 100\x0a\x09\x09y: 50\x0a\x09\x09string: str.\x0a\x09\x09",
+messageSends: ["textFor:", "text:y:string:"],
+referencedClasses: []
+}),
+smalltalk.ROLabel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "text",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@text"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"text",{},smalltalk.ROLabel)})},
+args: [],
+source: "text\x0a\x09^ text",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROLabel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "text:",
+category: 'not yet classified',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@text"]=anObject;
+return self}, function($ctx1) {$ctx1.fill(self,"text:",{anObject:anObject},smalltalk.ROLabel)})},
+args: ["anObject"],
+source: "text: anObject\x0a\x09text := anObject",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROLabel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "textFor:",
+category: 'not yet classified',
+fn: function (aROElement){
+var self=this;
+var v;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+v=_st(self["@text"])._roValue_(aROElement);
+$2=_st(_st(v)._class()).__eq_eq("abc"._class());
+if(smalltalk.assert($2)){
+$1=v;
+} else {
+$1=_st(v)._printString();
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"textFor:",{aROElement:aROElement,v:v},smalltalk.ROLabel)})},
+args: ["aROElement"],
+source: "textFor: aROElement\x0a\x09 | v |\x0a\x09v := (text roValue: aROElement).\x0a\x09^ (v class == 'abc' class)\x0a\x09\x09\x09ifTrue: [ v ]\x0a\x09\x09\x09ifFalse: [ v printString ]",
+messageSends: ["roValue:", "ifTrue:ifFalse:", "printString", "==", "class"],
 referencedClasses: []
 }),
 smalltalk.ROLabel);
@@ -2306,6 +2449,24 @@ referencedClasses: []
 }),
 smalltalk.ROLabel);
 
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "text:",
+category: 'not yet classified',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._new())._text_(aBlock);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"text:",{aBlock:aBlock},smalltalk.ROLabel.klass)})},
+args: ["aBlock"],
+source: "text: aBlock\x0a\x09^ self new text: aBlock",
+messageSends: ["text:", "new"],
+referencedClasses: []
+}),
+smalltalk.ROLabel.klass);
 
 
 smalltalk.addClass('RONullShape', smalltalk.ROShape, [], 'ARoassal');

@@ -379,12 +379,25 @@ initialize
 	interactions := Dictionary new.
 	shape := RONullShape new.
 	self @ ROClickable.
+!
+
+removeShape
+	shape removeSVGElement
 ! !
 
 !ROElement methodsFor: 'testing'!
 
 isEdge
 	^ false
+!
+
+remove
+	"Remove myself from the view I belong to (if I actually belong to the view, else do nothing) and from my parent."
+
+"	self removeFromParent."
+"	self view removeElementToRender: self."	"We remove all the subelements"
+"	self allElementsDo: #remove"
+	self removeShape
 ! !
 
 !ROElement class methodsFor: 'public'!
@@ -433,6 +446,12 @@ model
 
 numberOfElements
 	^ elements size
+!
+
+remove: element
+	"Remove the element from myself. However, the element is not removed from the visualization. Send #remove to element to actually remove it."
+	element removeShape.
+	elements remove: element
 !
 
 view
@@ -545,6 +564,10 @@ installedOn: element
 	
 	"self extent: (self preferedExtentFor: element)."
 	"element extent: (element extent max: extent)."
+!
+
+removeSVGElement
+	svgElement hide.
 !
 
 svgElement
@@ -829,13 +852,18 @@ initialize
 ! !
 
 ROShape subclass: #ROLabel
-	instanceVariableNames: ''
+	instanceVariableNames: 'text'
 	package: 'ARoassal'!
 
 !ROLabel methodsFor: 'not yet classified'!
 
 drawOn: canvas for: anElement
 	self initializeSVGElementOn: canvas for: anElement
+!
+
+initialize 
+	super initialize.
+	text := #model.
 !
 
 initializeSVGElementOn: canvas for: anElement
@@ -852,10 +880,28 @@ initializeSVGElementOn: canvas for: anElement
    
    using paper.text() instead
 	"
+	|str|
+	str := self textFor: anElement.
 	svgElement:= canvas 
 		text: 100
 		y: 50
-		string: 'texto de prueba'.
+		string: str.
+!
+
+text
+	^ text
+!
+
+text: anObject
+	text := anObject
+!
+
+textFor: aROElement
+	 | v |
+	v := (text roValue: aROElement).
+	^ (v class == 'abc' class)
+			ifTrue: [ v ]
+			ifFalse: [ v printString ]
 !
 
 updateSVGElementOn: canvas for: anElement
@@ -868,6 +914,12 @@ updateSVGElementOn: canvas for: anElement
 		attr: 'height' with: (self heightFor: anElement);
 		attr:'fill' with: 'lightGray'.
 "
+! !
+
+!ROLabel class methodsFor: 'not yet classified'!
+
+text: aBlock
+	^ self new text: aBlock
 ! !
 
 ROShape subclass: #RONullShape

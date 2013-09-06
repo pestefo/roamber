@@ -43,7 +43,8 @@ ROInteraction subclass: #ROAbstractPopup
 
 createPopupFor: element
 	| el |
-	el := self createElementFor: element.
+"	el := self createElementFor: element."
+	el := (ROElement on: 'toasty!!') + ROBox.
 	el on: ROMouseLeave do: [ :e | el view remove: el ifAbsent: [  ] ].
 
 	(self receivingViewFor: element) add: el.	
@@ -58,7 +59,7 @@ initializeElement: element
 	svgElement := element shape svgElement.
 	
 	svgElement	
-		mouseover: [ :x :y |
+		hover: [ :x :y |
 			| el popupPosition |
 			self removeAllPopups.
 			
@@ -75,14 +76,8 @@ initializeElement: element
 			popupPosition := (element position x + 10)@(element position y + 10).
 			el translateTo: popupPosition.
 			element signalUpdate.
-
-		].
-
-"
-	element on: ROMouseLeave do: [ :event | 
-"
-	svgElement
-		unmouseover: [
+		]
+		whenLeave: [
 		" remove popup and redraw"
 		self removeAllPopups.
 		element announce: ROMouseLeave.
@@ -90,7 +85,10 @@ initializeElement: element
 	].
 			
 	element on: ROMouseDragging do: [ :event | 
-	self removeAllPopups ].
+			self removeAllPopups.
+			element announce: ROMouseLeave.
+			element signalUpdate   
+	].
 !
 
 popups
@@ -102,7 +100,13 @@ receivingViewFor: element
 !
 
 removeAllPopups
-	" TODO "
+	
+	self popups do: [ :p | self removePopup: p ].
+	self class resetPopups
+!
+
+removePopup: el
+	el ifNotNil: [ el remove ].
 ! !
 
 ROAbstractPopup class instanceVariableNames: 'popups'!
@@ -120,22 +124,25 @@ resetPopups
 ! !
 
 ROAbstractPopup subclass: #ROPopup
-	instanceVariableNames: ''
+	instanceVariableNames: 'text'
 	package: 'ARoassal-Interaction'!
 
 !ROPopup methodsFor: 'not yet classified'!
 
 createElementFor: anElement
-"
+
 	^ ROElement new
-			add: (ROElement new 
-					+ ((ROLabel 
-						text: (text roValue: element model)) color: textColor))
-					+ box copy;
+			+ (ROLabel 
+			text: (text roValue: anElement model));
 			yourself
-"			
 			
-		^ (ROElement on: (anElement model)) + ROLabel.
+			
+"		^ (ROElement on: (anElement model)) + ROLabel."
+!
+
+initialize 
+	super initialize.
+	text := #yourself.
 ! !
 
 ROInteraction subclass: #ROClickable
@@ -173,9 +180,14 @@ initializeElement: element
 			element signalUpdate.
 		]
  		onStart: [ :x :y |
+			| evt |
 			" Save mouse position when click"
 			originX := (x - (RORaphaelCanvas origin x)) - element position x.
 			originY := (y - (RORaphaelCanvas origin y)) - element position y.
+			
+			" Announce that an element is being dragged"
+			evt := ROMouseDragging new.
+			element announce: evt.
 		]
      	onEnd: [ 
 			"do nothing"

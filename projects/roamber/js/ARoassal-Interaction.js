@@ -119,10 +119,12 @@ category: 'not yet classified',
 fn: function (element){
 var self=this;
 var el;
+function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
+function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
 function $ROMouseLeave(){return smalltalk.ROMouseLeave||(typeof ROMouseLeave=="undefined"?nil:ROMouseLeave)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-el=self._createElementFor_(element);
+el=_st(_st($ROElement())._on_("toasty!")).__plus($ROBox());
 _st(el)._on_do_($ROMouseLeave(),(function(e){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(el)._view())._remove_ifAbsent_(el,(function(){
@@ -135,9 +137,9 @@ $1=el;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"createPopupFor:",{element:element,el:el},smalltalk.ROAbstractPopup)})},
 args: ["element"],
-source: "createPopupFor: element\x0a\x09| el |\x0a\x09el := self createElementFor: element.\x0a\x09el on: ROMouseLeave do: [ :e | el view remove: el ifAbsent: [  ] ].\x0a\x0a\x09(self receivingViewFor: element) add: el.\x09\x0a\x0a\x09self popups add: el.\x0a\x0a\x09^ el",
-messageSends: ["createElementFor:", "on:do:", "remove:ifAbsent:", "view", "add:", "receivingViewFor:", "popups"],
-referencedClasses: ["ROMouseLeave"]
+source: "createPopupFor: element\x0a\x09| el |\x0a\x22\x09el := self createElementFor: element.\x22\x0a\x09el := (ROElement on: 'toasty!') + ROBox.\x0a\x09el on: ROMouseLeave do: [ :e | el view remove: el ifAbsent: [  ] ].\x0a\x0a\x09(self receivingViewFor: element) add: el.\x09\x0a\x0a\x09self popups add: el.\x0a\x0a\x09^ el",
+messageSends: ["+", "on:", "on:do:", "remove:ifAbsent:", "view", "add:", "receivingViewFor:", "popups"],
+referencedClasses: ["ROBox", "ROElement", "ROMouseLeave"]
 }),
 smalltalk.ROAbstractPopup);
 
@@ -152,7 +154,7 @@ function $ROMouseLeave(){return smalltalk.ROMouseLeave||(typeof ROMouseLeave=="u
 function $ROMouseDragging(){return smalltalk.ROMouseDragging||(typeof ROMouseDragging=="undefined"?nil:ROMouseDragging)}
 return smalltalk.withContext(function($ctx1) { 
 svgElement=_st(_st(element)._shape())._svgElement();
-_st(svgElement)._mouseover_((function(x,y){
+_st(svgElement)._hover_whenLeave_((function(x,y){
 var el,popupPosition;
 return smalltalk.withContext(function($ctx2) {
 self._removeAllPopups();
@@ -162,8 +164,7 @@ popupPosition=_st(_st(_st(_st(element)._position())._x()).__plus((10))).__at(_st
 popupPosition;
 _st(el)._translateTo_(popupPosition);
 return _st(element)._signalUpdate();
-}, function($ctx2) {$ctx2.fillBlock({x:x,y:y,el:el,popupPosition:popupPosition},$ctx1)})}));
-_st(svgElement)._unmouseover_((function(){
+}, function($ctx2) {$ctx2.fillBlock({x:x,y:y,el:el,popupPosition:popupPosition},$ctx1)})}),(function(){
 return smalltalk.withContext(function($ctx2) {
 self._removeAllPopups();
 _st(element)._announce_($ROMouseLeave());
@@ -171,12 +172,14 @@ return _st(element)._signalUpdate();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 _st(element)._on_do_($ROMouseDragging(),(function(event){
 return smalltalk.withContext(function($ctx2) {
-return self._removeAllPopups();
+self._removeAllPopups();
+_st(element)._announce_($ROMouseLeave());
+return _st(element)._signalUpdate();
 }, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"initializeElement:",{element:element,svgElement:svgElement},smalltalk.ROAbstractPopup)})},
 args: ["element"],
-source: "initializeElement: element\x0a\x09| svgElement   |\x0a\x09svgElement := element shape svgElement.\x0a\x09\x0a\x09svgElement\x09\x0a\x09\x09mouseover: [ :x :y |\x0a\x09\x09\x09| el popupPosition |\x0a\x09\x09\x09self removeAllPopups.\x0a\x09\x09\x09\x0a\x09\x09\x09el := self createPopupFor: element.\x0a\x09\x09\x09\x0a\x22\x09\x0a\x09\x09\x09popupPosition := self \x0a\x09\x09\x09closestPositionOf: el \x0a\x09\x09\x09from: event \x0a\x09\x09\x09realPosition \x0a\x09\x09\x09in: (self receivingViewFor: element).\x0a\x09\x09\x09el translateTo: popupPosition.\x0a\x22\x09\x0a\x09\x09\x09popupPosition := (element position x + 10)@(element position y + 10).\x0a\x09\x09\x09el translateTo: popupPosition.\x0a\x09\x09\x09element signalUpdate.\x0a\x0a\x09\x09].\x0a\x0a\x22\x0a\x09element on: ROMouseLeave do: [ :event | \x0a\x22\x0a\x09svgElement\x0a\x09\x09unmouseover: [\x0a\x09\x09\x22 remove popup and redraw\x22\x0a\x09\x09self removeAllPopups.\x0a\x09\x09element announce: ROMouseLeave.\x0a\x09\x09element signalUpdate  \x0a\x09].\x0a\x09\x09\x09\x0a\x09element on: ROMouseDragging do: [ :event | \x0a\x09self removeAllPopups ].\x09",
-messageSends: ["svgElement", "shape", "mouseover:", "removeAllPopups", "createPopupFor:", "@", "+", "y", "position", "x", "translateTo:", "signalUpdate", "unmouseover:", "announce:", "on:do:"],
+source: "initializeElement: element\x0a\x09| svgElement   |\x0a\x09svgElement := element shape svgElement.\x0a\x09\x0a\x09svgElement\x09\x0a\x09\x09hover: [ :x :y |\x0a\x09\x09\x09| el popupPosition |\x0a\x09\x09\x09self removeAllPopups.\x0a\x09\x09\x09\x0a\x09\x09\x09el := self createPopupFor: element.\x0a\x09\x09\x09\x0a\x22\x09\x0a\x09\x09\x09popupPosition := self \x0a\x09\x09\x09closestPositionOf: el \x0a\x09\x09\x09from: event \x0a\x09\x09\x09realPosition \x0a\x09\x09\x09in: (self receivingViewFor: element).\x0a\x09\x09\x09el translateTo: popupPosition.\x0a\x22\x09\x0a\x09\x09\x09popupPosition := (element position x + 10)@(element position y + 10).\x0a\x09\x09\x09el translateTo: popupPosition.\x0a\x09\x09\x09element signalUpdate.\x0a\x09\x09]\x0a\x09\x09whenLeave: [\x0a\x09\x09\x22 remove popup and redraw\x22\x0a\x09\x09self removeAllPopups.\x0a\x09\x09element announce: ROMouseLeave.\x0a\x09\x09element signalUpdate  \x0a\x09].\x0a\x09\x09\x09\x0a\x09element on: ROMouseDragging do: [ :event | \x0a\x09\x09\x09self removeAllPopups.\x0a\x09\x09\x09element announce: ROMouseLeave.\x0a\x09\x09\x09element signalUpdate   \x0a\x09].\x09",
+messageSends: ["svgElement", "shape", "hover:whenLeave:", "removeAllPopups", "createPopupFor:", "@", "+", "y", "position", "x", "translateTo:", "signalUpdate", "announce:", "on:do:"],
 referencedClasses: ["ROMouseLeave", "ROMouseDragging"]
 }),
 smalltalk.ROAbstractPopup);
@@ -224,10 +227,37 @@ category: 'not yet classified',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+_st(self._popups())._do_((function(p){
+return smalltalk.withContext(function($ctx2) {
+return self._removePopup_(p);
+}, function($ctx2) {$ctx2.fillBlock({p:p},$ctx1)})}));
+_st(self._class())._resetPopups();
 return self}, function($ctx1) {$ctx1.fill(self,"removeAllPopups",{},smalltalk.ROAbstractPopup)})},
 args: [],
-source: "removeAllPopups\x0a\x09\x22 TODO \x22",
-messageSends: [],
+source: "removeAllPopups\x0a\x09\x0a\x09self popups do: [ :p | self removePopup: p ].\x0a\x09self class resetPopups ",
+messageSends: ["do:", "removePopup:", "popups", "resetPopups", "class"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractPopup);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "removePopup:",
+category: 'not yet classified',
+fn: function (el){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=el;
+if(($receiver = $1) == nil || $receiver == undefined){
+$1;
+} else {
+_st(el)._remove();
+};
+return self}, function($ctx1) {$ctx1.fill(self,"removePopup:",{el:el},smalltalk.ROAbstractPopup)})},
+args: ["el"],
+source: "removePopup: el\x0a\x09el ifNotNil: [ el remove ].",
+messageSends: ["ifNotNil:", "remove"],
 referencedClasses: []
 }),
 smalltalk.ROAbstractPopup);
@@ -276,7 +306,7 @@ referencedClasses: []
 smalltalk.ROAbstractPopup.klass);
 
 
-smalltalk.addClass('ROPopup', smalltalk.ROAbstractPopup, [], 'ARoassal-Interaction');
+smalltalk.addClass('ROPopup', smalltalk.ROAbstractPopup, ['text'], 'ARoassal-Interaction');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "createElementFor:",
@@ -286,14 +316,34 @@ var self=this;
 function $ROLabel(){return smalltalk.ROLabel||(typeof ROLabel=="undefined"?nil:ROLabel)}
 function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st($ROElement())._on_(_st(anElement)._model())).__plus($ROLabel());
+var $2,$3,$1;
+$2=_st($ROElement())._new();
+_st($2).__plus(_st($ROLabel())._text_(_st(self["@text"])._roValue_(_st(anElement)._model())));
+$3=_st($2)._yourself();
+$1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"createElementFor:",{anElement:anElement},smalltalk.ROPopup)})},
 args: ["anElement"],
-source: "createElementFor: anElement\x0a\x22\x0a\x09^ ROElement new\x0a\x09\x09\x09add: (ROElement new \x0a\x09\x09\x09\x09\x09+ ((ROLabel \x0a\x09\x09\x09\x09\x09\x09text: (text roValue: element model)) color: textColor))\x0a\x09\x09\x09\x09\x09+ box copy;\x0a\x09\x09\x09yourself\x0a\x22\x09\x09\x09\x0a\x09\x09\x09\x0a\x09\x09^ (ROElement on: (anElement model)) + ROLabel.",
-messageSends: ["+", "on:", "model"],
+source: "createElementFor: anElement\x0a\x0a\x09^ ROElement new\x0a\x09\x09\x09+ (ROLabel \x0a\x09\x09\x09text: (text roValue: anElement model));\x0a\x09\x09\x09yourself\x0a\x09\x09\x09\x0a\x09\x09\x09\x0a\x22\x09\x09^ (ROElement on: (anElement model)) + ROLabel.\x22",
+messageSends: ["+", "text:", "roValue:", "model", "new", "yourself"],
 referencedClasses: ["ROLabel", "ROElement"]
+}),
+smalltalk.ROPopup);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.ROPopup.superclass.fn.prototype._initialize.apply(_st(self), []);
+self["@text"]="yourself";
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROPopup)})},
+args: [],
+source: "initialize \x0a\x09super initialize.\x0a\x09text := #yourself.",
+messageSends: ["initialize"],
+referencedClasses: []
 }),
 smalltalk.ROPopup);
 
@@ -337,6 +387,7 @@ fn: function (element){
 var self=this;
 var svgElement,originX,originY;
 function $RORaphaelCanvas(){return smalltalk.RORaphaelCanvas||(typeof RORaphaelCanvas=="undefined"?nil:RORaphaelCanvas)}
+function $ROMouseDragging(){return smalltalk.ROMouseDragging||(typeof ROMouseDragging=="undefined"?nil:ROMouseDragging)}
 return smalltalk.withContext(function($ctx1) { 
 svgElement=_st(_st(element)._shape())._svgElement();
 _st(svgElement)._drag_onStart_onEnd_((function(dx,dy,x,y){
@@ -344,19 +395,23 @@ return smalltalk.withContext(function($ctx2) {
 _st(element)._translateTo_(_st(_st(_st(x).__minus(_st(_st($RORaphaelCanvas())._origin())._x())).__minus(originX)).__at(_st(_st(y).__minus(_st(_st($RORaphaelCanvas())._origin())._y())).__minus(originY)));
 return _st(element)._signalUpdate();
 }, function($ctx2) {$ctx2.fillBlock({dx:dx,dy:dy,x:x,y:y},$ctx1)})}),(function(x,y){
+var evt;
 return smalltalk.withContext(function($ctx2) {
 originX=_st(_st(x).__minus(_st(_st($RORaphaelCanvas())._origin())._x())).__minus(_st(_st(element)._position())._x());
 originX;
 originY=_st(_st(y).__minus(_st(_st($RORaphaelCanvas())._origin())._y())).__minus(_st(_st(element)._position())._y());
-return originY;
-}, function($ctx2) {$ctx2.fillBlock({x:x,y:y},$ctx1)})}),(function(){
+originY;
+evt=_st($ROMouseDragging())._new();
+evt;
+return _st(element)._announce_(evt);
+}, function($ctx2) {$ctx2.fillBlock({x:x,y:y,evt:evt},$ctx1)})}),(function(){
 return smalltalk.withContext(function($ctx2) {
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"initializeElement:",{element:element,svgElement:svgElement,originX:originX,originY:originY},smalltalk.RODraggable)})},
 args: ["element"],
-source: "initializeElement: element\x0a\x09| svgElement originX originY |\x0a\x09svgElement := element shape svgElement.\x0a\x09\x0a\x09svgElement\x09\x0a\x09\x09drag: [ :dx :dy :x :y |\x0a\x09\x09\x09\x22update element position and redraw\x22\x0a\x09\x09\x09element translateTo: (x  - (RORaphaelCanvas origin x) - originX ) @ (y  - (RORaphaelCanvas origin y) - originY). \x0a\x09\x09\x09element signalUpdate.\x0a\x09\x09]\x0a \x09\x09onStart: [ :x :y |\x0a\x09\x09\x09\x22 Save mouse position when click\x22\x0a\x09\x09\x09originX := (x - (RORaphaelCanvas origin x)) - element position x.\x0a\x09\x09\x09originY := (y - (RORaphaelCanvas origin y)) - element position y.\x0a\x09\x09]\x0a     \x09onEnd: [ \x0a\x09\x09\x09\x22do nothing\x22\x0a\x09\x09].",
-messageSends: ["svgElement", "shape", "drag:onStart:onEnd:", "translateTo:", "@", "-", "y", "origin", "x", "signalUpdate", "position"],
-referencedClasses: ["RORaphaelCanvas"]
+source: "initializeElement: element\x0a\x09| svgElement originX originY |\x0a\x09svgElement := element shape svgElement.\x0a\x09\x0a\x09svgElement\x09\x0a\x09\x09drag: [ :dx :dy :x :y |\x0a\x09\x09\x09\x22update element position and redraw\x22\x0a\x09\x09\x09element translateTo: (x  - (RORaphaelCanvas origin x) - originX ) @ (y  - (RORaphaelCanvas origin y) - originY). \x0a\x09\x09\x09element signalUpdate.\x0a\x09\x09]\x0a \x09\x09onStart: [ :x :y |\x0a\x09\x09\x09| evt |\x0a\x09\x09\x09\x22 Save mouse position when click\x22\x0a\x09\x09\x09originX := (x - (RORaphaelCanvas origin x)) - element position x.\x0a\x09\x09\x09originY := (y - (RORaphaelCanvas origin y)) - element position y.\x0a\x09\x09\x09\x0a\x09\x09\x09\x22 Announce that an element is being dragged\x22\x0a\x09\x09\x09evt := ROMouseDragging new.\x0a\x09\x09\x09element announce: evt.\x0a\x09\x09]\x0a     \x09onEnd: [ \x0a\x09\x09\x09\x22do nothing\x22\x0a\x09\x09].",
+messageSends: ["svgElement", "shape", "drag:onStart:onEnd:", "translateTo:", "@", "-", "y", "origin", "x", "signalUpdate", "position", "new", "announce:"],
+referencedClasses: ["RORaphaelCanvas", "ROMouseDragging"]
 }),
 smalltalk.RODraggable);
 
