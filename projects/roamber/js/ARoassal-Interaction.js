@@ -119,12 +119,10 @@ category: 'not yet classified',
 fn: function (element){
 var self=this;
 var el;
-function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
-function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
 function $ROMouseLeave(){return smalltalk.ROMouseLeave||(typeof ROMouseLeave=="undefined"?nil:ROMouseLeave)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-el=_st(_st($ROElement())._on_("toasty!")).__plus($ROBox());
+el=self._createElementFor_(element);
 _st(el)._on_do_($ROMouseLeave(),(function(e){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(el)._view())._remove_ifAbsent_(el,(function(){
@@ -137,9 +135,9 @@ $1=el;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"createPopupFor:",{element:element,el:el},smalltalk.ROAbstractPopup)})},
 args: ["element"],
-source: "createPopupFor: element\x0a\x09| el |\x0a\x22\x09el := self createElementFor: element.\x22\x0a\x09el := (ROElement on: 'toasty!') + ROBox.\x0a\x09el on: ROMouseLeave do: [ :e | el view remove: el ifAbsent: [  ] ].\x0a\x0a\x09(self receivingViewFor: element) add: el.\x09\x0a\x0a\x09self popups add: el.\x0a\x0a\x09^ el",
-messageSends: ["+", "on:", "on:do:", "remove:ifAbsent:", "view", "add:", "receivingViewFor:", "popups"],
-referencedClasses: ["ROBox", "ROElement", "ROMouseLeave"]
+source: "createPopupFor: element\x0a\x09| el |\x0a\x09el := self createElementFor: element.\x0a\x22\x09el := (ROElement on: 'toasty!') + ROBox.\x22\x0a\x09el on: ROMouseLeave do: [ :e | el view remove: el ifAbsent: [  ] ].\x0a\x0a\x09(self receivingViewFor: element) add: el.\x09\x0a\x0a\x09self popups add: el.\x0a\x0a\x09^ el",
+messageSends: ["createElementFor:", "on:do:", "remove:ifAbsent:", "view", "add:", "receivingViewFor:", "popups"],
+referencedClasses: ["ROMouseLeave"]
 }),
 smalltalk.ROAbstractPopup);
 

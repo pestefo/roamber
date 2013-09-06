@@ -88,12 +88,10 @@ selector: "createPopupFor:",
 fn: function (element){
 var self=this;
 var el;
-function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
-function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
 function $ROMouseLeave(){return smalltalk.ROMouseLeave||(typeof ROMouseLeave=="undefined"?nil:ROMouseLeave)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-el=_st(_st($ROElement())._on_("toasty!")).__plus($ROBox());
+el=self._createElementFor_(element);
 _st(el)._on_do_($ROMouseLeave(),(function(e){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(el)._view())._remove_ifAbsent_(el,(function(){
@@ -105,7 +103,7 @@ _st(self._popups())._add_(el);
 $1=el;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"createPopupFor:",{element:element,el:el},smalltalk.ROAbstractPopup)})},
-messageSends: ["+", "on:", "on:do:", "remove:ifAbsent:", "view", "add:", "receivingViewFor:", "popups"]}),
+messageSends: ["createElementFor:", "on:do:", "remove:ifAbsent:", "view", "add:", "receivingViewFor:", "popups"]}),
 smalltalk.ROAbstractPopup);
 
 smalltalk.addMethod(

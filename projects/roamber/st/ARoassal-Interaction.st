@@ -43,8 +43,8 @@ ROInteraction subclass: #ROAbstractPopup
 
 createPopupFor: element
 	| el |
-"	el := self createElementFor: element."
-	el := (ROElement on: 'toasty!!') + ROBox.
+	el := self createElementFor: element.
+"	el := (ROElement on: 'toasty!!') + ROBox."
 	el on: ROMouseLeave do: [ :e | el view remove: el ifAbsent: [  ] ].
 
 	(self receivingViewFor: element) add: el.	
