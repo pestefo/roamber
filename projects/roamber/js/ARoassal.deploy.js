@@ -1713,8 +1713,10 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.ROCircle.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@radius"]=self._defaultRadius();
+self["@width"]=_st(self._defaultRadius()).__star((1.5));
+self["@height"]=_st(self._defaultRadius()).__star((1.5));
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROCircle)})},
-messageSends: ["initialize", "defaultRadius"]}),
+messageSends: ["initialize", "defaultRadius", "*"]}),
 smalltalk.ROCircle);
 
 smalltalk.addMethod(

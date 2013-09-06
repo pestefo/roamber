@@ -2325,10 +2325,12 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.ROCircle.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@radius"]=self._defaultRadius();
+self["@width"]=_st(self._defaultRadius()).__star((1.5));
+self["@height"]=_st(self._defaultRadius()).__star((1.5));
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROCircle)})},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09radius := self defaultRadius\x0a\x09",
-messageSends: ["initialize", "defaultRadius"],
+source: "initialize\x0a\x09super initialize.\x0a\x09radius := self defaultRadius.\x0a\x09width := self defaultRadius * 1.5.\x0a\x09height := self defaultRadius * 1.5.\x0a\x09\x0a\x09",
+messageSends: ["initialize", "defaultRadius", "*"],
 referencedClasses: []
 }),
 smalltalk.ROCircle);
@@ -2530,7 +2532,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROLabel)})},
 args: ["canvas", "anElement"],
-source: "updateSVGElementOn: canvas for: anElement\x0a\x0a\x22\x0a\x09svgElement \x0a\x09\x09attr: 'x' with: (anElement position x);\x0a\x09\x09attr: 'y' with: (anElement position y);\x0a\x09\x09attr: 'width' with: (self widthFor: anElement);\x0a\x09\x09attr: 'height' with: (self heightFor: anElement);\x0a\x09\x09attr:'fill' with: 'lightGray'.\x0a\x22",
+source: "updateSVGElementOn: canvas for: anElement",
 messageSends: [],
 referencedClasses: []
 }),

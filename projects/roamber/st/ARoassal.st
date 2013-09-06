@@ -865,12 +865,98 @@ updateSVGElementOn: canvas for: anElement
 
 initialize
 	super initialize.
-	radius := self defaultRadius
+	radius := self defaultRadius.
+	width := self defaultRadius * 1.5.
+	height := self defaultRadius * 1.5.
 ! !
 
 ROShape subclass: #ROLabel
 	instanceVariableNames: 'text'
 	package: 'ARoassal'!
+
+!ROLabel methodsFor: 'not yet classified'!
+
+initialize 
+	super initialize.
+	text := #model.
+!
+
+initializeSVGElementOn: canvas for: anElement
+	"Paper.print(x, y, string, font, [size], [origin], [letter_spacing])
+	x - position of the text
+	y - position of the text
+	string - text to print
+	font - font object, see --> Paper.getFont(family, [weight], [style], [stretch])
+	size - size of the font, default is 16
+	origin - could be baseline' or 'middle' (default)
+	letter_spacing - number number in range -1..1, default is 0
+	Returns: object resulting path element, which consist of all letters
+   ----------- how to use getFont?????
+   
+   using paper.text() instead
+	"
+	
+	"example from: http://stackoverflow.com/questions/8771635/wrap-text-to-fit-into-a-rectangle-raphael"
+	|str svgText svgRect |
+	str := self textFor: anElement.
+	
+	" container rectangle"
+	svgRect := canvas rect: 0
+				y: 0 
+				width: 1
+				rect: 1.
+	svgRect attr: 'fill' value: 'white'.			
+	svgRect attr: 'stroke' value: 'gray'.
+	svgRect attr: 'stroke-width' value: 2.
+				
+	" text "
+	svgText := canvas text: 0
+			y:10
+			string: str.
+	
+	" create set and add the elements "
+	svgElement := canvas  set.
+	svgElement push: svgRect; push: svgText.
+	
+	" adapt the size of rectangle "
+	svgRect attr: 'width'  value: svgElement getBBox width + 10.
+	svgRect attr: 'height' value: svgElement getBBox height + 10.
+
+	" aling text in the middle first horizontally and then vertically"
+	svgText attr: 'x' value: ((svgRect attr: 'width') / 2) asInteger.
+	svgText  attr: 'text-anchor' value: 'middle'.			" fill:'#ff0000','font-size': 14});			"	
+	svgText attr: 'y' value: ((svgRect attr: 'height') / 2) asInteger.
+	
+	" enable translating "
+	svgElement translate:  (anElement position x) y: (anElement position y).
+	
+	
+	Transcript show: 'initialize svg element: ',(anElement model),(String cr).
+!
+
+removeSVGElement
+	svgElement clear.
+	Transcript show: 'It is supposed that it was deleted',(String cr).
+!
+
+text
+	^ text
+!
+
+text: anObject
+	text := anObject
+!
+
+textFor: aROElement
+	 | v |
+	v := (text roValue: aROElement).
+	^ (v class == 'abc' class)
+			ifTrue: [ v ]
+			ifFalse: [ v printString ]
+!
+
+updateSVGElementOn: canvas for: anElement
+! !
 
 !ROLabel class methodsFor: 'not yet classified'!
 
