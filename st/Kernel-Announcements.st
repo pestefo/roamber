@@ -50,12 +50,12 @@ deliver: anAnnouncement
 !
 
 handlesAnnouncement: anAnnouncement
-	"anAnnouncement might be announced from within another Amber environment"
-	
-	^ (Smalltalk current at: self announcementClass name)
-		ifNil: [ ^ false ]
-		ifNotNil: [ :class |
-		class includesBehavior: (Smalltalk current at: anAnnouncement class theNonMetaClass name) ]
+ "anAnnouncement might be announced from within another Amber environment"
+
+ ^ (Smalltalk current at: self announcementClass name)
+ 	ifNil: [ ^ false ]
+ 	ifNotNil: [ :class |
+ 	(Smalltalk current at: anAnnouncement class theNonMetaClass name) includesBehavior: class]
 ! !
 
 Object subclass: #Announcer
@@ -112,11 +112,6 @@ on: aClass send: aSelector to: anObject
 			yourself);
 		announcementClass: aClass;
 		yourself)
-!
-
-unsubscribe: anObject
-	subscriptions := subscriptions reject: [ :each |
-		each receiver = anObject ]
 ! !
 
 Announcer subclass: #SystemAnnouncer

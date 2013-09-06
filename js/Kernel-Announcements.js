@@ -106,12 +106,12 @@ return false;
 } else {
 var class_;
 class_=$receiver;
-$1=_st(class_)._includesBehavior_(_st(_st($Smalltalk())._current())._at_(_st(_st(_st(anAnnouncement)._class())._theNonMetaClass())._name()));
+$1=_st(_st(_st($Smalltalk())._current())._at_(_st(_st(_st(anAnnouncement)._class())._theNonMetaClass())._name()))._includesBehavior_(class_);
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"handlesAnnouncement:",{anAnnouncement:anAnnouncement},smalltalk.AnnouncementSubscription)})},
 args: ["anAnnouncement"],
-source: "handlesAnnouncement: anAnnouncement\x0a\x09\x22anAnnouncement might be announced from within another Amber environment\x22\x0a\x09\x0a\x09^ (Smalltalk current at: self announcementClass name)\x0a\x09\x09ifNil: [ ^ false ]\x0a\x09\x09ifNotNil: [ :class |\x0a\x09\x09class includesBehavior: (Smalltalk current at: anAnnouncement class theNonMetaClass name) ]",
+source: "handlesAnnouncement: anAnnouncement\x0a \x22anAnnouncement might be announced from within another Amber environment\x22\x0a\x0a ^ (Smalltalk current at: self announcementClass name)\x0a \x09ifNil: [ ^ false ]\x0a \x09ifNotNil: [ :class |\x0a \x09(Smalltalk current at: anAnnouncement class theNonMetaClass name) includesBehavior: class]",
 messageSends: ["ifNil:ifNotNil:", "includesBehavior:", "at:", "name", "theNonMetaClass", "class", "current", "announcementClass"],
 referencedClasses: ["Smalltalk"]
 }),
@@ -256,25 +256,6 @@ args: ["aClass", "aSelector", "anObject"],
 source: "on: aClass send: aSelector to: anObject\x0a\x09subscriptions add: (AnnouncementSubscription new\x0a\x09\x09valuable: (MessageSend new\x0a\x09\x09\x09receiver: anObject;\x0a\x09\x09\x09selector: aSelector;\x0a\x09\x09\x09yourself);\x0a\x09\x09announcementClass: aClass;\x0a\x09\x09yourself)",
 messageSends: ["add:", "valuable:", "receiver:", "new", "selector:", "yourself", "announcementClass:"],
 referencedClasses: ["MessageSend", "AnnouncementSubscription"]
-}),
-smalltalk.Announcer);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "unsubscribe:",
-category: 'subscribing',
-fn: function (anObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@subscriptions"]=_st(self["@subscriptions"])._reject_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st(each)._receiver()).__eq(anObject);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"unsubscribe:",{anObject:anObject},smalltalk.Announcer)})},
-args: ["anObject"],
-source: "unsubscribe: anObject\x0a\x09subscriptions := subscriptions reject: [ :each |\x0a\x09\x09each receiver = anObject ]",
-messageSends: ["reject:", "=", "receiver"],
-referencedClasses: []
 }),
 smalltalk.Announcer);
 
