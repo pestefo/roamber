@@ -612,7 +612,6 @@ elementOn: anObject
 
 hide
 	svgElement hide.
-	Transcript show: 'hide',(String cr).
 !
 
 show
@@ -929,14 +928,10 @@ initializeSVGElementOn: canvas for: anElement
 	
 	" enable translating "
 	svgElement translate:  (anElement position x) y: (anElement position y).
-	
-	
-	Transcript show: 'initialize svg element: ',(anElement model),(String cr).
 !
 
 removeSVGElement
 	svgElement clear.
-	Transcript show: 'It is supposed that it was deleted',(String cr).
 !
 
 text

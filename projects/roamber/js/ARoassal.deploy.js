@@ -1295,13 +1295,10 @@ smalltalk.method({
 selector: "hide",
 fn: function (){
 var self=this;
-function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
-function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 return smalltalk.withContext(function($ctx1) { 
 _st(self["@svgElement"])._hide();
-_st($Transcript())._show_("hide".__comma(_st($String())._cr()));
 return self}, function($ctx1) {$ctx1.fill(self,"hide",{},smalltalk.ROShape)})},
-messageSends: ["hide", "show:", ",", "cr"]}),
+messageSends: ["hide"]}),
 smalltalk.ROShape);
 
 smalltalk.addMethod(
@@ -1779,8 +1776,6 @@ selector: "initializeSVGElementOn:for:",
 fn: function (canvas,anElement){
 var self=this;
 var str,svgText,svgRect;
-function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
-function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 str=self._textFor_(anElement);
@@ -1799,9 +1794,8 @@ _st(svgText)._attr_value_("x",_st(_st(_st(svgRect)._attr_("width")).__slash((2))
 _st(svgText)._attr_value_("text-anchor","middle");
 _st(svgText)._attr_value_("y",_st(_st(_st(svgRect)._attr_("height")).__slash((2)))._asInteger());
 _st(self["@svgElement"])._translate_y_(_st(_st(anElement)._position())._x(),_st(_st(anElement)._position())._y());
-_st($Transcript())._show_(_st("initialize svg element: ".__comma(_st(anElement)._model())).__comma(_st($String())._cr()));
 return self}, function($ctx1) {$ctx1.fill(self,"initializeSVGElementOn:for:",{canvas:canvas,anElement:anElement,str:str,svgText:svgText,svgRect:svgRect},smalltalk.ROLabel)})},
-messageSends: ["textFor:", "rect:y:width:rect:", "attr:value:", "text:y:string:", "set", "push:", "+", "width", "getBBox", "height", "asInteger", "/", "attr:", "translate:y:", "x", "position", "y", "show:", ",", "cr", "model"]}),
+messageSends: ["textFor:", "rect:y:width:rect:", "attr:value:", "text:y:string:", "set", "push:", "+", "width", "getBBox", "height", "asInteger", "/", "attr:", "translate:y:", "x", "position", "y"]}),
 smalltalk.ROLabel);
 
 smalltalk.addMethod(
@@ -1809,13 +1803,10 @@ smalltalk.method({
 selector: "removeSVGElement",
 fn: function (){
 var self=this;
-function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
-function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 return smalltalk.withContext(function($ctx1) { 
 _st(self["@svgElement"])._clear();
-_st($Transcript())._show_("It is supposed that it was deleted".__comma(_st($String())._cr()));
 return self}, function($ctx1) {$ctx1.fill(self,"removeSVGElement",{},smalltalk.ROLabel)})},
-messageSends: ["clear", "show:", ",", "cr"]}),
+messageSends: ["clear"]}),
 smalltalk.ROLabel);
 
 smalltalk.addMethod(

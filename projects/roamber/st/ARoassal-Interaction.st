@@ -79,8 +79,6 @@ initializeElement: element
 	
 	svgElement	
 		hover: [ :x :y |
-			Transcript show: (element position x asString),' ',(element position y asString),(String cr).
-			Transcript show: ((self popupPositionFor: element) x asString),' ',((self popupPositionFor: element) y asString),(String cr).
 "			popupElement translateTo: (self popupPositionFor: element)."
 
 	"
@@ -228,7 +226,6 @@ initializeElement: element
 			" Announce that an element is was dragged"
 			evt := ROMouseDragged new.
 			element announce: evt.
-			Transcript show: 'ROMouseDragged announced',(String cr).
 		].
 ! !
 
