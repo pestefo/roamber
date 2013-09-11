@@ -165,7 +165,7 @@ createElementFor: anElement
 
 	^ (ROElement on: 'popup label')
 			+ (ROLabel 
-			text: (text roValue: anElement model));
+			text: (anElement model asString));
 			yourself
 			
 			

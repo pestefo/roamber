@@ -260,12 +260,12 @@ function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
 $2=_st($ROElement())._on_("popup label");
-_st($2).__plus(_st($ROLabel())._text_(_st(self["@text"])._roValue_(_st(anElement)._model())));
+_st($2).__plus(_st($ROLabel())._text_(_st(_st(anElement)._model())._asString()));
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"createElementFor:",{anElement:anElement},smalltalk.ROPopup)})},
-messageSends: ["+", "text:", "roValue:", "model", "on:", "yourself"]}),
+messageSends: ["+", "text:", "asString", "model", "on:", "yourself"]}),
 smalltalk.ROPopup);
 
 smalltalk.addMethod(
