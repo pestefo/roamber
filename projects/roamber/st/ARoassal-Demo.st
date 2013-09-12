@@ -1,46 +1,14 @@
 Smalltalk current createPackage: 'ARoassal-Demo'!
-Widget subclass: #RODemo
+Object subclass: #RODemo
 	instanceVariableNames: ''
 	package: 'ARoassal-Demo'!
-
-!RODemo methodsFor: 'not yet classified'!
-
-renderOn: html
-	| selectorList ul li a |
-	ul := html ul.
-	ul class: 'dropdown-menu'.
-	
-	ROExample selectors do: [:selector |
-
-		li := html li.
-		a := html a.
-		a href: '#'.
-		a onClick: [RODemo new show: selector].
-		a with: selector.
-		li append: a.
-		ul append: li.
-	].
-!
-
-show: selector
-	self updateTextArea: selector.
-	self updateCanvas: selector.
-!
-
-updateCanvas: selector
-	"execute 'ROExample new selector' command"
-	ROExample new perform:selector.
-!
-
-updateTextArea: selector
-	"put the code into #roassal-text textarea"
-	('#roassal-text' asJQuery) html: ((ROExample>>selector) source).
-! !
 
 !RODemo class methodsFor: 'not yet classified'!
 
 init
-	self new appendToJQuery: '#selectorList' asJQuery
+	" Initializes widgets"
+	ROExampleSelector init.
+	ROWorkspace init.
 ! !
 
 ROObject subclass: #ROExample
@@ -57,27 +25,37 @@ circle
 !
 
 collectionHierarchy
-|view classElements edges associations|
+| view classElements edges associations |
 view := ROView new.
 classElements := ROElement forCollection: Collection withAllSubclasses.
 classElements
-	do: [:c | | instVar |
+	do: [:c | | instVar numMethods |
 		instVar := c model instVarNames size.
 		c shape width: (( instVar = 0) ifTrue: [ 10 ] ifFalse: [ instVar * 15]) .
-"		c shape height: c model methods size."
-		c shape height: c model allSelectors size.	
+
+		numMethods := c model selectors size.
+		c shape height: (( numMethods = 0) ifTrue: [ 3 ] ifFalse: [ numMethods * 2]) . 	
 		c + ROBox.
-		c @ RODraggable ].
-		view addAll: classElements.
+		c @ RODraggable.
+		c @ ROPopup.
+		c on: ROMouseEnter do: [c shape svgElement attr: 'fill' value: 'red'].
+		c on: ROMouseLeave do: [c shape svgElement attr: 'fill' value: 'lightGray'].
+		].
+view addAll: classElements.
+
+" Build and add edges "
 associations := classElements collect: [:c |
 			(c model superclass = Object)
 			ifFalse: [ (view elementFromModel: c
 				model superclass) -> c]
 			] thenSelect: [:assoc | assoc isNil not ].
+			
 edges := ROEdge linesFor: associations.
 view addAll: edges.
+
+" Show the hierarchy as a tree "
 ROTreeLayout on: (view elements) edges: edges.
-"ROTreeLayout new on: view elements."
+
 
 view open.
 !
@@ -120,6 +98,18 @@ horizontalLayout2
 			(ROBox new height: [ :el | el model * 13 ]; width: [ :el | el model * 5 ])) ].
 	ROHorizontalLineLayout on: view elements.
 	view open.
+!
+
+hover
+|view element|
+view := ROView new.
+element := ROElement new size: 100.
+element + ROBox.
+"Open an inspector when clicking"
+element on: ROMouseEnter do: [ :event | event element shape svgElement attr: 'fill' value: 'red'].
+element on: ROMouseEnter do: [ :event | event element shape svgElement attr: 'fill' value: 'lightGray'].
+view add: element.
+view open.
 !
 
 label
@@ -217,7 +207,8 @@ view open.
 popup
 |view element|
 view := ROView new.
-element := ROElement new size: 100.
+"element := (ROElement on: 'Hi there!!') size: 100."
+element := (ROElement forCollection: Collection withAllSubclasses) first.
 element + ROBox.
 element @ ROPopup.
 "Open an inspector when clicking"
@@ -282,5 +273,108 @@ tux
 	view := ROView new.
 	view add: (ROTux element).
 	view open
+! !
+
+Widget subclass: #ROExampleSelector
+	instanceVariableNames: ''
+	package: 'ARoassal-Demo'!
+
+!ROExampleSelector methodsFor: 'not yet classified'!
+
+renderOn: html
+	| ul li a |
+	ul := html ul.
+	ul class: 'dropdown-menu'.
+	
+	ROExample selectors do: [:selector |
+
+		li := html li.
+		a := html a.
+		a href: '#'.
+		a onClick: [self show: selector].
+		a with: selector.
+		li append: a.
+		ul append: li.
+	].
+!
+
+show: selector
+	self updateTextArea: selector.
+	self updateCanvas: selector.
+!
+
+updateCanvas: selector
+	"execute 'ROExample new selector' command"
+	ROExample new perform:selector.
+!
+
+updateTextArea: selector
+	"put the code into #roassal-text textarea"
+	('#roassal-text' asJQuery) html: (self sourceCodeWithoutMethodnameOf: (ROExample>>selector)	).
+! !
+
+!ROExampleSelector methodsFor: 'utils'!
+
+sourceCodeWithoutMethodnameOf: method
+	| sourceCodeLines |
+	sourceCodeLines := method source lines.
+	sourceCodeLines removeFirst.
+	" Remove newlines, empty and one-space lines"
+	^ (sourceCodeLines reject: [:line | line = (String cr) 
+																or: [ line = ' ' 
+																or: [ line = '' ]]])
+	"then join them into one string and return"															
+			inject: '' into: [:sourceCode :line | sourceCode,(String cr),line ]
+! !
+
+!ROExampleSelector class methodsFor: 'not yet classified'!
+
+init
+	self new appendToJQuery: '#selectorList' asJQuery
+! !
+
+Widget subclass: #ROWorkspace
+	instanceVariableNames: 'workspace'
+	package: 'ARoassal-Demo'!
+
+!ROWorkspace methodsFor: 'not yet classified'!
+
+renderButtonsOn: html
+    html a
+	with: 'DoIt';
+	class: 'btn';
+	title: 'ctrl+d';
+	onClick: [self workspace doIt].
+	
+    html a
+	with: 'PrintIt';
+	class: 'btn';
+	title: 'ctrl+p';
+	onClick: [self workspace printIt].
+    
+	html a
+	with: 'InspectIt';
+	class: 'btn';
+	title: 'ctrl+i';
+	onClick: [self workspace inspectIt]
+!
+
+renderOn: html
+	| div |
+	html div 
+		class: 'roworkspace';
+		with: [self renderButtonsOn: html];
+		with: [self workspace renderOn: html].
+!
+
+workspace
+	^ workspace ifNil: [
+          	workspace := SourceArea new]
+! !
+
+!ROWorkspace class methodsFor: 'not yet classified'!
+
+init
+	self new appendToJQuery: '#roassal-text' asJQuery
 ! !
 
