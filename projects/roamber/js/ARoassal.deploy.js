@@ -1187,6 +1187,17 @@ smalltalk.ROShape);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "color:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@color"]=aString;
+return self}, function($ctx1) {$ctx1.fill(self,"color:",{aString:aString},smalltalk.ROShape)})},
+messageSends: []}),
+smalltalk.ROShape);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "defaultExtent",
 fn: function (){
 var self=this;
@@ -1308,9 +1319,9 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.ROShape.superclass.fn.prototype._initialize.apply(_st(self), []);
-self["@color"]=_st(self._class())._defaultColor();
+self._color_(_st(self._class())._defaultColor());
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROShape)})},
-messageSends: ["initialize", "defaultColor", "class"]}),
+messageSends: ["initialize", "color:", "defaultColor", "class"]}),
 smalltalk.ROShape);
 
 smalltalk.addMethod(
@@ -1859,10 +1870,10 @@ selector: "updateSVGElementOn:for:",
 fn: function (canvas,anElement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self["@svgElement"])._translate_y_((0),(0));
-_st(self["@svgElement"])._translate_y_(_st(_st(anElement)._position())._x(),_st(_st(anElement)._position())._y());
+_st(self["@svgElement"])._transform_("T0,0");
+_st(self["@svgElement"])._transform_(_st(_st("T".__comma(_st(_st(anElement)._position())._x())).__comma(",")).__comma(_st(_st(anElement)._position())._y()));
 return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROLabel)})},
-messageSends: ["translate:y:", "x", "position", "y"]}),
+messageSends: ["transform:", ",", "y", "position", "x"]}),
 smalltalk.ROLabel);
 
 

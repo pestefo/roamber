@@ -969,7 +969,7 @@ self["@shape"]=_st($RONullShape())._new();
 self.__at($ROClickable());
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROElement)})},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09position := 0 @ 0.\x0a\x09interactions := Dictionary new.\x0a\x09shape := RONullShape new.\x0a\x09self @ ROClickable.",
+source: "initialize\x0a\x09super initialize.\x0a\x09position := 0 @ 0.\x0a\x09interactions := Dictionary new.\x0a\x09shape := RONullShape new.\x0a\x09self @ ROClickable.\x0a\x22\x09self @ ROHoverable.\x22",
 messageSends: ["initialize", "@", "new"],
 referencedClasses: ["Dictionary", "RONullShape", "ROClickable"]
 }),
@@ -1598,6 +1598,22 @@ smalltalk.ROShape);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "color:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@color"]=aString;
+return self}, function($ctx1) {$ctx1.fill(self,"color:",{aString:aString},smalltalk.ROShape)})},
+args: ["aString"],
+source: "color:\x09 aString\x0a\x09\x0a\x09color := aString\x0a\x09",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROShape);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "defaultExtent",
 category: 'creation',
 fn: function (){
@@ -1765,11 +1781,11 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.ROShape.superclass.fn.prototype._initialize.apply(_st(self), []);
-self["@color"]=_st(self._class())._defaultColor();
+self._color_(_st(self._class())._defaultColor());
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROShape)})},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09color := self class defaultColor.",
-messageSends: ["initialize", "defaultColor", "class"],
+source: "initialize\x0a\x09super initialize.\x0a\x09self color: self class defaultColor.",
+messageSends: ["initialize", "color:", "defaultColor", "class"],
 referencedClasses: []
 }),
 smalltalk.ROShape);
@@ -2521,12 +2537,12 @@ category: 'not yet classified',
 fn: function (canvas,anElement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self["@svgElement"])._translate_y_((0),(0));
-_st(self["@svgElement"])._translate_y_(_st(_st(anElement)._position())._x(),_st(_st(anElement)._position())._y());
+_st(self["@svgElement"])._transform_("T0,0");
+_st(self["@svgElement"])._transform_(_st(_st("T".__comma(_st(_st(anElement)._position())._x())).__comma(",")).__comma(_st(_st(anElement)._position())._y()));
 return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROLabel)})},
 args: ["canvas", "anElement"],
-source: "updateSVGElementOn: canvas for: anElement\x0a\x09svgElement translate: 0 y: 0.\x0a\x09svgElement translate: (anElement position x) y: (anElement position y).",
-messageSends: ["translate:y:", "x", "position", "y"],
+source: "updateSVGElementOn: canvas for: anElement\x0a\x09svgElement transform: 'T0,0'.\x0a\x09svgElement transform: 'T',(anElement position x),',',(anElement position y).\x0a\x22\x0a\x09svgElement translate: 0 y: 0.\x0a\x09svgElement translate: (anElement position x) y: (anElement position y).\x0a\x22",
+messageSends: ["transform:", ",", "y", "position", "x"],
 referencedClasses: []
 }),
 smalltalk.ROLabel);

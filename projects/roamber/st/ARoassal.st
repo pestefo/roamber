@@ -383,6 +383,7 @@ initialize
 	interactions := Dictionary new.
 	shape := RONullShape new.
 	self @ ROClickable.
+"	self @ ROHoverable."
 !
 
 removeShape
@@ -550,6 +551,11 @@ ROObject subclass: #ROShape
 
 !ROShape methodsFor: 'accessing'!
 
+color:	 aString
+	
+	color := aString
+!
+
 height
 	^ height
 !
@@ -564,7 +570,7 @@ heightFor: anElement
 
 initialize
 	super initialize.
-	color := self class defaultColor.
+	self color: self class defaultColor.
 !
 
 installedOn: element
@@ -951,8 +957,12 @@ textFor: aROElement
 !
 
 updateSVGElementOn: canvas for: anElement
+	svgElement transform: 'T0,0'.
+	svgElement transform: 'T',(anElement position x),',',(anElement position y).
+"
 	svgElement translate: 0 y: 0.
 	svgElement translate: (anElement position x) y: (anElement position y).
+"
 ! !
 
 !ROLabel class methodsFor: 'not yet classified'!

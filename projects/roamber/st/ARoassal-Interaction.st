@@ -49,7 +49,7 @@ createPopupFor: element
 	" positioning "
 	popupElement translateTo: (self popupPositionFor: element).
 
-	popupElement on: ROMouseLeave do: [ :e | popupElement view remove: popupElement ifAbsent: [  ] ].
+"	popupElement on: ROMouseLeave do: [ :e | popupElement view remove: popupElement ifAbsent: [  ] ]."
 	popupElement on: ROMouseDragged do: [ :e | 
 		Transcript show: 'ROMouseDragged event catched',(String cr).
 		popupElement svgElement 
@@ -79,6 +79,7 @@ initializeElement: element
 	
 	svgElement	
 		hover: [ :x :y |
+			| ev |
 "			popupElement translateTo: (self popupPositionFor: element)."
 
 	"
@@ -86,7 +87,8 @@ initializeElement: element
 				translate: (element position x - (popupElement position x) )
 				y: (element position y - (popupElement position y) ).
 			popupElement translateTo: (self popupPositionFor: element).
-"		
+"			
+
 			popupElement show.
 
 "
@@ -98,15 +100,20 @@ initializeElement: element
 			el translateTo: popupPosition.
 			element signalUpdate.
 "			
+		ev := ROMouseEnter new.
+		element announce: ev.
 		]
 		whenLeave: [
+		| ev |
 		" remove popup and redraw"
-		popupElement translateTo: (self popupPositionFor: element).
+"		popupElement translateTo: (self popupPositionFor: element)."
 		popupElement hide.
 "		self removeAllPopups.
 		element announce: ROMouseLeave.
 		element signalUpdate  
 "
+		ev := ROMouseLeave new.
+		element announce: ev.
 	].
 			
 	element on: ROMouseDragging do: [ :event | 
@@ -227,5 +234,30 @@ initializeElement: element
 			evt := ROMouseDragged new.
 			element announce: evt.
 		].
+! !
+
+ROInteraction subclass: #ROHoverable
+	instanceVariableNames: ''
+	package: 'ARoassal-Interaction'!
+
+!ROHoverable methodsFor: 'not yet classified'!
+
+initializeElement: element
+	| svgElement |
+	svgElement := element shape svgElement.
+	svgElement unclick.
+	svgElement	
+		hover: [ 
+		| ev |
+		" spread the event"
+		ev := ROMouseEnter new.
+		element announce: ev.
+		]
+		whenLeave: [
+		| ev |
+		" spread the event"
+		ev := ROMouseLeave new.
+		element announce: ev.
+	].
 ! !
 
