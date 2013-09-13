@@ -1,14 +1,34 @@
 Smalltalk current createPackage: 'ARoassal-Demo'!
 Object subclass: #RODemo
-	instanceVariableNames: ''
+	instanceVariableNames: 'workspace selector'
 	package: 'ARoassal-Demo'!
 
-!RODemo class methodsFor: 'not yet classified'!
+!RODemo methodsFor: 'not yet classified'!
 
 init
 	" Initializes widgets"
-	ROExampleSelector init.
-	ROWorkspace init.
+	selector := ROExampleSelector init.
+	workspace := ROWorkspace init.
+!
+
+writeExample: aString
+	workspace clear.
+	workspace val: aString.
+	workspace doIt.
+! !
+
+RODemo class instanceVariableNames: 'demo'!
+
+!RODemo class methodsFor: 'not yet classified'!
+
+current
+	demo ifNil: [  demo := self new].
+	^ demo
+!
+
+init
+	" Initializes widgets"
+	self current init.
 ! !
 
 ROObject subclass: #ROExample
@@ -300,7 +320,7 @@ renderOn: html
 
 show: selector
 	self updateTextArea: selector.
-	self updateCanvas: selector.
+"	self updateCanvas: selector."
 !
 
 updateCanvas: selector
@@ -310,7 +330,7 @@ updateCanvas: selector
 
 updateTextArea: selector
 	"put the code into #roassal-text textarea"
-	('#roassal-text' asJQuery) html: (self sourceCodeWithoutMethodnameOf: (ROExample>>selector)	).
+	RODemo current writeExample:  (self sourceCodeWithoutMethodnameOf: (ROExample>>selector)	).
 ! !
 
 !ROExampleSelector methodsFor: 'utils'!
@@ -330,7 +350,7 @@ sourceCodeWithoutMethodnameOf: method
 !ROExampleSelector class methodsFor: 'not yet classified'!
 
 init
-	self new appendToJQuery: '#selectorList' asJQuery
+	^ self new appendToJQuery: '#selectorList' asJQuery; yourself.
 ! !
 
 Widget subclass: #ROWorkspace
@@ -339,13 +359,21 @@ Widget subclass: #ROWorkspace
 
 !ROWorkspace methodsFor: 'not yet classified'!
 
+clear 
+	workspace clear.
+!
+
+doIt
+	workspace doIt
+!
+
 renderButtonsOn: html
     html a
 	with: 'DoIt';
 	class: 'btn';
 	title: 'ctrl+d';
 	onClick: [self workspace doIt].
-	
+"	
     html a
 	with: 'PrintIt';
 	class: 'btn';
@@ -357,6 +385,7 @@ renderButtonsOn: html
 	class: 'btn';
 	title: 'ctrl+i';
 	onClick: [self workspace inspectIt]
+"
 !
 
 renderOn: html
@@ -367,6 +396,10 @@ renderOn: html
 		with: [self workspace renderOn: html].
 !
 
+val: aString
+	workspace val: aString.
+!
+
 workspace
 	^ workspace ifNil: [
           	workspace := SourceArea new]
@@ -375,6 +408,6 @@ workspace
 !ROWorkspace class methodsFor: 'not yet classified'!
 
 init
-	self new appendToJQuery: '#roassal-text' asJQuery
+	^ self new appendToJQuery: '#roassaltext' asJQuery; yourself.
 ! !
 
