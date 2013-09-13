@@ -383,7 +383,7 @@ initialize
 	interactions := Dictionary new.
 	shape := RONullShape new.
 	self @ ROClickable.
-"	self @ ROHoverable."
+	self @ ROHoverable.
 !
 
 removeShape

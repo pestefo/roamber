@@ -77,9 +77,8 @@ initializeElement: element
 	popupElement hide.
 
 	
-	svgElement	
-		hover: [ :x :y |
-			| ev |
+	element on: ROMouseEnter 
+		do: [ :evt |
 "			popupElement translateTo: (self popupPositionFor: element)."
 
 	"
@@ -100,25 +99,21 @@ initializeElement: element
 			el translateTo: popupPosition.
 			element signalUpdate.
 "			
-		ev := ROMouseEnter new.
-		element announce: ev.
-		]
-		whenLeave: [
-		| ev |
+		].
+		element on: ROMouseLeave do: [
+
 		" remove popup and redraw"
 "		popupElement translateTo: (self popupPositionFor: element)."
 		popupElement hide.
 "		self removeAllPopups.
 		element announce: ROMouseLeave.
 		element signalUpdate  
-"
-		ev := ROMouseLeave new.
-		element announce: ev.
-	].
+"	].
 			
 	element on: ROMouseDragging do: [ :event | 
 			popupElement translateTo: (self popupPositionFor: element).
 			popupElement hide.		
+"			element signalUpdate."
 "			self removeAllPopups.
 			element announce: ROMouseLeave.
 			element signalUpdate   
@@ -187,6 +182,9 @@ initialize
 ROInteraction subclass: #ROClickable
 	instanceVariableNames: ''
 	package: 'ARoassal-Interaction'!
+!ROClickable commentStamp!
+REFACTOR:
+- Move to ARoassal-Raphaeljs!
 
 !ROClickable methodsFor: 'not yet classified'!
 
@@ -236,6 +234,21 @@ initializeElement: element
 		].
 ! !
 
+ROInteraction subclass: #ROHighlight
+	instanceVariableNames: ''
+	package: 'ARoassal-Interaction'!
+!ROHighlight commentStamp!
+REFACTOR:
+- Move to ARoassal-Raphaeljs!
+
+!ROHighlight methodsFor: 'not yet classified'!
+
+initializeElement: element
+
+	element on: ROMouseEnter do: [:evt | evt element shape svgElement attr: 'fill' value: 'red'].
+	element on: ROMouseLeave do: [:evt | evt element shape svgElement attr: 'fill' value: 'lightGray'].
+! !
+
 ROInteraction subclass: #ROHoverable
 	instanceVariableNames: ''
 	package: 'ARoassal-Interaction'!
@@ -243,19 +256,17 @@ ROInteraction subclass: #ROHoverable
 !ROHoverable methodsFor: 'not yet classified'!
 
 initializeElement: element
-	| svgElement |
+	| svgElement      |
 	svgElement := element shape svgElement.
-	svgElement unclick.
+
 	svgElement	
 		hover: [ 
 		| ev |
-		" spread the event"
 		ev := ROMouseEnter new.
 		element announce: ev.
 		]
 		whenLeave: [
 		| ev |
-		" spread the event"
 		ev := ROMouseLeave new.
 		element announce: ev.
 	].

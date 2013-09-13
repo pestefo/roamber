@@ -961,17 +961,19 @@ var self=this;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 function $RONullShape(){return smalltalk.RONullShape||(typeof RONullShape=="undefined"?nil:RONullShape)}
 function $ROClickable(){return smalltalk.ROClickable||(typeof ROClickable=="undefined"?nil:ROClickable)}
+function $ROHoverable(){return smalltalk.ROHoverable||(typeof ROHoverable=="undefined"?nil:ROHoverable)}
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.ROElement.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@position"]=(0).__at((0));
 self["@interactions"]=_st($Dictionary())._new();
 self["@shape"]=_st($RONullShape())._new();
 self.__at($ROClickable());
+self.__at($ROHoverable());
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROElement)})},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09position := 0 @ 0.\x0a\x09interactions := Dictionary new.\x0a\x09shape := RONullShape new.\x0a\x09self @ ROClickable.\x0a\x22\x09self @ ROHoverable.\x22",
+source: "initialize\x0a\x09super initialize.\x0a\x09position := 0 @ 0.\x0a\x09interactions := Dictionary new.\x0a\x09shape := RONullShape new.\x0a\x09self @ ROClickable.\x0a\x09self @ ROHoverable.",
 messageSends: ["initialize", "@", "new"],
-referencedClasses: ["Dictionary", "RONullShape", "ROClickable"]
+referencedClasses: ["Dictionary", "RONullShape", "ROClickable", "ROHoverable"]
 }),
 smalltalk.ROElement);
 

@@ -122,28 +122,21 @@ svgElement=_st(_st(element)._shape())._svgElement();
 popupElement=self._createPopupFor_(element);
 _st(element)._signalUpdate();
 _st(popupElement)._hide();
-_st(svgElement)._hover_whenLeave_((function(x,y){
-var ev;
+_st(element)._on_do_($ROMouseEnter(),(function(evt){
 return smalltalk.withContext(function($ctx2) {
-_st(popupElement)._show();
-ev=_st($ROMouseEnter())._new();
-ev;
-return _st(element)._announce_(ev);
-}, function($ctx2) {$ctx2.fillBlock({x:x,y:y,ev:ev},$ctx1)})}),(function(){
-var ev;
+return _st(popupElement)._show();
+}, function($ctx2) {$ctx2.fillBlock({evt:evt},$ctx1)})}));
+_st(element)._on_do_($ROMouseLeave(),(function(){
 return smalltalk.withContext(function($ctx2) {
-_st(popupElement)._hide();
-ev=_st($ROMouseLeave())._new();
-ev;
-return _st(element)._announce_(ev);
-}, function($ctx2) {$ctx2.fillBlock({ev:ev},$ctx1)})}));
+return _st(popupElement)._hide();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 _st(element)._on_do_($ROMouseDragging(),(function(event){
 return smalltalk.withContext(function($ctx2) {
 _st(popupElement)._translateTo_(self._popupPositionFor_(element));
 return _st(popupElement)._hide();
 }, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"initializeElement:",{element:element,svgElement:svgElement,popupElement:popupElement},smalltalk.ROAbstractPopup)})},
-messageSends: ["svgElement", "shape", "createPopupFor:", "signalUpdate", "hide", "hover:whenLeave:", "show", "new", "announce:", "on:do:", "translateTo:", "popupPositionFor:"]}),
+messageSends: ["svgElement", "shape", "createPopupFor:", "signalUpdate", "hide", "on:do:", "show", "translateTo:", "popupPositionFor:"]}),
 smalltalk.ROAbstractPopup);
 
 smalltalk.addMethod(
@@ -347,6 +340,29 @@ smalltalk.RODraggable);
 
 
 
+smalltalk.addClass('ROHighlight', smalltalk.ROInteraction, [], 'ARoassal-Interaction');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initializeElement:",
+fn: function (element){
+var self=this;
+function $ROMouseEnter(){return smalltalk.ROMouseEnter||(typeof ROMouseEnter=="undefined"?nil:ROMouseEnter)}
+function $ROMouseLeave(){return smalltalk.ROMouseLeave||(typeof ROMouseLeave=="undefined"?nil:ROMouseLeave)}
+return smalltalk.withContext(function($ctx1) { 
+_st(element)._on_do_($ROMouseEnter(),(function(evt){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(_st(_st(evt)._element())._shape())._svgElement())._attr_value_("fill","red");
+}, function($ctx2) {$ctx2.fillBlock({evt:evt},$ctx1)})}));
+_st(element)._on_do_($ROMouseLeave(),(function(evt){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(_st(_st(evt)._element())._shape())._svgElement())._attr_value_("fill","lightGray");
+}, function($ctx2) {$ctx2.fillBlock({evt:evt},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"initializeElement:",{element:element},smalltalk.ROHighlight)})},
+messageSends: ["on:do:", "attr:value:", "svgElement", "shape", "element"]}),
+smalltalk.ROHighlight);
+
+
+
 smalltalk.addClass('ROHoverable', smalltalk.ROInteraction, [], 'ARoassal-Interaction');
 smalltalk.addMethod(
 smalltalk.method({
@@ -358,7 +374,6 @@ function $ROMouseEnter(){return smalltalk.ROMouseEnter||(typeof ROMouseEnter=="u
 function $ROMouseLeave(){return smalltalk.ROMouseLeave||(typeof ROMouseLeave=="undefined"?nil:ROMouseLeave)}
 return smalltalk.withContext(function($ctx1) { 
 svgElement=_st(_st(element)._shape())._svgElement();
-_st(svgElement)._unclick();
 _st(svgElement)._hover_whenLeave_((function(){
 var ev;
 return smalltalk.withContext(function($ctx2) {
@@ -373,7 +388,7 @@ ev;
 return _st(element)._announce_(ev);
 }, function($ctx2) {$ctx2.fillBlock({ev:ev},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"initializeElement:",{element:element,svgElement:svgElement},smalltalk.ROHoverable)})},
-messageSends: ["svgElement", "shape", "unclick", "hover:whenLeave:", "new", "announce:"]}),
+messageSends: ["svgElement", "shape", "hover:whenLeave:", "new", "announce:"]}),
 smalltalk.ROHoverable);
 
 
