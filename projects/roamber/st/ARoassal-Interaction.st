@@ -79,7 +79,7 @@ initializeElement: element
 	
 	element on: ROMouseEnter 
 		do: [ :evt |
-"			popupElement translateTo: (self popupPositionFor: element)."
+			popupElement translateTo: (self popupPositionFor: element).
 
 	"
 			popupElement shape svgElement 
@@ -99,8 +99,9 @@ initializeElement: element
 			el translateTo: popupPosition.
 			element signalUpdate.
 "			
-		].
-		element on: ROMouseLeave do: [
+	].
+	element on: ROMouseLeave 
+		do: [:evt |
 
 		" remove popup and redraw"
 "		popupElement translateTo: (self popupPositionFor: element)."
@@ -110,8 +111,19 @@ initializeElement: element
 		element signalUpdate  
 "	].
 			
-	element on: ROMouseDragging do: [ :event | 
-			popupElement translateTo: (self popupPositionFor: element).
+	element on: ROMouseDragging 
+		do: [ :evt | 
+"			popupElement translateTo: (self popupPositionFor: element)."
+			popupElement hide.		
+"			element signalUpdate."
+"			self removeAllPopups.
+			element announce: ROMouseLeave.
+			element signalUpdate   
+"		
+	].	
+	element on: ROMouseDragged 
+		do: [ :evt | 
+"			popupElement translateTo: (self popupPositionFor: element)."
 			popupElement hide.		
 "			element signalUpdate."
 "			self removeAllPopups.

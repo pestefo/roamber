@@ -117,6 +117,7 @@ var svgElement,popupElement;
 function $ROMouseEnter(){return smalltalk.ROMouseEnter||(typeof ROMouseEnter=="undefined"?nil:ROMouseEnter)}
 function $ROMouseLeave(){return smalltalk.ROMouseLeave||(typeof ROMouseLeave=="undefined"?nil:ROMouseLeave)}
 function $ROMouseDragging(){return smalltalk.ROMouseDragging||(typeof ROMouseDragging=="undefined"?nil:ROMouseDragging)}
+function $ROMouseDragged(){return smalltalk.ROMouseDragged||(typeof ROMouseDragged=="undefined"?nil:ROMouseDragged)}
 return smalltalk.withContext(function($ctx1) { 
 svgElement=_st(_st(element)._shape())._svgElement();
 popupElement=self._createPopupFor_(element);
@@ -124,19 +125,23 @@ _st(element)._signalUpdate();
 _st(popupElement)._hide();
 _st(element)._on_do_($ROMouseEnter(),(function(evt){
 return smalltalk.withContext(function($ctx2) {
+_st(popupElement)._translateTo_(self._popupPositionFor_(element));
 return _st(popupElement)._show();
 }, function($ctx2) {$ctx2.fillBlock({evt:evt},$ctx1)})}));
-_st(element)._on_do_($ROMouseLeave(),(function(){
+_st(element)._on_do_($ROMouseLeave(),(function(evt){
 return smalltalk.withContext(function($ctx2) {
 return _st(popupElement)._hide();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-_st(element)._on_do_($ROMouseDragging(),(function(event){
+}, function($ctx2) {$ctx2.fillBlock({evt:evt},$ctx1)})}));
+_st(element)._on_do_($ROMouseDragging(),(function(evt){
 return smalltalk.withContext(function($ctx2) {
-_st(popupElement)._translateTo_(self._popupPositionFor_(element));
 return _st(popupElement)._hide();
-}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({evt:evt},$ctx1)})}));
+_st(element)._on_do_($ROMouseDragged(),(function(evt){
+return smalltalk.withContext(function($ctx2) {
+return _st(popupElement)._hide();
+}, function($ctx2) {$ctx2.fillBlock({evt:evt},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"initializeElement:",{element:element,svgElement:svgElement,popupElement:popupElement},smalltalk.ROAbstractPopup)})},
-messageSends: ["svgElement", "shape", "createPopupFor:", "signalUpdate", "hide", "on:do:", "show", "translateTo:", "popupPositionFor:"]}),
+messageSends: ["svgElement", "shape", "createPopupFor:", "signalUpdate", "hide", "on:do:", "translateTo:", "popupPositionFor:", "show"]}),
 smalltalk.ROAbstractPopup);
 
 smalltalk.addMethod(
