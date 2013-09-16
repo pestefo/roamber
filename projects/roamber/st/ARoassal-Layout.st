@@ -520,6 +520,468 @@ on: elements edges: edges
 		applyOn: elements.
 ! !
 
+ROAbstractGraphLayout subclass: #ROAbstractCompactTree
+	instanceVariableNames: 'sonsDictionary root initialLayout margin'
+	package: 'ARoassal-Layout'!
+
+!ROAbstractCompactTree methodsFor: 'algorithm'!
+
+compareContourOf: aNode with: another
+	"return the number of radians the subtree induced by aNode must be displaced to be separated by a predefined distance (horizontalGap) from the one induced by anotherNode"
+
+	| difference max nodeA nodeB |
+	nodeB := aNode.	"the right one"
+	nodeA := another.	"the left one"
+	max := aNode = another
+		ifTrue: [ 0 ]
+		ifFalse: [ horizontalGap / 2 - (nodeB x - (self getAbcissaOf: nodeA inSubtreeFromLayer: aNode layer - 1)) ].
+	nodeB := self followLeftContour: nodeB toLayer: nodeB layer + 1.
+	nodeA := self followRightContour: nodeA toLayer: nodeA layer + 1.
+	[ nodeB isNil not & nodeA isNil not ]
+		whileTrue: [ 
+			difference := horizontalGap
+				-
+					((self getAbcissaOf: nodeB inSubtreeFromLayer: aNode layer - 1)
+						- (self getAbcissaOf: nodeA inSubtreeFromLayer: aNode layer - 1)).
+			max := max max: difference.
+			nodeB := self followLeftContour: nodeB toLayer: nodeB layer + 1.
+			nodeA := self followRightContour: nodeA toLayer: nodeA layer + 1 ].
+	^ max
+!
+
+computePosition: aNode
+"compute the position of the given node and of his sons recursively"
+
+	| children neighbor nodeA |
+	
+	children := self childrenFor: aNode.
+	neighbor := self leftSiblingOf: aNode.
+	
+	children isEmpty ifTrue: [ neighbor isNil ifTrue: [ aNode x: 0; mod: 0.]  
+											 ifFalse: [ aNode x: (neighbor x + (horizontalGap /2)); mod: (neighbor mod);
+													  pointer: (self followRightContour: neighbor toLayer: (aNode layer + 1)) ] ]
+					 
+					 ifFalse: [aNode leftContour: children first;
+									rightContour: children last.
+							  children do: [:e | self computePosition: e ].
+							      aNode x: (aNode leftContour x + aNode rightContour x + aNode rightContour mod ) /2;
+										mod: 0. 
+								neighbor isNil ifFalse: [ aNode mod: (self compareContourOf: aNode with: neighbor).
+									
+													  nodeA := (self followLeftContour: (aNode father) toLayer: (aNode layer)).
+													  [(self followLeftContour: nodeA toLayer: (nodeA layer + 1)) isNil ] whileFalse: [ nodeA := self followLeftContour: nodeA toLayer: (nodeA layer + 1) ].
+													 nodeA pointer: (self followLeftContour: aNode toLayer: (nodeA layer + 1)).
+													
+													 nodeA := self followRightContour: aNode toLayer: (aNode layer + 1).
+													 [(self followRightContour: nodeA toLayer: (nodeA layer +1)) isNil ] whileFalse: [ nodeA := self followRightContour: nodeA toLayer: (nodeA layer +1) ].
+													nodeA pointer: (self followRightContour: neighbor toLayer: (nodeA layer +1) ) ] ]
+!
+
+followLeftContour: aNode toLayer: anInteger
+	"return the last node in the left contour begining at anode"
+	
+	(aNode layer = anInteger ) ifTrue: [^ aNode  ].
+	(aNode layer > anInteger ) ifTrue: [^ nil  ].
+	
+	aNode leftContour isNil ifTrue: [ aNode pointer isNil ifTrue: [ ^ nil ] 
+														 ifFalse: [ ^ ( self followLeftContour: aNode pointer toLayer: anInteger ) ] ]
+	
+			  				ifFalse: [ ^ (self followLeftContour: aNode leftContour toLayer: anInteger ) ]
+!
+
+followRightContour: aNode toLayer: anInteger
+	"return the node in the right contour begining at anode in layer anInteger"
+
+	(aNode layer = anInteger ) ifTrue: [^ aNode  ].
+	(aNode layer > anInteger ) ifTrue: [^ nil  ].
+
+	aNode rightContour isNil ifTrue: [ aNode pointer isNil ifTrue: [ ^ nil ] 
+														 ifFalse: [ ^ ( self followRightContour: aNode pointer toLayer: anInteger ) ] ]
+	
+			  				ifFalse: [ ^ (self followRightContour: aNode rightContour toLayer: anInteger ) ]
+!
+
+getAbcissaOf: aNode inSubtreeFromLayer: anInteger
+
+	| node x |
+	
+	(anInteger < 0) ifTrue: [^ self getAbcissaOf: aNode inSubtreeFromLayer: 0 ].
+	
+	(aNode layer = anInteger ) ifTrue: [ ^ aNode x ].
+	(aNode layer < anInteger ) ifTrue: [ ^ nil ].
+	
+	x := aNode x + aNode mod.
+	
+	node := aNode father.
+	
+	[node layer = anInteger  ] whileFalse: [ x := x + node mod.
+									node := node father].
+								
+	^ x
+!
+
+leftSiblingOf: aNode
+"return the left sibling of the given node "
+
+	| children |
+
+	aNode father isNil ifTrue: ["has no sibling" ^ nil]
+					    ifFalse: [ children := self childrenFor: aNode father.
+								(children first) = aNode ifTrue: ["as no left sibling" ^ nil ]
+																    ifFalse: [^ children at: ((children indexOf: aNode)-1) ] ]
+!
+
+nodeAbcissaWithNeighbor: aNode
+
+	self subclassResponsibility
+! !
+
+!ROAbstractCompactTree methodsFor: 'hook'!
+
+coordinate: aNode withMod: aFloat
+	self subclassResponsibility
+!
+
+doExecute: nodeElements 
+	| rootNodes |
+	
+	initialLayout isNil  ifFalse: [ initialLayout new executeOnElements: nodeElements. ].
+	
+	rootNodes := self rootNodesFor: nodeElements.
+
+"	root isNil ifTrue: [ rootNodes := self rootNodesFor: nodeElements. ]
+			 ifFalse: [ rootNodes := Array with: root.
+						self coveringTreeFor: nodeElements from: root ].
+"	
+	rootNodes do: [:e | self initialize: e whoseFatherIs: nil ];
+		do: [:e | self computePosition:e].
+	
+	rootNodes  do: [:e |
+					self draw:e withMod: 0  ]
+!
+
+draw: aNode withMod: aFloat
+	self subclassResponsibility
+! !
+
+!ROAbstractCompactTree methodsFor: 'initialize-release'!
+
+greedyCycleRemoval: aGraph
+!
+
+initialLayout: aLayout
+
+	initialLayout := aLayout
+!
+
+initialize 
+
+	super initialize.
+	verticalGap := 20.
+	horizontalGap := 30.
+	margin := 40. 
+	sonsDictionary := Dictionary new
+!
+
+initialize: aNode whoseFatherIs: another 
+
+	aNode father: another.
+	
+	another isNil ifTrue: [ aNode layer: 0 ] ifFalse: [ aNode layer: another layer + 1 ] .
+	
+	( self childrenFor: aNode ) do: [ :e | self initialize: e whoseFatherIs: aNode ]
+!
+
+root: aNode 
+
+	root := aNode
+! !
+
+!ROAbstractCompactTree methodsFor: 'private'!
+
+childrenFor: aNode 
+
+	sonsDictionary isEmpty ifTrue: [ ^ super childrenFor: aNode ] 
+							ifFalse: [ ^sonsDictionary at: aNode ifAbsent: [ ^ OrderedCollection new ] ]
+! !
+
+!ROAbstractCompactTree class methodsFor: 'testing'!
+
+horizontalGap: anInt
+
+	| new |
+	
+	new := self new.
+	new horizontalGap: anInt.
+	
+	^ new
+!
+
+horizontalGap: anInt verticalGap: another
+
+	| new |
+	
+	new := self new.
+	new horizontalGap: anInt.
+	new verticalGap: another.
+	
+	
+	^ new
+!
+
+isAbstract
+	^ self name = #ROAbstractCompactTree
+!
+
+verticalGap: anInt
+
+	| new |
+	
+	new := self new.
+	new verticalGap: anInt.
+	
+	^ new
+! !
+
+ROAbstractCompactTree subclass: #RORadialTreeLayout
+	instanceVariableNames: ''
+	package: 'ARoassal-Layout'!
+
+!RORadialTreeLayout methodsFor: 'algorithm'!
+
+compareContourOf: aNode with: another
+	"return the number of radians the subtree induced by aNode must be displaced to be separated by a predefined distance (horizontalGap) from the one induced by anotherNode"
+
+	| difference max nodeA nodeB |
+	nodeB := aNode.	"the right one"
+	nodeA := another.	"the left one"
+	max := aNode = another
+		ifTrue: [ 0 ]
+		ifFalse: [ horizontalGap / nodeB layer / 2 - (nodeB x - (self getAbcissaOf: nodeA inSubtreeFromLayer: aNode layer - 1)) ].
+	nodeB := self followLeftContour: nodeB toLayer: nodeB layer + 1.
+	nodeA := self followRightContour: nodeA toLayer: nodeA layer + 1.
+	[ nodeB isNil not & nodeA isNil not ]
+		whileTrue: [ 
+			difference := horizontalGap / nodeA layer
+				-
+					((self getAbcissaOf: nodeB inSubtreeFromLayer: aNode layer - 1)
+						- (self getAbcissaOf: nodeA inSubtreeFromLayer: aNode layer - 1)).
+			max := max max: difference.
+			nodeB := self followLeftContour: nodeB toLayer: nodeB layer + 1.
+			nodeA := self followRightContour: nodeA toLayer: nodeA layer + 1 ].
+	^ max
+!
+
+computePosition: aNode
+"compute the position of the given node and of his sons recursively"
+
+	| children neighbor nodeA |
+	
+	children :=self childrenFor: aNode.
+	neighbor := self leftSiblingOf: aNode.
+	
+	children isEmpty ifTrue: [ neighbor isNil ifTrue: [ aNode x: 0; mod: 0. ]  
+											 ifFalse: [ aNode x: (neighbor x + (horizontalGap /aNode layer /2)); mod: (neighbor mod);
+													  pointer: (self followRightContour: neighbor toLayer: (aNode layer + 1)) ] ]
+					 
+					 ifFalse: [aNode leftContour: children first;
+									rightContour: children last.
+							  children do: [:e | self computePosition: e ].
+							      aNode x: (aNode leftContour x + aNode rightContour x + aNode rightContour mod ) /2;
+										mod: 0. 
+								neighbor isNil ifFalse: [ aNode mod: (self compareContourOf: aNode with: neighbor).
+									
+													  nodeA := (self followLeftContour: (aNode father) toLayer: (aNode layer)).
+													  [(self followLeftContour: nodeA toLayer: (nodeA layer + 1)) isNil ] whileFalse: [ nodeA := self followLeftContour: nodeA toLayer: (nodeA layer + 1) ].
+													 nodeA pointer: (self followLeftContour: aNode toLayer: (nodeA layer + 1)).
+													
+													 nodeA := self followRightContour: aNode toLayer: (aNode layer + 1).
+													 [(self followRightContour: nodeA toLayer: (nodeA layer +1)) isNil ] whileFalse: [ nodeA := self followRightContour: nodeA toLayer: (nodeA layer +1) ].
+													nodeA pointer: (self followRightContour: neighbor toLayer: (nodeA layer +1) ) ] ].
+!
+
+diameterOf: aNode
+
+	|diam|
+	
+	(aNode shapes first isKindOf: ROEllipse) ifTrue: [ diam := aNode width max: aNode height ]
+										ifFalse: [ diam := (aNode width * aNode width + (aNode height * aNode height)) sqrt floor ].
+	
+	^ diam
+!
+
+halfDiameterOf: aNode
+
+	|diam|
+	
+	(aNode shapes first isKindOf: ROEllipse) ifTrue: [ diam := aNode width max: aNode height ]
+										ifFalse: [ diam := (aNode width * aNode width + (aNode height * aNode height)) sqrt floor ].
+	
+	^ diam / 2
+!
+
+nodeAbcissaWithNeighbor: aNode
+
+	^ aNode x + (horizontalGap / aNode layer /2) + ((self halfDiameterOf: aNode) / aNode layer)
+!
+
+radialDraw: aNode
+	"draw the subtree induced by the given node"
+
+	| children |
+	aNode translateTo: (Point radius: (aNode r) theta: (aNode theta) ).
+	children := self childrenFor: aNode.
+	children do: [ :e | self radialDraw: e ]
+!
+
+toRadialTree: aNode withMod: aFloat
+	"compute polar coordinates of the subtree induced by anode from its cartesian coordinates "
+	| children |
+	aNode r: (aNode layer * verticalGap ).
+	(aNode r = 0) ifTrue: [ aNode theta: 0 ] 
+					ifFalse: [aNode theta: (aNode x + aFloat + aNode mod) / verticalGap ].
+	
+	children := self childrenFor: aNode.
+	
+	children do: [ :e | self toRadialTree: e withMod: ( aNode mod + aFloat) ]
+! !
+
+!RORadialTreeLayout methodsFor: 'hook'!
+
+computeGap: aNode
+	" compute the vertical gap needed for drawing the radial tree "
+	| gap maxAbcissa i abc nodeL nodeR layer |	
+	gap := 0.
+	maxAbcissa := 0.
+	layer := 1.
+	
+	i := 1.
+	[ nodeL :=(self followLeftContour: aNode toLayer: i).
+	nodeR := (self followRightContour: aNode toLayer: i).
+	nodeL isNil not & nodeR isNil not ] whileTrue: [ abc := (((self getAbcissaOf: nodeR inSubtreeFromLayer: 0) - (self getAbcissaOf: nodeL inSubtreeFromLayer: 0 ) + (horizontalGap / layer/2)) / layer).
+																	(abc > maxAbcissa) ifTrue: [ maxAbcissa := abc. 
+																								layer := layer ].
+																	i := i + 1 ].
+
+	
+	gap:= (maxAbcissa / 2 /Float pi ) floor +1.
+	
+	((verticalGap isNil) or: [gap > verticalGap])  ifTrue: [ self verticalGap: gap ]
+!
+
+doExecute: nodeElements
+	| rootNodes |
+	initialLayout isNil
+		ifFalse: [ initialLayout new executeOnElements: nodeElements ].
+		
+	rootNodes := self rootNodesFor: nodeElements.
+
+"	root isNil
+		ifTrue: [ rootNodes := self rootNodesFor: nodeElements ]
+		ifFalse: [ 
+			rootNodes := Array with: root.
+			self coveringTreeFor: nodeElements from: root ].
+"	rootNodes
+		do: [ :e | self initialize: e whoseFatherIs: nil ];
+		do: [ :e | self computePosition: e. self step ];
+		do: [ :e | self computeGap: e ];
+		do: [ :e | self toRadialTree: e withMod: 0 ].
+	rootNodes
+		do: [ :e | 
+			self radialDraw: e ]
+!
+
+rotateSubtreeFrom: aNode by: aFloat
+	
+	aNode theta: aNode theta + aFloat.
+	
+	(self childrenFor: aNode) do: [ :e | self rotateSubtreeFrom: e by: aFloat ]
+!
+
+spreadNodes: nodeElements around: aNode
+
+	|nodeL nodeR i angle beta lay1 |
+	
+	i := 1.
+	angle := 0.
+	
+	[ nodeL :=(self followLeftContour: aNode toLayer: i).
+	nodeR := (self followRightContour: aNode toLayer: i).
+	nodeL isNil not & nodeR isNil not ] whileTrue: [ angle := angle max: ((nodeR theta - nodeL theta) + ((self halfDiameterOf: nodeR) + (self halfDiameterOf: nodeL) + horizontalGap  /i /verticalGap )).
+													i := i+1. ].
+
+	lay1 := nodeElements select: [ :e | e layer = 1 ].
+
+	beta := Float pi * 2 - angle / lay1 size.
+	
+	lay1 do: [ :e | self rotateSubtreeFrom: e by: (lay1 indexOf: e) - 1 * beta ].
+! !
+
+!RORadialTreeLayout methodsFor: 'private'!
+
+gap
+	
+	^ self verticalGap
+!
+
+layoutLayer: aCollection radius: oldRadius from: aFromAngle to: aToAngle
+	
+	| delta childRadius maximumRadius myRadius fromAngle toAngle |
+	"Initialize with default value"
+	maximumRadius := oldRadius.
+	aCollection isEmpty
+		ifFalse:
+			[myRadius := oldRadius + self gap + (self maximumRadius: aCollection).
+			childRadius := oldRadius + self gap + (self maximumDiameter: aCollection).	"This is a purely optical tweak"
+			(aCollection size = 1 and: [aToAngle - aFromAngle = (2 * Float pi)])
+				ifTrue:
+					[delta := 0.4 * Float pi.
+					fromAngle := 0.8 * Float pi.
+					toAngle := fromAngle + delta]
+				ifFalse:
+					[delta := (aToAngle - aFromAngle) / aCollection size.
+					fromAngle := aFromAngle.
+					toAngle := aFromAngle + delta].
+			aCollection
+				do:
+					[:child | 
+					child
+						translateTo:
+							(Point
+								radius: myRadius
+								theta: toAngle - (delta / 2.0)).
+					maximumRadius := maximumRadius
+						max:
+							(self
+								layoutLayer: (self childrenFor: child)
+								radius: childRadius
+								from: fromAngle
+								to: toAngle).
+					fromAngle := toAngle.
+					toAngle := toAngle + delta]].
+	^maximumRadius
+!
+
+maximumDiameter: aCollection
+	
+	^aCollection
+		inject: 0
+		into: [:max :node | max max: (node radius * 2) ]
+!
+
+maximumRadius: aCollection
+	
+	^aCollection
+		inject: 0
+		into: [:max :node | max max: node radius]
+!
+
+shiftTree: aNode by: aPoint
+	
+	aNode translateBy: aPoint.
+	(self childrenFor: aNode) do: [:child | self shiftTree: child by: aPoint]
+! !
+
 ROAbstractGraphLayout subclass: #ROAbstractRegularTreeLayout
 	instanceVariableNames: 'alreadyLayoutedNodes topGap leftGap nodesByLayer isLayered'
 	package: 'ARoassal-Layout'!

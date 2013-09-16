@@ -1341,6 +1341,1112 @@ referencedClasses: []
 smalltalk.ROAbstractGraphLayout.klass);
 
 
+smalltalk.addClass('ROAbstractCompactTree', smalltalk.ROAbstractGraphLayout, ['sonsDictionary', 'root', 'initialLayout', 'margin'], 'ARoassal-Layout');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "childrenFor:",
+category: 'private',
+fn: function (aNode){
+var self=this;
+function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$4,$3;
+var $early={};
+try {
+$1=_st(self["@sonsDictionary"])._isEmpty();
+if(smalltalk.assert($1)){
+$2=smalltalk.ROAbstractCompactTree.superclass.fn.prototype._childrenFor_.apply(_st(self), [aNode]);
+return $2;
+} else {
+$3=_st(self["@sonsDictionary"])._at_ifAbsent_(aNode,(function(){
+return smalltalk.withContext(function($ctx2) {
+$4=_st($OrderedCollection())._new();
+throw $early=[$4];
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return $3;
+};
+return self}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"childrenFor:",{aNode:aNode},smalltalk.ROAbstractCompactTree)})},
+args: ["aNode"],
+source: "childrenFor: aNode \x0a\x0a\x09sonsDictionary isEmpty ifTrue: [ ^ super childrenFor: aNode ] \x0a\x09\x09\x09\x09\x09\x09\x09ifFalse: [ ^sonsDictionary at: aNode ifAbsent: [ ^ OrderedCollection new ] ]",
+messageSends: ["ifTrue:ifFalse:", "childrenFor:", "at:ifAbsent:", "new", "isEmpty"],
+referencedClasses: ["OrderedCollection"]
+}),
+smalltalk.ROAbstractCompactTree);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "compareContourOf:with:",
+category: 'algorithm',
+fn: function (aNode,another){
+var self=this;
+var difference,max,nodeA,nodeB;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+nodeB=aNode;
+nodeA=another;
+$1=_st(aNode).__eq(another);
+if(smalltalk.assert($1)){
+max=(0);
+} else {
+max=_st(_st(self["@horizontalGap"]).__slash((2))).__minus(_st(_st(nodeB)._x()).__minus(self._getAbcissaOf_inSubtreeFromLayer_(nodeA,_st(_st(aNode)._layer()).__minus((1)))));
+};
+nodeB=self._followLeftContour_toLayer_(nodeB,_st(_st(nodeB)._layer()).__plus((1)));
+nodeA=self._followRightContour_toLayer_(nodeA,_st(_st(nodeA)._layer()).__plus((1)));
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(_st(nodeB)._isNil())._not()).__and(_st(_st(nodeA)._isNil())._not());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileTrue_((function(){
+return smalltalk.withContext(function($ctx2) {
+difference=_st(self["@horizontalGap"]).__minus(_st(self._getAbcissaOf_inSubtreeFromLayer_(nodeB,_st(_st(aNode)._layer()).__minus((1)))).__minus(self._getAbcissaOf_inSubtreeFromLayer_(nodeA,_st(_st(aNode)._layer()).__minus((1)))));
+difference;
+max=_st(max)._max_(difference);
+max;
+nodeB=self._followLeftContour_toLayer_(nodeB,_st(_st(nodeB)._layer()).__plus((1)));
+nodeB;
+nodeA=self._followRightContour_toLayer_(nodeA,_st(_st(nodeA)._layer()).__plus((1)));
+return nodeA;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+$2=max;
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"compareContourOf:with:",{aNode:aNode,another:another,difference:difference,max:max,nodeA:nodeA,nodeB:nodeB},smalltalk.ROAbstractCompactTree)})},
+args: ["aNode", "another"],
+source: "compareContourOf: aNode with: another\x0a\x09\x22return the number of radians the subtree induced by aNode must be displaced to be separated by a predefined distance (horizontalGap) from the one induced by anotherNode\x22\x0a\x0a\x09| difference max nodeA nodeB |\x0a\x09nodeB := aNode.\x09\x22the right one\x22\x0a\x09nodeA := another.\x09\x22the left one\x22\x0a\x09max := aNode = another\x0a\x09\x09ifTrue: [ 0 ]\x0a\x09\x09ifFalse: [ horizontalGap / 2 - (nodeB x - (self getAbcissaOf: nodeA inSubtreeFromLayer: aNode layer - 1)) ].\x0a\x09nodeB := self followLeftContour: nodeB toLayer: nodeB layer + 1.\x0a\x09nodeA := self followRightContour: nodeA toLayer: nodeA layer + 1.\x0a\x09[ nodeB isNil not & nodeA isNil not ]\x0a\x09\x09whileTrue: [ \x0a\x09\x09\x09difference := horizontalGap\x0a\x09\x09\x09\x09-\x0a\x09\x09\x09\x09\x09((self getAbcissaOf: nodeB inSubtreeFromLayer: aNode layer - 1)\x0a\x09\x09\x09\x09\x09\x09- (self getAbcissaOf: nodeA inSubtreeFromLayer: aNode layer - 1)).\x0a\x09\x09\x09max := max max: difference.\x0a\x09\x09\x09nodeB := self followLeftContour: nodeB toLayer: nodeB layer + 1.\x0a\x09\x09\x09nodeA := self followRightContour: nodeA toLayer: nodeA layer + 1 ].\x0a\x09^ max",
+messageSends: ["ifTrue:ifFalse:", "-", "getAbcissaOf:inSubtreeFromLayer:", "layer", "x", "/", "=", "followLeftContour:toLayer:", "+", "followRightContour:toLayer:", "whileTrue:", "max:", "&", "not", "isNil"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractCompactTree);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "computePosition:",
+category: 'algorithm',
+fn: function (aNode){
+var self=this;
+var children,neighbor,nodeA;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11;
+children=self._childrenFor_(aNode);
+neighbor=self._leftSiblingOf_(aNode);
+$1=_st(children)._isEmpty();
+if(smalltalk.assert($1)){
+$2=_st(neighbor)._isNil();
+if(smalltalk.assert($2)){
+$3=aNode;
+_st($3)._x_((0));
+$4=_st($3)._mod_((0));
+$4;
+} else {
+$5=aNode;
+_st($5)._x_(_st(_st(neighbor)._x()).__plus(_st(self["@horizontalGap"]).__slash((2))));
+_st($5)._mod_(_st(neighbor)._mod());
+$6=_st($5)._pointer_(self._followRightContour_toLayer_(neighbor,_st(_st(aNode)._layer()).__plus((1))));
+$6;
+};
+} else {
+$7=aNode;
+_st($7)._leftContour_(_st(children)._first());
+$8=_st($7)._rightContour_(_st(children)._last());
+$8;
+_st(children)._do_((function(e){
+return smalltalk.withContext(function($ctx2) {
+return self._computePosition_(e);
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+$9=aNode;
+_st($9)._x_(_st(_st(_st(_st(_st(aNode)._leftContour())._x()).__plus(_st(_st(aNode)._rightContour())._x())).__plus(_st(_st(aNode)._rightContour())._mod())).__slash((2)));
+$10=_st($9)._mod_((0));
+$10;
+$11=_st(neighbor)._isNil();
+if(! smalltalk.assert($11)){
+_st(aNode)._mod_(self._compareContourOf_with_(aNode,neighbor));
+nodeA=self._followLeftContour_toLayer_(_st(aNode)._father(),_st(aNode)._layer());
+nodeA;
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._followLeftContour_toLayer_(nodeA,_st(_st(nodeA)._layer()).__plus((1))))._isNil();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileFalse_((function(){
+return smalltalk.withContext(function($ctx2) {
+nodeA=self._followLeftContour_toLayer_(nodeA,_st(_st(nodeA)._layer()).__plus((1)));
+return nodeA;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+_st(nodeA)._pointer_(self._followLeftContour_toLayer_(aNode,_st(_st(nodeA)._layer()).__plus((1))));
+nodeA=self._followRightContour_toLayer_(aNode,_st(_st(aNode)._layer()).__plus((1)));
+nodeA;
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._followRightContour_toLayer_(nodeA,_st(_st(nodeA)._layer()).__plus((1))))._isNil();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileFalse_((function(){
+return smalltalk.withContext(function($ctx2) {
+nodeA=self._followRightContour_toLayer_(nodeA,_st(_st(nodeA)._layer()).__plus((1)));
+return nodeA;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+_st(nodeA)._pointer_(self._followRightContour_toLayer_(neighbor,_st(_st(nodeA)._layer()).__plus((1))));
+};
+};
+return self}, function($ctx1) {$ctx1.fill(self,"computePosition:",{aNode:aNode,children:children,neighbor:neighbor,nodeA:nodeA},smalltalk.ROAbstractCompactTree)})},
+args: ["aNode"],
+source: "computePosition: aNode\x0a\x22compute the position of the given node and of his sons recursively\x22\x0a\x0a\x09| children neighbor nodeA |\x0a\x09\x0a\x09children := self childrenFor: aNode.\x0a\x09neighbor := self leftSiblingOf: aNode.\x0a\x09\x0a\x09children isEmpty ifTrue: [ neighbor isNil ifTrue: [ aNode x: 0; mod: 0.]  \x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09 ifFalse: [ aNode x: (neighbor x + (horizontalGap /2)); mod: (neighbor mod);\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09  pointer: (self followRightContour: neighbor toLayer: (aNode layer + 1)) ] ]\x0a\x09\x09\x09\x09\x09 \x0a\x09\x09\x09\x09\x09 ifFalse: [aNode leftContour: children first;\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09rightContour: children last.\x0a\x09\x09\x09\x09\x09\x09\x09  children do: [:e | self computePosition: e ].\x0a\x09\x09\x09\x09\x09\x09\x09      aNode x: (aNode leftContour x + aNode rightContour x + aNode rightContour mod ) /2;\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09mod: 0. \x0a\x09\x09\x09\x09\x09\x09\x09\x09neighbor isNil ifFalse: [ aNode mod: (self compareContourOf: aNode with: neighbor).\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09  nodeA := (self followLeftContour: (aNode father) toLayer: (aNode layer)).\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09  [(self followLeftContour: nodeA toLayer: (nodeA layer + 1)) isNil ] whileFalse: [ nodeA := self followLeftContour: nodeA toLayer: (nodeA layer + 1) ].\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09 nodeA pointer: (self followLeftContour: aNode toLayer: (nodeA layer + 1)).\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09 nodeA := self followRightContour: aNode toLayer: (aNode layer + 1).\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09 [(self followRightContour: nodeA toLayer: (nodeA layer +1)) isNil ] whileFalse: [ nodeA := self followRightContour: nodeA toLayer: (nodeA layer +1) ].\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09nodeA pointer: (self followRightContour: neighbor toLayer: (nodeA layer +1) ) ] ]",
+messageSends: ["childrenFor:", "leftSiblingOf:", "ifTrue:ifFalse:", "x:", "mod:", "+", "/", "x", "mod", "pointer:", "followRightContour:toLayer:", "layer", "isNil", "leftContour:", "first", "rightContour:", "last", "do:", "computePosition:", "rightContour", "leftContour", "ifFalse:", "compareContourOf:with:", "followLeftContour:toLayer:", "father", "whileFalse:", "isEmpty"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractCompactTree);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "coordinate:withMod:",
+category: 'hook',
+fn: function (aNode,aFloat){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"coordinate:withMod:",{aNode:aNode,aFloat:aFloat},smalltalk.ROAbstractCompactTree)})},
+args: ["aNode", "aFloat"],
+source: "coordinate: aNode withMod: aFloat\x0a\x09self subclassResponsibility",
+messageSends: ["subclassResponsibility"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractCompactTree);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "doExecute:",
+category: 'hook',
+fn: function (nodeElements){
+var self=this;
+var rootNodes;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+$1=_st(self["@initialLayout"])._isNil();
+if(! smalltalk.assert($1)){
+_st(_st(self["@initialLayout"])._new())._executeOnElements_(nodeElements);
+};
+rootNodes=self._rootNodesFor_(nodeElements);
+$2=rootNodes;
+_st($2)._do_((function(e){
+return smalltalk.withContext(function($ctx2) {
+return self._initialize_whoseFatherIs_(e,nil);
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+$3=_st($2)._do_((function(e){
+return smalltalk.withContext(function($ctx2) {
+return self._computePosition_(e);
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+_st(rootNodes)._do_((function(e){
+return smalltalk.withContext(function($ctx2) {
+return self._draw_withMod_(e,(0));
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"doExecute:",{nodeElements:nodeElements,rootNodes:rootNodes},smalltalk.ROAbstractCompactTree)})},
+args: ["nodeElements"],
+source: "doExecute: nodeElements \x0a\x09| rootNodes |\x0a\x09\x0a\x09initialLayout isNil  ifFalse: [ initialLayout new executeOnElements: nodeElements. ].\x0a\x09\x0a\x09rootNodes := self rootNodesFor: nodeElements.\x0a\x0a\x22\x09root isNil ifTrue: [ rootNodes := self rootNodesFor: nodeElements. ]\x0a\x09\x09\x09 ifFalse: [ rootNodes := Array with: root.\x0a\x09\x09\x09\x09\x09\x09self coveringTreeFor: nodeElements from: root ].\x0a\x22\x09\x0a\x09rootNodes do: [:e | self initialize: e whoseFatherIs: nil ];\x0a\x09\x09do: [:e | self computePosition:e].\x0a\x09\x0a\x09rootNodes  do: [:e |\x0a\x09\x09\x09\x09\x09self draw:e withMod: 0  ]",
+messageSends: ["ifFalse:", "executeOnElements:", "new", "isNil", "rootNodesFor:", "do:", "initialize:whoseFatherIs:", "computePosition:", "draw:withMod:"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractCompactTree);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "draw:withMod:",
+category: 'hook',
+fn: function (aNode,aFloat){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"draw:withMod:",{aNode:aNode,aFloat:aFloat},smalltalk.ROAbstractCompactTree)})},
+args: ["aNode", "aFloat"],
+source: "draw: aNode withMod: aFloat\x0a\x09self subclassResponsibility",
+messageSends: ["subclassResponsibility"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractCompactTree);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "followLeftContour:toLayer:",
+category: 'algorithm',
+fn: function (aNode,anInteger){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6,$7;
+$1=_st(_st(aNode)._layer()).__eq(anInteger);
+if(smalltalk.assert($1)){
+$2=aNode;
+return $2;
+};
+$3=_st(_st(aNode)._layer()).__gt(anInteger);
+if(smalltalk.assert($3)){
+return nil;
+};
+$4=_st(_st(aNode)._leftContour())._isNil();
+if(smalltalk.assert($4)){
+$5=_st(_st(aNode)._pointer())._isNil();
+if(smalltalk.assert($5)){
+return nil;
+} else {
+$6=self._followLeftContour_toLayer_(_st(aNode)._pointer(),anInteger);
+return $6;
+};
+} else {
+$7=self._followLeftContour_toLayer_(_st(aNode)._leftContour(),anInteger);
+return $7;
+};
+return self}, function($ctx1) {$ctx1.fill(self,"followLeftContour:toLayer:",{aNode:aNode,anInteger:anInteger},smalltalk.ROAbstractCompactTree)})},
+args: ["aNode", "anInteger"],
+source: "followLeftContour: aNode toLayer: anInteger\x0a\x09\x22return the last node in the left contour begining at anode\x22\x0a\x09\x0a\x09(aNode layer = anInteger ) ifTrue: [^ aNode  ].\x0a\x09(aNode layer > anInteger ) ifTrue: [^ nil  ].\x0a\x09\x0a\x09aNode leftContour isNil ifTrue: [ aNode pointer isNil ifTrue: [ ^ nil ] \x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09 ifFalse: [ ^ ( self followLeftContour: aNode pointer toLayer: anInteger ) ] ]\x0a\x09\x0a\x09\x09\x09  \x09\x09\x09\x09ifFalse: [ ^ (self followLeftContour: aNode leftContour toLayer: anInteger ) ]",
+messageSends: ["ifTrue:", "=", "layer", ">", "ifTrue:ifFalse:", "followLeftContour:toLayer:", "pointer", "isNil", "leftContour"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractCompactTree);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "followRightContour:toLayer:",
+category: 'algorithm',
+fn: function (aNode,anInteger){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6,$7;
+$1=_st(_st(aNode)._layer()).__eq(anInteger);
+if(smalltalk.assert($1)){
+$2=aNode;
+return $2;
+};
+$3=_st(_st(aNode)._layer()).__gt(anInteger);
+if(smalltalk.assert($3)){
+return nil;
+};
+$4=_st(_st(aNode)._rightContour())._isNil();
+if(smalltalk.assert($4)){
+$5=_st(_st(aNode)._pointer())._isNil();
+if(smalltalk.assert($5)){
+return nil;
+} else {
+$6=self._followRightContour_toLayer_(_st(aNode)._pointer(),anInteger);
+return $6;
+};
+} else {
+$7=self._followRightContour_toLayer_(_st(aNode)._rightContour(),anInteger);
+return $7;
+};
+return self}, function($ctx1) {$ctx1.fill(self,"followRightContour:toLayer:",{aNode:aNode,anInteger:anInteger},smalltalk.ROAbstractCompactTree)})},
+args: ["aNode", "anInteger"],
+source: "followRightContour: aNode toLayer: anInteger\x0a\x09\x22return the node in the right contour begining at anode in layer anInteger\x22\x0a\x0a\x09(aNode layer = anInteger ) ifTrue: [^ aNode  ].\x0a\x09(aNode layer > anInteger ) ifTrue: [^ nil  ].\x0a\x0a\x09aNode rightContour isNil ifTrue: [ aNode pointer isNil ifTrue: [ ^ nil ] \x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09 ifFalse: [ ^ ( self followRightContour: aNode pointer toLayer: anInteger ) ] ]\x0a\x09\x0a\x09\x09\x09  \x09\x09\x09\x09ifFalse: [ ^ (self followRightContour: aNode rightContour toLayer: anInteger ) ]",
+messageSends: ["ifTrue:", "=", "layer", ">", "ifTrue:ifFalse:", "followRightContour:toLayer:", "pointer", "isNil", "rightContour"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractCompactTree);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "getAbcissaOf:inSubtreeFromLayer:",
+category: 'algorithm',
+fn: function (aNode,anInteger){
+var self=this;
+var node,x;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6;
+$1=_st(anInteger).__lt((0));
+if(smalltalk.assert($1)){
+$2=self._getAbcissaOf_inSubtreeFromLayer_(aNode,(0));
+return $2;
+};
+$3=_st(_st(aNode)._layer()).__eq(anInteger);
+if(smalltalk.assert($3)){
+$4=_st(aNode)._x();
+return $4;
+};
+$5=_st(_st(aNode)._layer()).__lt(anInteger);
+if(smalltalk.assert($5)){
+return nil;
+};
+x=_st(_st(aNode)._x()).__plus(_st(aNode)._mod());
+node=_st(aNode)._father();
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(node)._layer()).__eq(anInteger);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileFalse_((function(){
+return smalltalk.withContext(function($ctx2) {
+x=_st(x).__plus(_st(node)._mod());
+x;
+node=_st(node)._father();
+return node;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+$6=x;
+return $6;
+}, function($ctx1) {$ctx1.fill(self,"getAbcissaOf:inSubtreeFromLayer:",{aNode:aNode,anInteger:anInteger,node:node,x:x},smalltalk.ROAbstractCompactTree)})},
+args: ["aNode", "anInteger"],
+source: "getAbcissaOf: aNode inSubtreeFromLayer: anInteger\x0a\x0a\x09| node x |\x0a\x09\x0a\x09(anInteger < 0) ifTrue: [^ self getAbcissaOf: aNode inSubtreeFromLayer: 0 ].\x0a\x09\x0a\x09(aNode layer = anInteger ) ifTrue: [ ^ aNode x ].\x0a\x09(aNode layer < anInteger ) ifTrue: [ ^ nil ].\x0a\x09\x0a\x09x := aNode x + aNode mod.\x0a\x09\x0a\x09node := aNode father.\x0a\x09\x0a\x09[node layer = anInteger  ] whileFalse: [ x := x + node mod.\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09node := node father].\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x0a\x09^ x",
+messageSends: ["ifTrue:", "getAbcissaOf:inSubtreeFromLayer:", "<", "x", "=", "layer", "+", "mod", "father", "whileFalse:"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractCompactTree);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "greedyCycleRemoval:",
+category: 'initialize-release',
+fn: function (aGraph){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"greedyCycleRemoval:",{aGraph:aGraph},smalltalk.ROAbstractCompactTree)})},
+args: ["aGraph"],
+source: "greedyCycleRemoval: aGraph",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROAbstractCompactTree);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialLayout:",
+category: 'initialize-release',
+fn: function (aLayout){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@initialLayout"]=aLayout;
+return self}, function($ctx1) {$ctx1.fill(self,"initialLayout:",{aLayout:aLayout},smalltalk.ROAbstractCompactTree)})},
+args: ["aLayout"],
+source: "initialLayout: aLayout\x0a\x0a\x09initialLayout := aLayout",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROAbstractCompactTree);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+category: 'initialize-release',
+fn: function (){
+var self=this;
+function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.ROAbstractCompactTree.superclass.fn.prototype._initialize.apply(_st(self), []);
+self["@verticalGap"]=(20);
+self["@horizontalGap"]=(30);
+self["@margin"]=(40);
+self["@sonsDictionary"]=_st($Dictionary())._new();
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROAbstractCompactTree)})},
+args: [],
+source: "initialize \x0a\x0a\x09super initialize.\x0a\x09verticalGap := 20.\x0a\x09horizontalGap := 30.\x0a\x09margin := 40. \x0a\x09sonsDictionary := Dictionary new",
+messageSends: ["initialize", "new"],
+referencedClasses: ["Dictionary"]
+}),
+smalltalk.ROAbstractCompactTree);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize:whoseFatherIs:",
+category: 'initialize-release',
+fn: function (aNode,another){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+_st(aNode)._father_(another);
+$1=_st(another)._isNil();
+if(smalltalk.assert($1)){
+_st(aNode)._layer_((0));
+} else {
+_st(aNode)._layer_(_st(_st(another)._layer()).__plus((1)));
+};
+_st(self._childrenFor_(aNode))._do_((function(e){
+return smalltalk.withContext(function($ctx2) {
+return self._initialize_whoseFatherIs_(e,aNode);
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"initialize:whoseFatherIs:",{aNode:aNode,another:another},smalltalk.ROAbstractCompactTree)})},
+args: ["aNode", "another"],
+source: "initialize: aNode whoseFatherIs: another \x0a\x0a\x09aNode father: another.\x0a\x09\x0a\x09another isNil ifTrue: [ aNode layer: 0 ] ifFalse: [ aNode layer: another layer + 1 ] .\x0a\x09\x0a\x09( self childrenFor: aNode ) do: [ :e | self initialize: e whoseFatherIs: aNode ]",
+messageSends: ["father:", "ifTrue:ifFalse:", "layer:", "+", "layer", "isNil", "do:", "initialize:whoseFatherIs:", "childrenFor:"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractCompactTree);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "leftSiblingOf:",
+category: 'algorithm',
+fn: function (aNode){
+var self=this;
+var children;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+$1=_st(_st(aNode)._father())._isNil();
+if(smalltalk.assert($1)){
+return nil;
+} else {
+children=self._childrenFor_(_st(aNode)._father());
+children;
+$2=_st(_st(children)._first()).__eq(aNode);
+if(smalltalk.assert($2)){
+return nil;
+} else {
+$3=_st(children)._at_(_st(_st(children)._indexOf_(aNode)).__minus((1)));
+return $3;
+};
+};
+return self}, function($ctx1) {$ctx1.fill(self,"leftSiblingOf:",{aNode:aNode,children:children},smalltalk.ROAbstractCompactTree)})},
+args: ["aNode"],
+source: "leftSiblingOf: aNode\x0a\x22return the left sibling of the given node \x22\x0a\x0a\x09| children |\x0a\x0a\x09aNode father isNil ifTrue: [\x22has no sibling\x22 ^ nil]\x0a\x09\x09\x09\x09\x09    ifFalse: [ children := self childrenFor: aNode father.\x0a\x09\x09\x09\x09\x09\x09\x09\x09(children first) = aNode ifTrue: [\x22as no left sibling\x22 ^ nil ]\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09    ifFalse: [^ children at: ((children indexOf: aNode)-1) ] ]",
+messageSends: ["ifTrue:ifFalse:", "childrenFor:", "father", "at:", "-", "indexOf:", "=", "first", "isNil"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractCompactTree);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "nodeAbcissaWithNeighbor:",
+category: 'algorithm',
+fn: function (aNode){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"nodeAbcissaWithNeighbor:",{aNode:aNode},smalltalk.ROAbstractCompactTree)})},
+args: ["aNode"],
+source: "nodeAbcissaWithNeighbor: aNode\x0a\x0a\x09self subclassResponsibility",
+messageSends: ["subclassResponsibility"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractCompactTree);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "root:",
+category: 'initialize-release',
+fn: function (aNode){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@root"]=aNode;
+return self}, function($ctx1) {$ctx1.fill(self,"root:",{aNode:aNode},smalltalk.ROAbstractCompactTree)})},
+args: ["aNode"],
+source: "root: aNode \x0a\x0a\x09root := aNode",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROAbstractCompactTree);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "horizontalGap:",
+category: 'testing',
+fn: function (anInt){
+var self=this;
+var new_;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+new_=self._new();
+_st(new_)._horizontalGap_(anInt);
+$1=new_;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"horizontalGap:",{anInt:anInt,new_:new_},smalltalk.ROAbstractCompactTree.klass)})},
+args: ["anInt"],
+source: "horizontalGap: anInt\x0a\x0a\x09| new |\x0a\x09\x0a\x09new := self new.\x0a\x09new horizontalGap: anInt.\x0a\x09\x0a\x09^ new",
+messageSends: ["new", "horizontalGap:"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractCompactTree.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "horizontalGap:verticalGap:",
+category: 'testing',
+fn: function (anInt,another){
+var self=this;
+var new_;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+new_=self._new();
+_st(new_)._horizontalGap_(anInt);
+_st(new_)._verticalGap_(another);
+$1=new_;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"horizontalGap:verticalGap:",{anInt:anInt,another:another,new_:new_},smalltalk.ROAbstractCompactTree.klass)})},
+args: ["anInt", "another"],
+source: "horizontalGap: anInt verticalGap: another\x0a\x0a\x09| new |\x0a\x09\x0a\x09new := self new.\x0a\x09new horizontalGap: anInt.\x0a\x09new verticalGap: another.\x0a\x09\x0a\x09\x0a\x09^ new",
+messageSends: ["new", "horizontalGap:", "verticalGap:"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractCompactTree.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isAbstract",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._name()).__eq("ROAbstractCompactTree");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isAbstract",{},smalltalk.ROAbstractCompactTree.klass)})},
+args: [],
+source: "isAbstract\x0a\x09^ self name = #ROAbstractCompactTree",
+messageSends: ["=", "name"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractCompactTree.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "verticalGap:",
+category: 'testing',
+fn: function (anInt){
+var self=this;
+var new_;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+new_=self._new();
+_st(new_)._verticalGap_(anInt);
+$1=new_;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"verticalGap:",{anInt:anInt,new_:new_},smalltalk.ROAbstractCompactTree.klass)})},
+args: ["anInt"],
+source: "verticalGap: anInt\x0a\x0a\x09| new |\x0a\x09\x0a\x09new := self new.\x0a\x09new verticalGap: anInt.\x0a\x09\x0a\x09^ new",
+messageSends: ["new", "verticalGap:"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractCompactTree.klass);
+
+
+smalltalk.addClass('RORadialTreeLayout', smalltalk.ROAbstractCompactTree, [], 'ARoassal-Layout');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "compareContourOf:with:",
+category: 'algorithm',
+fn: function (aNode,another){
+var self=this;
+var difference,max,nodeA,nodeB;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+nodeB=aNode;
+nodeA=another;
+$1=_st(aNode).__eq(another);
+if(smalltalk.assert($1)){
+max=(0);
+} else {
+max=_st(_st(_st(self["@horizontalGap"]).__slash(_st(nodeB)._layer())).__slash((2))).__minus(_st(_st(nodeB)._x()).__minus(self._getAbcissaOf_inSubtreeFromLayer_(nodeA,_st(_st(aNode)._layer()).__minus((1)))));
+};
+nodeB=self._followLeftContour_toLayer_(nodeB,_st(_st(nodeB)._layer()).__plus((1)));
+nodeA=self._followRightContour_toLayer_(nodeA,_st(_st(nodeA)._layer()).__plus((1)));
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(_st(nodeB)._isNil())._not()).__and(_st(_st(nodeA)._isNil())._not());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileTrue_((function(){
+return smalltalk.withContext(function($ctx2) {
+difference=_st(_st(self["@horizontalGap"]).__slash(_st(nodeA)._layer())).__minus(_st(self._getAbcissaOf_inSubtreeFromLayer_(nodeB,_st(_st(aNode)._layer()).__minus((1)))).__minus(self._getAbcissaOf_inSubtreeFromLayer_(nodeA,_st(_st(aNode)._layer()).__minus((1)))));
+difference;
+max=_st(max)._max_(difference);
+max;
+nodeB=self._followLeftContour_toLayer_(nodeB,_st(_st(nodeB)._layer()).__plus((1)));
+nodeB;
+nodeA=self._followRightContour_toLayer_(nodeA,_st(_st(nodeA)._layer()).__plus((1)));
+return nodeA;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+$2=max;
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"compareContourOf:with:",{aNode:aNode,another:another,difference:difference,max:max,nodeA:nodeA,nodeB:nodeB},smalltalk.RORadialTreeLayout)})},
+args: ["aNode", "another"],
+source: "compareContourOf: aNode with: another\x0a\x09\x22return the number of radians the subtree induced by aNode must be displaced to be separated by a predefined distance (horizontalGap) from the one induced by anotherNode\x22\x0a\x0a\x09| difference max nodeA nodeB |\x0a\x09nodeB := aNode.\x09\x22the right one\x22\x0a\x09nodeA := another.\x09\x22the left one\x22\x0a\x09max := aNode = another\x0a\x09\x09ifTrue: [ 0 ]\x0a\x09\x09ifFalse: [ horizontalGap / nodeB layer / 2 - (nodeB x - (self getAbcissaOf: nodeA inSubtreeFromLayer: aNode layer - 1)) ].\x0a\x09nodeB := self followLeftContour: nodeB toLayer: nodeB layer + 1.\x0a\x09nodeA := self followRightContour: nodeA toLayer: nodeA layer + 1.\x0a\x09[ nodeB isNil not & nodeA isNil not ]\x0a\x09\x09whileTrue: [ \x0a\x09\x09\x09difference := horizontalGap / nodeA layer\x0a\x09\x09\x09\x09-\x0a\x09\x09\x09\x09\x09((self getAbcissaOf: nodeB inSubtreeFromLayer: aNode layer - 1)\x0a\x09\x09\x09\x09\x09\x09- (self getAbcissaOf: nodeA inSubtreeFromLayer: aNode layer - 1)).\x0a\x09\x09\x09max := max max: difference.\x0a\x09\x09\x09nodeB := self followLeftContour: nodeB toLayer: nodeB layer + 1.\x0a\x09\x09\x09nodeA := self followRightContour: nodeA toLayer: nodeA layer + 1 ].\x0a\x09^ max",
+messageSends: ["ifTrue:ifFalse:", "-", "getAbcissaOf:inSubtreeFromLayer:", "layer", "x", "/", "=", "followLeftContour:toLayer:", "+", "followRightContour:toLayer:", "whileTrue:", "max:", "&", "not", "isNil"],
+referencedClasses: []
+}),
+smalltalk.RORadialTreeLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "computeGap:",
+category: 'hook',
+fn: function (aNode){
+var self=this;
+var gap,maxAbcissa,i,abc,nodeL,nodeR,layer;
+function $Float(){return smalltalk.Float||(typeof Float=="undefined"?nil:Float)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+gap=(0);
+maxAbcissa=(0);
+layer=(1);
+i=(1);
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+nodeL=self._followLeftContour_toLayer_(aNode,i);
+nodeL;
+nodeR=self._followRightContour_toLayer_(aNode,i);
+nodeR;
+return _st(_st(_st(nodeL)._isNil())._not()).__and(_st(_st(nodeR)._isNil())._not());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileTrue_((function(){
+return smalltalk.withContext(function($ctx2) {
+abc=_st(_st(_st(self._getAbcissaOf_inSubtreeFromLayer_(nodeR,(0))).__minus(self._getAbcissaOf_inSubtreeFromLayer_(nodeL,(0)))).__plus(_st(_st(self["@horizontalGap"]).__slash(layer)).__slash((2)))).__slash(layer);
+abc;
+$1=_st(abc).__gt(maxAbcissa);
+if(smalltalk.assert($1)){
+maxAbcissa=abc;
+maxAbcissa;
+layer=layer;
+layer;
+};
+i=_st(i).__plus((1));
+return i;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+gap=_st(_st(_st(_st(maxAbcissa).__slash((2))).__slash(_st($Float())._pi()))._floor()).__plus((1));
+$2=_st(_st(self["@verticalGap"])._isNil())._or_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(gap).__gt(self["@verticalGap"]);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+if(smalltalk.assert($2)){
+self._verticalGap_(gap);
+};
+return self}, function($ctx1) {$ctx1.fill(self,"computeGap:",{aNode:aNode,gap:gap,maxAbcissa:maxAbcissa,i:i,abc:abc,nodeL:nodeL,nodeR:nodeR,layer:layer},smalltalk.RORadialTreeLayout)})},
+args: ["aNode"],
+source: "computeGap: aNode\x0a\x09\x22 compute the vertical gap needed for drawing the radial tree \x22\x0a\x09| gap maxAbcissa i abc nodeL nodeR layer |\x09\x0a\x09gap := 0.\x0a\x09maxAbcissa := 0.\x0a\x09layer := 1.\x0a\x09\x0a\x09i := 1.\x0a\x09[ nodeL :=(self followLeftContour: aNode toLayer: i).\x0a\x09nodeR := (self followRightContour: aNode toLayer: i).\x0a\x09nodeL isNil not & nodeR isNil not ] whileTrue: [ abc := (((self getAbcissaOf: nodeR inSubtreeFromLayer: 0) - (self getAbcissaOf: nodeL inSubtreeFromLayer: 0 ) + (horizontalGap / layer/2)) / layer).\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09(abc > maxAbcissa) ifTrue: [ maxAbcissa := abc. \x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09layer := layer ].\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09i := i + 1 ].\x0a\x0a\x09\x0a\x09gap:= (maxAbcissa / 2 /Float pi ) floor +1.\x0a\x09\x0a\x09((verticalGap isNil) or: [gap > verticalGap])  ifTrue: [ self verticalGap: gap ]",
+messageSends: ["whileTrue:", "/", "+", "-", "getAbcissaOf:inSubtreeFromLayer:", "ifTrue:", ">", "followLeftContour:toLayer:", "followRightContour:toLayer:", "&", "not", "isNil", "floor", "pi", "verticalGap:", "or:"],
+referencedClasses: ["Float"]
+}),
+smalltalk.RORadialTreeLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "computePosition:",
+category: 'algorithm',
+fn: function (aNode){
+var self=this;
+var children,neighbor,nodeA;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11;
+children=self._childrenFor_(aNode);
+neighbor=self._leftSiblingOf_(aNode);
+$1=_st(children)._isEmpty();
+if(smalltalk.assert($1)){
+$2=_st(neighbor)._isNil();
+if(smalltalk.assert($2)){
+$3=aNode;
+_st($3)._x_((0));
+$4=_st($3)._mod_((0));
+$4;
+} else {
+$5=aNode;
+_st($5)._x_(_st(_st(neighbor)._x()).__plus(_st(_st(self["@horizontalGap"]).__slash(_st(aNode)._layer())).__slash((2))));
+_st($5)._mod_(_st(neighbor)._mod());
+$6=_st($5)._pointer_(self._followRightContour_toLayer_(neighbor,_st(_st(aNode)._layer()).__plus((1))));
+$6;
+};
+} else {
+$7=aNode;
+_st($7)._leftContour_(_st(children)._first());
+$8=_st($7)._rightContour_(_st(children)._last());
+$8;
+_st(children)._do_((function(e){
+return smalltalk.withContext(function($ctx2) {
+return self._computePosition_(e);
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+$9=aNode;
+_st($9)._x_(_st(_st(_st(_st(_st(aNode)._leftContour())._x()).__plus(_st(_st(aNode)._rightContour())._x())).__plus(_st(_st(aNode)._rightContour())._mod())).__slash((2)));
+$10=_st($9)._mod_((0));
+$10;
+$11=_st(neighbor)._isNil();
+if(! smalltalk.assert($11)){
+_st(aNode)._mod_(self._compareContourOf_with_(aNode,neighbor));
+nodeA=self._followLeftContour_toLayer_(_st(aNode)._father(),_st(aNode)._layer());
+nodeA;
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._followLeftContour_toLayer_(nodeA,_st(_st(nodeA)._layer()).__plus((1))))._isNil();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileFalse_((function(){
+return smalltalk.withContext(function($ctx2) {
+nodeA=self._followLeftContour_toLayer_(nodeA,_st(_st(nodeA)._layer()).__plus((1)));
+return nodeA;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+_st(nodeA)._pointer_(self._followLeftContour_toLayer_(aNode,_st(_st(nodeA)._layer()).__plus((1))));
+nodeA=self._followRightContour_toLayer_(aNode,_st(_st(aNode)._layer()).__plus((1)));
+nodeA;
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._followRightContour_toLayer_(nodeA,_st(_st(nodeA)._layer()).__plus((1))))._isNil();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileFalse_((function(){
+return smalltalk.withContext(function($ctx2) {
+nodeA=self._followRightContour_toLayer_(nodeA,_st(_st(nodeA)._layer()).__plus((1)));
+return nodeA;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+_st(nodeA)._pointer_(self._followRightContour_toLayer_(neighbor,_st(_st(nodeA)._layer()).__plus((1))));
+};
+};
+return self}, function($ctx1) {$ctx1.fill(self,"computePosition:",{aNode:aNode,children:children,neighbor:neighbor,nodeA:nodeA},smalltalk.RORadialTreeLayout)})},
+args: ["aNode"],
+source: "computePosition: aNode\x0a\x22compute the position of the given node and of his sons recursively\x22\x0a\x0a\x09| children neighbor nodeA |\x0a\x09\x0a\x09children :=self childrenFor: aNode.\x0a\x09neighbor := self leftSiblingOf: aNode.\x0a\x09\x0a\x09children isEmpty ifTrue: [ neighbor isNil ifTrue: [ aNode x: 0; mod: 0. ]  \x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09 ifFalse: [ aNode x: (neighbor x + (horizontalGap /aNode layer /2)); mod: (neighbor mod);\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09  pointer: (self followRightContour: neighbor toLayer: (aNode layer + 1)) ] ]\x0a\x09\x09\x09\x09\x09 \x0a\x09\x09\x09\x09\x09 ifFalse: [aNode leftContour: children first;\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09rightContour: children last.\x0a\x09\x09\x09\x09\x09\x09\x09  children do: [:e | self computePosition: e ].\x0a\x09\x09\x09\x09\x09\x09\x09      aNode x: (aNode leftContour x + aNode rightContour x + aNode rightContour mod ) /2;\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09mod: 0. \x0a\x09\x09\x09\x09\x09\x09\x09\x09neighbor isNil ifFalse: [ aNode mod: (self compareContourOf: aNode with: neighbor).\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09  nodeA := (self followLeftContour: (aNode father) toLayer: (aNode layer)).\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09  [(self followLeftContour: nodeA toLayer: (nodeA layer + 1)) isNil ] whileFalse: [ nodeA := self followLeftContour: nodeA toLayer: (nodeA layer + 1) ].\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09 nodeA pointer: (self followLeftContour: aNode toLayer: (nodeA layer + 1)).\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09 nodeA := self followRightContour: aNode toLayer: (aNode layer + 1).\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09 [(self followRightContour: nodeA toLayer: (nodeA layer +1)) isNil ] whileFalse: [ nodeA := self followRightContour: nodeA toLayer: (nodeA layer +1) ].\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09nodeA pointer: (self followRightContour: neighbor toLayer: (nodeA layer +1) ) ] ].",
+messageSends: ["childrenFor:", "leftSiblingOf:", "ifTrue:ifFalse:", "x:", "mod:", "+", "/", "layer", "x", "mod", "pointer:", "followRightContour:toLayer:", "isNil", "leftContour:", "first", "rightContour:", "last", "do:", "computePosition:", "rightContour", "leftContour", "ifFalse:", "compareContourOf:with:", "followLeftContour:toLayer:", "father", "whileFalse:", "isEmpty"],
+referencedClasses: []
+}),
+smalltalk.RORadialTreeLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "diameterOf:",
+category: 'algorithm',
+fn: function (aNode){
+var self=this;
+var diam;
+function $ROEllipse(){return smalltalk.ROEllipse||(typeof ROEllipse=="undefined"?nil:ROEllipse)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(_st(_st(aNode)._shapes())._first())._isKindOf_($ROEllipse());
+if(smalltalk.assert($1)){
+diam=_st(_st(aNode)._width())._max_(_st(aNode)._height());
+diam;
+} else {
+diam=_st(_st(_st(_st(_st(aNode)._width()).__star(_st(aNode)._width())).__plus(_st(_st(aNode)._height()).__star(_st(aNode)._height())))._sqrt())._floor();
+diam;
+};
+$2=diam;
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"diameterOf:",{aNode:aNode,diam:diam},smalltalk.RORadialTreeLayout)})},
+args: ["aNode"],
+source: "diameterOf: aNode\x0a\x0a\x09|diam|\x0a\x09\x0a\x09(aNode shapes first isKindOf: ROEllipse) ifTrue: [ diam := aNode width max: aNode height ]\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09ifFalse: [ diam := (aNode width * aNode width + (aNode height * aNode height)) sqrt floor ].\x0a\x09\x0a\x09^ diam",
+messageSends: ["ifTrue:ifFalse:", "max:", "height", "width", "floor", "sqrt", "+", "*", "isKindOf:", "first", "shapes"],
+referencedClasses: ["ROEllipse"]
+}),
+smalltalk.RORadialTreeLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "doExecute:",
+category: 'hook',
+fn: function (nodeElements){
+var self=this;
+var rootNodes;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+$1=_st(self["@initialLayout"])._isNil();
+if(! smalltalk.assert($1)){
+_st(_st(self["@initialLayout"])._new())._executeOnElements_(nodeElements);
+};
+rootNodes=self._rootNodesFor_(nodeElements);
+$2=rootNodes;
+_st($2)._do_((function(e){
+return smalltalk.withContext(function($ctx2) {
+return self._initialize_whoseFatherIs_(e,nil);
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+_st($2)._do_((function(e){
+return smalltalk.withContext(function($ctx2) {
+self._computePosition_(e);
+return self._step();
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+_st($2)._do_((function(e){
+return smalltalk.withContext(function($ctx2) {
+return self._computeGap_(e);
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+$3=_st($2)._do_((function(e){
+return smalltalk.withContext(function($ctx2) {
+return self._toRadialTree_withMod_(e,(0));
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+_st(rootNodes)._do_((function(e){
+return smalltalk.withContext(function($ctx2) {
+return self._radialDraw_(e);
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"doExecute:",{nodeElements:nodeElements,rootNodes:rootNodes},smalltalk.RORadialTreeLayout)})},
+args: ["nodeElements"],
+source: "doExecute: nodeElements\x0a\x09| rootNodes |\x0a\x09initialLayout isNil\x0a\x09\x09ifFalse: [ initialLayout new executeOnElements: nodeElements ].\x0a\x09\x09\x0a\x09rootNodes := self rootNodesFor: nodeElements.\x0a\x0a\x22\x09root isNil\x0a\x09\x09ifTrue: [ rootNodes := self rootNodesFor: nodeElements ]\x0a\x09\x09ifFalse: [ \x0a\x09\x09\x09rootNodes := Array with: root.\x0a\x09\x09\x09self coveringTreeFor: nodeElements from: root ].\x0a\x22\x09rootNodes\x0a\x09\x09do: [ :e | self initialize: e whoseFatherIs: nil ];\x0a\x09\x09do: [ :e | self computePosition: e. self step ];\x0a\x09\x09do: [ :e | self computeGap: e ];\x0a\x09\x09do: [ :e | self toRadialTree: e withMod: 0 ].\x0a\x09rootNodes\x0a\x09\x09do: [ :e | \x0a\x09\x09\x09self radialDraw: e ]",
+messageSends: ["ifFalse:", "executeOnElements:", "new", "isNil", "rootNodesFor:", "do:", "initialize:whoseFatherIs:", "computePosition:", "step", "computeGap:", "toRadialTree:withMod:", "radialDraw:"],
+referencedClasses: []
+}),
+smalltalk.RORadialTreeLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "gap",
+category: 'private',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._verticalGap();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"gap",{},smalltalk.RORadialTreeLayout)})},
+args: [],
+source: "gap\x0a\x09\x0a\x09^ self verticalGap",
+messageSends: ["verticalGap"],
+referencedClasses: []
+}),
+smalltalk.RORadialTreeLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "halfDiameterOf:",
+category: 'algorithm',
+fn: function (aNode){
+var self=this;
+var diam;
+function $ROEllipse(){return smalltalk.ROEllipse||(typeof ROEllipse=="undefined"?nil:ROEllipse)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(_st(_st(aNode)._shapes())._first())._isKindOf_($ROEllipse());
+if(smalltalk.assert($1)){
+diam=_st(_st(aNode)._width())._max_(_st(aNode)._height());
+diam;
+} else {
+diam=_st(_st(_st(_st(_st(aNode)._width()).__star(_st(aNode)._width())).__plus(_st(_st(aNode)._height()).__star(_st(aNode)._height())))._sqrt())._floor();
+diam;
+};
+$2=_st(diam).__slash((2));
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"halfDiameterOf:",{aNode:aNode,diam:diam},smalltalk.RORadialTreeLayout)})},
+args: ["aNode"],
+source: "halfDiameterOf: aNode\x0a\x0a\x09|diam|\x0a\x09\x0a\x09(aNode shapes first isKindOf: ROEllipse) ifTrue: [ diam := aNode width max: aNode height ]\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09ifFalse: [ diam := (aNode width * aNode width + (aNode height * aNode height)) sqrt floor ].\x0a\x09\x0a\x09^ diam / 2",
+messageSends: ["ifTrue:ifFalse:", "max:", "height", "width", "floor", "sqrt", "+", "*", "isKindOf:", "first", "shapes", "/"],
+referencedClasses: ["ROEllipse"]
+}),
+smalltalk.RORadialTreeLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "layoutLayer:radius:from:to:",
+category: 'private',
+fn: function (aCollection,oldRadius,aFromAngle,aToAngle){
+var self=this;
+var delta,childRadius,maximumRadius,myRadius,fromAngle,toAngle;
+function $Float(){return smalltalk.Float||(typeof Float=="undefined"?nil:Float)}
+function $Point(){return smalltalk.Point||(typeof Point=="undefined"?nil:Point)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+maximumRadius=oldRadius;
+$1=_st(aCollection)._isEmpty();
+if(! smalltalk.assert($1)){
+myRadius=_st(_st(oldRadius).__plus(self._gap())).__plus(self._maximumRadius_(aCollection));
+myRadius;
+childRadius=_st(_st(oldRadius).__plus(self._gap())).__plus(self._maximumDiameter_(aCollection));
+childRadius;
+$2=_st(_st(_st(aCollection)._size()).__eq((1)))._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(aToAngle).__minus(aFromAngle)).__eq((2).__star(_st($Float())._pi()));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+if(smalltalk.assert($2)){
+delta=(0.4).__star(_st($Float())._pi());
+delta;
+fromAngle=(0.8).__star(_st($Float())._pi());
+fromAngle;
+toAngle=_st(fromAngle).__plus(delta);
+toAngle;
+} else {
+delta=_st(_st(aToAngle).__minus(aFromAngle)).__slash(_st(aCollection)._size());
+delta;
+fromAngle=aFromAngle;
+fromAngle;
+toAngle=_st(aFromAngle).__plus(delta);
+toAngle;
+};
+_st(aCollection)._do_((function(child){
+return smalltalk.withContext(function($ctx2) {
+_st(child)._translateTo_(_st($Point())._radius_theta_(myRadius,_st(toAngle).__minus(_st(delta).__slash((2)))));
+maximumRadius=_st(maximumRadius)._max_(self._layoutLayer_radius_from_to_(self._childrenFor_(child),childRadius,fromAngle,toAngle));
+maximumRadius;
+fromAngle=toAngle;
+fromAngle;
+toAngle=_st(toAngle).__plus(delta);
+return toAngle;
+}, function($ctx2) {$ctx2.fillBlock({child:child},$ctx1)})}));
+};
+$3=maximumRadius;
+return $3;
+}, function($ctx1) {$ctx1.fill(self,"layoutLayer:radius:from:to:",{aCollection:aCollection,oldRadius:oldRadius,aFromAngle:aFromAngle,aToAngle:aToAngle,delta:delta,childRadius:childRadius,maximumRadius:maximumRadius,myRadius:myRadius,fromAngle:fromAngle,toAngle:toAngle},smalltalk.RORadialTreeLayout)})},
+args: ["aCollection", "oldRadius", "aFromAngle", "aToAngle"],
+source: "layoutLayer: aCollection radius: oldRadius from: aFromAngle to: aToAngle\x0a\x09\x0a\x09| delta childRadius maximumRadius myRadius fromAngle toAngle |\x0a\x09\x22Initialize with default value\x22\x0a\x09maximumRadius := oldRadius.\x0a\x09aCollection isEmpty\x0a\x09\x09ifFalse:\x0a\x09\x09\x09[myRadius := oldRadius + self gap + (self maximumRadius: aCollection).\x0a\x09\x09\x09childRadius := oldRadius + self gap + (self maximumDiameter: aCollection).\x09\x22This is a purely optical tweak\x22\x0a\x09\x09\x09(aCollection size = 1 and: [aToAngle - aFromAngle = (2 * Float pi)])\x0a\x09\x09\x09\x09ifTrue:\x0a\x09\x09\x09\x09\x09[delta := 0.4 * Float pi.\x0a\x09\x09\x09\x09\x09fromAngle := 0.8 * Float pi.\x0a\x09\x09\x09\x09\x09toAngle := fromAngle + delta]\x0a\x09\x09\x09\x09ifFalse:\x0a\x09\x09\x09\x09\x09[delta := (aToAngle - aFromAngle) / aCollection size.\x0a\x09\x09\x09\x09\x09fromAngle := aFromAngle.\x0a\x09\x09\x09\x09\x09toAngle := aFromAngle + delta].\x0a\x09\x09\x09aCollection\x0a\x09\x09\x09\x09do:\x0a\x09\x09\x09\x09\x09[:child | \x0a\x09\x09\x09\x09\x09child\x0a\x09\x09\x09\x09\x09\x09translateTo:\x0a\x09\x09\x09\x09\x09\x09\x09(Point\x0a\x09\x09\x09\x09\x09\x09\x09\x09radius: myRadius\x0a\x09\x09\x09\x09\x09\x09\x09\x09theta: toAngle - (delta / 2.0)).\x0a\x09\x09\x09\x09\x09maximumRadius := maximumRadius\x0a\x09\x09\x09\x09\x09\x09max:\x0a\x09\x09\x09\x09\x09\x09\x09(self\x0a\x09\x09\x09\x09\x09\x09\x09\x09layoutLayer: (self childrenFor: child)\x0a\x09\x09\x09\x09\x09\x09\x09\x09radius: childRadius\x0a\x09\x09\x09\x09\x09\x09\x09\x09from: fromAngle\x0a\x09\x09\x09\x09\x09\x09\x09\x09to: toAngle).\x0a\x09\x09\x09\x09\x09fromAngle := toAngle.\x0a\x09\x09\x09\x09\x09toAngle := toAngle + delta]].\x0a\x09^maximumRadius",
+messageSends: ["ifFalse:", "+", "maximumRadius:", "gap", "maximumDiameter:", "ifTrue:ifFalse:", "*", "pi", "/", "size", "-", "and:", "=", "do:", "translateTo:", "radius:theta:", "max:", "layoutLayer:radius:from:to:", "childrenFor:", "isEmpty"],
+referencedClasses: ["Float", "Point"]
+}),
+smalltalk.RORadialTreeLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "maximumDiameter:",
+category: 'private',
+fn: function (aCollection){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(aCollection)._inject_into_((0),(function(max,node){
+return smalltalk.withContext(function($ctx2) {
+return _st(max)._max_(_st(_st(node)._radius()).__star((2)));
+}, function($ctx2) {$ctx2.fillBlock({max:max,node:node},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"maximumDiameter:",{aCollection:aCollection},smalltalk.RORadialTreeLayout)})},
+args: ["aCollection"],
+source: "maximumDiameter: aCollection\x0a\x09\x0a\x09^aCollection\x0a\x09\x09inject: 0\x0a\x09\x09into: [:max :node | max max: (node radius * 2) ]",
+messageSends: ["inject:into:", "max:", "*", "radius"],
+referencedClasses: []
+}),
+smalltalk.RORadialTreeLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "maximumRadius:",
+category: 'private',
+fn: function (aCollection){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(aCollection)._inject_into_((0),(function(max,node){
+return smalltalk.withContext(function($ctx2) {
+return _st(max)._max_(_st(node)._radius());
+}, function($ctx2) {$ctx2.fillBlock({max:max,node:node},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"maximumRadius:",{aCollection:aCollection},smalltalk.RORadialTreeLayout)})},
+args: ["aCollection"],
+source: "maximumRadius: aCollection\x0a\x09\x0a\x09^aCollection\x0a\x09\x09inject: 0\x0a\x09\x09into: [:max :node | max max: node radius]",
+messageSends: ["inject:into:", "max:", "radius"],
+referencedClasses: []
+}),
+smalltalk.RORadialTreeLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "nodeAbcissaWithNeighbor:",
+category: 'algorithm',
+fn: function (aNode){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(_st(aNode)._x()).__plus(_st(_st(self["@horizontalGap"]).__slash(_st(aNode)._layer())).__slash((2)))).__plus(_st(self._halfDiameterOf_(aNode)).__slash(_st(aNode)._layer()));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"nodeAbcissaWithNeighbor:",{aNode:aNode},smalltalk.RORadialTreeLayout)})},
+args: ["aNode"],
+source: "nodeAbcissaWithNeighbor: aNode\x0a\x0a\x09^ aNode x + (horizontalGap / aNode layer /2) + ((self halfDiameterOf: aNode) / aNode layer)",
+messageSends: ["+", "/", "layer", "halfDiameterOf:", "x"],
+referencedClasses: []
+}),
+smalltalk.RORadialTreeLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "radialDraw:",
+category: 'algorithm',
+fn: function (aNode){
+var self=this;
+var children;
+function $Point(){return smalltalk.Point||(typeof Point=="undefined"?nil:Point)}
+return smalltalk.withContext(function($ctx1) { 
+_st(aNode)._translateTo_(_st($Point())._radius_theta_(_st(aNode)._r(),_st(aNode)._theta()));
+children=self._childrenFor_(aNode);
+_st(children)._do_((function(e){
+return smalltalk.withContext(function($ctx2) {
+return self._radialDraw_(e);
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"radialDraw:",{aNode:aNode,children:children},smalltalk.RORadialTreeLayout)})},
+args: ["aNode"],
+source: "radialDraw: aNode\x0a\x09\x22draw the subtree induced by the given node\x22\x0a\x0a\x09| children |\x0a\x09aNode translateTo: (Point radius: (aNode r) theta: (aNode theta) ).\x0a\x09children := self childrenFor: aNode.\x0a\x09children do: [ :e | self radialDraw: e ]",
+messageSends: ["translateTo:", "radius:theta:", "r", "theta", "childrenFor:", "do:", "radialDraw:"],
+referencedClasses: ["Point"]
+}),
+smalltalk.RORadialTreeLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "rotateSubtreeFrom:by:",
+category: 'hook',
+fn: function (aNode,aFloat){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(aNode)._theta_(_st(_st(aNode)._theta()).__plus(aFloat));
+_st(self._childrenFor_(aNode))._do_((function(e){
+return smalltalk.withContext(function($ctx2) {
+return self._rotateSubtreeFrom_by_(e,aFloat);
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"rotateSubtreeFrom:by:",{aNode:aNode,aFloat:aFloat},smalltalk.RORadialTreeLayout)})},
+args: ["aNode", "aFloat"],
+source: "rotateSubtreeFrom: aNode by: aFloat\x0a\x09\x0a\x09aNode theta: aNode theta + aFloat.\x0a\x09\x0a\x09(self childrenFor: aNode) do: [ :e | self rotateSubtreeFrom: e by: aFloat ]",
+messageSends: ["theta:", "+", "theta", "do:", "rotateSubtreeFrom:by:", "childrenFor:"],
+referencedClasses: []
+}),
+smalltalk.RORadialTreeLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "shiftTree:by:",
+category: 'private',
+fn: function (aNode,aPoint){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(aNode)._translateBy_(aPoint);
+_st(self._childrenFor_(aNode))._do_((function(child){
+return smalltalk.withContext(function($ctx2) {
+return self._shiftTree_by_(child,aPoint);
+}, function($ctx2) {$ctx2.fillBlock({child:child},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"shiftTree:by:",{aNode:aNode,aPoint:aPoint},smalltalk.RORadialTreeLayout)})},
+args: ["aNode", "aPoint"],
+source: "shiftTree: aNode by: aPoint\x0a\x09\x0a\x09aNode translateBy: aPoint.\x0a\x09(self childrenFor: aNode) do: [:child | self shiftTree: child by: aPoint]",
+messageSends: ["translateBy:", "do:", "shiftTree:by:", "childrenFor:"],
+referencedClasses: []
+}),
+smalltalk.RORadialTreeLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "spreadNodes:around:",
+category: 'hook',
+fn: function (nodeElements,aNode){
+var self=this;
+var nodeL,nodeR,i,angle,beta,lay1;
+function $Float(){return smalltalk.Float||(typeof Float=="undefined"?nil:Float)}
+return smalltalk.withContext(function($ctx1) { 
+i=(1);
+angle=(0);
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+nodeL=self._followLeftContour_toLayer_(aNode,i);
+nodeL;
+nodeR=self._followRightContour_toLayer_(aNode,i);
+nodeR;
+return _st(_st(_st(nodeL)._isNil())._not()).__and(_st(_st(nodeR)._isNil())._not());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileTrue_((function(){
+return smalltalk.withContext(function($ctx2) {
+angle=_st(angle)._max_(_st(_st(_st(nodeR)._theta()).__minus(_st(nodeL)._theta())).__plus(_st(_st(_st(_st(self._halfDiameterOf_(nodeR)).__plus(self._halfDiameterOf_(nodeL))).__plus(self["@horizontalGap"])).__slash(i)).__slash(self["@verticalGap"])));
+angle;
+i=_st(i).__plus((1));
+return i;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+lay1=_st(nodeElements)._select_((function(e){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(e)._layer()).__eq((1));
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+beta=_st(_st(_st(_st($Float())._pi()).__star((2))).__minus(angle)).__slash(_st(lay1)._size());
+_st(lay1)._do_((function(e){
+return smalltalk.withContext(function($ctx2) {
+return self._rotateSubtreeFrom_by_(e,_st(_st(_st(lay1)._indexOf_(e)).__minus((1))).__star(beta));
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"spreadNodes:around:",{nodeElements:nodeElements,aNode:aNode,nodeL:nodeL,nodeR:nodeR,i:i,angle:angle,beta:beta,lay1:lay1},smalltalk.RORadialTreeLayout)})},
+args: ["nodeElements", "aNode"],
+source: "spreadNodes: nodeElements around: aNode\x0a\x0a\x09|nodeL nodeR i angle beta lay1 |\x0a\x09\x0a\x09i := 1.\x0a\x09angle := 0.\x0a\x09\x0a\x09[ nodeL :=(self followLeftContour: aNode toLayer: i).\x0a\x09nodeR := (self followRightContour: aNode toLayer: i).\x0a\x09nodeL isNil not & nodeR isNil not ] whileTrue: [ angle := angle max: ((nodeR theta - nodeL theta) + ((self halfDiameterOf: nodeR) + (self halfDiameterOf: nodeL) + horizontalGap  /i /verticalGap )).\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09i := i+1. ].\x0a\x0a\x09lay1 := nodeElements select: [ :e | e layer = 1 ].\x0a\x0a\x09beta := Float pi * 2 - angle / lay1 size.\x0a\x09\x0a\x09lay1 do: [ :e | self rotateSubtreeFrom: e by: (lay1 indexOf: e) - 1 * beta ].",
+messageSends: ["whileTrue:", "max:", "+", "/", "halfDiameterOf:", "-", "theta", "followLeftContour:toLayer:", "followRightContour:toLayer:", "&", "not", "isNil", "select:", "=", "layer", "size", "*", "pi", "do:", "rotateSubtreeFrom:by:", "indexOf:"],
+referencedClasses: ["Float"]
+}),
+smalltalk.RORadialTreeLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "toRadialTree:withMod:",
+category: 'algorithm',
+fn: function (aNode,aFloat){
+var self=this;
+var children;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+_st(aNode)._r_(_st(_st(aNode)._layer()).__star(self["@verticalGap"]));
+$1=_st(_st(aNode)._r()).__eq((0));
+if(smalltalk.assert($1)){
+_st(aNode)._theta_((0));
+} else {
+_st(aNode)._theta_(_st(_st(_st(_st(aNode)._x()).__plus(aFloat)).__plus(_st(aNode)._mod())).__slash(self["@verticalGap"]));
+};
+children=self._childrenFor_(aNode);
+_st(children)._do_((function(e){
+return smalltalk.withContext(function($ctx2) {
+return self._toRadialTree_withMod_(e,_st(_st(aNode)._mod()).__plus(aFloat));
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"toRadialTree:withMod:",{aNode:aNode,aFloat:aFloat,children:children},smalltalk.RORadialTreeLayout)})},
+args: ["aNode", "aFloat"],
+source: "toRadialTree: aNode withMod: aFloat\x0a\x09\x22compute polar coordinates of the subtree induced by anode from its cartesian coordinates \x22\x0a\x09| children |\x0a\x09aNode r: (aNode layer * verticalGap ).\x0a\x09(aNode r = 0) ifTrue: [ aNode theta: 0 ] \x0a\x09\x09\x09\x09\x09ifFalse: [aNode theta: (aNode x + aFloat + aNode mod) / verticalGap ].\x0a\x09\x0a\x09children := self childrenFor: aNode.\x0a\x09\x0a\x09children do: [ :e | self toRadialTree: e withMod: ( aNode mod + aFloat) ]",
+messageSends: ["r:", "*", "layer", "ifTrue:ifFalse:", "theta:", "/", "+", "mod", "x", "=", "r", "childrenFor:", "do:", "toRadialTree:withMod:"],
+referencedClasses: []
+}),
+smalltalk.RORadialTreeLayout);
+
+
+
 smalltalk.addClass('ROAbstractRegularTreeLayout', smalltalk.ROAbstractGraphLayout, ['alreadyLayoutedNodes', 'topGap', 'leftGap', 'nodesByLayer', 'isLayered'], 'ARoassal-Layout');
 smalltalk.addMethod(
 smalltalk.method({

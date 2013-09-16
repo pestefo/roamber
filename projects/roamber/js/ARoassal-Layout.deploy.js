@@ -1036,6 +1036,932 @@ messageSends: []}),
 smalltalk.ROAbstractGraphLayout.klass);
 
 
+smalltalk.addClass('ROAbstractCompactTree', smalltalk.ROAbstractGraphLayout, ['sonsDictionary', 'root', 'initialLayout', 'margin'], 'ARoassal-Layout');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "childrenFor:",
+fn: function (aNode){
+var self=this;
+function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$4,$3;
+var $early={};
+try {
+$1=_st(self["@sonsDictionary"])._isEmpty();
+if(smalltalk.assert($1)){
+$2=smalltalk.ROAbstractCompactTree.superclass.fn.prototype._childrenFor_.apply(_st(self), [aNode]);
+return $2;
+} else {
+$3=_st(self["@sonsDictionary"])._at_ifAbsent_(aNode,(function(){
+return smalltalk.withContext(function($ctx2) {
+$4=_st($OrderedCollection())._new();
+throw $early=[$4];
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return $3;
+};
+return self}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"childrenFor:",{aNode:aNode},smalltalk.ROAbstractCompactTree)})},
+messageSends: ["ifTrue:ifFalse:", "childrenFor:", "at:ifAbsent:", "new", "isEmpty"]}),
+smalltalk.ROAbstractCompactTree);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "compareContourOf:with:",
+fn: function (aNode,another){
+var self=this;
+var difference,max,nodeA,nodeB;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+nodeB=aNode;
+nodeA=another;
+$1=_st(aNode).__eq(another);
+if(smalltalk.assert($1)){
+max=(0);
+} else {
+max=_st(_st(self["@horizontalGap"]).__slash((2))).__minus(_st(_st(nodeB)._x()).__minus(self._getAbcissaOf_inSubtreeFromLayer_(nodeA,_st(_st(aNode)._layer()).__minus((1)))));
+};
+nodeB=self._followLeftContour_toLayer_(nodeB,_st(_st(nodeB)._layer()).__plus((1)));
+nodeA=self._followRightContour_toLayer_(nodeA,_st(_st(nodeA)._layer()).__plus((1)));
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(_st(nodeB)._isNil())._not()).__and(_st(_st(nodeA)._isNil())._not());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileTrue_((function(){
+return smalltalk.withContext(function($ctx2) {
+difference=_st(self["@horizontalGap"]).__minus(_st(self._getAbcissaOf_inSubtreeFromLayer_(nodeB,_st(_st(aNode)._layer()).__minus((1)))).__minus(self._getAbcissaOf_inSubtreeFromLayer_(nodeA,_st(_st(aNode)._layer()).__minus((1)))));
+difference;
+max=_st(max)._max_(difference);
+max;
+nodeB=self._followLeftContour_toLayer_(nodeB,_st(_st(nodeB)._layer()).__plus((1)));
+nodeB;
+nodeA=self._followRightContour_toLayer_(nodeA,_st(_st(nodeA)._layer()).__plus((1)));
+return nodeA;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+$2=max;
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"compareContourOf:with:",{aNode:aNode,another:another,difference:difference,max:max,nodeA:nodeA,nodeB:nodeB},smalltalk.ROAbstractCompactTree)})},
+messageSends: ["ifTrue:ifFalse:", "-", "getAbcissaOf:inSubtreeFromLayer:", "layer", "x", "/", "=", "followLeftContour:toLayer:", "+", "followRightContour:toLayer:", "whileTrue:", "max:", "&", "not", "isNil"]}),
+smalltalk.ROAbstractCompactTree);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "computePosition:",
+fn: function (aNode){
+var self=this;
+var children,neighbor,nodeA;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11;
+children=self._childrenFor_(aNode);
+neighbor=self._leftSiblingOf_(aNode);
+$1=_st(children)._isEmpty();
+if(smalltalk.assert($1)){
+$2=_st(neighbor)._isNil();
+if(smalltalk.assert($2)){
+$3=aNode;
+_st($3)._x_((0));
+$4=_st($3)._mod_((0));
+$4;
+} else {
+$5=aNode;
+_st($5)._x_(_st(_st(neighbor)._x()).__plus(_st(self["@horizontalGap"]).__slash((2))));
+_st($5)._mod_(_st(neighbor)._mod());
+$6=_st($5)._pointer_(self._followRightContour_toLayer_(neighbor,_st(_st(aNode)._layer()).__plus((1))));
+$6;
+};
+} else {
+$7=aNode;
+_st($7)._leftContour_(_st(children)._first());
+$8=_st($7)._rightContour_(_st(children)._last());
+$8;
+_st(children)._do_((function(e){
+return smalltalk.withContext(function($ctx2) {
+return self._computePosition_(e);
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+$9=aNode;
+_st($9)._x_(_st(_st(_st(_st(_st(aNode)._leftContour())._x()).__plus(_st(_st(aNode)._rightContour())._x())).__plus(_st(_st(aNode)._rightContour())._mod())).__slash((2)));
+$10=_st($9)._mod_((0));
+$10;
+$11=_st(neighbor)._isNil();
+if(! smalltalk.assert($11)){
+_st(aNode)._mod_(self._compareContourOf_with_(aNode,neighbor));
+nodeA=self._followLeftContour_toLayer_(_st(aNode)._father(),_st(aNode)._layer());
+nodeA;
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._followLeftContour_toLayer_(nodeA,_st(_st(nodeA)._layer()).__plus((1))))._isNil();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileFalse_((function(){
+return smalltalk.withContext(function($ctx2) {
+nodeA=self._followLeftContour_toLayer_(nodeA,_st(_st(nodeA)._layer()).__plus((1)));
+return nodeA;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+_st(nodeA)._pointer_(self._followLeftContour_toLayer_(aNode,_st(_st(nodeA)._layer()).__plus((1))));
+nodeA=self._followRightContour_toLayer_(aNode,_st(_st(aNode)._layer()).__plus((1)));
+nodeA;
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._followRightContour_toLayer_(nodeA,_st(_st(nodeA)._layer()).__plus((1))))._isNil();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileFalse_((function(){
+return smalltalk.withContext(function($ctx2) {
+nodeA=self._followRightContour_toLayer_(nodeA,_st(_st(nodeA)._layer()).__plus((1)));
+return nodeA;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+_st(nodeA)._pointer_(self._followRightContour_toLayer_(neighbor,_st(_st(nodeA)._layer()).__plus((1))));
+};
+};
+return self}, function($ctx1) {$ctx1.fill(self,"computePosition:",{aNode:aNode,children:children,neighbor:neighbor,nodeA:nodeA},smalltalk.ROAbstractCompactTree)})},
+messageSends: ["childrenFor:", "leftSiblingOf:", "ifTrue:ifFalse:", "x:", "mod:", "+", "/", "x", "mod", "pointer:", "followRightContour:toLayer:", "layer", "isNil", "leftContour:", "first", "rightContour:", "last", "do:", "computePosition:", "rightContour", "leftContour", "ifFalse:", "compareContourOf:with:", "followLeftContour:toLayer:", "father", "whileFalse:", "isEmpty"]}),
+smalltalk.ROAbstractCompactTree);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "coordinate:withMod:",
+fn: function (aNode,aFloat){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"coordinate:withMod:",{aNode:aNode,aFloat:aFloat},smalltalk.ROAbstractCompactTree)})},
+messageSends: ["subclassResponsibility"]}),
+smalltalk.ROAbstractCompactTree);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "doExecute:",
+fn: function (nodeElements){
+var self=this;
+var rootNodes;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+$1=_st(self["@initialLayout"])._isNil();
+if(! smalltalk.assert($1)){
+_st(_st(self["@initialLayout"])._new())._executeOnElements_(nodeElements);
+};
+rootNodes=self._rootNodesFor_(nodeElements);
+$2=rootNodes;
+_st($2)._do_((function(e){
+return smalltalk.withContext(function($ctx2) {
+return self._initialize_whoseFatherIs_(e,nil);
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+$3=_st($2)._do_((function(e){
+return smalltalk.withContext(function($ctx2) {
+return self._computePosition_(e);
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+_st(rootNodes)._do_((function(e){
+return smalltalk.withContext(function($ctx2) {
+return self._draw_withMod_(e,(0));
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"doExecute:",{nodeElements:nodeElements,rootNodes:rootNodes},smalltalk.ROAbstractCompactTree)})},
+messageSends: ["ifFalse:", "executeOnElements:", "new", "isNil", "rootNodesFor:", "do:", "initialize:whoseFatherIs:", "computePosition:", "draw:withMod:"]}),
+smalltalk.ROAbstractCompactTree);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "draw:withMod:",
+fn: function (aNode,aFloat){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"draw:withMod:",{aNode:aNode,aFloat:aFloat},smalltalk.ROAbstractCompactTree)})},
+messageSends: ["subclassResponsibility"]}),
+smalltalk.ROAbstractCompactTree);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "followLeftContour:toLayer:",
+fn: function (aNode,anInteger){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6,$7;
+$1=_st(_st(aNode)._layer()).__eq(anInteger);
+if(smalltalk.assert($1)){
+$2=aNode;
+return $2;
+};
+$3=_st(_st(aNode)._layer()).__gt(anInteger);
+if(smalltalk.assert($3)){
+return nil;
+};
+$4=_st(_st(aNode)._leftContour())._isNil();
+if(smalltalk.assert($4)){
+$5=_st(_st(aNode)._pointer())._isNil();
+if(smalltalk.assert($5)){
+return nil;
+} else {
+$6=self._followLeftContour_toLayer_(_st(aNode)._pointer(),anInteger);
+return $6;
+};
+} else {
+$7=self._followLeftContour_toLayer_(_st(aNode)._leftContour(),anInteger);
+return $7;
+};
+return self}, function($ctx1) {$ctx1.fill(self,"followLeftContour:toLayer:",{aNode:aNode,anInteger:anInteger},smalltalk.ROAbstractCompactTree)})},
+messageSends: ["ifTrue:", "=", "layer", ">", "ifTrue:ifFalse:", "followLeftContour:toLayer:", "pointer", "isNil", "leftContour"]}),
+smalltalk.ROAbstractCompactTree);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "followRightContour:toLayer:",
+fn: function (aNode,anInteger){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6,$7;
+$1=_st(_st(aNode)._layer()).__eq(anInteger);
+if(smalltalk.assert($1)){
+$2=aNode;
+return $2;
+};
+$3=_st(_st(aNode)._layer()).__gt(anInteger);
+if(smalltalk.assert($3)){
+return nil;
+};
+$4=_st(_st(aNode)._rightContour())._isNil();
+if(smalltalk.assert($4)){
+$5=_st(_st(aNode)._pointer())._isNil();
+if(smalltalk.assert($5)){
+return nil;
+} else {
+$6=self._followRightContour_toLayer_(_st(aNode)._pointer(),anInteger);
+return $6;
+};
+} else {
+$7=self._followRightContour_toLayer_(_st(aNode)._rightContour(),anInteger);
+return $7;
+};
+return self}, function($ctx1) {$ctx1.fill(self,"followRightContour:toLayer:",{aNode:aNode,anInteger:anInteger},smalltalk.ROAbstractCompactTree)})},
+messageSends: ["ifTrue:", "=", "layer", ">", "ifTrue:ifFalse:", "followRightContour:toLayer:", "pointer", "isNil", "rightContour"]}),
+smalltalk.ROAbstractCompactTree);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "getAbcissaOf:inSubtreeFromLayer:",
+fn: function (aNode,anInteger){
+var self=this;
+var node,x;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6;
+$1=_st(anInteger).__lt((0));
+if(smalltalk.assert($1)){
+$2=self._getAbcissaOf_inSubtreeFromLayer_(aNode,(0));
+return $2;
+};
+$3=_st(_st(aNode)._layer()).__eq(anInteger);
+if(smalltalk.assert($3)){
+$4=_st(aNode)._x();
+return $4;
+};
+$5=_st(_st(aNode)._layer()).__lt(anInteger);
+if(smalltalk.assert($5)){
+return nil;
+};
+x=_st(_st(aNode)._x()).__plus(_st(aNode)._mod());
+node=_st(aNode)._father();
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(node)._layer()).__eq(anInteger);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileFalse_((function(){
+return smalltalk.withContext(function($ctx2) {
+x=_st(x).__plus(_st(node)._mod());
+x;
+node=_st(node)._father();
+return node;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+$6=x;
+return $6;
+}, function($ctx1) {$ctx1.fill(self,"getAbcissaOf:inSubtreeFromLayer:",{aNode:aNode,anInteger:anInteger,node:node,x:x},smalltalk.ROAbstractCompactTree)})},
+messageSends: ["ifTrue:", "getAbcissaOf:inSubtreeFromLayer:", "<", "x", "=", "layer", "+", "mod", "father", "whileFalse:"]}),
+smalltalk.ROAbstractCompactTree);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "greedyCycleRemoval:",
+fn: function (aGraph){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"greedyCycleRemoval:",{aGraph:aGraph},smalltalk.ROAbstractCompactTree)})},
+messageSends: []}),
+smalltalk.ROAbstractCompactTree);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialLayout:",
+fn: function (aLayout){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@initialLayout"]=aLayout;
+return self}, function($ctx1) {$ctx1.fill(self,"initialLayout:",{aLayout:aLayout},smalltalk.ROAbstractCompactTree)})},
+messageSends: []}),
+smalltalk.ROAbstractCompactTree);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+fn: function (){
+var self=this;
+function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.ROAbstractCompactTree.superclass.fn.prototype._initialize.apply(_st(self), []);
+self["@verticalGap"]=(20);
+self["@horizontalGap"]=(30);
+self["@margin"]=(40);
+self["@sonsDictionary"]=_st($Dictionary())._new();
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROAbstractCompactTree)})},
+messageSends: ["initialize", "new"]}),
+smalltalk.ROAbstractCompactTree);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize:whoseFatherIs:",
+fn: function (aNode,another){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+_st(aNode)._father_(another);
+$1=_st(another)._isNil();
+if(smalltalk.assert($1)){
+_st(aNode)._layer_((0));
+} else {
+_st(aNode)._layer_(_st(_st(another)._layer()).__plus((1)));
+};
+_st(self._childrenFor_(aNode))._do_((function(e){
+return smalltalk.withContext(function($ctx2) {
+return self._initialize_whoseFatherIs_(e,aNode);
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"initialize:whoseFatherIs:",{aNode:aNode,another:another},smalltalk.ROAbstractCompactTree)})},
+messageSends: ["father:", "ifTrue:ifFalse:", "layer:", "+", "layer", "isNil", "do:", "initialize:whoseFatherIs:", "childrenFor:"]}),
+smalltalk.ROAbstractCompactTree);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "leftSiblingOf:",
+fn: function (aNode){
+var self=this;
+var children;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+$1=_st(_st(aNode)._father())._isNil();
+if(smalltalk.assert($1)){
+return nil;
+} else {
+children=self._childrenFor_(_st(aNode)._father());
+children;
+$2=_st(_st(children)._first()).__eq(aNode);
+if(smalltalk.assert($2)){
+return nil;
+} else {
+$3=_st(children)._at_(_st(_st(children)._indexOf_(aNode)).__minus((1)));
+return $3;
+};
+};
+return self}, function($ctx1) {$ctx1.fill(self,"leftSiblingOf:",{aNode:aNode,children:children},smalltalk.ROAbstractCompactTree)})},
+messageSends: ["ifTrue:ifFalse:", "childrenFor:", "father", "at:", "-", "indexOf:", "=", "first", "isNil"]}),
+smalltalk.ROAbstractCompactTree);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "nodeAbcissaWithNeighbor:",
+fn: function (aNode){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"nodeAbcissaWithNeighbor:",{aNode:aNode},smalltalk.ROAbstractCompactTree)})},
+messageSends: ["subclassResponsibility"]}),
+smalltalk.ROAbstractCompactTree);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "root:",
+fn: function (aNode){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@root"]=aNode;
+return self}, function($ctx1) {$ctx1.fill(self,"root:",{aNode:aNode},smalltalk.ROAbstractCompactTree)})},
+messageSends: []}),
+smalltalk.ROAbstractCompactTree);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "horizontalGap:",
+fn: function (anInt){
+var self=this;
+var new_;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+new_=self._new();
+_st(new_)._horizontalGap_(anInt);
+$1=new_;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"horizontalGap:",{anInt:anInt,new_:new_},smalltalk.ROAbstractCompactTree.klass)})},
+messageSends: ["new", "horizontalGap:"]}),
+smalltalk.ROAbstractCompactTree.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "horizontalGap:verticalGap:",
+fn: function (anInt,another){
+var self=this;
+var new_;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+new_=self._new();
+_st(new_)._horizontalGap_(anInt);
+_st(new_)._verticalGap_(another);
+$1=new_;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"horizontalGap:verticalGap:",{anInt:anInt,another:another,new_:new_},smalltalk.ROAbstractCompactTree.klass)})},
+messageSends: ["new", "horizontalGap:", "verticalGap:"]}),
+smalltalk.ROAbstractCompactTree.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isAbstract",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._name()).__eq("ROAbstractCompactTree");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isAbstract",{},smalltalk.ROAbstractCompactTree.klass)})},
+messageSends: ["=", "name"]}),
+smalltalk.ROAbstractCompactTree.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "verticalGap:",
+fn: function (anInt){
+var self=this;
+var new_;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+new_=self._new();
+_st(new_)._verticalGap_(anInt);
+$1=new_;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"verticalGap:",{anInt:anInt,new_:new_},smalltalk.ROAbstractCompactTree.klass)})},
+messageSends: ["new", "verticalGap:"]}),
+smalltalk.ROAbstractCompactTree.klass);
+
+
+smalltalk.addClass('RORadialTreeLayout', smalltalk.ROAbstractCompactTree, [], 'ARoassal-Layout');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "compareContourOf:with:",
+fn: function (aNode,another){
+var self=this;
+var difference,max,nodeA,nodeB;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+nodeB=aNode;
+nodeA=another;
+$1=_st(aNode).__eq(another);
+if(smalltalk.assert($1)){
+max=(0);
+} else {
+max=_st(_st(_st(self["@horizontalGap"]).__slash(_st(nodeB)._layer())).__slash((2))).__minus(_st(_st(nodeB)._x()).__minus(self._getAbcissaOf_inSubtreeFromLayer_(nodeA,_st(_st(aNode)._layer()).__minus((1)))));
+};
+nodeB=self._followLeftContour_toLayer_(nodeB,_st(_st(nodeB)._layer()).__plus((1)));
+nodeA=self._followRightContour_toLayer_(nodeA,_st(_st(nodeA)._layer()).__plus((1)));
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(_st(nodeB)._isNil())._not()).__and(_st(_st(nodeA)._isNil())._not());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileTrue_((function(){
+return smalltalk.withContext(function($ctx2) {
+difference=_st(_st(self["@horizontalGap"]).__slash(_st(nodeA)._layer())).__minus(_st(self._getAbcissaOf_inSubtreeFromLayer_(nodeB,_st(_st(aNode)._layer()).__minus((1)))).__minus(self._getAbcissaOf_inSubtreeFromLayer_(nodeA,_st(_st(aNode)._layer()).__minus((1)))));
+difference;
+max=_st(max)._max_(difference);
+max;
+nodeB=self._followLeftContour_toLayer_(nodeB,_st(_st(nodeB)._layer()).__plus((1)));
+nodeB;
+nodeA=self._followRightContour_toLayer_(nodeA,_st(_st(nodeA)._layer()).__plus((1)));
+return nodeA;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+$2=max;
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"compareContourOf:with:",{aNode:aNode,another:another,difference:difference,max:max,nodeA:nodeA,nodeB:nodeB},smalltalk.RORadialTreeLayout)})},
+messageSends: ["ifTrue:ifFalse:", "-", "getAbcissaOf:inSubtreeFromLayer:", "layer", "x", "/", "=", "followLeftContour:toLayer:", "+", "followRightContour:toLayer:", "whileTrue:", "max:", "&", "not", "isNil"]}),
+smalltalk.RORadialTreeLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "computeGap:",
+fn: function (aNode){
+var self=this;
+var gap,maxAbcissa,i,abc,nodeL,nodeR,layer;
+function $Float(){return smalltalk.Float||(typeof Float=="undefined"?nil:Float)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+gap=(0);
+maxAbcissa=(0);
+layer=(1);
+i=(1);
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+nodeL=self._followLeftContour_toLayer_(aNode,i);
+nodeL;
+nodeR=self._followRightContour_toLayer_(aNode,i);
+nodeR;
+return _st(_st(_st(nodeL)._isNil())._not()).__and(_st(_st(nodeR)._isNil())._not());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileTrue_((function(){
+return smalltalk.withContext(function($ctx2) {
+abc=_st(_st(_st(self._getAbcissaOf_inSubtreeFromLayer_(nodeR,(0))).__minus(self._getAbcissaOf_inSubtreeFromLayer_(nodeL,(0)))).__plus(_st(_st(self["@horizontalGap"]).__slash(layer)).__slash((2)))).__slash(layer);
+abc;
+$1=_st(abc).__gt(maxAbcissa);
+if(smalltalk.assert($1)){
+maxAbcissa=abc;
+maxAbcissa;
+layer=layer;
+layer;
+};
+i=_st(i).__plus((1));
+return i;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+gap=_st(_st(_st(_st(maxAbcissa).__slash((2))).__slash(_st($Float())._pi()))._floor()).__plus((1));
+$2=_st(_st(self["@verticalGap"])._isNil())._or_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(gap).__gt(self["@verticalGap"]);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+if(smalltalk.assert($2)){
+self._verticalGap_(gap);
+};
+return self}, function($ctx1) {$ctx1.fill(self,"computeGap:",{aNode:aNode,gap:gap,maxAbcissa:maxAbcissa,i:i,abc:abc,nodeL:nodeL,nodeR:nodeR,layer:layer},smalltalk.RORadialTreeLayout)})},
+messageSends: ["whileTrue:", "/", "+", "-", "getAbcissaOf:inSubtreeFromLayer:", "ifTrue:", ">", "followLeftContour:toLayer:", "followRightContour:toLayer:", "&", "not", "isNil", "floor", "pi", "verticalGap:", "or:"]}),
+smalltalk.RORadialTreeLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "computePosition:",
+fn: function (aNode){
+var self=this;
+var children,neighbor,nodeA;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11;
+children=self._childrenFor_(aNode);
+neighbor=self._leftSiblingOf_(aNode);
+$1=_st(children)._isEmpty();
+if(smalltalk.assert($1)){
+$2=_st(neighbor)._isNil();
+if(smalltalk.assert($2)){
+$3=aNode;
+_st($3)._x_((0));
+$4=_st($3)._mod_((0));
+$4;
+} else {
+$5=aNode;
+_st($5)._x_(_st(_st(neighbor)._x()).__plus(_st(_st(self["@horizontalGap"]).__slash(_st(aNode)._layer())).__slash((2))));
+_st($5)._mod_(_st(neighbor)._mod());
+$6=_st($5)._pointer_(self._followRightContour_toLayer_(neighbor,_st(_st(aNode)._layer()).__plus((1))));
+$6;
+};
+} else {
+$7=aNode;
+_st($7)._leftContour_(_st(children)._first());
+$8=_st($7)._rightContour_(_st(children)._last());
+$8;
+_st(children)._do_((function(e){
+return smalltalk.withContext(function($ctx2) {
+return self._computePosition_(e);
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+$9=aNode;
+_st($9)._x_(_st(_st(_st(_st(_st(aNode)._leftContour())._x()).__plus(_st(_st(aNode)._rightContour())._x())).__plus(_st(_st(aNode)._rightContour())._mod())).__slash((2)));
+$10=_st($9)._mod_((0));
+$10;
+$11=_st(neighbor)._isNil();
+if(! smalltalk.assert($11)){
+_st(aNode)._mod_(self._compareContourOf_with_(aNode,neighbor));
+nodeA=self._followLeftContour_toLayer_(_st(aNode)._father(),_st(aNode)._layer());
+nodeA;
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._followLeftContour_toLayer_(nodeA,_st(_st(nodeA)._layer()).__plus((1))))._isNil();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileFalse_((function(){
+return smalltalk.withContext(function($ctx2) {
+nodeA=self._followLeftContour_toLayer_(nodeA,_st(_st(nodeA)._layer()).__plus((1)));
+return nodeA;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+_st(nodeA)._pointer_(self._followLeftContour_toLayer_(aNode,_st(_st(nodeA)._layer()).__plus((1))));
+nodeA=self._followRightContour_toLayer_(aNode,_st(_st(aNode)._layer()).__plus((1)));
+nodeA;
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._followRightContour_toLayer_(nodeA,_st(_st(nodeA)._layer()).__plus((1))))._isNil();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileFalse_((function(){
+return smalltalk.withContext(function($ctx2) {
+nodeA=self._followRightContour_toLayer_(nodeA,_st(_st(nodeA)._layer()).__plus((1)));
+return nodeA;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+_st(nodeA)._pointer_(self._followRightContour_toLayer_(neighbor,_st(_st(nodeA)._layer()).__plus((1))));
+};
+};
+return self}, function($ctx1) {$ctx1.fill(self,"computePosition:",{aNode:aNode,children:children,neighbor:neighbor,nodeA:nodeA},smalltalk.RORadialTreeLayout)})},
+messageSends: ["childrenFor:", "leftSiblingOf:", "ifTrue:ifFalse:", "x:", "mod:", "+", "/", "layer", "x", "mod", "pointer:", "followRightContour:toLayer:", "isNil", "leftContour:", "first", "rightContour:", "last", "do:", "computePosition:", "rightContour", "leftContour", "ifFalse:", "compareContourOf:with:", "followLeftContour:toLayer:", "father", "whileFalse:", "isEmpty"]}),
+smalltalk.RORadialTreeLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "diameterOf:",
+fn: function (aNode){
+var self=this;
+var diam;
+function $ROEllipse(){return smalltalk.ROEllipse||(typeof ROEllipse=="undefined"?nil:ROEllipse)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(_st(_st(aNode)._shapes())._first())._isKindOf_($ROEllipse());
+if(smalltalk.assert($1)){
+diam=_st(_st(aNode)._width())._max_(_st(aNode)._height());
+diam;
+} else {
+diam=_st(_st(_st(_st(_st(aNode)._width()).__star(_st(aNode)._width())).__plus(_st(_st(aNode)._height()).__star(_st(aNode)._height())))._sqrt())._floor();
+diam;
+};
+$2=diam;
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"diameterOf:",{aNode:aNode,diam:diam},smalltalk.RORadialTreeLayout)})},
+messageSends: ["ifTrue:ifFalse:", "max:", "height", "width", "floor", "sqrt", "+", "*", "isKindOf:", "first", "shapes"]}),
+smalltalk.RORadialTreeLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "doExecute:",
+fn: function (nodeElements){
+var self=this;
+var rootNodes;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+$1=_st(self["@initialLayout"])._isNil();
+if(! smalltalk.assert($1)){
+_st(_st(self["@initialLayout"])._new())._executeOnElements_(nodeElements);
+};
+rootNodes=self._rootNodesFor_(nodeElements);
+$2=rootNodes;
+_st($2)._do_((function(e){
+return smalltalk.withContext(function($ctx2) {
+return self._initialize_whoseFatherIs_(e,nil);
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+_st($2)._do_((function(e){
+return smalltalk.withContext(function($ctx2) {
+self._computePosition_(e);
+return self._step();
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+_st($2)._do_((function(e){
+return smalltalk.withContext(function($ctx2) {
+return self._computeGap_(e);
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+$3=_st($2)._do_((function(e){
+return smalltalk.withContext(function($ctx2) {
+return self._toRadialTree_withMod_(e,(0));
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+_st(rootNodes)._do_((function(e){
+return smalltalk.withContext(function($ctx2) {
+return self._radialDraw_(e);
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"doExecute:",{nodeElements:nodeElements,rootNodes:rootNodes},smalltalk.RORadialTreeLayout)})},
+messageSends: ["ifFalse:", "executeOnElements:", "new", "isNil", "rootNodesFor:", "do:", "initialize:whoseFatherIs:", "computePosition:", "step", "computeGap:", "toRadialTree:withMod:", "radialDraw:"]}),
+smalltalk.RORadialTreeLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "gap",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._verticalGap();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"gap",{},smalltalk.RORadialTreeLayout)})},
+messageSends: ["verticalGap"]}),
+smalltalk.RORadialTreeLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "halfDiameterOf:",
+fn: function (aNode){
+var self=this;
+var diam;
+function $ROEllipse(){return smalltalk.ROEllipse||(typeof ROEllipse=="undefined"?nil:ROEllipse)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(_st(_st(aNode)._shapes())._first())._isKindOf_($ROEllipse());
+if(smalltalk.assert($1)){
+diam=_st(_st(aNode)._width())._max_(_st(aNode)._height());
+diam;
+} else {
+diam=_st(_st(_st(_st(_st(aNode)._width()).__star(_st(aNode)._width())).__plus(_st(_st(aNode)._height()).__star(_st(aNode)._height())))._sqrt())._floor();
+diam;
+};
+$2=_st(diam).__slash((2));
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"halfDiameterOf:",{aNode:aNode,diam:diam},smalltalk.RORadialTreeLayout)})},
+messageSends: ["ifTrue:ifFalse:", "max:", "height", "width", "floor", "sqrt", "+", "*", "isKindOf:", "first", "shapes", "/"]}),
+smalltalk.RORadialTreeLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "layoutLayer:radius:from:to:",
+fn: function (aCollection,oldRadius,aFromAngle,aToAngle){
+var self=this;
+var delta,childRadius,maximumRadius,myRadius,fromAngle,toAngle;
+function $Float(){return smalltalk.Float||(typeof Float=="undefined"?nil:Float)}
+function $Point(){return smalltalk.Point||(typeof Point=="undefined"?nil:Point)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+maximumRadius=oldRadius;
+$1=_st(aCollection)._isEmpty();
+if(! smalltalk.assert($1)){
+myRadius=_st(_st(oldRadius).__plus(self._gap())).__plus(self._maximumRadius_(aCollection));
+myRadius;
+childRadius=_st(_st(oldRadius).__plus(self._gap())).__plus(self._maximumDiameter_(aCollection));
+childRadius;
+$2=_st(_st(_st(aCollection)._size()).__eq((1)))._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(aToAngle).__minus(aFromAngle)).__eq((2).__star(_st($Float())._pi()));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+if(smalltalk.assert($2)){
+delta=(0.4).__star(_st($Float())._pi());
+delta;
+fromAngle=(0.8).__star(_st($Float())._pi());
+fromAngle;
+toAngle=_st(fromAngle).__plus(delta);
+toAngle;
+} else {
+delta=_st(_st(aToAngle).__minus(aFromAngle)).__slash(_st(aCollection)._size());
+delta;
+fromAngle=aFromAngle;
+fromAngle;
+toAngle=_st(aFromAngle).__plus(delta);
+toAngle;
+};
+_st(aCollection)._do_((function(child){
+return smalltalk.withContext(function($ctx2) {
+_st(child)._translateTo_(_st($Point())._radius_theta_(myRadius,_st(toAngle).__minus(_st(delta).__slash((2)))));
+maximumRadius=_st(maximumRadius)._max_(self._layoutLayer_radius_from_to_(self._childrenFor_(child),childRadius,fromAngle,toAngle));
+maximumRadius;
+fromAngle=toAngle;
+fromAngle;
+toAngle=_st(toAngle).__plus(delta);
+return toAngle;
+}, function($ctx2) {$ctx2.fillBlock({child:child},$ctx1)})}));
+};
+$3=maximumRadius;
+return $3;
+}, function($ctx1) {$ctx1.fill(self,"layoutLayer:radius:from:to:",{aCollection:aCollection,oldRadius:oldRadius,aFromAngle:aFromAngle,aToAngle:aToAngle,delta:delta,childRadius:childRadius,maximumRadius:maximumRadius,myRadius:myRadius,fromAngle:fromAngle,toAngle:toAngle},smalltalk.RORadialTreeLayout)})},
+messageSends: ["ifFalse:", "+", "maximumRadius:", "gap", "maximumDiameter:", "ifTrue:ifFalse:", "*", "pi", "/", "size", "-", "and:", "=", "do:", "translateTo:", "radius:theta:", "max:", "layoutLayer:radius:from:to:", "childrenFor:", "isEmpty"]}),
+smalltalk.RORadialTreeLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "maximumDiameter:",
+fn: function (aCollection){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(aCollection)._inject_into_((0),(function(max,node){
+return smalltalk.withContext(function($ctx2) {
+return _st(max)._max_(_st(_st(node)._radius()).__star((2)));
+}, function($ctx2) {$ctx2.fillBlock({max:max,node:node},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"maximumDiameter:",{aCollection:aCollection},smalltalk.RORadialTreeLayout)})},
+messageSends: ["inject:into:", "max:", "*", "radius"]}),
+smalltalk.RORadialTreeLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "maximumRadius:",
+fn: function (aCollection){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(aCollection)._inject_into_((0),(function(max,node){
+return smalltalk.withContext(function($ctx2) {
+return _st(max)._max_(_st(node)._radius());
+}, function($ctx2) {$ctx2.fillBlock({max:max,node:node},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"maximumRadius:",{aCollection:aCollection},smalltalk.RORadialTreeLayout)})},
+messageSends: ["inject:into:", "max:", "radius"]}),
+smalltalk.RORadialTreeLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "nodeAbcissaWithNeighbor:",
+fn: function (aNode){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(_st(aNode)._x()).__plus(_st(_st(self["@horizontalGap"]).__slash(_st(aNode)._layer())).__slash((2)))).__plus(_st(self._halfDiameterOf_(aNode)).__slash(_st(aNode)._layer()));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"nodeAbcissaWithNeighbor:",{aNode:aNode},smalltalk.RORadialTreeLayout)})},
+messageSends: ["+", "/", "layer", "halfDiameterOf:", "x"]}),
+smalltalk.RORadialTreeLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "radialDraw:",
+fn: function (aNode){
+var self=this;
+var children;
+function $Point(){return smalltalk.Point||(typeof Point=="undefined"?nil:Point)}
+return smalltalk.withContext(function($ctx1) { 
+_st(aNode)._translateTo_(_st($Point())._radius_theta_(_st(aNode)._r(),_st(aNode)._theta()));
+children=self._childrenFor_(aNode);
+_st(children)._do_((function(e){
+return smalltalk.withContext(function($ctx2) {
+return self._radialDraw_(e);
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"radialDraw:",{aNode:aNode,children:children},smalltalk.RORadialTreeLayout)})},
+messageSends: ["translateTo:", "radius:theta:", "r", "theta", "childrenFor:", "do:", "radialDraw:"]}),
+smalltalk.RORadialTreeLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "rotateSubtreeFrom:by:",
+fn: function (aNode,aFloat){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(aNode)._theta_(_st(_st(aNode)._theta()).__plus(aFloat));
+_st(self._childrenFor_(aNode))._do_((function(e){
+return smalltalk.withContext(function($ctx2) {
+return self._rotateSubtreeFrom_by_(e,aFloat);
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"rotateSubtreeFrom:by:",{aNode:aNode,aFloat:aFloat},smalltalk.RORadialTreeLayout)})},
+messageSends: ["theta:", "+", "theta", "do:", "rotateSubtreeFrom:by:", "childrenFor:"]}),
+smalltalk.RORadialTreeLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "shiftTree:by:",
+fn: function (aNode,aPoint){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(aNode)._translateBy_(aPoint);
+_st(self._childrenFor_(aNode))._do_((function(child){
+return smalltalk.withContext(function($ctx2) {
+return self._shiftTree_by_(child,aPoint);
+}, function($ctx2) {$ctx2.fillBlock({child:child},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"shiftTree:by:",{aNode:aNode,aPoint:aPoint},smalltalk.RORadialTreeLayout)})},
+messageSends: ["translateBy:", "do:", "shiftTree:by:", "childrenFor:"]}),
+smalltalk.RORadialTreeLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "spreadNodes:around:",
+fn: function (nodeElements,aNode){
+var self=this;
+var nodeL,nodeR,i,angle,beta,lay1;
+function $Float(){return smalltalk.Float||(typeof Float=="undefined"?nil:Float)}
+return smalltalk.withContext(function($ctx1) { 
+i=(1);
+angle=(0);
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+nodeL=self._followLeftContour_toLayer_(aNode,i);
+nodeL;
+nodeR=self._followRightContour_toLayer_(aNode,i);
+nodeR;
+return _st(_st(_st(nodeL)._isNil())._not()).__and(_st(_st(nodeR)._isNil())._not());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileTrue_((function(){
+return smalltalk.withContext(function($ctx2) {
+angle=_st(angle)._max_(_st(_st(_st(nodeR)._theta()).__minus(_st(nodeL)._theta())).__plus(_st(_st(_st(_st(self._halfDiameterOf_(nodeR)).__plus(self._halfDiameterOf_(nodeL))).__plus(self["@horizontalGap"])).__slash(i)).__slash(self["@verticalGap"])));
+angle;
+i=_st(i).__plus((1));
+return i;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+lay1=_st(nodeElements)._select_((function(e){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(e)._layer()).__eq((1));
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+beta=_st(_st(_st(_st($Float())._pi()).__star((2))).__minus(angle)).__slash(_st(lay1)._size());
+_st(lay1)._do_((function(e){
+return smalltalk.withContext(function($ctx2) {
+return self._rotateSubtreeFrom_by_(e,_st(_st(_st(lay1)._indexOf_(e)).__minus((1))).__star(beta));
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"spreadNodes:around:",{nodeElements:nodeElements,aNode:aNode,nodeL:nodeL,nodeR:nodeR,i:i,angle:angle,beta:beta,lay1:lay1},smalltalk.RORadialTreeLayout)})},
+messageSends: ["whileTrue:", "max:", "+", "/", "halfDiameterOf:", "-", "theta", "followLeftContour:toLayer:", "followRightContour:toLayer:", "&", "not", "isNil", "select:", "=", "layer", "size", "*", "pi", "do:", "rotateSubtreeFrom:by:", "indexOf:"]}),
+smalltalk.RORadialTreeLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "toRadialTree:withMod:",
+fn: function (aNode,aFloat){
+var self=this;
+var children;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+_st(aNode)._r_(_st(_st(aNode)._layer()).__star(self["@verticalGap"]));
+$1=_st(_st(aNode)._r()).__eq((0));
+if(smalltalk.assert($1)){
+_st(aNode)._theta_((0));
+} else {
+_st(aNode)._theta_(_st(_st(_st(_st(aNode)._x()).__plus(aFloat)).__plus(_st(aNode)._mod())).__slash(self["@verticalGap"]));
+};
+children=self._childrenFor_(aNode);
+_st(children)._do_((function(e){
+return smalltalk.withContext(function($ctx2) {
+return self._toRadialTree_withMod_(e,_st(_st(aNode)._mod()).__plus(aFloat));
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"toRadialTree:withMod:",{aNode:aNode,aFloat:aFloat,children:children},smalltalk.RORadialTreeLayout)})},
+messageSends: ["r:", "*", "layer", "ifTrue:ifFalse:", "theta:", "/", "+", "mod", "x", "=", "r", "childrenFor:", "do:", "toRadialTree:withMod:"]}),
+smalltalk.RORadialTreeLayout);
+
+
+
 smalltalk.addClass('ROAbstractRegularTreeLayout', smalltalk.ROAbstractGraphLayout, ['alreadyLayoutedNodes', 'topGap', 'leftGap', 'nodesByLayer', 'isLayered'], 'ARoassal-Layout');
 smalltalk.addMethod(
 smalltalk.method({
