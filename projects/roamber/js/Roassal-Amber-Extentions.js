@@ -3342,6 +3342,24 @@ smalltalk.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "select:thenCollect:",
+category: '*Roassal-Amber-Extentions',
+fn: function (selectBlock,collectBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._select_(selectBlock))._collect_(collectBlock);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"select:thenCollect:",{selectBlock:selectBlock,collectBlock:collectBlock},smalltalk.Collection)})},
+args: ["selectBlock", "collectBlock"],
+source: "select: selectBlock thenCollect: collectBlock\x0a\x09\x22Utility method to improve readability.\x22\x0a\x0a\x09^ (self select: selectBlock) collect: collectBlock",
+messageSends: ["collect:", "select:"],
+referencedClasses: []
+}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "sum:",
 category: '*Roassal-Amber-Extentions',
 fn: function (aBlock){
@@ -3902,6 +3920,27 @@ smalltalk.Number);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "between:and:",
+category: '*Roassal-Amber-Extentions',
+fn: function (min,max){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self.__gt_eq(min))._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+return self.__lt_eq(max);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"between:and:",{min:min,max:max},smalltalk.Number)})},
+args: ["min", "max"],
+source: "between: min and: max \x0a\x09\x22Answer whether the receiver is less than or equal to the argument, max, \x0a\x09and greater than or equal to the argument, min.\x22\x0a\x0a\x09^self >= min and: [self <= max]",
+messageSends: ["and:", "<=", ">="],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "ceiling",
 category: '*Roassal-Amber-Extentions',
 fn: function (){
@@ -3966,6 +4005,42 @@ return $1;
 args: ["min", "max", "anInterval"],
 source: "min: min max: max in: anInterval \x0a\x09\x22\x0a\x09(0 max: 20 in: (1 to: 10)) == 1\x0a\x09(0 max: 20 in: (0 to: 10)) == 0\x0a\x09(0 max: 20 in: (1 to: 10)) == 1\x0a\x09(2 max: 20 in: (0 to: 10)) == 1 \x0a\x09(4 max: 20 in: (0 to: 10)) == 2\x0a\x09(19 max: 20 in: (0 to: 10)) == 10\x0a\x09\x22\x0a\x09^ (self - min) / (max - min) * (anInterval last - anInterval first) + anInterval first",
 messageSends: ["+", "first", "*", "-", "last", "/"],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "quo:",
+category: '*Roassal-Amber-Extentions',
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self.__slash(aNumber))._truncated();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"quo:",{aNumber:aNumber},smalltalk.Number)})},
+args: ["aNumber"],
+source: "quo: aNumber \x0a\x09\x22Integer quotient defined by division with truncation toward zero. \x0a\x09\x0a\x09-9 quo: 4 = -2.\x0a\x09-0.9 quo: 0.4 = -2. \x0a\x09\x0a\x09rem: answers the remainder from this division.\x22\x0a\x0a\x09^(self / aNumber) truncated",
+messageSends: ["truncated", "/"],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "rem:",
+category: '*Roassal-Amber-Extentions',
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self.__minus(_st(self._quo_(aNumber)).__star(aNumber));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"rem:",{aNumber:aNumber},smalltalk.Number)})},
+args: ["aNumber"],
+source: "rem: aNumber \x0a\x09\x22Remainder defined in terms of quo:. Answer a Number with the same \x0a\x09sign as self. e.g. 9 rem: 4 = 1, -9 rem: 4 = -1. 0.9 rem: 0.4 = 0.1.\x22\x0a\x0a\x09^self - ((self quo: aNumber) * aNumber)",
+messageSends: ["-", "*", "quo:"],
 referencedClasses: []
 }),
 smalltalk.Number);

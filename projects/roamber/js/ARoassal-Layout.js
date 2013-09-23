@@ -1,4 +1,502 @@
 smalltalk.addPackage('ARoassal-Layout');
+smalltalk.addClass('ROCell', smalltalk.ROObject, ['elements', 'columns', 'element', 'number', 'rowHeights', 'columnWidths'], 'ARoassal-Layout');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "column",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(_st(self["@number"]).__minus((1)))._rem_(self["@columns"])).__plus((1));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"column",{},smalltalk.ROCell)})},
+args: [],
+source: "column\x0a\x0a\x09^((number - 1) rem: columns) + 1",
+messageSends: ["+", "rem:", "-"],
+referencedClasses: []
+}),
+smalltalk.ROCell);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "columnWidthAt:",
+category: 'accessing',
+fn: function (index){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@columnWidths"])._at_(index);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"columnWidthAt:",{index:index},smalltalk.ROCell)})},
+args: ["index"],
+source: "columnWidthAt: index\x0a\x09\x22private\x22\x0a\x0a\x09^ columnWidths at: index",
+messageSends: ["at:"],
+referencedClasses: []
+}),
+smalltalk.ROCell);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "columns",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@columns"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"columns",{},smalltalk.ROCell)})},
+args: [],
+source: "columns\x0a\x09^ columns",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROCell);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "columns:",
+category: 'accessing',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@columns"]=anObject;
+return self}, function($ctx1) {$ctx1.fill(self,"columns:",{anObject:anObject},smalltalk.ROCell)})},
+args: ["anObject"],
+source: "columns: anObject\x0a\x09columns := anObject",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROCell);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "computeColumnWidths",
+category: 'accessing',
+fn: function (){
+var self=this;
+function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
+return smalltalk.withContext(function($ctx1) { 
+self["@columnWidths"]=_st($Array())._new_(_st(self["@elements"])._columnCount());
+(1)._to_do_(_st(self["@elements"])._columnCount(),(function(columnIndex){
+return smalltalk.withContext(function($ctx2) {
+return _st(self["@columnWidths"])._at_put_(columnIndex,_st(_st(_st(self["@elements"])._atColumn_(columnIndex))._select_thenCollect_((function(el){
+return smalltalk.withContext(function($ctx3) {
+return _st(el)._notNil();
+}, function($ctx3) {$ctx3.fillBlock({el:el},$ctx2)})}),(function(el){
+return smalltalk.withContext(function($ctx3) {
+return _st(el)._width();
+}, function($ctx3) {$ctx3.fillBlock({el:el},$ctx2)})})))._max());
+}, function($ctx2) {$ctx2.fillBlock({columnIndex:columnIndex},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"computeColumnWidths",{},smalltalk.ROCell)})},
+args: [],
+source: "computeColumnWidths\x0a\x0a\x09columnWidths := Array new: elements columnCount.\x0a\x091 to: elements columnCount do: [ :columnIndex |\x0a\x09\x09columnWidths at: columnIndex put: ((elements atColumn: columnIndex) select: [:el | el notNil] thenCollect: [:el  | el width]) max\x0a\x09 ].",
+messageSends: ["new:", "columnCount", "to:do:", "at:put:", "max", "select:thenCollect:", "notNil", "width", "atColumn:"],
+referencedClasses: ["Array"]
+}),
+smalltalk.ROCell);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "computeRowHeights",
+category: 'accessing',
+fn: function (){
+var self=this;
+function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
+return smalltalk.withContext(function($ctx1) { 
+self["@rowHeights"]=_st($Array())._new_(_st(self["@elements"])._rowCount());
+(1)._to_do_(_st(self["@elements"])._rowCount(),(function(rowIndex){
+return smalltalk.withContext(function($ctx2) {
+return _st(self["@rowHeights"])._at_put_(rowIndex,_st(_st(_st(self["@elements"])._atRow_(rowIndex))._select_thenCollect_((function(el){
+return smalltalk.withContext(function($ctx3) {
+return _st(el)._notNil();
+}, function($ctx3) {$ctx3.fillBlock({el:el},$ctx2)})}),(function(el){
+return smalltalk.withContext(function($ctx3) {
+return _st(el)._height();
+}, function($ctx3) {$ctx3.fillBlock({el:el},$ctx2)})})))._max());
+}, function($ctx2) {$ctx2.fillBlock({rowIndex:rowIndex},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"computeRowHeights",{},smalltalk.ROCell)})},
+args: [],
+source: "computeRowHeights\x0a\x0a\x09rowHeights := Array new: elements rowCount.\x0a\x091 to: elements rowCount do: [ :rowIndex |\x0a\x09\x09rowHeights at: rowIndex put: ((elements atRow: rowIndex) select: [:el | el notNil] thenCollect: [:el  | el height]) max\x0a\x09 ].",
+messageSends: ["new:", "rowCount", "to:do:", "at:put:", "max", "select:thenCollect:", "notNil", "height", "atRow:"],
+referencedClasses: ["Array"]
+}),
+smalltalk.ROCell);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "element",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@element"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"element",{},smalltalk.ROCell)})},
+args: [],
+source: "element\x0a\x09^ element",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROCell);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "element:",
+category: 'accessing',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@element"]=anObject;
+return self}, function($ctx1) {$ctx1.fill(self,"element:",{anObject:anObject},smalltalk.ROCell)})},
+args: ["anObject"],
+source: "element: anObject\x0a\x09element := anObject",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROCell);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "elements:",
+category: 'accessing',
+fn: function (aCollection){
+var self=this;
+var rows,col;
+function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
+function $ROCellMatrix(){return smalltalk.ROCellMatrix||(typeof ROCellMatrix=="undefined"?nil:ROCellMatrix)}
+return smalltalk.withContext(function($ctx1) { 
+rows=_st(_st(_st(_st(aCollection)._size()).__slash(self["@columns"]))._ceiling())._rounded();
+col=_st($Array())._new_(_st(rows).__star(self["@columns"]));
+(1)._to_do_(_st(aCollection)._size(),(function(i){
+return smalltalk.withContext(function($ctx2) {
+return _st(col)._at_put_(i,_st(aCollection)._at_(i));
+}, function($ctx2) {$ctx2.fillBlock({i:i},$ctx1)})}));
+self["@elements"]=_st($ROCellMatrix())._rows_columns_contents_(rows,self["@columns"],col);
+self._computeColumnWidths();
+self._computeRowHeights();
+return self}, function($ctx1) {$ctx1.fill(self,"elements:",{aCollection:aCollection,rows:rows,col:col},smalltalk.ROCell)})},
+args: ["aCollection"],
+source: "elements: aCollection \x0a\x0a\x09| rows  col |\x0a\x09rows := (aCollection size / columns) ceiling rounded.\x0a\x09col := Array new: rows * columns.\x0a\x091 to: aCollection size do: [ :i | col at: i put: (aCollection at: i)].\x0a\x09elements := ROCellMatrix \x0a\x09\x09\x09\x09\x09rows: rows\x0a\x09\x09\x09\x09\x09columns: columns \x0a\x09\x09\x09\x09\x09contents: col.\x0a\x09self computeColumnWidths.\x0a\x09self computeRowHeights.",
+messageSends: ["rounded", "ceiling", "/", "size", "new:", "*", "to:do:", "at:put:", "at:", "rows:columns:contents:", "computeColumnWidths", "computeRowHeights"],
+referencedClasses: ["Array", "ROCellMatrix"]
+}),
+smalltalk.ROCell);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "extent",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._width()).__at(self._height());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"extent",{},smalltalk.ROCell)})},
+args: [],
+source: "extent\x0a\x0a\x09^ self width @ self height",
+messageSends: ["@", "height", "width"],
+referencedClasses: []
+}),
+smalltalk.ROCell);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "height",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._rowHeightAt_(self._row());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"height",{},smalltalk.ROCell)})},
+args: [],
+source: "height\x0a\x0a\x09^ self rowHeightAt: self row",
+messageSends: ["rowHeightAt:", "row"],
+referencedClasses: []
+}),
+smalltalk.ROCell);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "number",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@number"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"number",{},smalltalk.ROCell)})},
+args: [],
+source: "number\x0a\x09^ number",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROCell);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "number:",
+category: 'accessing',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@number"]=anObject;
+return self}, function($ctx1) {$ctx1.fill(self,"number:",{anObject:anObject},smalltalk.ROCell)})},
+args: ["anObject"],
+source: "number: anObject\x0a\x09number := anObject",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROCell);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "row",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(_st(self["@number"]).__minus((1)))._quo_(self["@columns"])).__plus((1));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"row",{},smalltalk.ROCell)})},
+args: [],
+source: "row\x0a\x0a\x09^((number - 1) quo: columns) + 1",
+messageSends: ["+", "quo:", "-"],
+referencedClasses: []
+}),
+smalltalk.ROCell);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "rowHeightAt:",
+category: 'accessing',
+fn: function (index){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@rowHeights"])._at_(index);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"rowHeightAt:",{index:index},smalltalk.ROCell)})},
+args: ["index"],
+source: "rowHeightAt: index\x0a\x09\x22private\x22\x0a\x0a\x09^ rowHeights at: index",
+messageSends: ["at:"],
+referencedClasses: []
+}),
+smalltalk.ROCell);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "width",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._columnWidthAt_(self._column());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"width",{},smalltalk.ROCell)})},
+args: [],
+source: "width\x0a\x0a\x09^ self columnWidthAt: self column",
+messageSends: ["columnWidthAt:", "column"],
+referencedClasses: []
+}),
+smalltalk.ROCell);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "elements:columns:",
+category: 'instance creation',
+fn: function (aCollection,anInteger){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=self._new();
+_st($2)._columns_(anInteger);
+_st($2)._elements_(aCollection);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"elements:columns:",{aCollection:aCollection,anInteger:anInteger},smalltalk.ROCell.klass)})},
+args: ["aCollection", "anInteger"],
+source: "elements: aCollection columns: anInteger \x0a\x09\x0a\x09^ self new columns: anInteger; elements: aCollection; yourself",
+messageSends: ["columns:", "new", "elements:", "yourself"],
+referencedClasses: []
+}),
+smalltalk.ROCell.klass);
+
+
+smalltalk.addClass('ROCellMatrix', smalltalk.ROObject, ['nrows', 'ncols', 'contents'], 'ARoassal-Layout');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "atColumn:",
+category: 'accessing rows/columns',
+fn: function (column){
+var self=this;
+var p;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+p=_st(self._indexForRow_andColumn_((1),column)).__minus(self["@ncols"]);
+$1=_st((1)._to_(self["@nrows"]))._collect_((function(row){
+return smalltalk.withContext(function($ctx2) {
+p=_st(p).__plus(self["@ncols"]);
+return _st(self["@contents"])._at_(p);
+}, function($ctx2) {$ctx2.fillBlock({row:row},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"atColumn:",{column:column,p:p},smalltalk.ROCellMatrix)})},
+args: ["column"],
+source: "atColumn: column\x0a\x09| p |\x0a\x09p := (self indexForRow: 1 andColumn: column) - ncols.\x0a\x09^ (1 to: nrows) collect: [ :row | contents at: (p := p+ncols) ]",
+messageSends: ["-", "indexForRow:andColumn:", "collect:", "at:", "+", "to:"],
+referencedClasses: []
+}),
+smalltalk.ROCellMatrix);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "atRow:",
+category: 'accessing rows/columns',
+fn: function (row){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(row)._between_and_((1),self["@nrows"]);
+if(! smalltalk.assert($1)){
+self._error_("1st subscript out of range");
+};
+$2=_st(self["@contents"])._copyFrom_to_(_st(_st(_st(row).__minus((1))).__star(self["@ncols"])).__plus((1)),_st(row).__star(self["@ncols"]));
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"atRow:",{row:row},smalltalk.ROCellMatrix)})},
+args: ["row"],
+source: "atRow: row\x0a\x09(row between: 1 and: nrows)\x0a\x09\x09ifFalse: [ self error: '1st subscript out of range' ].\x0a\x09^ contents copyFrom: (row - 1) * ncols + 1 to: row * ncols",
+messageSends: ["ifFalse:", "error:", "between:and:", "copyFrom:to:", "+", "*", "-"],
+referencedClasses: []
+}),
+smalltalk.ROCellMatrix);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "columnCount",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@ncols"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"columnCount",{},smalltalk.ROCellMatrix)})},
+args: [],
+source: "columnCount\x0a\x09^ ncols",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROCellMatrix);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "indexForRow:andColumn:",
+category: 'private',
+fn: function (row,column){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+$1=_st(row)._between_and_((1),self["@nrows"]);
+if(! smalltalk.assert($1)){
+self._error_("1st subscript out of range");
+};
+$2=_st(column)._between_and_((1),self["@ncols"]);
+if(! smalltalk.assert($2)){
+self._error_("2nd subscript out of range");
+};
+$3=_st(_st(_st(row).__minus((1))).__star(self["@ncols"])).__plus(column);
+return $3;
+}, function($ctx1) {$ctx1.fill(self,"indexForRow:andColumn:",{row:row,column:column},smalltalk.ROCellMatrix)})},
+args: ["row", "column"],
+source: "indexForRow: row andColumn: column\x0a\x09(row between: 1 and: nrows)\x0a\x09\x09ifFalse: [self error: '1st subscript out of range'].\x0a\x09(column between: 1 and: ncols)\x0a\x09\x09ifFalse: [self error: '2nd subscript out of range'].\x0a\x09^ (row - 1) * ncols + column",
+messageSends: ["ifFalse:", "error:", "between:and:", "+", "*", "-"],
+referencedClasses: []
+}),
+smalltalk.ROCellMatrix);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "rowCount",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@nrows"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"rowCount",{},smalltalk.ROCellMatrix)})},
+args: [],
+source: "rowCount\x0a\x09^ nrows",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROCellMatrix);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "rows:columns:contents:",
+category: 'private',
+fn: function (rows,columns,anArray){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(_st(_st(rows)._isInteger())._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(rows).__gt_eq((0));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(columns)._isInteger())._and_((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(columns).__gt_eq((0));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(rows).__star(columns)).__eq(_st(anArray)._size());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+if(! smalltalk.assert($1)){
+self._error_("Wrong parameters");
+};
+self["@nrows"]=rows;
+self["@ncols"]=columns;
+self["@contents"]=anArray;
+return self}, function($ctx1) {$ctx1.fill(self,"rows:columns:contents:",{rows:rows,columns:columns,anArray:anArray},smalltalk.ROCellMatrix)})},
+args: ["rows", "columns", "anArray"],
+source: "rows: rows columns: columns contents: anArray\x0a\x09(((rows isInteger and: [rows >= 0]) and: \x0a\x09\x09[columns isInteger and: [columns >= 0]]) and:\x0a\x09\x09\x09[ rows * columns = anArray size ]) ifFalse: [ self error: 'Wrong parameters' ].\x0a\x09nrows := rows.\x0a\x09ncols := columns.\x0a\x09contents := anArray",
+messageSends: ["ifFalse:", "error:", "and:", "=", "size", "*", ">=", "isInteger"],
+referencedClasses: []
+}),
+smalltalk.ROCellMatrix);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "rows:columns:contents:",
+category: 'as yet unclassified',
+fn: function (rows,columns,contents){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._new())._rows_columns_contents_(rows,columns,contents);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"rows:columns:contents:",{rows:rows,columns:columns,contents:contents},smalltalk.ROCellMatrix.klass)})},
+args: ["rows", "columns", "contents"],
+source: "rows: rows columns: columns contents: contents\x0a\x09^self new rows: rows columns: columns contents: contents",
+messageSends: ["rows:columns:contents:", "new"],
+referencedClasses: []
+}),
+smalltalk.ROCellMatrix.klass);
+
+
 smalltalk.addClass('ROLayout', smalltalk.Object, ['translator', 'affectedNodes'], 'ARoassal-Layout');
 smalltalk.addMethod(
 smalltalk.method({
@@ -78,6 +576,21 @@ referencedClasses: ["ROLayoutTranslator"]
 }),
 smalltalk.ROLayout);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "step",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"step",{},smalltalk.ROLayout)})},
+args: [],
+source: "step\x0a\x22\x0a\x09currentIteraction := currentIteraction + 1.\x0a\x09(currentIteraction \x5c\x5c self iterationsToSendEvent) = 0 \x0a\x09\x09ifTrue: [ self announce: (ROLayoutStep new \x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09currentIteration: currentIteraction;\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09\x09maxInterations: maxInterations) ].\x0a\x22\x09",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROLayout);
+
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -96,6 +609,438 @@ messageSends: ["applyOn:", "new"],
 referencedClasses: []
 }),
 smalltalk.ROLayout.klass);
+
+
+smalltalk.addClass('ROAbstractGridLayout', smalltalk.ROLayout, ['gapSize', 'lineItemsCountBlock'], 'ARoassal-Layout');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultGapSize",
+category: 'initialize-release',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return (5);
+}, function($ctx1) {$ctx1.fill(self,"defaultGapSize",{},smalltalk.ROAbstractGridLayout)})},
+args: [],
+source: "defaultGapSize\x0a\x09^ 5",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROAbstractGridLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultLineItemsCount",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $3,$2,$1;
+$1=(function(elements){
+var height,width;
+return smalltalk.withContext(function($ctx2) {
+$3=_st(_st(elements)._size()).__lt((3));
+if(smalltalk.assert($3)){
+$2=_st(_st(_st(elements)._size())._max_((1))).__at((1));
+} else {
+height=_st(_st(_st(_st(_st(elements)._size()).__star((0.618034)))._sqrt())._ceiling())._truncated();
+height;
+width=_st(_st(_st(_st(elements)._size()).__slash(height))._ceiling())._truncated();
+width;
+$2=_st(width).__at(height);
+};
+return _st($2)._x();
+}, function($ctx2) {$ctx2.fillBlock({elements:elements,height:height,width:width},$ctx1)})});
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultLineItemsCount",{},smalltalk.ROAbstractGridLayout)})},
+args: [],
+source: "defaultLineItemsCount\x0a\x09\x0a\x09^ [ :elements | \x0a\x09\x09\x09| height width |\x0a\x09\x09\x09(elements size < 3 \x0a\x09\x09\x09\x09ifTrue: [ (elements size max: 1) @ 1 ]\x0a\x09\x09\x09\x09ifFalse: \x0a\x09\x09\x09\x09\x09[ height := (elements size * 0.618034) sqrt ceiling truncated.\x0a\x09\x09\x09\x09\x09width := (elements size / height) ceiling truncated.\x0a\x09\x09\x09\x09\x09width @ height ]) x ]",
+messageSends: ["x", "ifTrue:ifFalse:", "@", "max:", "size", "truncated", "ceiling", "sqrt", "*", "/", "<"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractGridLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "gapSize",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@gapSize"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"gapSize",{},smalltalk.ROAbstractGridLayout)})},
+args: [],
+source: "gapSize\x0a\x09\x0a\x09^gapSize",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROAbstractGridLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "gapSize:",
+category: 'accessing',
+fn: function (anInteger){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@gapSize"]=anInteger;
+return self}, function($ctx1) {$ctx1.fill(self,"gapSize:",{anInteger:anInteger},smalltalk.ROAbstractGridLayout)})},
+args: ["anInteger"],
+source: "gapSize: anInteger\x0a\x09gapSize := anInteger",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROAbstractGridLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+category: 'initialize-release',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.ROAbstractGridLayout.superclass.fn.prototype._initialize.apply(_st(self), []);
+self["@gapSize"]=self._defaultGapSize();
+self["@lineItemsCountBlock"]=self._defaultLineItemsCount();
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROAbstractGridLayout)})},
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a\x09gapSize := self defaultGapSize.\x0a\x09lineItemsCountBlock := self defaultLineItemsCount.",
+messageSends: ["initialize", "defaultGapSize", "defaultLineItemsCount"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractGridLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "lineItemsCount:",
+category: 'accessing',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@lineItemsCountBlock"]=aBlock;
+return self}, function($ctx1) {$ctx1.fill(self,"lineItemsCount:",{aBlock:aBlock},smalltalk.ROAbstractGridLayout)})},
+args: ["aBlock"],
+source: "lineItemsCount: aBlock\x0a\x09\x0a\x09lineItemsCountBlock := aBlock",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROAbstractGridLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "lineItemsCountBlock",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@lineItemsCountBlock"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"lineItemsCountBlock",{},smalltalk.ROAbstractGridLayout)})},
+args: [],
+source: "lineItemsCountBlock\x0a\x09\x0a\x09^ lineItemsCountBlock",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROAbstractGridLayout);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isAbstract",
+category: 'public',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._name()).__eq("ROAbstractGridLayout");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isAbstract",{},smalltalk.ROAbstractGridLayout.klass)})},
+args: [],
+source: "isAbstract\x0a\x09^ self name =  #ROAbstractGridLayout",
+messageSends: ["=", "name"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractGridLayout.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "on:withGap:withLineItemsCount:",
+category: 'public',
+fn: function (aCollectionOfElements,anInteger,aBlock){
+var self=this;
+var myLayout;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+$1=self._new();
+_st($1)._gapSize_(anInteger);
+_st($1)._lineItemsCount_(aBlock);
+$2=_st($1)._yourself();
+myLayout=$2;
+_st(myLayout)._applyOn_(aCollectionOfElements);
+$3=aCollectionOfElements;
+return $3;
+}, function($ctx1) {$ctx1.fill(self,"on:withGap:withLineItemsCount:",{aCollectionOfElements:aCollectionOfElements,anInteger:anInteger,aBlock:aBlock,myLayout:myLayout},smalltalk.ROAbstractGridLayout.klass)})},
+args: ["aCollectionOfElements", "anInteger", "aBlock"],
+source: "on: aCollectionOfElements withGap: anInteger withLineItemsCount: aBlock\x0a\x09\x22place the elements in a grid with (aBlock roValue: aCollectionOfElements) as the amount of elements horizontally\x22\x0a\x09\x0a\x09| myLayout |\x0a\x09myLayout := self new gapSize: anInteger;  lineItemsCount: aBlock; yourself.\x0a\x09myLayout applyOn: aCollectionOfElements.\x0a\x09^ aCollectionOfElements",
+messageSends: ["gapSize:", "new", "lineItemsCount:", "yourself", "applyOn:"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractGridLayout.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "on:withLineItemsCount:",
+category: 'public',
+fn: function (aCollectionOfElements,aBlock){
+var self=this;
+var myLayout;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+$1=self._new();
+_st($1)._lineItemsCount_(aBlock);
+$2=_st($1)._yourself();
+myLayout=$2;
+_st(myLayout)._applyOn_(aCollectionOfElements);
+$3=aCollectionOfElements;
+return $3;
+}, function($ctx1) {$ctx1.fill(self,"on:withLineItemsCount:",{aCollectionOfElements:aCollectionOfElements,aBlock:aBlock,myLayout:myLayout},smalltalk.ROAbstractGridLayout.klass)})},
+args: ["aCollectionOfElements", "aBlock"],
+source: "on: aCollectionOfElements withLineItemsCount: aBlock\x0a\x09\x22place the elements in a grid with (aBlock roValue: aCollectionOfElements) as the amount of elements horizontally\x0a\x0a\x09For example:\x0a\x09self on: (ROElement forCollection: (1 to: 20)) withLineItemsCount: 5\x0a\x09=> place the 20 elements on a grid 5 x 4\x0a\x09\x0a\x09self on: (ROElement forCollection: (1 to: 20)) withLineItemsCount: [ :elements | elements size // 3 ]\x0a\x09=> place the 20 elements on a grid 3 x 7\x0a\x09\x22\x0a\x09\x0a\x09\x0a\x09| myLayout |\x0a\x09myLayout := self new lineItemsCount: aBlock; yourself.\x0a\x09myLayout applyOn: aCollectionOfElements.\x0a\x09^ aCollectionOfElements",
+messageSends: ["lineItemsCount:", "new", "yourself", "applyOn:"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractGridLayout.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "withGap:",
+category: 'instance creation',
+fn: function (anInteger){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=self._new();
+_st($2)._gapSize_(anInteger);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"withGap:",{anInteger:anInteger},smalltalk.ROAbstractGridLayout.klass)})},
+args: ["anInteger"],
+source: "withGap: anInteger \x0a\x0a\x09^ self new \x0a\x09\x09\x09gapSize: anInteger; \x0a\x09\x09\x09yourself",
+messageSends: ["gapSize:", "new", "yourself"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractGridLayout.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "withGap:withLineItemsCount:",
+category: 'instance creation',
+fn: function (anInteger,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=self._new();
+_st($2)._gapSize_(anInteger);
+_st($2)._lineItemsCount_(aBlock);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"withGap:withLineItemsCount:",{anInteger:anInteger,aBlock:aBlock},smalltalk.ROAbstractGridLayout.klass)})},
+args: ["anInteger", "aBlock"],
+source: "withGap: anInteger withLineItemsCount: aBlock\x0a\x09\x0a\x09^self new\x0a\x09\x09gapSize: anInteger;\x0a\x09\x09lineItemsCount: aBlock;\x0a\x09\x09yourself",
+messageSends: ["gapSize:", "new", "lineItemsCount:", "yourself"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractGridLayout.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "withLineItemsCount:",
+category: 'instance creation',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=self._new();
+_st($2)._lineItemsCount_(aBlock);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"withLineItemsCount:",{aBlock:aBlock},smalltalk.ROAbstractGridLayout.klass)})},
+args: ["aBlock"],
+source: "withLineItemsCount: aBlock\x0a\x09\x0a\x09^self new\x0a\x09\x09lineItemsCount: aBlock;\x0a\x09\x09yourself",
+messageSends: ["lineItemsCount:", "new", "yourself"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractGridLayout.klass);
+
+
+smalltalk.addClass('ROCellLayout', smalltalk.ROAbstractGridLayout, ['inCellPosition'], 'ARoassal-Layout');
+smalltalk.ROCellLayout.comment="A ROCellLayout is like ROGridLayout. Elements of each column are centered along the same vertical line. And elements of each row are centered along the same horizontal line.\x0a\x0aInstance Variables\x0a\x09inCellPosition:\x09\x09<Object | Block>\x0a\x0ainCellPosition\x0a\x09- Object which computes position of each element inside a cell. The cell is the space allocated for an element. Its height is maximum of heights of elements on the row. Its width is maximum of widths of elements on the column. By default elements are in the middle of their cell.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "doExecute:",
+category: 'hook',
+fn: function (elements){
+var self=this;
+var pointer,lineItemCount,lineItemSize,cell;
+function $ROCell(){return smalltalk.ROCell||(typeof ROCell=="undefined"?nil:ROCell)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+lineItemSize=_st(self._lineItemsCountBlock())._roValue_(elements);
+cell=_st($ROCell())._elements_columns_(elements,lineItemSize);
+pointer=_st(self._gapSize()).__at(self._gapSize());
+lineItemCount=(0);
+_st(elements)._withIndexDo_((function(element,index){
+var inCellPointer;
+return smalltalk.withContext(function($ctx2) {
+$1=cell;
+_st($1)._element_(element);
+$2=_st($1)._number_(index);
+$2;
+inCellPointer=_st(self["@inCellPosition"])._roValue_(cell);
+inCellPointer;
+_st(self["@translator"])._translate_to_(element,_st(pointer).__plus(inCellPointer));
+pointer=_st(_st(_st(_st(pointer)._x()).__plus(_st(_st(cell)._extent())._x())).__plus(_st(self._gapSize()).__star((2)))).__at(_st(pointer)._y());
+pointer;
+lineItemCount=_st(lineItemCount).__plus((1));
+lineItemCount;
+$3=_st(lineItemCount).__gt_eq(lineItemSize);
+if(smalltalk.assert($3)){
+pointer=_st(self._gapSize()).__at(_st(_st(_st(pointer)._y()).__plus(_st(self._gapSize()).__star((2)))).__plus(_st(_st(cell)._extent())._y()));
+pointer;
+lineItemCount=(0);
+lineItemCount;
+};
+return self._step();
+}, function($ctx2) {$ctx2.fillBlock({element:element,index:index,inCellPointer:inCellPointer},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"doExecute:",{elements:elements,pointer:pointer,lineItemCount:lineItemCount,lineItemSize:lineItemSize,cell:cell},smalltalk.ROCellLayout)})},
+args: ["elements"],
+source: "doExecute: elements \x0a\x09| pointer lineItemCount lineItemSize cell |\x0a\x09lineItemSize := self lineItemsCountBlock roValue: elements.\x0a\x09cell := ROCell elements: elements columns: lineItemSize.\x0a\x09pointer := self gapSize @ self gapSize.\x0a\x09lineItemCount := 0.\x0a\x09elements withIndexDo: \x0a\x09\x09[ :element :index | | inCellPointer |\x0a\x09\x09cell element: element; number: index.\x0a\x09\x09inCellPointer := inCellPosition roValue: cell.\x0a\x09\x09translator translate: element to: pointer + inCellPointer.\x0a\x09\x09pointer := (pointer x + cell extent x + (self gapSize * 2)) @ pointer y.\x0a\x09\x09lineItemCount := lineItemCount + 1.\x0a\x09\x09lineItemCount >= lineItemSize ifTrue: \x0a\x09\x09\x09[ pointer := self gapSize @ (pointer y + (self gapSize * 2) + cell extent y).\x0a\x09\x09\x09lineItemCount := 0 ].\x0a\x09\x09self step ]",
+messageSends: ["roValue:", "lineItemsCountBlock", "elements:columns:", "@", "gapSize", "withIndexDo:", "element:", "number:", "translate:to:", "+", "y", "*", "x", "extent", "ifTrue:", ">=", "step"],
+referencedClasses: ["ROCell"]
+}),
+smalltalk.ROCellLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "inCellPosition:",
+category: 'accessing',
+fn: function (anObjectOrOneArgBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@inCellPosition"]=anObjectOrOneArgBlock;
+return self}, function($ctx1) {$ctx1.fill(self,"inCellPosition:",{anObjectOrOneArgBlock:anObjectOrOneArgBlock},smalltalk.ROCellLayout)})},
+args: ["anObjectOrOneArgBlock"],
+source: "inCellPosition: anObjectOrOneArgBlock\x0a\x0a\x09inCellPosition := anObjectOrOneArgBlock",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROCellLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+category: 'initialize-release',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.ROCellLayout.superclass.fn.prototype._initialize.apply(_st(self), []);
+self["@inCellPosition"]=(function(cell){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(_st(_st(_st(cell)._extent())._x()).__minus(_st(_st(cell)._element())._width())).__slash((2))).__at(_st(_st(_st(_st(cell)._extent())._y()).__minus(_st(_st(cell)._element())._height())).__slash((2)));
+}, function($ctx2) {$ctx2.fillBlock({cell:cell},$ctx1)})});
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROCellLayout)})},
+args: [],
+source: "initialize\x0a\x0a\x09super initialize.\x0a\x09inCellPosition :=  [ :cell |\x0a\x09\x09((cell extent x - cell element width) / 2) @ ((cell extent y - cell element height) / 2)]",
+messageSends: ["initialize", "@", "/", "-", "height", "element", "y", "extent", "width", "x"],
+referencedClasses: []
+}),
+smalltalk.ROCellLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "leftCentred",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._inCellPosition_((function(cell){
+return smalltalk.withContext(function($ctx2) {
+return (0).__at(_st(_st(_st(_st(cell)._extent())._y()).__minus(_st(_st(cell)._element())._height())).__slash((2)));
+}, function($ctx2) {$ctx2.fillBlock({cell:cell},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"leftCentred",{},smalltalk.ROCellLayout)})},
+args: [],
+source: "leftCentred\x0a\x0a\x09self inCellPosition: [ :cell | 0 @ ((cell extent y - cell element height) / 2) ]",
+messageSends: ["inCellPosition:", "@", "/", "-", "height", "element", "y", "extent"],
+referencedClasses: []
+}),
+smalltalk.ROCellLayout);
+
+
+
+smalltalk.addClass('ROGridLayout', smalltalk.ROAbstractGridLayout, [], 'ARoassal-Layout');
+smalltalk.ROGridLayout.comment="A ROGridLayout places elements as a grid.\x0a\x0aInstance Variables\x0a\x09gapSize:\x09\x09<SmallInteger>\x0a\x09lineItemsCountBlock:\x09\x09<BlockContext>\x0a\x0agapSize\x0a\x09- number of pixels between each elements, horizontally and vertically\x0a\x0alineItemsCountBlock\x0a\x09- tells the amount of item per line should be used";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "doExecute:",
+category: 'hook',
+fn: function (elements){
+var self=this;
+var pointer,lineItemCount,lineItemSize,maxLastLineHeight,originalGapLeft,originalGapTop,parent,oldParentStrategy;
+function $ROPermissiveParent(){return smalltalk.ROPermissiveParent||(typeof ROPermissiveParent=="undefined"?nil:ROPermissiveParent)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+originalGapLeft=self._paddingLeftFor_(elements);
+originalGapTop=self._paddingTopFor_(elements);
+pointer=_st(originalGapLeft).__at(originalGapTop);
+lineItemSize=_st(self._lineItemsCountBlock())._roValue_(elements);
+lineItemCount=(0);
+maxLastLineHeight=(0);
+parent=_st(_st(elements)._anyOne())._parent();
+$1=_st(parent)._isView();
+if(! smalltalk.assert($1)){
+oldParentStrategy=_st(_st(_st(elements)._anyOne())._parent())._resizeStrategy();
+oldParentStrategy;
+_st(parent)._resizeStrategy_(_st(_st($ROPermissiveParent())._new())._padding_(_st(oldParentStrategy)._padding()));
+};
+_st(elements)._do_((function(element){
+return smalltalk.withContext(function($ctx2) {
+_st(self["@translator"])._translate_to_(element,pointer);
+pointer=_st(_st(_st(_st(pointer)._x()).__plus(_st(element)._width())).__plus(_st(self._gapSize()).__star((2)))).__at(_st(pointer)._y());
+pointer;
+lineItemCount=_st(lineItemCount).__plus((1));
+lineItemCount;
+maxLastLineHeight=_st(maxLastLineHeight)._max_(_st(element)._height());
+maxLastLineHeight;
+$2=_st(lineItemCount).__gt_eq(lineItemSize);
+if(smalltalk.assert($2)){
+pointer=_st(originalGapLeft).__at(_st(_st(_st(pointer)._y()).__plus(_st(self._gapSize()).__star((2)))).__plus(maxLastLineHeight));
+pointer;
+maxLastLineHeight=(0);
+maxLastLineHeight;
+lineItemCount=(0);
+lineItemCount;
+};
+return self._step();
+}, function($ctx2) {$ctx2.fillBlock({element:element},$ctx1)})}));
+$3=_st(parent)._isView();
+if(! smalltalk.assert($3)){
+_st(parent)._resizeStrategy_(oldParentStrategy);
+_st(parent)._adjustSizeIfNecessary();
+};
+return self}, function($ctx1) {$ctx1.fill(self,"doExecute:",{elements:elements,pointer:pointer,lineItemCount:lineItemCount,lineItemSize:lineItemSize,maxLastLineHeight:maxLastLineHeight,originalGapLeft:originalGapLeft,originalGapTop:originalGapTop,parent:parent,oldParentStrategy:oldParentStrategy},smalltalk.ROGridLayout)})},
+args: ["elements"],
+source: "doExecute: elements\x0a\x09| pointer lineItemCount lineItemSize maxLastLineHeight originalGapLeft originalGapTop parent oldParentStrategy |\x0a\x09originalGapLeft := self paddingLeftFor: elements.\x0a\x09originalGapTop := self paddingTopFor: elements.\x0a\x09\x0a\x09pointer := originalGapLeft @ originalGapTop.\x0a\x09lineItemSize := self lineItemsCountBlock roValue: elements.\x0a\x09lineItemCount := 0.\x0a\x09maxLastLineHeight := 0.\x0a\x0a\x09\x22We are here assuming all the elements have the same parent\x22\x0a\x09parent := elements anyOne parent.\x0a\x09parent isView ifFalse:\x0a\x09\x09[oldParentStrategy := elements anyOne parent resizeStrategy.\x0a\x09\x09parent resizeStrategy: (ROPermissiveParent new padding: oldParentStrategy padding)].\x0a\x0a\x09elements\x0a\x09\x09do: [ :element | \x0a\x09\x09\x09translator translate: element to: pointer.\x0a\x09\x09\x09pointer := (pointer x + element width + (self gapSize * 2)) @ pointer y.\x0a\x09\x09\x09lineItemCount := lineItemCount + 1.\x0a\x09\x09\x09maxLastLineHeight := maxLastLineHeight max: element height.\x0a\x09\x09\x09lineItemCount >= lineItemSize\x0a\x09\x09\x09\x09ifTrue: [ \x0a\x09\x09\x09\x09\x09pointer := originalGapLeft @ (pointer y + (self gapSize * 2) + maxLastLineHeight).\x0a\x09\x09\x09\x09\x09\x0a\x09\x09\x09\x09\x09maxLastLineHeight := 0.\x0a\x09\x09\x09\x09\x09lineItemCount := 0 ].\x0a\x09\x09\x09self step ].\x0a\x09\x09\x0a\x09\x22We set the old strategy and adjust the size of the parent\x22\x0a\x09parent isView ifFalse:\x0a\x09\x09[parent resizeStrategy: oldParentStrategy.\x0a\x09\x09parent adjustSizeIfNecessary].",
+messageSends: ["paddingLeftFor:", "paddingTopFor:", "@", "roValue:", "lineItemsCountBlock", "parent", "anyOne", "ifFalse:", "resizeStrategy", "resizeStrategy:", "padding:", "padding", "new", "isView", "do:", "translate:to:", "y", "+", "*", "gapSize", "width", "x", "max:", "height", "ifTrue:", ">=", "step", "adjustSizeIfNecessary"],
+referencedClasses: ["ROPermissiveParent"]
+}),
+smalltalk.ROGridLayout);
+
 
 
 smalltalk.addClass('ROAbstractLineLayout', smalltalk.ROLayout, ['gapSize', 'horizontalGap', 'verticalGap', 'horizontalOutGap', 'verticalOutGap', 'alignment', 'horizontallyStretchable', 'verticallyStretchable'], 'ARoassal-Layout');

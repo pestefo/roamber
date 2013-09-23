@@ -2636,6 +2636,19 @@ smalltalk.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "select:thenCollect:",
+fn: function (selectBlock,collectBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._select_(selectBlock))._collect_(collectBlock);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"select:thenCollect:",{selectBlock:selectBlock,collectBlock:collectBlock},smalltalk.Collection)})},
+messageSends: ["collect:", "select:"]}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "sum:",
 fn: function (aBlock){
 var self=this;
@@ -3056,6 +3069,22 @@ smalltalk.Number);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "between:and:",
+fn: function (min,max){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self.__gt_eq(min))._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+return self.__lt_eq(max);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"between:and:",{min:min,max:max},smalltalk.Number)})},
+messageSends: ["and:", "<=", ">="]}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "ceiling",
 fn: function (){
 var self=this;
@@ -3102,6 +3131,32 @@ $1=_st(_st(_st(self.__minus(min)).__slash(_st(max).__minus(min))).__star(_st(_st
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"min:max:in:",{min:min,max:max,anInterval:anInterval},smalltalk.Number)})},
 messageSends: ["+", "first", "*", "-", "last", "/"]}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "quo:",
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self.__slash(aNumber))._truncated();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"quo:",{aNumber:aNumber},smalltalk.Number)})},
+messageSends: ["truncated", "/"]}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "rem:",
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self.__minus(_st(self._quo_(aNumber)).__star(aNumber));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"rem:",{aNumber:aNumber},smalltalk.Number)})},
+messageSends: ["-", "*", "quo:"]}),
 smalltalk.Number);
 
 smalltalk.addMethod(

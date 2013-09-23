@@ -1254,6 +1254,12 @@ removeAllSuchThat: aBlock
 	self copy do: [:each | (aBlock value: each) ifTrue: [self remove: each]]
 !
 
+select: selectBlock thenCollect: collectBlock
+	"Utility method to improve readability."
+
+	^ (self select: selectBlock) collect: collectBlock
+!
+
 sum: aBlock
 	"This is implemented using a variant of the normal inject:into: pattern. 
 	The reason for this is that it is not known whether we're in the normal 
@@ -1440,6 +1446,13 @@ asInteger
 	^self truncated
 !
 
+between: min and: max 
+	"Answer whether the receiver is less than or equal to the argument, max, 
+	and greater than or equal to the argument, min."
+
+	^self >= min and: [self <= max]
+!
+
 ceiling
 	
 	< return Math.ceil(self); >
@@ -1471,6 +1484,24 @@ min: min max: max in: anInterval
 	(19 max: 20 in: (0 to: 10)) == 10
 	"
 	^ (self - min) / (max - min) * (anInterval last - anInterval first) + anInterval first
+!
+
+quo: aNumber 
+	"Integer quotient defined by division with truncation toward zero. 
+	
+	-9 quo: 4 = -2.
+	-0.9 quo: 0.4 = -2. 
+	
+	rem: answers the remainder from this division."
+
+	^(self / aNumber) truncated
+!
+
+rem: aNumber 
+	"Remainder defined in terms of quo:. Answer a Number with the same 
+	sign as self. e.g. 9 rem: 4 = 1, -9 rem: 4 = -1. 0.9 rem: 0.4 = 0.1."
+
+	^self - ((self quo: aNumber) * aNumber)
 !
 
 tan

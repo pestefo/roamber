@@ -1,4 +1,161 @@
 Smalltalk current createPackage: 'ARoassal-Layout'!
+ROObject subclass: #ROCell
+	instanceVariableNames: 'elements columns element number rowHeights columnWidths'
+	package: 'ARoassal-Layout'!
+
+!ROCell methodsFor: 'accessing'!
+
+column
+
+	^((number - 1) rem: columns) + 1
+!
+
+columnWidthAt: index
+	"private"
+
+	^ columnWidths at: index
+!
+
+columns
+	^ columns
+!
+
+columns: anObject
+	columns := anObject
+!
+
+computeColumnWidths
+
+	columnWidths := Array new: elements columnCount.
+	1 to: elements columnCount do: [ :columnIndex |
+		columnWidths at: columnIndex put: ((elements atColumn: columnIndex) select: [:el | el notNil] thenCollect: [:el  | el width]) max
+	 ].
+!
+
+computeRowHeights
+
+	rowHeights := Array new: elements rowCount.
+	1 to: elements rowCount do: [ :rowIndex |
+		rowHeights at: rowIndex put: ((elements atRow: rowIndex) select: [:el | el notNil] thenCollect: [:el  | el height]) max
+	 ].
+!
+
+element
+	^ element
+!
+
+element: anObject
+	element := anObject
+!
+
+elements: aCollection 
+
+	| rows  col |
+	rows := (aCollection size / columns) ceiling rounded.
+	col := Array new: rows * columns.
+	1 to: aCollection size do: [ :i | col at: i put: (aCollection at: i)].
+	elements := ROCellMatrix 
+					rows: rows
+					columns: columns 
+					contents: col.
+	self computeColumnWidths.
+	self computeRowHeights.
+!
+
+extent
+
+	^ self width @ self height
+!
+
+height
+
+	^ self rowHeightAt: self row
+!
+
+number
+	^ number
+!
+
+number: anObject
+	number := anObject
+!
+
+row
+
+	^((number - 1) quo: columns) + 1
+!
+
+rowHeightAt: index
+	"private"
+
+	^ rowHeights at: index
+!
+
+width
+
+	^ self columnWidthAt: self column
+! !
+
+!ROCell class methodsFor: 'instance creation'!
+
+elements: aCollection columns: anInteger 
+	
+	^ self new columns: anInteger; elements: aCollection; yourself
+! !
+
+ROObject subclass: #ROCellMatrix
+	instanceVariableNames: 'nrows ncols contents'
+	package: 'ARoassal-Layout'!
+
+!ROCellMatrix methodsFor: 'accessing'!
+
+columnCount
+	^ ncols
+!
+
+rowCount
+	^ nrows
+! !
+
+!ROCellMatrix methodsFor: 'accessing rows/columns'!
+
+atColumn: column
+	| p |
+	p := (self indexForRow: 1 andColumn: column) - ncols.
+	^ (1 to: nrows) collect: [ :row | contents at: (p := p+ncols) ]
+!
+
+atRow: row
+	(row between: 1 and: nrows)
+		ifFalse: [ self error: '1st subscript out of range' ].
+	^ contents copyFrom: (row - 1) * ncols + 1 to: row * ncols
+! !
+
+!ROCellMatrix methodsFor: 'private'!
+
+indexForRow: row andColumn: column
+	(row between: 1 and: nrows)
+		ifFalse: [self error: '1st subscript out of range'].
+	(column between: 1 and: ncols)
+		ifFalse: [self error: '2nd subscript out of range'].
+	^ (row - 1) * ncols + column
+!
+
+rows: rows columns: columns contents: anArray
+	(((rows isInteger and: [rows >= 0]) and: 
+		[columns isInteger and: [columns >= 0]]) and:
+			[ rows * columns = anArray size ]) ifFalse: [ self error: 'Wrong parameters' ].
+	nrows := rows.
+	ncols := columns.
+	contents := anArray
+! !
+
+!ROCellMatrix class methodsFor: 'as yet unclassified'!
+
+rows: rows columns: columns contents: contents
+	^self new rows: rows columns: columns contents: contents
+! !
+
 Object subclass: #ROLayout
 	instanceVariableNames: 'translator affectedNodes'
 	package: 'ARoassal-Layout'!
@@ -30,6 +187,16 @@ executeOnElements: elements
 
 initialize
 	translator := ROLayoutTranslator default.
+!
+
+step
+"
+	currentIteraction := currentIteraction + 1.
+	(currentIteraction \\ self iterationsToSendEvent) = 0 
+		ifTrue: [ self announce: (ROLayoutStep new 
+											currentIteration: currentIteraction;
+											maxInterations: maxInterations) ].
+"
 ! !
 
 !ROLayout class methodsFor: 'not yet classified'!
@@ -37,6 +204,220 @@ initialize
 on: aCollection
 	self new applyOn: aCollection.
 	^ aCollection
+! !
+
+ROLayout subclass: #ROAbstractGridLayout
+	instanceVariableNames: 'gapSize lineItemsCountBlock'
+	package: 'ARoassal-Layout'!
+
+!ROAbstractGridLayout methodsFor: 'accessing'!
+
+defaultLineItemsCount
+	
+	^ [ :elements | 
+			| height width |
+			(elements size < 3 
+				ifTrue: [ (elements size max: 1) @ 1 ]
+				ifFalse: 
+					[ height := (elements size * 0.618034) sqrt ceiling truncated.
+					width := (elements size / height) ceiling truncated.
+					width @ height ]) x ]
+!
+
+gapSize
+	
+	^gapSize
+!
+
+gapSize: anInteger
+	gapSize := anInteger
+!
+
+lineItemsCount: aBlock
+	
+	lineItemsCountBlock := aBlock
+!
+
+lineItemsCountBlock
+	
+	^ lineItemsCountBlock
+! !
+
+!ROAbstractGridLayout methodsFor: 'initialize-release'!
+
+defaultGapSize
+	^ 5
+!
+
+initialize
+	super initialize.
+	gapSize := self defaultGapSize.
+	lineItemsCountBlock := self defaultLineItemsCount.
+! !
+
+!ROAbstractGridLayout class methodsFor: 'instance creation'!
+
+withGap: anInteger 
+
+	^ self new 
+			gapSize: anInteger; 
+			yourself
+!
+
+withGap: anInteger withLineItemsCount: aBlock
+	
+	^self new
+		gapSize: anInteger;
+		lineItemsCount: aBlock;
+		yourself
+!
+
+withLineItemsCount: aBlock
+	
+	^self new
+		lineItemsCount: aBlock;
+		yourself
+! !
+
+!ROAbstractGridLayout class methodsFor: 'public'!
+
+isAbstract
+	^ self name =  #ROAbstractGridLayout
+!
+
+on: aCollectionOfElements withGap: anInteger withLineItemsCount: aBlock
+	"place the elements in a grid with (aBlock roValue: aCollectionOfElements) as the amount of elements horizontally"
+	
+	| myLayout |
+	myLayout := self new gapSize: anInteger;  lineItemsCount: aBlock; yourself.
+	myLayout applyOn: aCollectionOfElements.
+	^ aCollectionOfElements
+!
+
+on: aCollectionOfElements withLineItemsCount: aBlock
+	"place the elements in a grid with (aBlock roValue: aCollectionOfElements) as the amount of elements horizontally
+
+	For example:
+	self on: (ROElement forCollection: (1 to: 20)) withLineItemsCount: 5
+	=> place the 20 elements on a grid 5 x 4
+	
+	self on: (ROElement forCollection: (1 to: 20)) withLineItemsCount: [ :elements | elements size // 3 ]
+	=> place the 20 elements on a grid 3 x 7
+	"
+	
+	
+	| myLayout |
+	myLayout := self new lineItemsCount: aBlock; yourself.
+	myLayout applyOn: aCollectionOfElements.
+	^ aCollectionOfElements
+! !
+
+ROAbstractGridLayout subclass: #ROCellLayout
+	instanceVariableNames: 'inCellPosition'
+	package: 'ARoassal-Layout'!
+!ROCellLayout commentStamp!
+A ROCellLayout is like ROGridLayout. Elements of each column are centered along the same vertical line. And elements of each row are centered along the same horizontal line.
+
+Instance Variables
+	inCellPosition:		<Object | Block>
+
+inCellPosition
+	- Object which computes position of each element inside a cell. The cell is the space allocated for an element. Its height is maximum of heights of elements on the row. Its width is maximum of widths of elements on the column. By default elements are in the middle of their cell.!
+
+!ROCellLayout methodsFor: 'accessing'!
+
+inCellPosition: anObjectOrOneArgBlock
+
+	inCellPosition := anObjectOrOneArgBlock
+!
+
+leftCentred
+
+	self inCellPosition: [ :cell | 0 @ ((cell extent y - cell element height) / 2) ]
+! !
+
+!ROCellLayout methodsFor: 'hook'!
+
+doExecute: elements 
+	| pointer lineItemCount lineItemSize cell |
+	lineItemSize := self lineItemsCountBlock roValue: elements.
+	cell := ROCell elements: elements columns: lineItemSize.
+	pointer := self gapSize @ self gapSize.
+	lineItemCount := 0.
+	elements withIndexDo: 
+		[ :element :index | | inCellPointer |
+		cell element: element; number: index.
+		inCellPointer := inCellPosition roValue: cell.
+		translator translate: element to: pointer + inCellPointer.
+		pointer := (pointer x + cell extent x + (self gapSize * 2)) @ pointer y.
+		lineItemCount := lineItemCount + 1.
+		lineItemCount >= lineItemSize ifTrue: 
+			[ pointer := self gapSize @ (pointer y + (self gapSize * 2) + cell extent y).
+			lineItemCount := 0 ].
+		self step ]
+! !
+
+!ROCellLayout methodsFor: 'initialize-release'!
+
+initialize
+
+	super initialize.
+	inCellPosition :=  [ :cell |
+		((cell extent x - cell element width) / 2) @ ((cell extent y - cell element height) / 2)]
+! !
+
+ROAbstractGridLayout subclass: #ROGridLayout
+	instanceVariableNames: ''
+	package: 'ARoassal-Layout'!
+!ROGridLayout commentStamp!
+A ROGridLayout places elements as a grid.
+
+Instance Variables
+	gapSize:		<SmallInteger>
+	lineItemsCountBlock:		<BlockContext>
+
+gapSize
+	- number of pixels between each elements, horizontally and vertically
+
+lineItemsCountBlock
+	- tells the amount of item per line should be used!
+
+!ROGridLayout methodsFor: 'hook'!
+
+doExecute: elements
+	| pointer lineItemCount lineItemSize maxLastLineHeight originalGapLeft originalGapTop parent oldParentStrategy |
+	originalGapLeft := self paddingLeftFor: elements.
+	originalGapTop := self paddingTopFor: elements.
+	
+	pointer := originalGapLeft @ originalGapTop.
+	lineItemSize := self lineItemsCountBlock roValue: elements.
+	lineItemCount := 0.
+	maxLastLineHeight := 0.
+
+	"We are here assuming all the elements have the same parent"
+	parent := elements anyOne parent.
+	parent isView ifFalse:
+		[oldParentStrategy := elements anyOne parent resizeStrategy.
+		parent resizeStrategy: (ROPermissiveParent new padding: oldParentStrategy padding)].
+
+	elements
+		do: [ :element | 
+			translator translate: element to: pointer.
+			pointer := (pointer x + element width + (self gapSize * 2)) @ pointer y.
+			lineItemCount := lineItemCount + 1.
+			maxLastLineHeight := maxLastLineHeight max: element height.
+			lineItemCount >= lineItemSize
+				ifTrue: [ 
+					pointer := originalGapLeft @ (pointer y + (self gapSize * 2) + maxLastLineHeight).
+					
+					maxLastLineHeight := 0.
+					lineItemCount := 0 ].
+			self step ].
+		
+	"We set the old strategy and adjust the size of the parent"
+	parent isView ifFalse:
+		[parent resizeStrategy: oldParentStrategy.
+		parent adjustSizeIfNecessary].
 ! !
 
 ROLayout subclass: #ROAbstractLineLayout
