@@ -1445,6 +1445,10 @@ ceiling
 	< return Math.ceil(self); >
 !
 
+isInteger
+	^ self = (self asInteger)
+!
+
 max: max in: anInterval 
 	"
 	(0 max: 20 in: (1 to: 10)) == 1
@@ -1591,6 +1595,17 @@ radius: rad theta: angle
 	^(rad * (Math cos: angle))@(rad * (Math sin: angle))
 ! !
 
+!ROElement methodsFor: '*Roassal-Amber-Extentions'!
+
+printString
+	^model isNil
+		 ifTrue:[super printString]
+		ifFalse:[super printString, ('<', model printString, '>')]	
+"	^(super printString,
+		(model ifNotNil: [ 
+		'<',	model printString, '>' ]))"
+! !
+
 !ROEvent methodsFor: '*Roassal-Amber-Extentions'!
 
 asAnnouncement
@@ -1601,16 +1616,5 @@ asAnnouncement
 
 asAnnouncement
 	^self new
-! !
-
-!ROElement methodsFor: '*Roassal-Amber-Extentions'!
-
-printString
-	^model isNil
-		 ifTrue:[super printString]
-		ifFalse:[super printString, ('<', model printString, '>')]	
-"	^(super printString,
-		(model ifNotNil: [ 
-		'<',	model printString, '>' ]))"
 ! !
 

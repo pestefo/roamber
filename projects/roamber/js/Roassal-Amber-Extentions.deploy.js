@@ -3067,6 +3067,19 @@ smalltalk.Number);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "isInteger",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self.__eq(self._asInteger());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isInteger",{},smalltalk.Number)})},
+messageSends: ["=", "asInteger"]}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "max:in:",
 fn: function (max,anInterval){
 var self=this;
@@ -3382,6 +3395,24 @@ smalltalk.Point.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "printString",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=_st(self["@model"])._isNil();
+if(smalltalk.assert($2)){
+$1=smalltalk.ROElement.superclass.fn.prototype._printString.apply(_st(self), []);
+} else {
+$1=_st(smalltalk.ROElement.superclass.fn.prototype._printString.apply(_st(self), [])).__comma(_st("<".__comma(_st(self["@model"])._printString())).__comma(">"));
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"printString",{},smalltalk.ROElement)})},
+messageSends: ["ifTrue:ifFalse:", "printString", ",", "isNil"]}),
+smalltalk.ROElement);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "asAnnouncement",
 fn: function (){
 var self=this;
@@ -3405,22 +3436,4 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"asAnnouncement",{},smalltalk.ROEvent.klass)})},
 messageSends: ["new"]}),
 smalltalk.ROEvent.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "printString",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=_st(self["@model"])._isNil();
-if(smalltalk.assert($2)){
-$1=smalltalk.ROElement.superclass.fn.prototype._printString.apply(_st(self), []);
-} else {
-$1=_st(smalltalk.ROElement.superclass.fn.prototype._printString.apply(_st(self), [])).__comma(_st("<".__comma(_st(self["@model"])._printString())).__comma(">"));
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"printString",{},smalltalk.ROElement)})},
-messageSends: ["ifTrue:ifFalse:", "printString", ",", "isNil"]}),
-smalltalk.ROElement);
 

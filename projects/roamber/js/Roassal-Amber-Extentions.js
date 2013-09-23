@@ -3918,6 +3918,24 @@ smalltalk.Number);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "isInteger",
+category: '*Roassal-Amber-Extentions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self.__eq(self._asInteger());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isInteger",{},smalltalk.Number)})},
+args: [],
+source: "isInteger\x0a\x09^ self = (self asInteger)",
+messageSends: ["=", "asInteger"],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "max:in:",
 category: '*Roassal-Amber-Extentions',
 fn: function (max,anInterval){
@@ -4348,6 +4366,29 @@ smalltalk.Point.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "printString",
+category: '*Roassal-Amber-Extentions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=_st(self["@model"])._isNil();
+if(smalltalk.assert($2)){
+$1=smalltalk.ROElement.superclass.fn.prototype._printString.apply(_st(self), []);
+} else {
+$1=_st(smalltalk.ROElement.superclass.fn.prototype._printString.apply(_st(self), [])).__comma(_st("<".__comma(_st(self["@model"])._printString())).__comma(">"));
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"printString",{},smalltalk.ROElement)})},
+args: [],
+source: "printString\x0a\x09^model isNil\x0a\x09\x09 ifTrue:[super printString]\x0a\x09\x09ifFalse:[super printString, ('<', model printString, '>')]\x09\x0a\x22\x09^(super printString,\x0a\x09\x09(model ifNotNil: [ \x0a\x09\x09'<',\x09model printString, '>' ]))\x22",
+messageSends: ["ifTrue:ifFalse:", "printString", ",", "isNil"],
+referencedClasses: []
+}),
+smalltalk.ROElement);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "asAnnouncement",
 category: '*Roassal-Amber-Extentions',
 fn: function (){
@@ -4381,27 +4422,4 @@ messageSends: ["new"],
 referencedClasses: []
 }),
 smalltalk.ROEvent.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "printString",
-category: '*Roassal-Amber-Extentions',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=_st(self["@model"])._isNil();
-if(smalltalk.assert($2)){
-$1=smalltalk.ROElement.superclass.fn.prototype._printString.apply(_st(self), []);
-} else {
-$1=_st(smalltalk.ROElement.superclass.fn.prototype._printString.apply(_st(self), [])).__comma(_st("<".__comma(_st(self["@model"])._printString())).__comma(">"));
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"printString",{},smalltalk.ROElement)})},
-args: [],
-source: "printString\x0a\x09^model isNil\x0a\x09\x09 ifTrue:[super printString]\x0a\x09\x09ifFalse:[super printString, ('<', model printString, '>')]\x09\x0a\x22\x09^(super printString,\x0a\x09\x09(model ifNotNil: [ \x0a\x09\x09'<',\x09model printString, '>' ]))\x22",
-messageSends: ["ifTrue:ifFalse:", "printString", ",", "isNil"],
-referencedClasses: []
-}),
-smalltalk.ROElement);
 
