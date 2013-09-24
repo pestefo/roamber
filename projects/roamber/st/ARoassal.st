@@ -859,7 +859,7 @@ ROShape subclass: #ROBox
 !ROBox methodsFor: 'configuration'!
 
 defaultSize
-	^ 20
+	^ 15
 ! !
 
 !ROBox methodsFor: 'drawing'!

@@ -2369,10 +2369,10 @@ category: 'configuration',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return (20);
+return (15);
 }, function($ctx1) {$ctx1.fill(self,"defaultSize",{},smalltalk.ROBox)})},
 args: [],
-source: "defaultSize\x0a\x09^ 20",
+source: "defaultSize\x0a\x09^ 15",
 messageSends: [],
 referencedClasses: []
 }),

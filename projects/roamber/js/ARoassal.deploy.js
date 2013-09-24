@@ -1762,7 +1762,7 @@ selector: "defaultSize",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return (20);
+return (15);
 }, function($ctx1) {$ctx1.fill(self,"defaultSize",{},smalltalk.ROBox)})},
 messageSends: []}),
 smalltalk.ROBox);
