@@ -3779,6 +3779,24 @@ smalltalk.String);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "roValue:",
+category: '*Roassal-Amber-Extentions',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(anObject)._perform_(self);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"roValue:",{anObject:anObject},smalltalk.String)})},
+args: ["anObject"],
+source: "roValue: anObject \x0a\x09^ anObject perform: self",
+messageSends: ["perform:"],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "with:",
 category: '*Roassal-Amber-Extentions',
 fn: function (aUTFCharCode){

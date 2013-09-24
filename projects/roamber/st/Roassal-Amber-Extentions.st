@@ -1402,6 +1402,10 @@ lineCount
 	self lineIndicesDo: [:start :endWithoutDelimiters :end |
 		lineCount := lineCount + 1].
 	^lineCount
+!
+
+roValue: anObject 
+	^ anObject perform: self
 ! !
 
 !String class methodsFor: '*Roassal-Amber-Extentions'!

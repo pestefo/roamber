@@ -605,8 +605,9 @@ fn: function (selector){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._updateTextArea_(selector);
+self._updateCanvas_(selector);
 return self}, function($ctx1) {$ctx1.fill(self,"show:",{selector:selector},smalltalk.ROExampleSelector)})},
-messageSends: ["updateTextArea:"]}),
+messageSends: ["updateTextArea:", "updateCanvas:"]}),
 smalltalk.ROExampleSelector);
 
 smalltalk.addMethod(

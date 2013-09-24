@@ -1791,12 +1791,11 @@ var self=this;
 var str,svgText,svgRect;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-str=self._textFor_(anElement);
 svgRect=_st(canvas)._rect_y_width_rect_((0),(0),(1),(1));
 _st(svgRect)._attr_value_("fill","white");
 _st(svgRect)._attr_value_("stroke","gray");
 _st(svgRect)._attr_value_("stroke-width",(2));
-svgText=_st(canvas)._text_y_string_((0),(10),str);
+svgText=_st(canvas)._text_y_string_((0),(10),self["@text"]);
 self["@svgElement"]=_st(canvas)._set();
 $1=self["@svgElement"];
 _st($1)._push_(svgRect);
@@ -1808,7 +1807,7 @@ _st(svgText)._attr_value_("text-anchor","middle");
 _st(svgText)._attr_value_("y",_st(_st(_st(svgRect)._attr_("height")).__slash((2)))._asInteger());
 _st(self["@svgElement"])._translate_y_(_st(_st(anElement)._position())._x(),_st(_st(anElement)._position())._y());
 return self}, function($ctx1) {$ctx1.fill(self,"initializeSVGElementOn:for:",{canvas:canvas,anElement:anElement,str:str,svgText:svgText,svgRect:svgRect},smalltalk.ROLabel)})},
-messageSends: ["textFor:", "rect:y:width:rect:", "attr:value:", "text:y:string:", "set", "push:", "+", "width", "getBBox", "height", "asInteger", "/", "attr:", "translate:y:", "x", "position", "y"]}),
+messageSends: ["rect:y:width:rect:", "attr:value:", "text:y:string:", "set", "push:", "+", "width", "getBBox", "height", "asInteger", "/", "attr:", "translate:y:", "x", "position", "y"]}),
 smalltalk.ROLabel);
 
 smalltalk.addMethod(
@@ -1854,6 +1853,7 @@ var self=this;
 var v;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
+self._halt();
 v=_st(self["@text"])._roValue_(aROElement);
 $2=_st(_st(v)._class()).__eq_eq("abc"._class());
 if(smalltalk.assert($2)){
@@ -1863,7 +1863,7 @@ $1=_st(v)._printString();
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"textFor:",{aROElement:aROElement,v:v},smalltalk.ROLabel)})},
-messageSends: ["roValue:", "ifTrue:ifFalse:", "printString", "==", "class"]}),
+messageSends: ["halt", "roValue:", "ifTrue:ifFalse:", "printString", "==", "class"]}),
 smalltalk.ROLabel);
 
 smalltalk.addMethod(

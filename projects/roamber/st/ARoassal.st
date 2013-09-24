@@ -903,7 +903,7 @@ initializeSVGElementOn: canvas for: anElement
 	
 	"example from: http://stackoverflow.com/questions/8771635/wrap-text-to-fit-into-a-rectangle-raphael"
 	|str svgText svgRect |
-	str := self textFor: anElement.
+	"str := self textFor: anElement."
 	
 	" container rectangle"
 	svgRect := canvas rect: 0
@@ -917,7 +917,7 @@ initializeSVGElementOn: canvas for: anElement
 	" text "
 	svgText := canvas text: 0
 			y:10
-			string: str.
+			string: text.
 	
 	" create set and add the elements "
 	svgElement := canvas  set.
@@ -950,6 +950,7 @@ text: anObject
 
 textFor: aROElement
 	 | v |
+	self halt.
 	v := (text roValue: aROElement).
 	^ (v class == 'abc' class)
 			ifTrue: [ v ]

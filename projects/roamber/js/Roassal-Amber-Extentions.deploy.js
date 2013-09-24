@@ -2968,6 +2968,19 @@ smalltalk.String);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "roValue:",
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(anObject)._perform_(self);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"roValue:",{anObject:anObject},smalltalk.String)})},
+messageSends: ["perform:"]}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "with:",
 fn: function (aUTFCharCode){
 var self=this;

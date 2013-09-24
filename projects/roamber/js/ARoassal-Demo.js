@@ -726,10 +726,11 @@ fn: function (selector){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._updateTextArea_(selector);
+self._updateCanvas_(selector);
 return self}, function($ctx1) {$ctx1.fill(self,"show:",{selector:selector},smalltalk.ROExampleSelector)})},
 args: ["selector"],
-source: "show: selector\x0a\x09self updateTextArea: selector.\x0a\x22\x09self updateCanvas: selector.\x22",
-messageSends: ["updateTextArea:"],
+source: "show: selector\x0a\x09self updateTextArea: selector.\x0a\x09self updateCanvas: selector.",
+messageSends: ["updateTextArea:", "updateCanvas:"],
 referencedClasses: []
 }),
 smalltalk.ROExampleSelector);

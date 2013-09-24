@@ -2433,12 +2433,11 @@ var self=this;
 var str,svgText,svgRect;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-str=self._textFor_(anElement);
 svgRect=_st(canvas)._rect_y_width_rect_((0),(0),(1),(1));
 _st(svgRect)._attr_value_("fill","white");
 _st(svgRect)._attr_value_("stroke","gray");
 _st(svgRect)._attr_value_("stroke-width",(2));
-svgText=_st(canvas)._text_y_string_((0),(10),str);
+svgText=_st(canvas)._text_y_string_((0),(10),self["@text"]);
 self["@svgElement"]=_st(canvas)._set();
 $1=self["@svgElement"];
 _st($1)._push_(svgRect);
@@ -2451,8 +2450,8 @@ _st(svgText)._attr_value_("y",_st(_st(_st(svgRect)._attr_("height")).__slash((2)
 _st(self["@svgElement"])._translate_y_(_st(_st(anElement)._position())._x(),_st(_st(anElement)._position())._y());
 return self}, function($ctx1) {$ctx1.fill(self,"initializeSVGElementOn:for:",{canvas:canvas,anElement:anElement,str:str,svgText:svgText,svgRect:svgRect},smalltalk.ROLabel)})},
 args: ["canvas", "anElement"],
-source: "initializeSVGElementOn: canvas for: anElement\x0a\x09\x22Paper.print(x, y, string, font, [size], [origin], [letter_spacing])\x0a\x09x - position of the text\x0a\x09y - position of the text\x0a\x09string - text to print\x0a\x09font - font object, see --> Paper.getFont(family, [weight], [style], [stretch])\x0a\x09size - size of the font, default is 16\x0a\x09origin - could be baseline' or 'middle' (default)\x0a\x09letter_spacing - number number in range -1..1, default is 0\x0a\x09Returns: object resulting path element, which consist of all letters\x0a   ----------- how to use getFont?????\x0a   \x0a   using paper.text() instead\x0a\x09\x22\x0a\x09\x0a\x09\x22example from: http://stackoverflow.com/questions/8771635/wrap-text-to-fit-into-a-rectangle-raphael\x22\x0a\x09|str svgText svgRect |\x0a\x09str := self textFor: anElement.\x0a\x09\x0a\x09\x22 container rectangle\x22\x0a\x09svgRect := canvas rect: 0\x0a\x09\x09\x09\x09y: 0 \x0a\x09\x09\x09\x09width: 1\x0a\x09\x09\x09\x09rect: 1.\x0a\x09svgRect attr: 'fill' value: 'white'.\x09\x09\x09\x0a\x09svgRect attr: 'stroke' value: 'gray'.\x0a\x09svgRect attr: 'stroke-width' value: 2.\x0a\x09\x09\x09\x09\x0a\x09\x22 text \x22\x0a\x09svgText := canvas text: 0\x0a\x09\x09\x09y:10\x0a\x09\x09\x09string: str.\x0a\x09\x0a\x09\x22 create set and add the elements \x22\x0a\x09svgElement := canvas  set.\x0a\x09svgElement push: svgRect; push: svgText.\x0a\x09\x0a\x09\x22 adapt the size of rectangle \x22\x0a\x09svgRect attr: 'width'  value: svgElement getBBox width + 10.\x0a\x09svgRect attr: 'height' value: svgElement getBBox height + 10.\x0a\x0a\x09\x22 aling text in the middle first horizontally and then vertically\x22\x0a\x09svgText attr: 'x' value: ((svgRect attr: 'width') / 2) asInteger.\x0a\x09svgText  attr: 'text-anchor' value: 'middle'.\x09\x09\x09\x22 fill:'#ff0000','font-size': 14});\x09\x09\x09\x22\x09\x0a\x09svgText attr: 'y' value: ((svgRect attr: 'height') / 2) asInteger.\x0a\x09\x0a\x09\x22 enable translating \x22\x0a\x09svgElement translate:  (anElement position x) y: (anElement position y).\x0a\x09",
-messageSends: ["textFor:", "rect:y:width:rect:", "attr:value:", "text:y:string:", "set", "push:", "+", "width", "getBBox", "height", "asInteger", "/", "attr:", "translate:y:", "x", "position", "y"],
+source: "initializeSVGElementOn: canvas for: anElement\x0a\x09\x22Paper.print(x, y, string, font, [size], [origin], [letter_spacing])\x0a\x09x - position of the text\x0a\x09y - position of the text\x0a\x09string - text to print\x0a\x09font - font object, see --> Paper.getFont(family, [weight], [style], [stretch])\x0a\x09size - size of the font, default is 16\x0a\x09origin - could be baseline' or 'middle' (default)\x0a\x09letter_spacing - number number in range -1..1, default is 0\x0a\x09Returns: object resulting path element, which consist of all letters\x0a   ----------- how to use getFont?????\x0a   \x0a   using paper.text() instead\x0a\x09\x22\x0a\x09\x0a\x09\x22example from: http://stackoverflow.com/questions/8771635/wrap-text-to-fit-into-a-rectangle-raphael\x22\x0a\x09|str svgText svgRect |\x0a\x09\x22str := self textFor: anElement.\x22\x0a\x09\x0a\x09\x22 container rectangle\x22\x0a\x09svgRect := canvas rect: 0\x0a\x09\x09\x09\x09y: 0 \x0a\x09\x09\x09\x09width: 1\x0a\x09\x09\x09\x09rect: 1.\x0a\x09svgRect attr: 'fill' value: 'white'.\x09\x09\x09\x0a\x09svgRect attr: 'stroke' value: 'gray'.\x0a\x09svgRect attr: 'stroke-width' value: 2.\x0a\x09\x09\x09\x09\x0a\x09\x22 text \x22\x0a\x09svgText := canvas text: 0\x0a\x09\x09\x09y:10\x0a\x09\x09\x09string: text.\x0a\x09\x0a\x09\x22 create set and add the elements \x22\x0a\x09svgElement := canvas  set.\x0a\x09svgElement push: svgRect; push: svgText.\x0a\x09\x0a\x09\x22 adapt the size of rectangle \x22\x0a\x09svgRect attr: 'width'  value: svgElement getBBox width + 10.\x0a\x09svgRect attr: 'height' value: svgElement getBBox height + 10.\x0a\x0a\x09\x22 aling text in the middle first horizontally and then vertically\x22\x0a\x09svgText attr: 'x' value: ((svgRect attr: 'width') / 2) asInteger.\x0a\x09svgText  attr: 'text-anchor' value: 'middle'.\x09\x09\x09\x22 fill:'#ff0000','font-size': 14});\x09\x09\x09\x22\x09\x0a\x09svgText attr: 'y' value: ((svgRect attr: 'height') / 2) asInteger.\x0a\x09\x0a\x09\x22 enable translating \x22\x0a\x09svgElement translate:  (anElement position x) y: (anElement position y).\x0a\x09",
+messageSends: ["rect:y:width:rect:", "attr:value:", "text:y:string:", "set", "push:", "+", "width", "getBBox", "height", "asInteger", "/", "attr:", "translate:y:", "x", "position", "y"],
 referencedClasses: []
 }),
 smalltalk.ROLabel);
@@ -2516,6 +2515,7 @@ var self=this;
 var v;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
+self._halt();
 v=_st(self["@text"])._roValue_(aROElement);
 $2=_st(_st(v)._class()).__eq_eq("abc"._class());
 if(smalltalk.assert($2)){
@@ -2526,8 +2526,8 @@ $1=_st(v)._printString();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"textFor:",{aROElement:aROElement,v:v},smalltalk.ROLabel)})},
 args: ["aROElement"],
-source: "textFor: aROElement\x0a\x09 | v |\x0a\x09v := (text roValue: aROElement).\x0a\x09^ (v class == 'abc' class)\x0a\x09\x09\x09ifTrue: [ v ]\x0a\x09\x09\x09ifFalse: [ v printString ]",
-messageSends: ["roValue:", "ifTrue:ifFalse:", "printString", "==", "class"],
+source: "textFor: aROElement\x0a\x09 | v |\x0a\x09self halt.\x0a\x09v := (text roValue: aROElement).\x0a\x09^ (v class == 'abc' class)\x0a\x09\x09\x09ifTrue: [ v ]\x0a\x09\x09\x09ifFalse: [ v printString ]",
+messageSends: ["halt", "roValue:", "ifTrue:ifFalse:", "printString", "==", "class"],
 referencedClasses: []
 }),
 smalltalk.ROLabel);
