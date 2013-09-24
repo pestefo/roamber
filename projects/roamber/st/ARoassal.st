@@ -285,6 +285,68 @@ linesFor: associations
 	^ associations collect: [ :assoc | self lineFrom: assoc key to: assoc value ]
 ! !
 
+!ROEdge class methodsFor: 'public - edges constructions'!
+
+buildEdgesFromAssociations: associations inView: view
+	"associations could be {2 -> 5 . 1 -> 5 }.
+	 Takes the model of element into account"
+	
+	^ self buildEdgesFromElements: associations from: #key to: #value inView: view
+!
+
+buildEdgesFromAssociations: associations using: aLineShape
+	"associations could be {2 -> 5 . 1 -> 5 }.
+	 Takes the model of element into account"
+	
+	^ self buildEdgesFromElements: associations from: #key to: #value using: aLineShape
+!
+
+buildEdgesFromAssociations: associations using: aLineShape inView: view
+	"associations could be {2 -> 5 . 1 -> 5 }.
+	 Takes the model of element into account"
+	
+	| edges associationsOfElements |
+	associationsOfElements := associations collect: [ :assoc | (view elementFromModel: assoc key) -> (view elementFromModel: assoc value) ].
+	associationsOfElements ifEmpty: [ ^ #() ].
+	
+	edges := OrderedCollection new.
+	associationsOfElements do: [ :associationOfTwoElements |
+				| edge |
+				edge := ROEdge from: associationOfTwoElements key to: associationOfTwoElements value. 
+				edge + aLineShape.
+				edges add: edge ].
+	view addAll: edges.
+	^ edges
+!
+
+buildEdgesFromElements: elements from: fromBlock to: toBlock
+	"Handy method to easily build edges. Return a list of edges"
+
+	^ self buildEdgesFromElements: elements from: fromBlock to: toBlock using: ROLine
+!
+
+buildEdgesFromElements: elements from: fromBlock to: toBlock using: aLineShape
+	"Handy method to easily build edges. Return a list of edges"
+	"fromBlock and toBlock operate on the model of the elements"
+
+	| edges container fromElement toElement elementsWithModels |
+	elements ifEmpty: [ ^ #() ].
+	edges := OrderedCollection new.
+	elementsWithModels := elements select: [ :el | el model notNil ].
+	elementsWithModels do: [ :element |
+		container := element parent.
+		fromElement := container elementFromModel: (fromBlock roValue: element model).
+		toElement := container elementFromModel: (toBlock roValue: element model).
+		(fromElement notNil and: [ toElement notNil ])
+			ifTrue: [  
+				| edge |
+				edge := ROEdge from: fromElement to: toElement. 
+				edge + aLineShape.
+				edges add: edge.
+				container add: edge ] ].
+	^ edges
+! !
+
 ROAbstractComponent subclass: #ROElement
 	instanceVariableNames: 'position'
 	package: 'ARoassal'!
@@ -806,16 +868,16 @@ initializeSVGElementOn: canvas for: anElement
 	svgElement:= canvas 
 		rect: (anElement position x)
 		y: (anElement position y) 
-		width: (self widthFor: anElement) 
-		height: (self heightFor: anElement).
+		width: ((self widthFor: anElement ) max: (self defaultSize)) 
+		height: ((self heightFor: anElement) max: (self defaultSize)) .
 !
 
 updateSVGElementOn: canvas for: anElement
 	svgElement 
 		attr: 'x' with: (anElement position x);
 		attr: 'y' with: (anElement position y);
-		attr: 'width' with: (self widthFor: anElement);
-		attr: 'height' with: (self heightFor: anElement);
+		attr: 'width' with: ((self widthFor: anElement ) max: (self defaultSize));
+		attr: 'height' with: ((self heightFor: anElement) max: (self defaultSize));
 		attr:'fill' with: 'lightGray'.
 ! !
 

@@ -547,6 +547,136 @@ smalltalk.ROEdge);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "buildEdgesFromAssociations:inView:",
+fn: function (associations,view){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._buildEdgesFromElements_from_to_inView_(associations,"key","value",view);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"buildEdgesFromAssociations:inView:",{associations:associations,view:view},smalltalk.ROEdge.klass)})},
+messageSends: ["buildEdgesFromElements:from:to:inView:"]}),
+smalltalk.ROEdge.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "buildEdgesFromAssociations:using:",
+fn: function (associations,aLineShape){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._buildEdgesFromElements_from_to_using_(associations,"key","value",aLineShape);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"buildEdgesFromAssociations:using:",{associations:associations,aLineShape:aLineShape},smalltalk.ROEdge.klass)})},
+messageSends: ["buildEdgesFromElements:from:to:using:"]}),
+smalltalk.ROEdge.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "buildEdgesFromAssociations:using:inView:",
+fn: function (associations,aLineShape,view){
+var self=this;
+var edges,associationsOfElements;
+function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
+function $ROEdge(){return smalltalk.ROEdge||(typeof ROEdge=="undefined"?nil:ROEdge)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+var $early={};
+try {
+associationsOfElements=_st(associations)._collect_((function(assoc){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(view)._elementFromModel_(_st(assoc)._key())).__minus_gt(_st(view)._elementFromModel_(_st(assoc)._value()));
+}, function($ctx2) {$ctx2.fillBlock({assoc:assoc},$ctx1)})}));
+_st(associationsOfElements)._ifEmpty_((function(){
+return smalltalk.withContext(function($ctx2) {
+$1=[];
+throw $early=[$1];
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+edges=_st($OrderedCollection())._new();
+_st(associationsOfElements)._do_((function(associationOfTwoElements){
+var edge;
+return smalltalk.withContext(function($ctx2) {
+edge=_st($ROEdge())._from_to_(_st(associationOfTwoElements)._key(),_st(associationOfTwoElements)._value());
+edge;
+_st(edge).__plus(aLineShape);
+return _st(edges)._add_(edge);
+}, function($ctx2) {$ctx2.fillBlock({associationOfTwoElements:associationOfTwoElements,edge:edge},$ctx1)})}));
+_st(view)._addAll_(edges);
+$2=edges;
+return $2;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"buildEdgesFromAssociations:using:inView:",{associations:associations,aLineShape:aLineShape,view:view,edges:edges,associationsOfElements:associationsOfElements},smalltalk.ROEdge.klass)})},
+messageSends: ["collect:", "->", "elementFromModel:", "value", "key", "ifEmpty:", "new", "do:", "from:to:", "+", "add:", "addAll:"]}),
+smalltalk.ROEdge.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "buildEdgesFromElements:from:to:",
+fn: function (elements,fromBlock,toBlock){
+var self=this;
+function $ROLine(){return smalltalk.ROLine||(typeof ROLine=="undefined"?nil:ROLine)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._buildEdgesFromElements_from_to_using_(elements,fromBlock,toBlock,$ROLine());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"buildEdgesFromElements:from:to:",{elements:elements,fromBlock:fromBlock,toBlock:toBlock},smalltalk.ROEdge.klass)})},
+messageSends: ["buildEdgesFromElements:from:to:using:"]}),
+smalltalk.ROEdge.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "buildEdgesFromElements:from:to:using:",
+fn: function (elements,fromBlock,toBlock,aLineShape){
+var self=this;
+var edges,container,fromElement,toElement,elementsWithModels;
+function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
+function $ROEdge(){return smalltalk.ROEdge||(typeof ROEdge=="undefined"?nil:ROEdge)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+var $early={};
+try {
+_st(elements)._ifEmpty_((function(){
+return smalltalk.withContext(function($ctx2) {
+$1=[];
+throw $early=[$1];
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+edges=_st($OrderedCollection())._new();
+elementsWithModels=_st(elements)._select_((function(el){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(el)._model())._notNil();
+}, function($ctx2) {$ctx2.fillBlock({el:el},$ctx1)})}));
+_st(elementsWithModels)._do_((function(element){
+return smalltalk.withContext(function($ctx2) {
+container=_st(element)._parent();
+container;
+fromElement=_st(container)._elementFromModel_(_st(fromBlock)._roValue_(_st(element)._model()));
+fromElement;
+toElement=_st(container)._elementFromModel_(_st(toBlock)._roValue_(_st(element)._model()));
+toElement;
+$2=_st(_st(fromElement)._notNil())._and_((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(toElement)._notNil();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
+if(smalltalk.assert($2)){
+var edge;
+edge=_st($ROEdge())._from_to_(fromElement,toElement);
+edge;
+_st(edge).__plus(aLineShape);
+_st(edges)._add_(edge);
+return _st(container)._add_(edge);
+};
+}, function($ctx2) {$ctx2.fillBlock({element:element},$ctx1)})}));
+$3=edges;
+return $3;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"buildEdgesFromElements:from:to:using:",{elements:elements,fromBlock:fromBlock,toBlock:toBlock,aLineShape:aLineShape,edges:edges,container:container,fromElement:fromElement,toElement:toElement,elementsWithModels:elementsWithModels},smalltalk.ROEdge.klass)})},
+messageSends: ["ifEmpty:", "new", "select:", "notNil", "model", "do:", "parent", "elementFromModel:", "roValue:", "ifTrue:", "from:to:", "+", "add:", "and:"]}),
+smalltalk.ROEdge.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "from:to:",
 fn: function (el1,el2){
 var self=this;
@@ -1668,9 +1798,9 @@ selector: "initializeSVGElementOn:for:",
 fn: function (canvas,anElement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self["@svgElement"]=_st(canvas)._rect_y_width_height_(_st(_st(anElement)._position())._x(),_st(_st(anElement)._position())._y(),self._widthFor_(anElement),self._heightFor_(anElement));
+self["@svgElement"]=_st(canvas)._rect_y_width_height_(_st(_st(anElement)._position())._x(),_st(_st(anElement)._position())._y(),_st(self._widthFor_(anElement))._max_(self._defaultSize()),_st(self._heightFor_(anElement))._max_(self._defaultSize()));
 return self}, function($ctx1) {$ctx1.fill(self,"initializeSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROBox)})},
-messageSends: ["rect:y:width:height:", "x", "position", "y", "widthFor:", "heightFor:"]}),
+messageSends: ["rect:y:width:height:", "x", "position", "y", "max:", "defaultSize", "widthFor:", "heightFor:"]}),
 smalltalk.ROBox);
 
 smalltalk.addMethod(
@@ -1683,11 +1813,11 @@ var $1,$2;
 $1=self["@svgElement"];
 _st($1)._attr_with_("x",_st(_st(anElement)._position())._x());
 _st($1)._attr_with_("y",_st(_st(anElement)._position())._y());
-_st($1)._attr_with_("width",self._widthFor_(anElement));
-_st($1)._attr_with_("height",self._heightFor_(anElement));
+_st($1)._attr_with_("width",_st(self._widthFor_(anElement))._max_(self._defaultSize()));
+_st($1)._attr_with_("height",_st(self._heightFor_(anElement))._max_(self._defaultSize()));
 $2=_st($1)._attr_with_("fill","lightGray");
 return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROBox)})},
-messageSends: ["attr:with:", "x", "position", "y", "widthFor:", "heightFor:"]}),
+messageSends: ["attr:with:", "x", "position", "y", "max:", "defaultSize", "widthFor:", "heightFor:"]}),
 smalltalk.ROBox);
 
 smalltalk.addMethod(

@@ -723,6 +723,161 @@ smalltalk.ROEdge);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "buildEdgesFromAssociations:inView:",
+category: 'public - edges constructions',
+fn: function (associations,view){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._buildEdgesFromElements_from_to_inView_(associations,"key","value",view);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"buildEdgesFromAssociations:inView:",{associations:associations,view:view},smalltalk.ROEdge.klass)})},
+args: ["associations", "view"],
+source: "buildEdgesFromAssociations: associations inView: view\x0a\x09\x22associations could be {2 -> 5 . 1 -> 5 }.\x0a\x09 Takes the model of element into account\x22\x0a\x09\x0a\x09^ self buildEdgesFromElements: associations from: #key to: #value inView: view",
+messageSends: ["buildEdgesFromElements:from:to:inView:"],
+referencedClasses: []
+}),
+smalltalk.ROEdge.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "buildEdgesFromAssociations:using:",
+category: 'public - edges constructions',
+fn: function (associations,aLineShape){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._buildEdgesFromElements_from_to_using_(associations,"key","value",aLineShape);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"buildEdgesFromAssociations:using:",{associations:associations,aLineShape:aLineShape},smalltalk.ROEdge.klass)})},
+args: ["associations", "aLineShape"],
+source: "buildEdgesFromAssociations: associations using: aLineShape\x0a\x09\x22associations could be {2 -> 5 . 1 -> 5 }.\x0a\x09 Takes the model of element into account\x22\x0a\x09\x0a\x09^ self buildEdgesFromElements: associations from: #key to: #value using: aLineShape",
+messageSends: ["buildEdgesFromElements:from:to:using:"],
+referencedClasses: []
+}),
+smalltalk.ROEdge.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "buildEdgesFromAssociations:using:inView:",
+category: 'public - edges constructions',
+fn: function (associations,aLineShape,view){
+var self=this;
+var edges,associationsOfElements;
+function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
+function $ROEdge(){return smalltalk.ROEdge||(typeof ROEdge=="undefined"?nil:ROEdge)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+var $early={};
+try {
+associationsOfElements=_st(associations)._collect_((function(assoc){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(view)._elementFromModel_(_st(assoc)._key())).__minus_gt(_st(view)._elementFromModel_(_st(assoc)._value()));
+}, function($ctx2) {$ctx2.fillBlock({assoc:assoc},$ctx1)})}));
+_st(associationsOfElements)._ifEmpty_((function(){
+return smalltalk.withContext(function($ctx2) {
+$1=[];
+throw $early=[$1];
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+edges=_st($OrderedCollection())._new();
+_st(associationsOfElements)._do_((function(associationOfTwoElements){
+var edge;
+return smalltalk.withContext(function($ctx2) {
+edge=_st($ROEdge())._from_to_(_st(associationOfTwoElements)._key(),_st(associationOfTwoElements)._value());
+edge;
+_st(edge).__plus(aLineShape);
+return _st(edges)._add_(edge);
+}, function($ctx2) {$ctx2.fillBlock({associationOfTwoElements:associationOfTwoElements,edge:edge},$ctx1)})}));
+_st(view)._addAll_(edges);
+$2=edges;
+return $2;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"buildEdgesFromAssociations:using:inView:",{associations:associations,aLineShape:aLineShape,view:view,edges:edges,associationsOfElements:associationsOfElements},smalltalk.ROEdge.klass)})},
+args: ["associations", "aLineShape", "view"],
+source: "buildEdgesFromAssociations: associations using: aLineShape inView: view\x0a\x09\x22associations could be {2 -> 5 . 1 -> 5 }.\x0a\x09 Takes the model of element into account\x22\x0a\x09\x0a\x09| edges associationsOfElements |\x0a\x09associationsOfElements := associations collect: [ :assoc | (view elementFromModel: assoc key) -> (view elementFromModel: assoc value) ].\x0a\x09associationsOfElements ifEmpty: [ ^ #() ].\x0a\x09\x0a\x09edges := OrderedCollection new.\x0a\x09associationsOfElements do: [ :associationOfTwoElements |\x0a\x09\x09\x09\x09| edge |\x0a\x09\x09\x09\x09edge := ROEdge from: associationOfTwoElements key to: associationOfTwoElements value. \x0a\x09\x09\x09\x09edge + aLineShape.\x0a\x09\x09\x09\x09edges add: edge ].\x0a\x09view addAll: edges.\x0a\x09^ edges",
+messageSends: ["collect:", "->", "elementFromModel:", "value", "key", "ifEmpty:", "new", "do:", "from:to:", "+", "add:", "addAll:"],
+referencedClasses: ["OrderedCollection", "ROEdge"]
+}),
+smalltalk.ROEdge.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "buildEdgesFromElements:from:to:",
+category: 'public - edges constructions',
+fn: function (elements,fromBlock,toBlock){
+var self=this;
+function $ROLine(){return smalltalk.ROLine||(typeof ROLine=="undefined"?nil:ROLine)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._buildEdgesFromElements_from_to_using_(elements,fromBlock,toBlock,$ROLine());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"buildEdgesFromElements:from:to:",{elements:elements,fromBlock:fromBlock,toBlock:toBlock},smalltalk.ROEdge.klass)})},
+args: ["elements", "fromBlock", "toBlock"],
+source: "buildEdgesFromElements: elements from: fromBlock to: toBlock\x0a\x09\x22Handy method to easily build edges. Return a list of edges\x22\x0a\x0a\x09^ self buildEdgesFromElements: elements from: fromBlock to: toBlock using: ROLine",
+messageSends: ["buildEdgesFromElements:from:to:using:"],
+referencedClasses: ["ROLine"]
+}),
+smalltalk.ROEdge.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "buildEdgesFromElements:from:to:using:",
+category: 'public - edges constructions',
+fn: function (elements,fromBlock,toBlock,aLineShape){
+var self=this;
+var edges,container,fromElement,toElement,elementsWithModels;
+function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
+function $ROEdge(){return smalltalk.ROEdge||(typeof ROEdge=="undefined"?nil:ROEdge)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+var $early={};
+try {
+_st(elements)._ifEmpty_((function(){
+return smalltalk.withContext(function($ctx2) {
+$1=[];
+throw $early=[$1];
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+edges=_st($OrderedCollection())._new();
+elementsWithModels=_st(elements)._select_((function(el){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(el)._model())._notNil();
+}, function($ctx2) {$ctx2.fillBlock({el:el},$ctx1)})}));
+_st(elementsWithModels)._do_((function(element){
+return smalltalk.withContext(function($ctx2) {
+container=_st(element)._parent();
+container;
+fromElement=_st(container)._elementFromModel_(_st(fromBlock)._roValue_(_st(element)._model()));
+fromElement;
+toElement=_st(container)._elementFromModel_(_st(toBlock)._roValue_(_st(element)._model()));
+toElement;
+$2=_st(_st(fromElement)._notNil())._and_((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(toElement)._notNil();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
+if(smalltalk.assert($2)){
+var edge;
+edge=_st($ROEdge())._from_to_(fromElement,toElement);
+edge;
+_st(edge).__plus(aLineShape);
+_st(edges)._add_(edge);
+return _st(container)._add_(edge);
+};
+}, function($ctx2) {$ctx2.fillBlock({element:element},$ctx1)})}));
+$3=edges;
+return $3;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"buildEdgesFromElements:from:to:using:",{elements:elements,fromBlock:fromBlock,toBlock:toBlock,aLineShape:aLineShape,edges:edges,container:container,fromElement:fromElement,toElement:toElement,elementsWithModels:elementsWithModels},smalltalk.ROEdge.klass)})},
+args: ["elements", "fromBlock", "toBlock", "aLineShape"],
+source: "buildEdgesFromElements: elements from: fromBlock to: toBlock using: aLineShape\x0a\x09\x22Handy method to easily build edges. Return a list of edges\x22\x0a\x09\x22fromBlock and toBlock operate on the model of the elements\x22\x0a\x0a\x09| edges container fromElement toElement elementsWithModels |\x0a\x09elements ifEmpty: [ ^ #() ].\x0a\x09edges := OrderedCollection new.\x0a\x09elementsWithModels := elements select: [ :el | el model notNil ].\x0a\x09elementsWithModels do: [ :element |\x0a\x09\x09container := element parent.\x0a\x09\x09fromElement := container elementFromModel: (fromBlock roValue: element model).\x0a\x09\x09toElement := container elementFromModel: (toBlock roValue: element model).\x0a\x09\x09(fromElement notNil and: [ toElement notNil ])\x0a\x09\x09\x09ifTrue: [  \x0a\x09\x09\x09\x09| edge |\x0a\x09\x09\x09\x09edge := ROEdge from: fromElement to: toElement. \x0a\x09\x09\x09\x09edge + aLineShape.\x0a\x09\x09\x09\x09edges add: edge.\x0a\x09\x09\x09\x09container add: edge ] ].\x0a\x09^ edges",
+messageSends: ["ifEmpty:", "new", "select:", "notNil", "model", "do:", "parent", "elementFromModel:", "roValue:", "ifTrue:", "from:to:", "+", "add:", "and:"],
+referencedClasses: ["OrderedCollection", "ROEdge"]
+}),
+smalltalk.ROEdge.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "from:to:",
 category: 'public',
 fn: function (el1,el2){
@@ -2265,11 +2420,11 @@ category: 'drawing',
 fn: function (canvas,anElement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self["@svgElement"]=_st(canvas)._rect_y_width_height_(_st(_st(anElement)._position())._x(),_st(_st(anElement)._position())._y(),self._widthFor_(anElement),self._heightFor_(anElement));
+self["@svgElement"]=_st(canvas)._rect_y_width_height_(_st(_st(anElement)._position())._x(),_st(_st(anElement)._position())._y(),_st(self._widthFor_(anElement))._max_(self._defaultSize()),_st(self._heightFor_(anElement))._max_(self._defaultSize()));
 return self}, function($ctx1) {$ctx1.fill(self,"initializeSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROBox)})},
 args: ["canvas", "anElement"],
-source: "initializeSVGElementOn: canvas for: anElement\x0a\x09svgElement:= canvas \x0a\x09\x09rect: (anElement position x)\x0a\x09\x09y: (anElement position y) \x0a\x09\x09width: (self widthFor: anElement) \x0a\x09\x09height: (self heightFor: anElement).\x0a\x09\x09",
-messageSends: ["rect:y:width:height:", "x", "position", "y", "widthFor:", "heightFor:"],
+source: "initializeSVGElementOn: canvas for: anElement\x0a\x09svgElement:= canvas \x0a\x09\x09rect: (anElement position x)\x0a\x09\x09y: (anElement position y) \x0a\x09\x09width: ((self widthFor: anElement ) max: (self defaultSize)) \x0a\x09\x09height: ((self heightFor: anElement) max: (self defaultSize)) .\x0a\x09\x09",
+messageSends: ["rect:y:width:height:", "x", "position", "y", "max:", "defaultSize", "widthFor:", "heightFor:"],
 referencedClasses: []
 }),
 smalltalk.ROBox);
@@ -2285,13 +2440,13 @@ var $1,$2;
 $1=self["@svgElement"];
 _st($1)._attr_with_("x",_st(_st(anElement)._position())._x());
 _st($1)._attr_with_("y",_st(_st(anElement)._position())._y());
-_st($1)._attr_with_("width",self._widthFor_(anElement));
-_st($1)._attr_with_("height",self._heightFor_(anElement));
+_st($1)._attr_with_("width",_st(self._widthFor_(anElement))._max_(self._defaultSize()));
+_st($1)._attr_with_("height",_st(self._heightFor_(anElement))._max_(self._defaultSize()));
 $2=_st($1)._attr_with_("fill","lightGray");
 return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROBox)})},
 args: ["canvas", "anElement"],
-source: "updateSVGElementOn: canvas for: anElement\x0a\x09svgElement \x0a\x09\x09attr: 'x' with: (anElement position x);\x0a\x09\x09attr: 'y' with: (anElement position y);\x0a\x09\x09attr: 'width' with: (self widthFor: anElement);\x0a\x09\x09attr: 'height' with: (self heightFor: anElement);\x0a\x09\x09attr:'fill' with: 'lightGray'.",
-messageSends: ["attr:with:", "x", "position", "y", "widthFor:", "heightFor:"],
+source: "updateSVGElementOn: canvas for: anElement\x0a\x09svgElement \x0a\x09\x09attr: 'x' with: (anElement position x);\x0a\x09\x09attr: 'y' with: (anElement position y);\x0a\x09\x09attr: 'width' with: ((self widthFor: anElement ) max: (self defaultSize));\x0a\x09\x09attr: 'height' with: ((self heightFor: anElement) max: (self defaultSize));\x0a\x09\x09attr:'fill' with: 'lightGray'.\x0a\x09\x09",
+messageSends: ["attr:with:", "x", "position", "y", "max:", "defaultSize", "widthFor:", "heightFor:"],
 referencedClasses: []
 }),
 smalltalk.ROBox);
