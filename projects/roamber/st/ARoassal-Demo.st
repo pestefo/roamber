@@ -37,6 +37,22 @@ ROObject subclass: #ROExample
 
 !ROExample methodsFor: 'not yet classified'!
 
+boxGenerator
+	| view el e |
+	view := ROView new.
+	el := ROElement new.
+	el shape: (ROBox new).
+	view add: el.
+	el on: ROMouseClick do: [:event | 
+		e := ROBox element.
+		e extent: view elements size @ view elements size.
+		Transcript show: view elements size printString; cr.
+		view add: e. 
+		ROCellLayout on: view elements.
+		view signalUpdate].
+	view open.
+!
+
 cellLayout
 | view |
 view := ROView new.

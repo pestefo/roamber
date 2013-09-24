@@ -1387,6 +1387,18 @@ smalltalk.ROShape);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "extent:",
+fn: function (aPoint){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._width_(_st(aPoint)._x());
+self._height_(_st(aPoint)._y());
+return self}, function($ctx1) {$ctx1.fill(self,"extent:",{aPoint:aPoint},smalltalk.ROShape)})},
+messageSends: ["width:", "x", "height:", "y"]}),
+smalltalk.ROShape);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "extentFor:",
 fn: function (element) {
 var self=this;

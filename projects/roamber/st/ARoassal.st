@@ -703,6 +703,11 @@ drawOn: canvas for: anElement
 		self updateSVGElementOn: canvas for: anElement.
 !
 
+extent: aPoint
+	self width: aPoint x.
+	self height: aPoint y.
+!
+
 extentFor: element
 	"Return the extent of element"
 	

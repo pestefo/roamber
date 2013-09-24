@@ -84,6 +84,47 @@ smalltalk.RODemo.klass);
 smalltalk.addClass('ROExample', smalltalk.ROObject, [], 'ARoassal-Demo');
 smalltalk.addMethod(
 smalltalk.method({
+selector: "boxGenerator",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+var view,el,e;
+function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
+function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
+function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
+function $ROMouseClick(){return smalltalk.ROMouseClick||(typeof ROMouseClick=="undefined"?nil:ROMouseClick)}
+function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
+function $ROCellLayout(){return smalltalk.ROCellLayout||(typeof ROCellLayout=="undefined"?nil:ROCellLayout)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+view=_st($ROView())._new();
+el=_st($ROElement())._new();
+_st(el)._shape_(_st($ROBox())._new());
+_st(view)._add_(el);
+_st(el)._on_do_($ROMouseClick(),(function(event){
+return smalltalk.withContext(function($ctx2) {
+e=_st($ROBox())._element();
+e;
+_st(e)._extent_(_st(_st(_st(view)._elements())._size()).__at(_st(_st(view)._elements())._size()));
+$1=$Transcript();
+_st($1)._show_(_st(_st(_st(view)._elements())._size())._printString());
+$2=_st($1)._cr();
+$2;
+_st(view)._add_(e);
+_st($ROCellLayout())._on_(_st(view)._elements());
+return _st(view)._signalUpdate();
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
+_st(view)._open();
+return self}, function($ctx1) {$ctx1.fill(self,"boxGenerator",{view:view,el:el,e:e},smalltalk.ROExample)})},
+args: [],
+source: "boxGenerator\x0a\x09| view el e |\x0a\x09view := ROView new.\x0a\x09el := ROElement new.\x0a\x09el shape: (ROBox new).\x0a\x09view add: el.\x0a\x09el on: ROMouseClick do: [:event | \x0a\x09\x09e := ROBox element.\x0a\x09\x09e extent: view elements size @ view elements size.\x0a\x09\x09Transcript show: view elements size printString; cr.\x0a\x09\x09view add: e. \x0a\x09\x09ROCellLayout on: view elements.\x0a\x09\x09view signalUpdate].\x0a\x09view open.",
+messageSends: ["new", "shape:", "add:", "on:do:", "element", "extent:", "@", "size", "elements", "show:", "printString", "cr", "on:", "signalUpdate", "open"],
+referencedClasses: ["ROView", "ROElement", "ROBox", "ROMouseClick", "Transcript", "ROCellLayout"]
+}),
+smalltalk.ROExample);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "cellLayout",
 category: 'not yet classified',
 fn: function (){
