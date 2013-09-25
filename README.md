@@ -3,7 +3,7 @@ Roassal in Amber
 Roassal is an agile visualization engine for Smalltalk-like programming languages.
 This github repository contains a port for Amber.
 
-This project is developed by [Pablo Estefó](http://about.me/pestefo) and mentored by [Alexandre Bergel](http://bergel.eu) and Manfred Kröhnert.
+This project is developed by [Pablo Estefó](http://about.me/pestefo) and mentored by [Alexandre Bergel](http://bergel.eu) and [Manfred Kröhnert](http://github.com/mkroehnert).
 
 ## Installation
 For running Roassal, we need you have [NodeJS (a JavaScript server)](#1---install-nodejs) installed.
