@@ -1,4 +1,232 @@
 smalltalk.addPackage('ARoassal');
+smalltalk.addClass('Color', smalltalk.Object, ['r', 'g', 'b'], 'ARoassal');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "b",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@b"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"b",{},smalltalk.Color)})},
+args: [],
+source: "b\x0a\x09^ b",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Color);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "cleanValue:",
+category: 'not yet classified',
+fn: function (anInteger){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+$1=_st(anInteger).__gt((255));
+if(smalltalk.assert($1)){
+return (255);
+} else {
+$2=_st(anInteger).__lt((0));
+if(smalltalk.assert($2)){
+return (0);
+};
+};
+$3=anInteger;
+return $3;
+}, function($ctx1) {$ctx1.fill(self,"cleanValue:",{anInteger:anInteger},smalltalk.Color)})},
+args: ["anInteger"],
+source: "cleanValue: anInteger\x0a\x09\x22 Clean for possible mistaken values\x22\x0a\x09(anInteger > 255) \x0a\x09\x09ifTrue: [^ 255]\x0a\x09\x09ifFalse: [\x0a\x09\x09\x09(anInteger < 0) ifTrue: [^ 0] ].\x0a\x09^ anInteger.",
+messageSends: ["ifTrue:ifFalse:", "ifTrue:", "<", ">"],
+referencedClasses: []
+}),
+smalltalk.Color);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "g",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@g"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"g",{},smalltalk.Color)})},
+args: [],
+source: "g\x0a\x09^ g",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Color);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "r",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@r"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"r",{},smalltalk.Color)})},
+args: [],
+source: "r\x0a\x09^ r",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Color);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "r:g:b:",
+category: 'not yet classified',
+fn: function (rVal,gVal,bVal){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@r"]=self._cleanValue_(rVal);
+self["@g"]=self._cleanValue_(gVal);
+self["@b"]=self._cleanValue_(bVal);
+return self}, function($ctx1) {$ctx1.fill(self,"r:g:b:",{rVal:rVal,gVal:gVal,bVal:bVal},smalltalk.Color)})},
+args: ["rVal", "gVal", "bVal"],
+source: "r: rVal g: gVal b: bVal\x0a\x09r :=  self cleanValue: rVal.\x0a\x09g :=  self cleanValue: gVal.\x0a\x09b:=  self cleanValue: bVal. \x0a\x09\x09\x09\x09",
+messageSends: ["cleanValue:"],
+referencedClasses: []
+}),
+smalltalk.Color);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "black",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._new())._r_g_b_((0),(0),(0));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"black",{},smalltalk.Color.klass)})},
+args: [],
+source: "black\x0a\x09^ self new r: 0 g: 0 b: 0",
+messageSends: ["r:g:b:", "new"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "blue",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._new())._r_g_b_((0),(0),(255));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"blue",{},smalltalk.Color.klass)})},
+args: [],
+source: "blue\x0a\x09^ self new r: 0 g: 0 b: 255",
+messageSends: ["r:g:b:", "new"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "green",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._new())._r_g_b_((0),(255),(0));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"green",{},smalltalk.Color.klass)})},
+args: [],
+source: "green\x0a\x09^ self new r: 0 g: 255 b: 0",
+messageSends: ["r:g:b:", "new"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "lightGray",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._new())._r_g_b_((211),(211),(211));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"lightGray",{},smalltalk.Color.klass)})},
+args: [],
+source: "lightGray\x0a\x09^ self new r: 211 g: 211 b: 211",
+messageSends: ["r:g:b:", "new"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "r:g:b:",
+category: 'not yet classified',
+fn: function (rVal,gVal,bVal){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._new())._r_g_b_(rVal,gVal,bVal);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"r:g:b:",{rVal:rVal,gVal:gVal,bVal:bVal},smalltalk.Color.klass)})},
+args: ["rVal", "gVal", "bVal"],
+source: "r: rVal g: gVal b: bVal\x0a\x09^ self new r: rVal g: gVal b: bVal.",
+messageSends: ["r:g:b:", "new"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "red",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._new())._r_g_b_((255),(0),(0));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"red",{},smalltalk.Color.klass)})},
+args: [],
+source: "red\x0a\x09^ self new r: 255 g: 0 b: 0",
+messageSends: ["r:g:b:", "new"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "white",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._new())._r_g_b_((255),(255),(255));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"white",{},smalltalk.Color.klass)})},
+args: [],
+source: "white\x0a\x09^ self new r: 255 g: 255 b: 255",
+messageSends: ["r:g:b:", "new"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+
 smalltalk.addClass('ROAnnouncer', smalltalk.Announcer, ['forwarding', 'announcer'], 'ARoassal');
 smalltalk.ROAnnouncer.comment="A ROAnnouncer is a wrapper of Announcer, this object receive and emit events. Each roassal element has an roannouncer.\x0a";
 smalltalk.addMethod(
@@ -1019,6 +1247,22 @@ smalltalk.ROElement);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "color:",
+category: 'accessing',
+fn: function (aColor){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._shape())._color_(aColor);
+return self}, function($ctx1) {$ctx1.fill(self,"color:",{aColor:aColor},smalltalk.ROElement)})},
+args: ["aColor"],
+source: "color: aColor\x0a\x09self shape color: aColor.",
+messageSends: ["color:", "shape"],
+referencedClasses: []
+}),
+smalltalk.ROElement);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "drawOn:",
 category: 'drawing',
 fn: function (canvas){
@@ -1757,15 +2001,18 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "color:",
 category: 'accessing',
-fn: function (aString){
+fn: function (aColor){
 var self=this;
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
+function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 return smalltalk.withContext(function($ctx1) { 
-self["@color"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"color:",{aString:aString},smalltalk.ROShape)})},
-args: ["aString"],
-source: "color:\x09 aString\x0a\x09\x0a\x09color := aString\x0a\x09",
-messageSends: [],
-referencedClasses: []
+self["@color"]=_st(_st(_st(_st(_st(_st(aColor)._r())._asString()).__comma(",")).__comma(_st(_st(aColor)._g())._asString())).__comma(",")).__comma(_st(_st(aColor)._b())._asString());
+_st($Transcript())._show_(_st(self["@color"]).__comma(_st($String())._cr()));
+return self}, function($ctx1) {$ctx1.fill(self,"color:",{aColor:aColor},smalltalk.ROShape)})},
+args: ["aColor"],
+source: "color:\x09 aColor\x0a\x09color :=  (aColor r asString),',',(aColor g asString),',',(aColor b asString).\x0a\x09Transcript show: color,(String cr).\x0a\x09",
+messageSends: [",", "asString", "b", "g", "r", "show:", "cr"],
+referencedClasses: ["String", "Transcript"]
 }),
 smalltalk.ROShape);
 
@@ -2117,13 +2364,16 @@ selector: "defaultColor",
 category: 'not yet classified',
 fn: function (){
 var self=this;
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
 return smalltalk.withContext(function($ctx1) { 
-return "lightGray";
+var $1;
+$1=_st($Color())._lightGray();
+return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultColor",{},smalltalk.ROShape.klass)})},
 args: [],
-source: "defaultColor\x0a\x09^ 'lightGray'.",
-messageSends: [],
-referencedClasses: []
+source: "defaultColor\x0a\x09^ Color lightGray.",
+messageSends: ["lightGray"],
+referencedClasses: ["Color"]
 }),
 smalltalk.ROShape.klass);
 
@@ -2459,11 +2709,11 @@ _st($1)._attr_with_("x",_st(_st(anElement)._position())._x());
 _st($1)._attr_with_("y",_st(_st(anElement)._position())._y());
 _st($1)._attr_with_("width",_st(self._widthFor_(anElement))._max_(self._defaultSize()));
 _st($1)._attr_with_("height",_st(self._heightFor_(anElement))._max_(self._defaultSize()));
-$2=_st($1)._attr_with_("fill","lightGray");
+$2=_st($1)._attr_with_("fill",_st("rgb(".__comma(self["@color"])).__comma(")"));
 return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROBox)})},
 args: ["canvas", "anElement"],
-source: "updateSVGElementOn: canvas for: anElement\x0a\x09svgElement \x0a\x09\x09attr: 'x' with: (anElement position x);\x0a\x09\x09attr: 'y' with: (anElement position y);\x0a\x09\x09attr: 'width' with: ((self widthFor: anElement ) max: (self defaultSize));\x0a\x09\x09attr: 'height' with: ((self heightFor: anElement) max: (self defaultSize));\x0a\x09\x09attr:'fill' with: 'lightGray'.\x0a\x09\x09",
-messageSends: ["attr:with:", "x", "position", "y", "max:", "defaultSize", "widthFor:", "heightFor:"],
+source: "updateSVGElementOn: canvas for: anElement\x0a\x09svgElement \x0a\x09\x09attr: 'x' with: (anElement position x);\x0a\x09\x09attr: 'y' with: (anElement position y);\x0a\x09\x09attr: 'width' with: ((self widthFor: anElement ) max: (self defaultSize));\x0a\x09\x09attr: 'height' with: ((self heightFor: anElement) max: (self defaultSize));\x0a\x09\x09attr:'fill' with: 'rgb(',color,')'.\x0a\x09\x09",
+messageSends: ["attr:with:", "x", "position", "y", "max:", "defaultSize", "widthFor:", "heightFor:", ","],
 referencedClasses: []
 }),
 smalltalk.ROBox);

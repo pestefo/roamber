@@ -1,4 +1,67 @@
 Smalltalk current createPackage: 'ARoassal'!
+Object subclass: #Color
+	instanceVariableNames: 'r g b'
+	package: 'ARoassal'!
+
+!Color methodsFor: 'not yet classified'!
+
+b
+	^ b
+!
+
+cleanValue: anInteger
+	" Clean for possible mistaken values"
+	(anInteger > 255) 
+		ifTrue: [^ 255]
+		ifFalse: [
+			(anInteger < 0) ifTrue: [^ 0] ].
+	^ anInteger.
+!
+
+g
+	^ g
+!
+
+r
+	^ r
+!
+
+r: rVal g: gVal b: bVal
+	r :=  self cleanValue: rVal.
+	g :=  self cleanValue: gVal.
+	b:=  self cleanValue: bVal.
+! !
+
+!Color class methodsFor: 'not yet classified'!
+
+black
+	^ self new r: 0 g: 0 b: 0
+!
+
+blue
+	^ self new r: 0 g: 0 b: 255
+!
+
+green
+	^ self new r: 0 g: 255 b: 0
+!
+
+lightGray
+	^ self new r: 211 g: 211 b: 211
+!
+
+r: rVal g: gVal b: bVal
+	^ self new r: rVal g: gVal b: bVal.
+!
+
+red
+	^ self new r: 255 g: 0 b: 0
+!
+
+white
+	^ self new r: 255 g: 255 b: 255
+! !
+
 Announcer subclass: #ROAnnouncer
 	instanceVariableNames: 'forwarding announcer'
 	package: 'ARoassal'!
@@ -369,6 +432,10 @@ bounds
 	^ self position extent: (shape extentFor: self)
 !
 
+color: aColor
+	self shape color: aColor.
+!
+
 extent
 	^ shape extentFor: self
 !
@@ -613,9 +680,9 @@ ROObject subclass: #ROShape
 
 !ROShape methodsFor: 'accessing'!
 
-color:	 aString
-	
-	color := aString
+color:	 aColor
+	color :=  (aColor r asString),',',(aColor g asString),',',(aColor b asString).
+	Transcript show: color,(String cr).
 !
 
 height
@@ -737,7 +804,7 @@ updateSVGElementOn: canvas for: anElement
 !ROShape class methodsFor: 'not yet classified'!
 
 defaultColor
-	^ 'lightGray'.
+	^ Color lightGray.
 !
 
 element
@@ -883,7 +950,7 @@ updateSVGElementOn: canvas for: anElement
 		attr: 'y' with: (anElement position y);
 		attr: 'width' with: ((self widthFor: anElement ) max: (self defaultSize));
 		attr: 'height' with: ((self heightFor: anElement) max: (self defaultSize));
-		attr:'fill' with: 'lightGray'.
+		attr:'fill' with: 'rgb(',color,')'.
 ! !
 
 !ROBox methodsFor: 'initialize'!

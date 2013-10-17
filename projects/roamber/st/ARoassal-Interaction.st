@@ -257,8 +257,8 @@ REFACTOR:
 
 initializeElement: element
 
-	element on: ROMouseEnter do: [:evt | evt element shape svgElement attr: 'fill' value: 'red'].
-	element on: ROMouseLeave do: [:evt | evt element shape svgElement attr: 'fill' value: 'lightGray'].
+	element on: ROMouseEnter do: [:evt | evt element color: (Color red). evt element view signalUpdate].
+	element on: ROMouseLeave do: [:evt | evt element color: (element shape class defaultColor). evt element view signalUpdate].
 ! !
 
 ROInteraction subclass: #ROHoverable
