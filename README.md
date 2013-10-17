@@ -1,7 +1,6 @@
 Roassal in Amber
 =======
-Roassal is an agile visualization engine for Smalltalk-like programming languages.
-This github repository contains a port for Amber.
+[Roassal](http://www.objectprofile.com/#/pages/products/roassal/overview.html) is an agile visualization engine for Smalltalk-like programming languages. This github repository contains a port for running it on the [Amber Smalltalk](http://amber-lang.net) platform.
 
 This project is developed by [Pablo Estefó](http://about.me/pestefo) and mentored by [Alexandre Bergel](http://bergel.eu) and [Manfred Kröhnert](http://github.com/mkroehnert).
 
@@ -47,4 +46,4 @@ You should see several rectangles aligned on top in a small-to-big order.
 If you had any problem running Amber's server we recommend to check the [this documentation](https://github.com/amber-smalltalk/amber#building-amber) about building Amber.
 
 ## Acknowledgement
-This project is sponsored by [ESUG](http://www.esug.org)  and [Object Profile](http://www.objectprofile.com). Thanks a lot! :D
+This project was sponsored by [ESUG](http://www.esug.org)  and [Object Profile](http://www.objectprofile.com). Thanks a lot! :D
