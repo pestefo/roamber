@@ -38,6 +38,7 @@ ROObject subclass: #ROExample
 !ROExample methodsFor: 'not yet classified'!
 
 boxGenerator
+	" Click on the square multiple times "
 	| view el e |
 	view := ROView new.
 	el := ROElement new.
@@ -57,6 +58,7 @@ cellLayout
 | view |
 view := ROView new.
 view clear.
+" Play changing the number of squares"
 1 to: 200 do: [ :i |
 	view add: ((ROElement new model: i) shape: 
 		(ROBox new)) @RODraggable ].
