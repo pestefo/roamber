@@ -24,22 +24,23 @@ After this, you should be able to exectue `node --version` in a terminal. If you
 
 ## Running ROAmber 
 
-### 1 - Running the NodeJS
+### Run it locally
 
 We need to run the NodeJS server within the Terminal/xterm to make sure someone will serve the necessary files to your web browser. Start amber's server:
 
     ./bin/server 
 
-Open [`http://localhost:4000/projects/roamber/index.html`](http://localhost:4000/projects/roamber/index.html) in your favourite web browser.
+Open [`http://localhost:4000/index.html`](http://localhost:4000/index.html) in your favourite web browser.
 
-### 2 - Example
-Click on the Workspace tab and type:
+Now you can extend and customize Roamber as you wish… Do you have an interesting idea? Already working on a cool project? Just knock the door! We want to know! 
 
-```
-ROExample new linelayout2
-```
-and press `Ctrl-d` to execute this line
-You should see several rectangles aligned on top in a small-to-big order.
+### or… Take a look to our examples!
+
+Let's try some examples we have wrote going to:
+
+[`http://pestefo.github.io/roamber/`](http://pestefo.github.io/roamber/) 
+
+You can edit them or write your own examples!
 
 ## Troubleshooting
 
