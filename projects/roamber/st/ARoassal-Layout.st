@@ -189,6 +189,10 @@ initialize
 	translator := ROLayoutTranslator default.
 !
 
+on: elements
+	self applyOn: elements
+!
+
 step
 "
 	currentIteraction := currentIteraction + 1.

@@ -433,6 +433,17 @@ smalltalk.ROLayout);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "on:",
+fn: function (elements){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._applyOn_(elements);
+return self}, function($ctx1) {$ctx1.fill(self,"on:",{elements:elements},smalltalk.ROLayout)})},
+messageSends: ["applyOn:"]}),
+smalltalk.ROLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "step",
 fn: function (){
 var self=this;

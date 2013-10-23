@@ -578,6 +578,22 @@ smalltalk.ROLayout);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "on:",
+category: 'not yet classified',
+fn: function (elements){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._applyOn_(elements);
+return self}, function($ctx1) {$ctx1.fill(self,"on:",{elements:elements},smalltalk.ROLayout)})},
+args: ["elements"],
+source: "on: elements\x0a\x09self applyOn: elements",
+messageSends: ["applyOn:"],
+referencedClasses: []
+}),
+smalltalk.ROLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "step",
 category: 'not yet classified',
 fn: function (){
