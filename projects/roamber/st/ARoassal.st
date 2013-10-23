@@ -681,8 +681,7 @@ ROObject subclass: #ROShape
 !ROShape methodsFor: 'accessing'!
 
 color:	 aColor
-	color :=  (aColor r asString),',',(aColor g asString),',',(aColor b asString).
-	Transcript show: color,(String cr).
+	color := aColor.
 !
 
 height
@@ -711,6 +710,10 @@ installedOn: element
 
 removeSVGElement
 	svgElement remove.
+!
+
+rgbColor
+	^ 'rgb(',(color r asString),',',(color g asString),',',(color b asString),')'.
 !
 
 svgElement
@@ -742,7 +745,7 @@ element
 !
 
 elementOn: anObject
-	^ (ROElement on: anObject) shape: self; yourself
+	^ (ROElement on: anObject) + self
 !
 
 hide
@@ -811,10 +814,10 @@ element
 	^ self new element
 !
 
-elementOn: object
+elementOn: anObject
 	"Easy way to create element from a shape"
 	
-	^ (ROElement on: object) shape: self; yourself
+	^ (ROElement on: anObject) + self
 !
 
 installedOn: element
@@ -924,6 +927,10 @@ updateSVGElementOn: canvas for: anEdge
 "	aCanvas line: rawStartingPoint to: rawEndingPoint width: (self widthFor: anEdge) color: (self colorFor: anEdge)."
 ! !
 
+ROShape subclass: #ROAbstractPathShape
+	instanceVariableNames: ''
+	package: 'ARoassal'!
+
 ROShape subclass: #ROBox
 	instanceVariableNames: ''
 	package: 'ARoassal'!
@@ -950,7 +957,7 @@ updateSVGElementOn: canvas for: anElement
 		attr: 'y' with: (anElement position y);
 		attr: 'width' with: ((self widthFor: anElement ) max: (self defaultSize));
 		attr: 'height' with: ((self heightFor: anElement) max: (self defaultSize));
-		attr:'fill' with: 'rgb(',color,')'.
+		attr:'fill' with: (self rgbColor).
 ! !
 
 !ROBox methodsFor: 'initialize'!
@@ -981,6 +988,10 @@ defaultRadius
 
 !ROCircle methodsFor: 'drawing'!
 
+height
+	^ self radius * 2.
+!
+
 initializeSVGElementOn: canvas for: anElement
 	svgElement := canvas 
 		circle: (anElement position x)
@@ -992,12 +1003,24 @@ radius
 	^ radius
 !
 
+radius: anInteger
+	radius := anInteger
+!
+
+size: anInteger
+	self radius: anInteger
+!
+
 updateSVGElementOn: canvas for: anElement
 	svgElement 
 		attr: 'cx' with: (anElement position x);
 		attr: 'cy' with: (anElement position y);
 		attr: 'r' with: (self radius);
-		attr:'fill' with: 'lightGray'.
+		attr:'fill' with: (self rgbColor).
+!
+
+width
+	^ self radius * 2.
 ! !
 
 !ROCircle methodsFor: 'initialize'!
@@ -1014,6 +1037,11 @@ ROShape subclass: #ROLabel
 	package: 'ARoassal'!
 
 !ROLabel methodsFor: 'not yet classified'!
+
+height
+"	^ svgElement attr: 'height'."
+	^ 20
+!
 
 initialize 
 	super initialize.
@@ -1098,6 +1126,12 @@ updateSVGElementOn: canvas for: anElement
 	svgElement translate: 0 y: 0.
 	svgElement translate: (anElement position x) y: (anElement position y).
 "
+!
+
+width
+"	^ svgElement attr: 'width'."
+" ^	text size * 5."
+^ 25
 ! !
 
 !ROLabel class methodsFor: 'not yet classified'!
