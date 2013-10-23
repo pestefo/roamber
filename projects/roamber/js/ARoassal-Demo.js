@@ -85,7 +85,7 @@ smalltalk.addClass('ROExample', smalltalk.ROObject, [], 'ARoassal-Demo');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "boxGenerator",
-category: 'not yet classified',
+category: 'demo',
 fn: function (){
 var self=this;
 var view,el,e;
@@ -156,17 +156,22 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "circle",
 category: 'not yet classified',
-fn: function () {
+fn: function (){
 var self=this;
 var view;
-return smalltalk.withContext(function($ctx1) { view=_st((smalltalk.ROView || ROView))._new();
-_st(view)._add_(_st(_st((smalltalk.ROCircle || ROCircle))._element())._translateTo_(_st((50)).__at((50))));
+function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+function $RODraggable(){return smalltalk.RODraggable||(typeof RODraggable=="undefined"?nil:RODraggable)}
+function $ROCircle(){return smalltalk.ROCircle||(typeof ROCircle=="undefined"?nil:ROCircle)}
+return smalltalk.withContext(function($ctx1) { 
+view=_st($ROView())._new();
+_st(view)._add_(_st(_st(_st(_st($ROCircle())._element())._translateTo_((50).__at((50)))).__at($RODraggable()))._color_(_st($Color())._green()));
 _st(view)._open();
-return self}, function($ctx1) {$ctx1.fill(self,"circle",{view:view},smalltalk.ROExample)});},
+return self}, function($ctx1) {$ctx1.fill(self,"circle",{view:view},smalltalk.ROExample)})},
 args: [],
-source: "circle\x0a\x09| view |\x0a\x09view := ROView new.\x0a\x09view add: (ROCircle element translateTo: 50 @ 50).\x0a\x09view open.",
-messageSends: ["new", "add:", "translateTo:", "@", "element", "open"],
-referencedClasses: ["ROView", "ROCircle"]
+source: "circle\x0a\x09| view |\x0a\x09view := ROView new.\x0a\x09view add: ((ROCircle element translateTo: 50 @ 50) @ RODraggable color: Color green).\x0a\x09view open.",
+messageSends: ["new", "add:", "color:", "green", "@", "translateTo:", "element", "open"],
+referencedClasses: ["ROView", "Color", "RODraggable", "ROCircle"]
 }),
 smalltalk.ROExample);
 
@@ -180,11 +185,10 @@ var view,classElements,edges,associations;
 function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
 function $Collection(){return smalltalk.Collection||(typeof Collection=="undefined"?nil:Collection)}
 function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
-function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
-function $RODraggable(){return smalltalk.RODraggable||(typeof RODraggable=="undefined"?nil:RODraggable)}
+function $ROHighlight(){return smalltalk.ROHighlight||(typeof ROHighlight=="undefined"?nil:ROHighlight)}
 function $ROPopup(){return smalltalk.ROPopup||(typeof ROPopup=="undefined"?nil:ROPopup)}
-function $ROMouseEnter(){return smalltalk.ROMouseEnter||(typeof ROMouseEnter=="undefined"?nil:ROMouseEnter)}
-function $ROMouseLeave(){return smalltalk.ROMouseLeave||(typeof ROMouseLeave=="undefined"?nil:ROMouseLeave)}
+function $RODraggable(){return smalltalk.RODraggable||(typeof RODraggable=="undefined"?nil:RODraggable)}
+function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
 function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
 function $ROEdge(){return smalltalk.ROEdge||(typeof ROEdge=="undefined"?nil:ROEdge)}
 function $ROTreeLayout(){return smalltalk.ROTreeLayout||(typeof ROTreeLayout=="undefined"?nil:ROTreeLayout)}
@@ -215,17 +219,7 @@ $5=(3);
 $5=_st(numMethods).__star((2));
 };
 _st($4)._height_($5);
-_st(c).__plus($ROBox());
-_st(c).__at($RODraggable());
-_st(c).__at($ROPopup());
-_st(c)._on_do_($ROMouseEnter(),(function(){
-return smalltalk.withContext(function($ctx3) {
-return _st(_st(_st(c)._shape())._svgElement())._attr_value_("fill","red");
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
-return _st(c)._on_do_($ROMouseLeave(),(function(){
-return smalltalk.withContext(function($ctx3) {
-return _st(_st(_st(c)._shape())._svgElement())._attr_value_("fill","lightGray");
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
+return _st(_st(_st(_st(c).__plus($ROBox())).__at($RODraggable())).__at($ROPopup())).__at($ROHighlight());
 }, function($ctx2) {$ctx2.fillBlock({c:c,instVar:instVar,numMethods:numMethods},$ctx1)})}));
 _st(view)._addAll_(classElements);
 associations=_st(classElements)._collect_thenSelect_((function(c){
@@ -244,9 +238,9 @@ _st($ROTreeLayout())._on_edges_(_st(view)._elements(),edges);
 _st(view)._open();
 return self}, function($ctx1) {$ctx1.fill(self,"collectionHierarchy",{view:view,classElements:classElements,edges:edges,associations:associations},smalltalk.ROExample)})},
 args: [],
-source: "collectionHierarchy\x0a| view classElements edges associations |\x0aview := ROView new.\x0aclassElements := ROElement forCollection: Collection withAllSubclasses.\x0aclassElements\x0a\x09do: [:c | | instVar numMethods |\x0a\x09\x09instVar := c model instVarNames size.\x0a\x09\x09c shape width: (( instVar = 0) ifTrue: [ 10 ] ifFalse: [ instVar * 15]) .\x0a\x0a\x09\x09numMethods := c model selectors size.\x0a\x09\x09c shape height: (( numMethods = 0) ifTrue: [ 3 ] ifFalse: [ numMethods * 2]) . \x09\x0a\x09\x09c + ROBox.\x0a\x09\x09c @ RODraggable.\x0a\x09\x09c @ ROPopup.\x0a\x09\x09c on: ROMouseEnter do: [c shape svgElement attr: 'fill' value: 'red'].\x0a\x09\x09c on: ROMouseLeave do: [c shape svgElement attr: 'fill' value: 'lightGray'].\x0a\x09\x09].\x0aview addAll: classElements.\x0a\x0a\x22 Build and add edges \x22\x0aassociations := classElements collect: [:c |\x0a\x09\x09\x09(c model superclass = Object)\x0a\x09\x09\x09ifFalse: [ (view elementFromModel: c\x0a\x09\x09\x09\x09model superclass) -> c]\x0a\x09\x09\x09] thenSelect: [:assoc | assoc isNil not ].\x0a\x09\x09\x09\x0aedges := ROEdge linesFor: associations.\x0aview addAll: edges.\x0a\x0a\x22 Show the hierarchy as a tree \x22\x0aROTreeLayout on: (view elements) edges: edges.\x0a\x0a\x0aview open.",
-messageSends: ["new", "forCollection:", "withAllSubclasses", "do:", "size", "instVarNames", "model", "width:", "ifTrue:ifFalse:", "*", "=", "shape", "selectors", "height:", "+", "@", "on:do:", "attr:value:", "svgElement", "addAll:", "collect:thenSelect:", "ifFalse:", "->", "elementFromModel:", "superclass", "not", "isNil", "linesFor:", "on:edges:", "elements", "open"],
-referencedClasses: ["ROView", "Collection", "ROElement", "ROBox", "RODraggable", "ROPopup", "ROMouseEnter", "ROMouseLeave", "Object", "ROEdge", "ROTreeLayout"]
+source: "collectionHierarchy\x0a| view classElements edges associations |\x0aview := ROView new.\x0aclassElements := ROElement forCollection: Collection withAllSubclasses.\x0aclassElements\x0a\x09do: [:c | | instVar numMethods |\x0a\x09\x09instVar := c model instVarNames size.\x0a\x09\x09c shape width: (( instVar = 0) ifTrue: [ 10 ] ifFalse: [ instVar * 15]) .\x0a\x0a\x09\x09numMethods := c model selectors size.\x0a\x09\x09c shape height: (( numMethods = 0) ifTrue: [ 3 ] ifFalse: [ numMethods * 2]) . \x09\x0a\x09\x09c + ROBox @ RODraggable @ ROPopup @ ROHighlight.\x0a\x0a].\x0aview addAll: classElements.\x0a\x0a\x22 Build and add edges \x22\x0aassociations := classElements collect: [:c |\x0a\x09\x09\x09(c model superclass = Object)\x0a\x09\x09\x09ifFalse: [ (view elementFromModel: c\x0a\x09\x09\x09\x09model superclass) -> c]\x0a\x09\x09\x09] thenSelect: [:assoc | assoc isNil not ].\x0a\x09\x09\x09\x0aedges := ROEdge linesFor: associations.\x0aview addAll: edges.\x0a\x0a\x22 Show the hierarchy as a tree \x22\x0aROTreeLayout on: (view elements) edges: edges.\x0a\x0a\x0aview open.",
+messageSends: ["new", "forCollection:", "withAllSubclasses", "do:", "size", "instVarNames", "model", "width:", "ifTrue:ifFalse:", "*", "=", "shape", "selectors", "height:", "@", "+", "addAll:", "collect:thenSelect:", "ifFalse:", "->", "elementFromModel:", "superclass", "not", "isNil", "linesFor:", "on:edges:", "elements", "open"],
+referencedClasses: ["ROView", "Collection", "ROElement", "ROHighlight", "ROPopup", "RODraggable", "ROBox", "Object", "ROEdge", "ROTreeLayout"]
 }),
 smalltalk.ROExample);
 
@@ -364,25 +358,29 @@ function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROVi
 function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
 function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
 function $ROMouseEnter(){return smalltalk.ROMouseEnter||(typeof ROMouseEnter=="undefined"?nil:ROMouseEnter)}
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+function $ROMouseLeave(){return smalltalk.ROMouseLeave||(typeof ROMouseLeave=="undefined"?nil:ROMouseLeave)}
 return smalltalk.withContext(function($ctx1) { 
 view=_st($ROView())._new();
 element=_st(_st($ROElement())._new())._size_((100));
 _st(element).__plus($ROBox());
 _st(element)._on_do_($ROMouseEnter(),(function(event){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(_st(_st(event)._element())._shape())._svgElement())._attr_value_("fill","red");
+_st(_st(event)._element())._color_(_st($Color())._red());
+return _st(_st(_st(event)._element())._view())._signalUpdate();
 }, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
-_st(element)._on_do_($ROMouseEnter(),(function(event){
+_st(element)._on_do_($ROMouseLeave(),(function(event){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(_st(_st(event)._element())._shape())._svgElement())._attr_value_("fill","lightGray");
+_st(_st(event)._element())._color_(_st($Color())._blue());
+return _st(_st(_st(event)._element())._view())._signalUpdate();
 }, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
 _st(view)._add_(element);
 _st(view)._open();
 return self}, function($ctx1) {$ctx1.fill(self,"hover",{view:view,element:element},smalltalk.ROExample)})},
 args: [],
-source: "hover\x0a|view element|\x0aview := ROView new.\x0aelement := ROElement new size: 100.\x0aelement + ROBox.\x0a\x22Open an inspector when clicking\x22\x0aelement on: ROMouseEnter do: [ :event | event element shape svgElement attr: 'fill' value: 'red'].\x0aelement on: ROMouseEnter do: [ :event | event element shape svgElement attr: 'fill' value: 'lightGray'].\x0aview add: element.\x0aview open.",
-messageSends: ["new", "size:", "+", "on:do:", "attr:value:", "svgElement", "shape", "element", "add:", "open"],
-referencedClasses: ["ROView", "ROElement", "ROBox", "ROMouseEnter"]
+source: "hover\x0a|view element|\x0aview := ROView new.\x0aelement := ROElement new size: 100.\x0aelement + ROBox.\x0a\x22Open an inspector when clicking\x22\x0aelement on: ROMouseEnter do: [ :event | event element color: Color red. event element view signalUpdate. ].\x0aelement on: ROMouseLeave do: [ :event | event element color: Color blue.  event element view signalUpdate. ].\x0aview add: element.\x0aview open.",
+messageSends: ["new", "size:", "+", "on:do:", "color:", "red", "element", "signalUpdate", "view", "blue", "add:", "open"],
+referencedClasses: ["ROView", "ROElement", "ROBox", "ROMouseEnter", "Color", "ROMouseLeave"]
 }),
 smalltalk.ROExample);
 
@@ -498,14 +496,14 @@ element=_st(_st($ROElement())._new())._size_((100));
 _st(element).__plus($ROBox());
 _st(element)._on_do_($ROMouseClick(),(function(event){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(_st(_st(event)._element())._shape())._svgElement())._hide();
+return _st(_st(event)._element())._hide();
 }, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
 _st(view)._add_(element);
 _st(view)._open();
 return self}, function($ctx1) {$ctx1.fill(self,"mouseclick",{view:view,element:element},smalltalk.ROExample)})},
 args: [],
-source: "mouseclick\x0a|view element|\x0aview := ROView new.\x0aelement := ROElement new size: 100.\x0aelement + ROBox.\x0a\x22Open an inspector when clicking\x22\x0aelement on: ROMouseClick do: [ :event | event element shape svgElement hide].\x0aview add: element.\x0aview open.",
-messageSends: ["new", "size:", "+", "on:do:", "hide", "svgElement", "shape", "element", "add:", "open"],
+source: "mouseclick\x0a|view element|\x0aview := ROView new.\x0aelement := ROElement new size: 100.\x0aelement + ROBox.\x0a\x22Open an inspector when clicking\x22\x0aelement on: ROMouseClick do: [ :event | event element hide].\x0aview add: element.\x0aview open.",
+messageSends: ["new", "size:", "+", "on:do:", "hide", "element", "add:", "open"],
 referencedClasses: ["ROView", "ROElement", "ROBox", "ROMouseClick"]
 }),
 smalltalk.ROExample);
@@ -527,14 +525,14 @@ element=_st(_st($ROElement())._new())._size_((100));
 _st(element).__plus($ROBox());
 _st(element)._on_do_($ROMouseLeftClick(),(function(event){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(_st(_st(event)._element())._shape())._svgElement())._hide();
+return _st(_st(event)._element())._hide();
 }, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
 _st(view)._add_(element);
 _st(view)._open();
 return self}, function($ctx1) {$ctx1.fill(self,"mouseclick2",{view:view,element:element},smalltalk.ROExample)})},
 args: [],
-source: "mouseclick2\x0a|view element|\x0aview := ROView new.\x0aelement := ROElement new size: 100.\x0aelement + ROBox.\x0a\x22Open an inspector when clicking\x22\x0aelement on: ROMouseLeftClick do: [ :event | event element shape svgElement hide].\x0aview add: element.\x0aview open.",
-messageSends: ["new", "size:", "+", "on:do:", "hide", "svgElement", "shape", "element", "add:", "open"],
+source: "mouseclick2\x0a|view element|\x0aview := ROView new.\x0aelement := ROElement new size: 100.\x0aelement + ROBox.\x0a\x22Open an inspector when clicking\x22\x0aelement on: ROMouseLeftClick do: [ :event | event element hide].\x0aview add: element.\x0aview open.",
+messageSends: ["new", "size:", "+", "on:do:", "hide", "element", "add:", "open"],
 referencedClasses: ["ROView", "ROElement", "ROBox", "ROMouseLeftClick"]
 }),
 smalltalk.ROExample);

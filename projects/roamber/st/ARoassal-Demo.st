@@ -37,23 +37,6 @@ ROObject subclass: #ROExample
 
 !ROExample methodsFor: 'not yet classified'!
 
-boxGenerator
-	" Click on the square multiple times "
-	| view el e |
-	view := ROView new.
-	el := ROElement new.
-	el shape: (ROBox new).
-	view add: el.
-	el on: ROMouseClick do: [:event | 
-		e := ROBox element.
-		e extent: view elements size @ view elements size.
-		Transcript show: view elements size printString; cr.
-		view add: e. 
-		ROCellLayout on: view elements.
-		view signalUpdate].
-	view open.
-!
-
 cellLayout
 | view |
 view := ROView new.
@@ -69,7 +52,7 @@ view clear.
 circle
 	| view |
 	view := ROView new.
-	view add: (ROCircle element translateTo: 50 @ 50).
+	view add: ((ROCircle element translateTo: 50 @ 50) @ RODraggable color: Color green).
 	view open.
 !
 
@@ -84,12 +67,9 @@ classElements
 
 		numMethods := c model selectors size.
 		c shape height: (( numMethods = 0) ifTrue: [ 3 ] ifFalse: [ numMethods * 2]) . 	
-		c + ROBox.
-		c @ RODraggable.
-		c @ ROPopup.
-		c on: ROMouseEnter do: [c shape svgElement attr: 'fill' value: 'red'].
-		c on: ROMouseLeave do: [c shape svgElement attr: 'fill' value: 'lightGray'].
-		].
+		c + ROBox @ RODraggable @ ROPopup @ ROHighlight.
+
+].
 view addAll: classElements.
 
 " Build and add edges "
@@ -155,8 +135,8 @@ view := ROView new.
 element := ROElement new size: 100.
 element + ROBox.
 "Open an inspector when clicking"
-element on: ROMouseEnter do: [ :event | event element shape svgElement attr: 'fill' value: 'red'].
-element on: ROMouseEnter do: [ :event | event element shape svgElement attr: 'fill' value: 'lightGray'].
+element on: ROMouseEnter do: [ :event | event element color: Color red. event element view signalUpdate. ].
+element on: ROMouseLeave do: [ :event | event element color: Color blue.  event element view signalUpdate. ].
 view add: element.
 view open.
 !
@@ -221,7 +201,7 @@ view := ROView new.
 element := ROElement new size: 100.
 element + ROBox.
 "Open an inspector when clicking"
-element on: ROMouseClick do: [ :event | event element shape svgElement hide].
+element on: ROMouseClick do: [ :event | event element hide].
 view add: element.
 view open.
 !
@@ -232,7 +212,7 @@ view := ROView new.
 element := ROElement new size: 100.
 element + ROBox.
 "Open an inspector when clicking"
-element on: ROMouseLeftClick do: [ :event | event element shape svgElement hide].
+element on: ROMouseLeftClick do: [ :event | event element hide].
 view add: element.
 view open.
 !
