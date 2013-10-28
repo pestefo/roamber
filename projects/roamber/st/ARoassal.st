@@ -214,12 +214,13 @@ addShape: aShape
 	| s |
 	s := (aShape installedOn: self).
 "	s addLast: shape."
-	
+	Transcript show: (s width asString),'-BEFOREinstalledOn:-',(s class asString),(String cr).
 	" set height and width from previous shape <--- needs to be changed when implementing chain of shapes "
 	self shape isNil ifFalse: [
 		s width: self shape width.
 		s height: self shape height.	
 	].
+	Transcript show: (s width asString),'-AFTERinstalledOn:-',(s class asString),(String cr).
 	shape := s.
 ! !
 
@@ -968,8 +969,11 @@ height
 
 initialize
 	super initialize.
+	" Initialize default values "
 	width := self defaultSize.
 	height := self defaultSize.
+	
+	" create svgElement and hide it"
 !
 
 width
@@ -1038,11 +1042,6 @@ ROShape subclass: #ROLabel
 
 !ROLabel methodsFor: 'not yet classified'!
 
-height
-"	^ svgElement attr: 'height'."
-	^ 20
-!
-
 initialize 
 	super initialize.
 	text := #model.
@@ -1065,7 +1064,7 @@ initializeSVGElementOn: canvas for: anElement
 	
 	"example from: http://stackoverflow.com/questions/8771635/wrap-text-to-fit-into-a-rectangle-raphael"
 	|str svgText svgRect |
-	"str := self textFor: anElement."
+	self text: anElement model asString.
 	
 	" container rectangle"
 	svgRect := canvas rect: 0
@@ -1086,7 +1085,9 @@ initializeSVGElementOn: canvas for: anElement
 	svgElement push: svgRect; push: svgText.
 	
 	" adapt the size of rectangle "
-	svgRect attr: 'width'  value: svgElement getBBox width + 10.
+"	svgRect attr: 'width'  value: svgElement getBBox width + 10."
+	Transcript show: (self width asString),'-initialize-',(String cr).
+	svgRect attr: 'width'  value: (self width).
 	svgRect attr: 'height' value: svgElement getBBox height + 10.
 
 	" aling text in the middle first horizontally and then vertically"
@@ -1096,6 +1097,14 @@ initializeSVGElementOn: canvas for: anElement
 	
 	" enable translating "
 	svgElement translate:  (anElement position x) y: (anElement position y).
+!
+
+installedOn: anElement
+	height := 7 + (2 * 5).
+	width := anElement model asString size * 7.
+	
+	" Change NullShape extent"
+	anElement extent: width@height.
 !
 
 removeSVGElement
@@ -1110,15 +1119,6 @@ text: anObject
 	text := anObject
 !
 
-textFor: aROElement
-	 | v |
-	self halt.
-	v := (text roValue: aROElement).
-	^ (v class == 'abc' class)
-			ifTrue: [ v ]
-			ifFalse: [ v printString ]
-!
-
 updateSVGElementOn: canvas for: anElement
 	svgElement transform: 'T0,0'.
 	svgElement transform: 'T',(anElement position x),',',(anElement position y).
@@ -1126,12 +1126,6 @@ updateSVGElementOn: canvas for: anElement
 	svgElement translate: 0 y: 0.
 	svgElement translate: (anElement position x) y: (anElement position y).
 "
-!
-
-width
-"	^ svgElement attr: 'width'."
-" ^	text size * 5."
-^ 25
 ! !
 
 !ROLabel class methodsFor: 'not yet classified'!
