@@ -2695,11 +2695,12 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 container=_st(canvas)._rect_y_width_rect_((0),(0),(1),(1));
 _st(container)._attr_value_("fill","white");
+_st(container)._attr_value_("stroke-width",(0));
 $1=container;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"initializeContainterOn:for:",{canvas:canvas,anElement:anElement,container:container},smalltalk.ROAbstractPathShape)})},
 args: ["canvas", "anElement"],
-source: "initializeContainterOn: canvas for: anElement\x0a\x09| container |\x0a\x09container :=  canvas rect: 0\x0a\x09\x09\x09\x09y: 0 \x0a\x09\x09\x09\x09width: 1\x0a\x09\x09\x09\x09rect: 1.\x0a\x09container attr: 'fill' value: 'white'.\x09\x09\x09\x0a\x09^ container",
+source: "initializeContainterOn: canvas for: anElement\x0a\x09| container |\x0a\x09container :=  canvas rect: 0\x0a\x09\x09\x09\x09y: 0 \x0a\x09\x09\x09\x09width: 1\x0a\x09\x09\x09\x09rect: 1.\x0a\x09container attr: 'fill' value: 'white'.\x09\x09\x09\x0a\x09container attr: 'stroke-width' value: 0. \x22 no border \x22\x0a\x09^ container",
 messageSends: ["rect:y:width:rect:", "attr:value:"],
 referencedClasses: []
 }),
@@ -2959,10 +2960,10 @@ fn: function (container){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(container)._attr_value_("stroke","lightGray");
-_st(container)._attr_value_("stroke-width",(2));
+_st(container)._attr_value_("stroke-width",(0));
 return self}, function($ctx1) {$ctx1.fill(self,"setBoderTo:",{container:container},smalltalk.ROLabel)})},
 args: ["container"],
-source: "setBoderTo: container\x0a\x09container attr: 'stroke' value: 'lightGray'.\x0a\x09container attr: 'stroke-width' value: 2.",
+source: "setBoderTo: container\x0a\x09container attr: 'stroke' value: 'lightGray'.\x0a\x09container attr: 'stroke-width' value: 0.",
 messageSends: ["attr:value:"],
 referencedClasses: []
 }),

@@ -932,9 +932,151 @@ ROShape subclass: #ROAbstractPathShape
 	instanceVariableNames: ''
 	package: 'ARoassal'!
 
+!ROAbstractPathShape methodsFor: 'not yet classified'!
+
+centeringPath: svgPath into: svgRect
+	svgPath attr: 'x' value: ((svgRect attr: 'width') / 2) asInteger.
+	svgPath attr: 'y' value: ((svgRect attr: 'height') / 2) asInteger.
+!
+
+createSetWith: svgRect and: svgPath on: canvas for: anElement
+	svgElement := canvas  set.
+	svgElement push: svgRect; push: svgPath.
+	
+	" enable translating "
+	svgElement translate:  (anElement position x) y: (anElement position y).
+!
+
+initializeContainterOn: canvas for: anElement
+	| container |
+	container :=  canvas rect: 0
+				y: 0 
+				width: 1
+				rect: 1.
+	container attr: 'fill' value: 'white'.			
+	container attr: 'stroke-width' value: 0. " no border "
+	^ container
+!
+
+initializePathOn: canvas for: anElement
+	self subclassResponsibility
+!
+
+initializeSVGElementOn: canvas for: anElement
+	| svgRect svgPath |
+	
+	svgRect := self initializeContainterOn: canvas for: anElement.
+	svgPath := self initializePathOn: canvas for: anElement.
+	
+	self resizeContainer: svgRect for: svgPath. 
+	self centeringPath: svgPath into: svgRect.
+	self createSetWith: svgRect and: svgPath on: canvas for: anElement.
+!
+
+padding
+	^ 0
+!
+
+removeSVGElement
+	svgElement clear.
+!
+
+resizeContainer: svgRect for: svgPath
+	self subclassResponsibility
+!
+
+updateSVGElementOn: canvas for: anElement
+	svgElement transform: 'T0,0'.
+	svgElement transform: 'T',(anElement position x),',',(anElement position y).
+"
+	svgElement translate: 0 y: 0.
+	svgElement translate: (anElement position x) y: (anElement position y).
+"
+! !
+
 ROAbstractPathShape subclass: #ROLabel
 	instanceVariableNames: 'text'
 	package: 'ARoassal'!
+
+!ROLabel methodsFor: 'not yet classified'!
+
+centeringPath: svgPath into: svgRect
+	super centeringPath: svgPath into: svgRect.
+	svgPath  attr: 'text-anchor' value: 'middle'.
+!
+
+initialize 
+	super initialize.
+	text := #model.
+!
+
+initializeContainterOn: canvas for: anElement
+	| container |
+	container := super initializeContainterOn: canvas for: anElement.
+	self setBoderTo: container.
+	^ container.
+!
+
+initializePathOn: canvas for: anElement
+	^ canvas text: 0
+			y:10
+			string: (self text).
+!
+
+initializeSVGElementOn: canvas for: anElement
+"Paper.print(x, y, string, font, [size], [origin], [letter_spacing])
+	x - position of the text
+	y - position of the text
+	string - text to print
+	font - font object, see --> Paper.getFont(family, [weight], [style], [stretch])
+	size - size of the font, default is 16
+	origin - could be baseline' or 'middle' (default)
+	letter_spacing - number number in range -1..1, default is 0
+	Returns: object resulting path element, which consist of all letters
+   ----------- how to use getFont?????
+   
+   using paper.text() instead
+	"
+	
+	"example from: http://stackoverflow.com/questions/8771635/wrap-text-to-fit-into-a-rectangle-raphael"
+		self text: anElement model asString.
+		super initializeSVGElementOn: canvas for: anElement.
+!
+
+installedOn: anElement
+	height := 7 + (2 * 5).
+	width := anElement model asString size * 7.
+	
+	" Change NullShape extent"
+	anElement extent: width@height.
+!
+
+padding
+	^ 5
+!
+
+resizeContainer: svgRect for: svgPath 
+	svgRect attr: 'width'  value: (self width).
+	svgRect attr: 'height' value: self textHeight + (self padding * 2).
+!
+
+setBoderTo: container
+	container attr: 'stroke' value: 'lightGray'.
+	container attr: 'stroke-width' value: 0.
+!
+
+text
+	^ text
+!
+
+text: anObject
+	text := anObject
+!
+
+textHeight 
+	" Measured empirically. It's ugly, I know"
+	^  8
+! !
 
 !ROLabel class methodsFor: 'not yet classified'!
 

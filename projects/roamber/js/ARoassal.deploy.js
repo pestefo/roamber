@@ -2003,6 +2003,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 container=_st(canvas)._rect_y_width_rect_((0),(0),(1),(1));
 _st(container)._attr_value_("fill","white");
+_st(container)._attr_value_("stroke-width",(0));
 $1=container;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"initializeContainterOn:for:",{canvas:canvas,anElement:anElement,container:container},smalltalk.ROAbstractPathShape)})},
@@ -2192,7 +2193,7 @@ fn: function (container){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(container)._attr_value_("stroke","lightGray");
-_st(container)._attr_value_("stroke-width",(2));
+_st(container)._attr_value_("stroke-width",(0));
 return self}, function($ctx1) {$ctx1.fill(self,"setBoderTo:",{container:container},smalltalk.ROLabel)})},
 messageSends: ["attr:value:"]}),
 smalltalk.ROLabel);
