@@ -176,12 +176,13 @@ ROAbstractPopup subclass: #ROPopup
 !ROPopup methodsFor: 'not yet classified'!
 
 createElementFor: anElement
-
+	^ (ROLabel new elementOn: anElement model asString)
+"
 	^ (ROElement on: 'popup label')
 			+ (ROLabel 
 			text: (anElement model asString));
 			yourself
-			
+"			
 			
 "		^ (ROElement on: (anElement model)) + ROLabel."
 !

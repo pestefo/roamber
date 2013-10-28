@@ -256,16 +256,12 @@ selector: "createElementFor:",
 fn: function (anElement){
 var self=this;
 function $ROLabel(){return smalltalk.ROLabel||(typeof ROLabel=="undefined"?nil:ROLabel)}
-function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
-$2=_st($ROElement())._on_("popup label");
-_st($2).__plus(_st($ROLabel())._text_(_st(_st(anElement)._model())._asString()));
-$3=_st($2)._yourself();
-$1=$3;
+var $1;
+$1=_st(_st($ROLabel())._new())._elementOn_(_st(_st(anElement)._model())._asString());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"createElementFor:",{anElement:anElement},smalltalk.ROPopup)})},
-messageSends: ["+", "text:", "asString", "model", "on:", "yourself"]}),
+messageSends: ["elementOn:", "asString", "model", "new"]}),
 smalltalk.ROPopup);
 
 smalltalk.addMethod(

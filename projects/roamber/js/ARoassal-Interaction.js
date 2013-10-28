@@ -332,19 +332,15 @@ category: 'not yet classified',
 fn: function (anElement){
 var self=this;
 function $ROLabel(){return smalltalk.ROLabel||(typeof ROLabel=="undefined"?nil:ROLabel)}
-function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
-$2=_st($ROElement())._on_("popup label");
-_st($2).__plus(_st($ROLabel())._text_(_st(_st(anElement)._model())._asString()));
-$3=_st($2)._yourself();
-$1=$3;
+var $1;
+$1=_st(_st($ROLabel())._new())._elementOn_(_st(_st(anElement)._model())._asString());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"createElementFor:",{anElement:anElement},smalltalk.ROPopup)})},
 args: ["anElement"],
-source: "createElementFor: anElement\x0a\x0a\x09^ (ROElement on: 'popup label')\x0a\x09\x09\x09+ (ROLabel \x0a\x09\x09\x09text: (anElement model asString));\x0a\x09\x09\x09yourself\x0a\x09\x09\x09\x0a\x09\x09\x09\x0a\x22\x09\x09^ (ROElement on: (anElement model)) + ROLabel.\x22",
-messageSends: ["+", "text:", "asString", "model", "on:", "yourself"],
-referencedClasses: ["ROLabel", "ROElement"]
+source: "createElementFor: anElement\x0a\x09^ (ROLabel new elementOn: anElement model asString)\x0a\x22\x0a\x09^ (ROElement on: 'popup label')\x0a\x09\x09\x09+ (ROLabel \x0a\x09\x09\x09text: (anElement model asString));\x0a\x09\x09\x09yourself\x0a\x22\x09\x09\x09\x0a\x09\x09\x09\x0a\x22\x09\x09^ (ROElement on: (anElement model)) + ROLabel.\x22",
+messageSends: ["elementOn:", "asString", "model", "new"],
+referencedClasses: ["ROLabel"]
 }),
 smalltalk.ROPopup);
 
