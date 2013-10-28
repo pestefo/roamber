@@ -1965,6 +1965,271 @@ smalltalk.ROLine);
 
 
 smalltalk.addClass('ROAbstractPathShape', smalltalk.ROShape, [], 'ARoassal');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "alignPath:into:",
+fn: function (svgPath,svgRect){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"alignPath:into:",{svgPath:svgPath,svgRect:svgRect},smalltalk.ROAbstractPathShape)})},
+messageSends: ["subclassResponsibility"]}),
+smalltalk.ROAbstractPathShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "createSetWith:and:on:for:",
+fn: function (svgRect,svgPath,canvas,anElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+self["@svgElement"]=_st(canvas)._set();
+$1=self["@svgElement"];
+_st($1)._push_(svgRect);
+$2=_st($1)._push_(svgPath);
+_st(self["@svgElement"])._translate_y_(_st(_st(anElement)._position())._x(),_st(_st(anElement)._position())._y());
+return self}, function($ctx1) {$ctx1.fill(self,"createSetWith:and:on:for:",{svgRect:svgRect,svgPath:svgPath,canvas:canvas,anElement:anElement},smalltalk.ROAbstractPathShape)})},
+messageSends: ["set", "push:", "translate:y:", "x", "position", "y"]}),
+smalltalk.ROAbstractPathShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initializeContainterOn:for:",
+fn: function (canvas,anElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"initializeContainterOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROAbstractPathShape)})},
+messageSends: ["subclassResponsibility"]}),
+smalltalk.ROAbstractPathShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initializePathOn:for:",
+fn: function (canvas,anElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"initializePathOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROAbstractPathShape)})},
+messageSends: ["subclassResponsibility"]}),
+smalltalk.ROAbstractPathShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initializeSVGElementOn:for:",
+fn: function (canvas,anElement){
+var self=this;
+var svgRect,svgPath;
+return smalltalk.withContext(function($ctx1) { 
+svgRect=self._initializeContainterOn_for_(canvas,anElement);
+svgPath=self._initializePathOn_for_(canvas,anElement);
+self._resizeContainer_for_(svgRect,svgPath);
+self._alignPath_into_(svgPath,svgRect);
+self._createSetWith_and_on_for_(svgRect,svgPath,canvas,anElement);
+return self}, function($ctx1) {$ctx1.fill(self,"initializeSVGElementOn:for:",{canvas:canvas,anElement:anElement,svgRect:svgRect,svgPath:svgPath},smalltalk.ROAbstractPathShape)})},
+messageSends: ["initializeContainterOn:for:", "initializePathOn:for:", "resizeContainer:for:", "alignPath:into:", "createSetWith:and:on:for:"]}),
+smalltalk.ROAbstractPathShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "padding",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return (0);
+}, function($ctx1) {$ctx1.fill(self,"padding",{},smalltalk.ROAbstractPathShape)})},
+messageSends: []}),
+smalltalk.ROAbstractPathShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "removeSVGElement",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@svgElement"])._clear();
+return self}, function($ctx1) {$ctx1.fill(self,"removeSVGElement",{},smalltalk.ROAbstractPathShape)})},
+messageSends: ["clear"]}),
+smalltalk.ROAbstractPathShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "resizeContainer:for:",
+fn: function (svgRect,svgPath){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"resizeContainer:for:",{svgRect:svgRect,svgPath:svgPath},smalltalk.ROAbstractPathShape)})},
+messageSends: ["subclassResponsibility"]}),
+smalltalk.ROAbstractPathShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "updateSVGElementOn:for:",
+fn: function (canvas,anElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@svgElement"])._transform_("T0,0");
+_st(self["@svgElement"])._transform_(_st(_st("T".__comma(_st(_st(anElement)._position())._x())).__comma(",")).__comma(_st(_st(anElement)._position())._y()));
+return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROAbstractPathShape)})},
+messageSends: ["transform:", ",", "y", "position", "x"]}),
+smalltalk.ROAbstractPathShape);
+
+
+
+smalltalk.addClass('ROLabel', smalltalk.ROAbstractPathShape, ['text'], 'ARoassal');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "alignPath:into:",
+fn: function (svgPath,svgRect){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(svgPath)._attr_value_("x",_st(_st(_st(svgRect)._attr_("width")).__slash((2)))._asInteger());
+_st(svgPath)._attr_value_("text-anchor","middle");
+_st(svgPath)._attr_value_("y",_st(_st(_st(svgRect)._attr_("height")).__slash((2)))._asInteger());
+return self}, function($ctx1) {$ctx1.fill(self,"alignPath:into:",{svgPath:svgPath,svgRect:svgRect},smalltalk.ROLabel)})},
+messageSends: ["attr:value:", "asInteger", "/", "attr:"]}),
+smalltalk.ROLabel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.ROLabel.superclass.fn.prototype._initialize.apply(_st(self), []);
+self["@text"]="model";
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROLabel)})},
+messageSends: ["initialize"]}),
+smalltalk.ROLabel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initializeContainterOn:for:",
+fn: function (canvas,anElement){
+var self=this;
+var container;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+container=_st(canvas)._rect_y_width_rect_((0),(0),(1),(1));
+_st(container)._attr_value_("fill","white");
+_st(container)._attr_value_("stroke","gray");
+_st(container)._attr_value_("stroke-width",(2));
+$1=container;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"initializeContainterOn:for:",{canvas:canvas,anElement:anElement,container:container},smalltalk.ROLabel)})},
+messageSends: ["rect:y:width:rect:", "attr:value:"]}),
+smalltalk.ROLabel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initializePathOn:for:",
+fn: function (canvas,anElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(canvas)._text_y_string_((0),(10),self._text());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"initializePathOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROLabel)})},
+messageSends: ["text:y:string:", "text"]}),
+smalltalk.ROLabel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initializeSVGElementOn:for:",
+fn: function (canvas,anElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._text_(_st(_st(anElement)._model())._asString());
+smalltalk.ROLabel.superclass.fn.prototype._initializeSVGElementOn_for_.apply(_st(self), [canvas,anElement]);
+return self}, function($ctx1) {$ctx1.fill(self,"initializeSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROLabel)})},
+messageSends: ["text:", "asString", "model", "initializeSVGElementOn:for:"]}),
+smalltalk.ROLabel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "installedOn:",
+fn: function (anElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@height"]=(7).__plus((2).__star((5)));
+self["@width"]=_st(_st(_st(_st(anElement)._model())._asString())._size()).__star((7));
+_st(anElement)._extent_(_st(self["@width"]).__at(self["@height"]));
+return self}, function($ctx1) {$ctx1.fill(self,"installedOn:",{anElement:anElement},smalltalk.ROLabel)})},
+messageSends: ["+", "*", "size", "asString", "model", "extent:", "@"]}),
+smalltalk.ROLabel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "padding",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return (5);
+}, function($ctx1) {$ctx1.fill(self,"padding",{},smalltalk.ROLabel)})},
+messageSends: []}),
+smalltalk.ROLabel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "resizeContainer:for:",
+fn: function (svgRect,svgPath){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(svgRect)._attr_value_("width",self._width());
+_st(svgRect)._attr_value_("height",_st(self._textHeight()).__plus(_st(self._padding()).__star((2))));
+return self}, function($ctx1) {$ctx1.fill(self,"resizeContainer:for:",{svgRect:svgRect,svgPath:svgPath},smalltalk.ROLabel)})},
+messageSends: ["attr:value:", "width", "+", "*", "padding", "textHeight"]}),
+smalltalk.ROLabel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "text",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@text"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"text",{},smalltalk.ROLabel)})},
+messageSends: []}),
+smalltalk.ROLabel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "text:",
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@text"]=anObject;
+return self}, function($ctx1) {$ctx1.fill(self,"text:",{anObject:anObject},smalltalk.ROLabel)})},
+messageSends: []}),
+smalltalk.ROLabel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "textHeight",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return (8);
+}, function($ctx1) {$ctx1.fill(self,"textHeight",{},smalltalk.ROLabel)})},
+messageSends: []}),
+smalltalk.ROLabel);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "text:",
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._new())._text_(aBlock);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"text:",{aBlock:aBlock},smalltalk.ROLabel.klass)})},
+messageSends: ["text:", "new"]}),
+smalltalk.ROLabel.klass);
 
 
 smalltalk.addClass('ROBox', smalltalk.ROShape, [], 'ARoassal');
@@ -2158,125 +2423,6 @@ return $1;
 messageSends: ["*", "radius"]}),
 smalltalk.ROCircle);
 
-
-
-smalltalk.addClass('ROLabel', smalltalk.ROShape, ['text'], 'ARoassal');
-smalltalk.addMethod(
-smalltalk.method({
-selector: "initialize",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-smalltalk.ROLabel.superclass.fn.prototype._initialize.apply(_st(self), []);
-self["@text"]="model";
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROLabel)})},
-messageSends: ["initialize"]}),
-smalltalk.ROLabel);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "initializeSVGElementOn:for:",
-fn: function (canvas,anElement){
-var self=this;
-var str,svgText,svgRect;
-function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
-function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-self._text_(_st(_st(anElement)._model())._asString());
-svgRect=_st(canvas)._rect_y_width_rect_((0),(0),(1),(1));
-_st(svgRect)._attr_value_("fill","white");
-_st(svgRect)._attr_value_("stroke","gray");
-_st(svgRect)._attr_value_("stroke-width",(2));
-svgText=_st(canvas)._text_y_string_((0),(10),self["@text"]);
-self["@svgElement"]=_st(canvas)._set();
-$1=self["@svgElement"];
-_st($1)._push_(svgRect);
-$2=_st($1)._push_(svgText);
-_st($Transcript())._show_(_st(_st(_st(self._width())._asString()).__comma("-initialize-")).__comma(_st($String())._cr()));
-_st(svgRect)._attr_value_("width",self._width());
-_st(svgRect)._attr_value_("height",_st(_st(_st(self["@svgElement"])._getBBox())._height()).__plus((10)));
-_st(svgText)._attr_value_("x",_st(_st(_st(svgRect)._attr_("width")).__slash((2)))._asInteger());
-_st(svgText)._attr_value_("text-anchor","middle");
-_st(svgText)._attr_value_("y",_st(_st(_st(svgRect)._attr_("height")).__slash((2)))._asInteger());
-_st(self["@svgElement"])._translate_y_(_st(_st(anElement)._position())._x(),_st(_st(anElement)._position())._y());
-return self}, function($ctx1) {$ctx1.fill(self,"initializeSVGElementOn:for:",{canvas:canvas,anElement:anElement,str:str,svgText:svgText,svgRect:svgRect},smalltalk.ROLabel)})},
-messageSends: ["text:", "asString", "model", "rect:y:width:rect:", "attr:value:", "text:y:string:", "set", "push:", "show:", ",", "cr", "width", "+", "height", "getBBox", "asInteger", "/", "attr:", "translate:y:", "x", "position", "y"]}),
-smalltalk.ROLabel);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "installedOn:",
-fn: function (anElement){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@height"]=(7).__plus((2).__star((5)));
-self["@width"]=_st(_st(_st(_st(anElement)._model())._asString())._size()).__star((7));
-_st(anElement)._extent_(_st(self["@width"]).__at(self["@height"]));
-return self}, function($ctx1) {$ctx1.fill(self,"installedOn:",{anElement:anElement},smalltalk.ROLabel)})},
-messageSends: ["+", "*", "size", "asString", "model", "extent:", "@"]}),
-smalltalk.ROLabel);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "removeSVGElement",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(self["@svgElement"])._clear();
-return self}, function($ctx1) {$ctx1.fill(self,"removeSVGElement",{},smalltalk.ROLabel)})},
-messageSends: ["clear"]}),
-smalltalk.ROLabel);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "text",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self["@text"];
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"text",{},smalltalk.ROLabel)})},
-messageSends: []}),
-smalltalk.ROLabel);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "text:",
-fn: function (anObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@text"]=anObject;
-return self}, function($ctx1) {$ctx1.fill(self,"text:",{anObject:anObject},smalltalk.ROLabel)})},
-messageSends: []}),
-smalltalk.ROLabel);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "updateSVGElementOn:for:",
-fn: function (canvas,anElement){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(self["@svgElement"])._transform_("T0,0");
-_st(self["@svgElement"])._transform_(_st(_st("T".__comma(_st(_st(anElement)._position())._x())).__comma(",")).__comma(_st(_st(anElement)._position())._y()));
-return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROLabel)})},
-messageSends: ["transform:", ",", "y", "position", "x"]}),
-smalltalk.ROLabel);
-
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "text:",
-fn: function (aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self._new())._text_(aBlock);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"text:",{aBlock:aBlock},smalltalk.ROLabel.klass)})},
-messageSends: ["text:", "new"]}),
-smalltalk.ROLabel.klass);
 
 
 smalltalk.addClass('RONullShape', smalltalk.ROShape, [], 'ARoassal');

@@ -338,7 +338,7 @@ $1=_st(_st($ROLabel())._new())._elementOn_(_st(_st(anElement)._model())._asStrin
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"createElementFor:",{anElement:anElement},smalltalk.ROPopup)})},
 args: ["anElement"],
-source: "createElementFor: anElement\x0a\x09^ (ROLabel new elementOn: anElement model asString)\x0a\x22\x0a\x09^ (ROElement on: 'popup label')\x0a\x09\x09\x09+ (ROLabel \x0a\x09\x09\x09text: (anElement model asString));\x0a\x09\x09\x09yourself\x0a\x22\x09\x09\x09\x0a\x09\x09\x09\x0a\x22\x09\x09^ (ROElement on: (anElement model)) + ROLabel.\x22",
+source: "createElementFor: anElement\x0a\x09^ (ROLabel new elementOn: anElement model asString)",
 messageSends: ["elementOn:", "asString", "model", "new"],
 referencedClasses: ["ROLabel"]
 }),

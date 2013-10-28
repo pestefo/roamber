@@ -932,6 +932,70 @@ ROShape subclass: #ROAbstractPathShape
 	instanceVariableNames: ''
 	package: 'ARoassal'!
 
+!ROAbstractPathShape methodsFor: 'not yet classified'!
+
+alignPath: svgPath into: svgRect
+	self subclassResponsibility
+!
+
+createSetWith: svgRect and: svgPath on: canvas for: anElement
+	svgElement := canvas  set.
+	svgElement push: svgRect; push: svgPath.
+	
+	" enable translating "
+	svgElement translate:  (anElement position x) y: (anElement position y).
+!
+
+initializeContainterOn: canvas for: anElement
+	self subclassResponsibility
+!
+
+initializePathOn: canvas for: anElement
+	self subclassResponsibility
+!
+
+initializeSVGElementOn: canvas for: anElement
+	| svgRect svgPath |
+	
+	svgRect := self initializeContainterOn: canvas for: anElement.
+	svgPath := self initializePathOn: canvas for: anElement.
+	
+	self resizeContainer: svgRect for: svgPath. 
+	self alignPath: svgPath into: svgRect.
+	self createSetWith: svgRect and: svgPath on: canvas for: anElement.
+!
+
+padding
+	^ 0
+!
+
+removeSVGElement
+	svgElement clear.
+!
+
+resizeContainer: svgRect for: svgPath
+	self subclassResponsibility
+!
+
+updateSVGElementOn: canvas for: anElement
+	svgElement transform: 'T0,0'.
+	svgElement transform: 'T',(anElement position x),',',(anElement position y).
+"
+	svgElement translate: 0 y: 0.
+	svgElement translate: (anElement position x) y: (anElement position y).
+"
+! !
+
+ROAbstractPathShape subclass: #ROLabel
+	instanceVariableNames: 'text'
+	package: 'ARoassal'!
+
+!ROLabel class methodsFor: 'not yet classified'!
+
+text: aBlock
+	^ self new text: aBlock
+! !
+
 ROShape subclass: #ROBox
 	instanceVariableNames: ''
 	package: 'ARoassal'!
@@ -1034,104 +1098,6 @@ initialize
 	radius := self defaultRadius.
 	width := self defaultRadius * 1.5.
 	height := self defaultRadius * 1.5.
-! !
-
-ROShape subclass: #ROLabel
-	instanceVariableNames: 'text'
-	package: 'ARoassal'!
-
-!ROLabel methodsFor: 'not yet classified'!
-
-initialize 
-	super initialize.
-	text := #model.
-!
-
-initializeSVGElementOn: canvas for: anElement
-	"Paper.print(x, y, string, font, [size], [origin], [letter_spacing])
-	x - position of the text
-	y - position of the text
-	string - text to print
-	font - font object, see --> Paper.getFont(family, [weight], [style], [stretch])
-	size - size of the font, default is 16
-	origin - could be baseline' or 'middle' (default)
-	letter_spacing - number number in range -1..1, default is 0
-	Returns: object resulting path element, which consist of all letters
-   ----------- how to use getFont?????
-   
-   using paper.text() instead
-	"
-	
-	"example from: http://stackoverflow.com/questions/8771635/wrap-text-to-fit-into-a-rectangle-raphael"
-	|str svgText svgRect |
-	self text: anElement model asString.
-	
-	" container rectangle"
-	svgRect := canvas rect: 0
-				y: 0 
-				width: 1
-				rect: 1.
-	svgRect attr: 'fill' value: 'white'.			
-	svgRect attr: 'stroke' value: 'gray'.
-	svgRect attr: 'stroke-width' value: 2.
-				
-	" text "
-	svgText := canvas text: 0
-			y:10
-			string: text.
-	
-	" create set and add the elements "
-	svgElement := canvas  set.
-	svgElement push: svgRect; push: svgText.
-	
-	" adapt the size of rectangle "
-"	svgRect attr: 'width'  value: svgElement getBBox width + 10."
-	Transcript show: (self width asString),'-initialize-',(String cr).
-	svgRect attr: 'width'  value: (self width).
-	svgRect attr: 'height' value: svgElement getBBox height + 10.
-
-	" aling text in the middle first horizontally and then vertically"
-	svgText attr: 'x' value: ((svgRect attr: 'width') / 2) asInteger.
-	svgText  attr: 'text-anchor' value: 'middle'.			" fill:'#ff0000','font-size': 14});			"	
-	svgText attr: 'y' value: ((svgRect attr: 'height') / 2) asInteger.
-	
-	" enable translating "
-	svgElement translate:  (anElement position x) y: (anElement position y).
-!
-
-installedOn: anElement
-	height := 7 + (2 * 5).
-	width := anElement model asString size * 7.
-	
-	" Change NullShape extent"
-	anElement extent: width@height.
-!
-
-removeSVGElement
-	svgElement clear.
-!
-
-text
-	^ text
-!
-
-text: anObject
-	text := anObject
-!
-
-updateSVGElementOn: canvas for: anElement
-	svgElement transform: 'T0,0'.
-	svgElement transform: 'T',(anElement position x),',',(anElement position y).
-"
-	svgElement translate: 0 y: 0.
-	svgElement translate: (anElement position x) y: (anElement position y).
-"
-! !
-
-!ROLabel class methodsFor: 'not yet classified'!
-
-text: aBlock
-	^ self new text: aBlock
 ! !
 
 ROShape subclass: #RONullShape

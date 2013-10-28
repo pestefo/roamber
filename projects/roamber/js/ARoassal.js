@@ -2646,6 +2646,376 @@ smalltalk.ROLine);
 
 
 smalltalk.addClass('ROAbstractPathShape', smalltalk.ROShape, [], 'ARoassal');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "alignPath:into:",
+category: 'not yet classified',
+fn: function (svgPath,svgRect){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"alignPath:into:",{svgPath:svgPath,svgRect:svgRect},smalltalk.ROAbstractPathShape)})},
+args: ["svgPath", "svgRect"],
+source: "alignPath: svgPath into: svgRect\x0a\x09self subclassResponsibility",
+messageSends: ["subclassResponsibility"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractPathShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "createSetWith:and:on:for:",
+category: 'not yet classified',
+fn: function (svgRect,svgPath,canvas,anElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+self["@svgElement"]=_st(canvas)._set();
+$1=self["@svgElement"];
+_st($1)._push_(svgRect);
+$2=_st($1)._push_(svgPath);
+_st(self["@svgElement"])._translate_y_(_st(_st(anElement)._position())._x(),_st(_st(anElement)._position())._y());
+return self}, function($ctx1) {$ctx1.fill(self,"createSetWith:and:on:for:",{svgRect:svgRect,svgPath:svgPath,canvas:canvas,anElement:anElement},smalltalk.ROAbstractPathShape)})},
+args: ["svgRect", "svgPath", "canvas", "anElement"],
+source: "createSetWith: svgRect and: svgPath on: canvas for: anElement\x0a\x09svgElement := canvas  set.\x0a\x09svgElement push: svgRect; push: svgPath.\x0a\x09\x0a\x09\x22 enable translating \x22\x0a\x09svgElement translate:  (anElement position x) y: (anElement position y).",
+messageSends: ["set", "push:", "translate:y:", "x", "position", "y"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractPathShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initializeContainterOn:for:",
+category: 'not yet classified',
+fn: function (canvas,anElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"initializeContainterOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROAbstractPathShape)})},
+args: ["canvas", "anElement"],
+source: "initializeContainterOn: canvas for: anElement\x0a\x09self subclassResponsibility",
+messageSends: ["subclassResponsibility"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractPathShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initializePathOn:for:",
+category: 'not yet classified',
+fn: function (canvas,anElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"initializePathOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROAbstractPathShape)})},
+args: ["canvas", "anElement"],
+source: "initializePathOn: canvas for: anElement\x0a\x09self subclassResponsibility",
+messageSends: ["subclassResponsibility"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractPathShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initializeSVGElementOn:for:",
+category: 'not yet classified',
+fn: function (canvas,anElement){
+var self=this;
+var svgRect,svgPath;
+return smalltalk.withContext(function($ctx1) { 
+svgRect=self._initializeContainterOn_for_(canvas,anElement);
+svgPath=self._initializePathOn_for_(canvas,anElement);
+self._resizeContainer_for_(svgRect,svgPath);
+self._alignPath_into_(svgPath,svgRect);
+self._createSetWith_and_on_for_(svgRect,svgPath,canvas,anElement);
+return self}, function($ctx1) {$ctx1.fill(self,"initializeSVGElementOn:for:",{canvas:canvas,anElement:anElement,svgRect:svgRect,svgPath:svgPath},smalltalk.ROAbstractPathShape)})},
+args: ["canvas", "anElement"],
+source: "initializeSVGElementOn: canvas for: anElement\x0a\x09| svgRect svgPath |\x0a\x09\x0a\x09svgRect := self initializeContainterOn: canvas for: anElement.\x0a\x09svgPath := self initializePathOn: canvas for: anElement.\x0a\x09\x0a\x09self resizeContainer: svgRect for: svgPath. \x0a\x09self alignPath: svgPath into: svgRect.\x0a\x09self createSetWith: svgRect and: svgPath on: canvas for: anElement.",
+messageSends: ["initializeContainterOn:for:", "initializePathOn:for:", "resizeContainer:for:", "alignPath:into:", "createSetWith:and:on:for:"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractPathShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "padding",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return (0);
+}, function($ctx1) {$ctx1.fill(self,"padding",{},smalltalk.ROAbstractPathShape)})},
+args: [],
+source: "padding\x0a\x09^ 0",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROAbstractPathShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "removeSVGElement",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@svgElement"])._clear();
+return self}, function($ctx1) {$ctx1.fill(self,"removeSVGElement",{},smalltalk.ROAbstractPathShape)})},
+args: [],
+source: "removeSVGElement\x0a\x09svgElement clear.",
+messageSends: ["clear"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractPathShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "resizeContainer:for:",
+category: 'not yet classified',
+fn: function (svgRect,svgPath){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"resizeContainer:for:",{svgRect:svgRect,svgPath:svgPath},smalltalk.ROAbstractPathShape)})},
+args: ["svgRect", "svgPath"],
+source: "resizeContainer: svgRect for: svgPath\x0a\x09self subclassResponsibility",
+messageSends: ["subclassResponsibility"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractPathShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "updateSVGElementOn:for:",
+category: 'not yet classified',
+fn: function (canvas,anElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@svgElement"])._transform_("T0,0");
+_st(self["@svgElement"])._transform_(_st(_st("T".__comma(_st(_st(anElement)._position())._x())).__comma(",")).__comma(_st(_st(anElement)._position())._y()));
+return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROAbstractPathShape)})},
+args: ["canvas", "anElement"],
+source: "updateSVGElementOn: canvas for: anElement\x0a\x09svgElement transform: 'T0,0'.\x0a\x09svgElement transform: 'T',(anElement position x),',',(anElement position y).\x0a\x22\x0a\x09svgElement translate: 0 y: 0.\x0a\x09svgElement translate: (anElement position x) y: (anElement position y).\x0a\x22",
+messageSends: ["transform:", ",", "y", "position", "x"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractPathShape);
+
+
+
+smalltalk.addClass('ROLabel', smalltalk.ROAbstractPathShape, ['text'], 'ARoassal');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "alignPath:into:",
+category: 'not yet classified',
+fn: function (svgPath,svgRect){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(svgPath)._attr_value_("x",_st(_st(_st(svgRect)._attr_("width")).__slash((2)))._asInteger());
+_st(svgPath)._attr_value_("text-anchor","middle");
+_st(svgPath)._attr_value_("y",_st(_st(_st(svgRect)._attr_("height")).__slash((2)))._asInteger());
+return self}, function($ctx1) {$ctx1.fill(self,"alignPath:into:",{svgPath:svgPath,svgRect:svgRect},smalltalk.ROLabel)})},
+args: ["svgPath", "svgRect"],
+source: "alignPath: svgPath into: svgRect\x0a\x09svgPath attr: 'x' value: ((svgRect attr: 'width') / 2) asInteger.\x0a\x09svgPath  attr: 'text-anchor' value: 'middle'.\x09\x09\x09\x22 fill:'#ff0000','font-size': 14});\x09\x09\x09\x22\x09\x0a\x09svgPath attr: 'y' value: ((svgRect attr: 'height') / 2) asInteger.\x0a\x09",
+messageSends: ["attr:value:", "asInteger", "/", "attr:"],
+referencedClasses: []
+}),
+smalltalk.ROLabel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.ROLabel.superclass.fn.prototype._initialize.apply(_st(self), []);
+self["@text"]="model";
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROLabel)})},
+args: [],
+source: "initialize \x0a\x09super initialize.\x0a\x09text := #model.",
+messageSends: ["initialize"],
+referencedClasses: []
+}),
+smalltalk.ROLabel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initializeContainterOn:for:",
+category: 'not yet classified',
+fn: function (canvas,anElement){
+var self=this;
+var container;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+container=_st(canvas)._rect_y_width_rect_((0),(0),(1),(1));
+_st(container)._attr_value_("fill","white");
+_st(container)._attr_value_("stroke","gray");
+_st(container)._attr_value_("stroke-width",(2));
+$1=container;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"initializeContainterOn:for:",{canvas:canvas,anElement:anElement,container:container},smalltalk.ROLabel)})},
+args: ["canvas", "anElement"],
+source: "initializeContainterOn: canvas for: anElement\x0a\x09| container |\x0a\x09container :=  canvas rect: 0\x0a\x09\x09\x09\x09y: 0 \x0a\x09\x09\x09\x09width: 1\x0a\x09\x09\x09\x09rect: 1.\x0a\x09container attr: 'fill' value: 'white'.\x09\x09\x09\x0a\x09container attr: 'stroke' value: 'gray'.\x0a\x09container attr: 'stroke-width' value: 2.\x0a\x09^ container.",
+messageSends: ["rect:y:width:rect:", "attr:value:"],
+referencedClasses: []
+}),
+smalltalk.ROLabel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initializePathOn:for:",
+category: 'not yet classified',
+fn: function (canvas,anElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(canvas)._text_y_string_((0),(10),self._text());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"initializePathOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROLabel)})},
+args: ["canvas", "anElement"],
+source: "initializePathOn: canvas for: anElement\x0a\x09^ canvas text: 0\x0a\x09\x09\x09y:10\x0a\x09\x09\x09string: (self text).\x0a\x09",
+messageSends: ["text:y:string:", "text"],
+referencedClasses: []
+}),
+smalltalk.ROLabel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initializeSVGElementOn:for:",
+category: 'not yet classified',
+fn: function (canvas,anElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._text_(_st(_st(anElement)._model())._asString());
+smalltalk.ROLabel.superclass.fn.prototype._initializeSVGElementOn_for_.apply(_st(self), [canvas,anElement]);
+return self}, function($ctx1) {$ctx1.fill(self,"initializeSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROLabel)})},
+args: ["canvas", "anElement"],
+source: "initializeSVGElementOn: canvas for: anElement\x0a\x22Paper.print(x, y, string, font, [size], [origin], [letter_spacing])\x0a\x09x - position of the text\x0a\x09y - position of the text\x0a\x09string - text to print\x0a\x09font - font object, see --> Paper.getFont(family, [weight], [style], [stretch])\x0a\x09size - size of the font, default is 16\x0a\x09origin - could be baseline' or 'middle' (default)\x0a\x09letter_spacing - number number in range -1..1, default is 0\x0a\x09Returns: object resulting path element, which consist of all letters\x0a   ----------- how to use getFont?????\x0a   \x0a   using paper.text() instead\x0a\x09\x22\x0a\x09\x0a\x09\x22example from: http://stackoverflow.com/questions/8771635/wrap-text-to-fit-into-a-rectangle-raphael\x22\x0a\x09\x09self text: anElement model asString.\x0a\x09\x09super initializeSVGElementOn: canvas for: anElement.",
+messageSends: ["text:", "asString", "model", "initializeSVGElementOn:for:"],
+referencedClasses: []
+}),
+smalltalk.ROLabel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "installedOn:",
+category: 'not yet classified',
+fn: function (anElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@height"]=(7).__plus((2).__star((5)));
+self["@width"]=_st(_st(_st(_st(anElement)._model())._asString())._size()).__star((7));
+_st(anElement)._extent_(_st(self["@width"]).__at(self["@height"]));
+return self}, function($ctx1) {$ctx1.fill(self,"installedOn:",{anElement:anElement},smalltalk.ROLabel)})},
+args: ["anElement"],
+source: "installedOn: anElement\x0a\x09height := 7 + (2 * 5).\x0a\x09width := anElement model asString size * 7.\x0a\x09\x0a\x09\x22 Change NullShape extent\x22\x0a\x09anElement extent: width@height.",
+messageSends: ["+", "*", "size", "asString", "model", "extent:", "@"],
+referencedClasses: []
+}),
+smalltalk.ROLabel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "padding",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return (5);
+}, function($ctx1) {$ctx1.fill(self,"padding",{},smalltalk.ROLabel)})},
+args: [],
+source: "padding\x0a\x09^ 5",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROLabel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "resizeContainer:for:",
+category: 'not yet classified',
+fn: function (svgRect,svgPath){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(svgRect)._attr_value_("width",self._width());
+_st(svgRect)._attr_value_("height",_st(self._textHeight()).__plus(_st(self._padding()).__star((2))));
+return self}, function($ctx1) {$ctx1.fill(self,"resizeContainer:for:",{svgRect:svgRect,svgPath:svgPath},smalltalk.ROLabel)})},
+args: ["svgRect", "svgPath"],
+source: "resizeContainer: svgRect for: svgPath \x0a\x09svgRect attr: 'width'  value: (self width).\x0a\x09svgRect attr: 'height' value: self textHeight + (self padding * 2).",
+messageSends: ["attr:value:", "width", "+", "*", "padding", "textHeight"],
+referencedClasses: []
+}),
+smalltalk.ROLabel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "text",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@text"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"text",{},smalltalk.ROLabel)})},
+args: [],
+source: "text\x0a\x09^ text",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROLabel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "text:",
+category: 'not yet classified',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@text"]=anObject;
+return self}, function($ctx1) {$ctx1.fill(self,"text:",{anObject:anObject},smalltalk.ROLabel)})},
+args: ["anObject"],
+source: "text: anObject\x0a\x09text := anObject",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROLabel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "textHeight",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return (8);
+}, function($ctx1) {$ctx1.fill(self,"textHeight",{},smalltalk.ROLabel)})},
+args: [],
+source: "textHeight \x0a\x09\x22 Measured empirically. It's ugly, I know\x22\x0a\x09^  8",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROLabel);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "text:",
+category: 'not yet classified',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._new())._text_(aBlock);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"text:",{aBlock:aBlock},smalltalk.ROLabel.klass)})},
+args: ["aBlock"],
+source: "text: aBlock\x0a\x09^ self new text: aBlock",
+messageSends: ["text:", "new"],
+referencedClasses: []
+}),
+smalltalk.ROLabel.klass);
 
 
 smalltalk.addClass('ROBox', smalltalk.ROShape, [], 'ARoassal');
@@ -2914,165 +3284,6 @@ referencedClasses: []
 }),
 smalltalk.ROCircle);
 
-
-
-smalltalk.addClass('ROLabel', smalltalk.ROShape, ['text'], 'ARoassal');
-smalltalk.addMethod(
-smalltalk.method({
-selector: "initialize",
-category: 'not yet classified',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-smalltalk.ROLabel.superclass.fn.prototype._initialize.apply(_st(self), []);
-self["@text"]="model";
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROLabel)})},
-args: [],
-source: "initialize \x0a\x09super initialize.\x0a\x09text := #model.",
-messageSends: ["initialize"],
-referencedClasses: []
-}),
-smalltalk.ROLabel);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "initializeSVGElementOn:for:",
-category: 'not yet classified',
-fn: function (canvas,anElement){
-var self=this;
-var str,svgText,svgRect;
-function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
-function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-self._text_(_st(_st(anElement)._model())._asString());
-svgRect=_st(canvas)._rect_y_width_rect_((0),(0),(1),(1));
-_st(svgRect)._attr_value_("fill","white");
-_st(svgRect)._attr_value_("stroke","gray");
-_st(svgRect)._attr_value_("stroke-width",(2));
-svgText=_st(canvas)._text_y_string_((0),(10),self["@text"]);
-self["@svgElement"]=_st(canvas)._set();
-$1=self["@svgElement"];
-_st($1)._push_(svgRect);
-$2=_st($1)._push_(svgText);
-_st($Transcript())._show_(_st(_st(_st(self._width())._asString()).__comma("-initialize-")).__comma(_st($String())._cr()));
-_st(svgRect)._attr_value_("width",self._width());
-_st(svgRect)._attr_value_("height",_st(_st(_st(self["@svgElement"])._getBBox())._height()).__plus((10)));
-_st(svgText)._attr_value_("x",_st(_st(_st(svgRect)._attr_("width")).__slash((2)))._asInteger());
-_st(svgText)._attr_value_("text-anchor","middle");
-_st(svgText)._attr_value_("y",_st(_st(_st(svgRect)._attr_("height")).__slash((2)))._asInteger());
-_st(self["@svgElement"])._translate_y_(_st(_st(anElement)._position())._x(),_st(_st(anElement)._position())._y());
-return self}, function($ctx1) {$ctx1.fill(self,"initializeSVGElementOn:for:",{canvas:canvas,anElement:anElement,str:str,svgText:svgText,svgRect:svgRect},smalltalk.ROLabel)})},
-args: ["canvas", "anElement"],
-source: "initializeSVGElementOn: canvas for: anElement\x0a\x09\x22Paper.print(x, y, string, font, [size], [origin], [letter_spacing])\x0a\x09x - position of the text\x0a\x09y - position of the text\x0a\x09string - text to print\x0a\x09font - font object, see --> Paper.getFont(family, [weight], [style], [stretch])\x0a\x09size - size of the font, default is 16\x0a\x09origin - could be baseline' or 'middle' (default)\x0a\x09letter_spacing - number number in range -1..1, default is 0\x0a\x09Returns: object resulting path element, which consist of all letters\x0a   ----------- how to use getFont?????\x0a   \x0a   using paper.text() instead\x0a\x09\x22\x0a\x09\x0a\x09\x22example from: http://stackoverflow.com/questions/8771635/wrap-text-to-fit-into-a-rectangle-raphael\x22\x0a\x09|str svgText svgRect |\x0a\x09self text: anElement model asString.\x0a\x09\x0a\x09\x22 container rectangle\x22\x0a\x09svgRect := canvas rect: 0\x0a\x09\x09\x09\x09y: 0 \x0a\x09\x09\x09\x09width: 1\x0a\x09\x09\x09\x09rect: 1.\x0a\x09svgRect attr: 'fill' value: 'white'.\x09\x09\x09\x0a\x09svgRect attr: 'stroke' value: 'gray'.\x0a\x09svgRect attr: 'stroke-width' value: 2.\x0a\x09\x09\x09\x09\x0a\x09\x22 text \x22\x0a\x09svgText := canvas text: 0\x0a\x09\x09\x09y:10\x0a\x09\x09\x09string: text.\x0a\x09\x0a\x09\x22 create set and add the elements \x22\x0a\x09svgElement := canvas  set.\x0a\x09svgElement push: svgRect; push: svgText.\x0a\x09\x0a\x09\x22 adapt the size of rectangle \x22\x0a\x22\x09svgRect attr: 'width'  value: svgElement getBBox width + 10.\x22\x0a\x09Transcript show: (self width asString),'-initialize-',(String cr).\x0a\x09svgRect attr: 'width'  value: (self width).\x0a\x09svgRect attr: 'height' value: svgElement getBBox height + 10.\x0a\x0a\x09\x22 aling text in the middle first horizontally and then vertically\x22\x0a\x09svgText attr: 'x' value: ((svgRect attr: 'width') / 2) asInteger.\x0a\x09svgText  attr: 'text-anchor' value: 'middle'.\x09\x09\x09\x22 fill:'#ff0000','font-size': 14});\x09\x09\x09\x22\x09\x0a\x09svgText attr: 'y' value: ((svgRect attr: 'height') / 2) asInteger.\x0a\x09\x0a\x09\x22 enable translating \x22\x0a\x09svgElement translate:  (anElement position x) y: (anElement position y).\x0a\x09",
-messageSends: ["text:", "asString", "model", "rect:y:width:rect:", "attr:value:", "text:y:string:", "set", "push:", "show:", ",", "cr", "width", "+", "height", "getBBox", "asInteger", "/", "attr:", "translate:y:", "x", "position", "y"],
-referencedClasses: ["String", "Transcript"]
-}),
-smalltalk.ROLabel);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "installedOn:",
-category: 'not yet classified',
-fn: function (anElement){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@height"]=(7).__plus((2).__star((5)));
-self["@width"]=_st(_st(_st(_st(anElement)._model())._asString())._size()).__star((7));
-_st(anElement)._extent_(_st(self["@width"]).__at(self["@height"]));
-return self}, function($ctx1) {$ctx1.fill(self,"installedOn:",{anElement:anElement},smalltalk.ROLabel)})},
-args: ["anElement"],
-source: "installedOn: anElement\x0a\x09height := 7 + (2 * 5).\x0a\x09width := anElement model asString size * 7.\x0a\x09\x0a\x09\x22 Change NullShape extent\x22\x0a\x09anElement extent: width@height.",
-messageSends: ["+", "*", "size", "asString", "model", "extent:", "@"],
-referencedClasses: []
-}),
-smalltalk.ROLabel);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "removeSVGElement",
-category: 'not yet classified',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(self["@svgElement"])._clear();
-return self}, function($ctx1) {$ctx1.fill(self,"removeSVGElement",{},smalltalk.ROLabel)})},
-args: [],
-source: "removeSVGElement\x0a\x09svgElement clear.",
-messageSends: ["clear"],
-referencedClasses: []
-}),
-smalltalk.ROLabel);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "text",
-category: 'not yet classified',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self["@text"];
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"text",{},smalltalk.ROLabel)})},
-args: [],
-source: "text\x0a\x09^ text",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.ROLabel);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "text:",
-category: 'not yet classified',
-fn: function (anObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@text"]=anObject;
-return self}, function($ctx1) {$ctx1.fill(self,"text:",{anObject:anObject},smalltalk.ROLabel)})},
-args: ["anObject"],
-source: "text: anObject\x0a\x09text := anObject",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.ROLabel);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "updateSVGElementOn:for:",
-category: 'not yet classified',
-fn: function (canvas,anElement){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(self["@svgElement"])._transform_("T0,0");
-_st(self["@svgElement"])._transform_(_st(_st("T".__comma(_st(_st(anElement)._position())._x())).__comma(",")).__comma(_st(_st(anElement)._position())._y()));
-return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROLabel)})},
-args: ["canvas", "anElement"],
-source: "updateSVGElementOn: canvas for: anElement\x0a\x09svgElement transform: 'T0,0'.\x0a\x09svgElement transform: 'T',(anElement position x),',',(anElement position y).\x0a\x22\x0a\x09svgElement translate: 0 y: 0.\x0a\x09svgElement translate: (anElement position x) y: (anElement position y).\x0a\x22",
-messageSends: ["transform:", ",", "y", "position", "x"],
-referencedClasses: []
-}),
-smalltalk.ROLabel);
-
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "text:",
-category: 'not yet classified',
-fn: function (aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self._new())._text_(aBlock);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"text:",{aBlock:aBlock},smalltalk.ROLabel.klass)})},
-args: ["aBlock"],
-source: "text: aBlock\x0a\x09^ self new text: aBlock",
-messageSends: ["text:", "new"],
-referencedClasses: []
-}),
-smalltalk.ROLabel.klass);
 
 
 smalltalk.addClass('RONullShape', smalltalk.ROShape, [], 'ARoassal');
