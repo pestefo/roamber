@@ -289,6 +289,31 @@ smalltalk.ROExample);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "horizontalLineLayout",
+fn: function (){
+var self=this;
+var view,colorWheel;
+function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+function $RODraggable(){return smalltalk.RODraggable||(typeof RODraggable=="undefined"?nil:RODraggable)}
+function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
+function $ROHorizontalLineLayout(){return smalltalk.ROHorizontalLineLayout||(typeof ROHorizontalLineLayout=="undefined"?nil:ROHorizontalLineLayout)}
+return smalltalk.withContext(function($ctx1) { 
+view=_st($ROView())._new();
+_st(view)._clear();
+colorWheel=_st(_st($Color())._red())._wheel_to_((20),_st($Color())._green());
+_st(colorWheel)._do_((function(c){
+return smalltalk.withContext(function($ctx2) {
+return _st(view)._add_(_st(_st(_st($ROBox())._element())._color_(c)).__at($RODraggable()));
+}, function($ctx2) {$ctx2.fillBlock({c:c},$ctx1)})}));
+_st($ROHorizontalLineLayout())._on_(_st(view)._elements());
+_st(view)._open();
+return self}, function($ctx1) {$ctx1.fill(self,"horizontalLineLayout",{view:view,colorWheel:colorWheel},smalltalk.ROExample)})},
+messageSends: ["new", "clear", "wheel:to:", "green", "red", "do:", "add:", "@", "color:", "element", "on:", "elements", "open"]}),
+smalltalk.ROExample);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "hover",
 fn: function (){
 var self=this;

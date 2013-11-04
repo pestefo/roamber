@@ -318,6 +318,34 @@ return $1;
 messageSends: ["saturation", "brightness", "hue", "/", "max:", "collect:", "h:s:v:", "+", "to:"]}),
 smalltalk.Color);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "wheel:to:",
+fn: function (thisMany,aColor){
+var self=this;
+var sat,bri,step,hue,finishHue;
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+sat=self._saturation();
+bri=self._brightness();
+hue=self._hue();
+finishHue=_st(aColor)._hue();
+step=_st(_st(finishHue).__minus(hue)).__slash(_st(thisMany)._max_((1)));
+$1=_st((1)._to_(thisMany))._collect_((function(num){
+var c;
+return smalltalk.withContext(function($ctx2) {
+c=_st($Color())._h_s_v_(hue,sat,bri);
+c;
+hue=_st(hue).__plus(step);
+hue;
+return c;
+}, function($ctx2) {$ctx2.fillBlock({num:num,c:c},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"wheel:to:",{thisMany:thisMany,aColor:aColor,sat:sat,bri:bri,step:step,hue:hue,finishHue:finishHue},smalltalk.Color)})},
+messageSends: ["saturation", "brightness", "hue", "/", "max:", "-", "collect:", "h:s:v:", "+", "to:"]}),
+smalltalk.Color);
+
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -460,34 +488,6 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"white",{},smalltalk.Color.klass)})},
 messageSends: ["r:g:b:", "new"]}),
 smalltalk.Color.klass);
-
-
-smalltalk.addClass('ColorWheelExample', smalltalk.Object, [], 'ARoassal');
-smalltalk.addMethod(
-smalltalk.method({
-selector: "example",
-fn: function (){
-var self=this;
-var view,colorWheel;
-function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
-function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
-function $RODraggable(){return smalltalk.RODraggable||(typeof RODraggable=="undefined"?nil:RODraggable)}
-function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
-function $ROHorizontalLineLayout(){return smalltalk.ROHorizontalLineLayout||(typeof ROHorizontalLineLayout=="undefined"?nil:ROHorizontalLineLayout)}
-return smalltalk.withContext(function($ctx1) { 
-view=_st($ROView())._new();
-_st(view)._clear();
-colorWheel=_st($Color())._wheel_((20));
-_st(colorWheel)._do_((function(c){
-return smalltalk.withContext(function($ctx2) {
-return _st(view)._add_(_st(_st(_st($ROBox())._element())._color_(c)).__at($RODraggable()));
-}, function($ctx2) {$ctx2.fillBlock({c:c},$ctx1)})}));
-_st($ROHorizontalLineLayout())._on_(_st(view)._elements());
-_st(view)._open();
-return self}, function($ctx1) {$ctx1.fill(self,"example",{view:view,colorWheel:colorWheel},smalltalk.ColorWheelExample)})},
-messageSends: ["new", "clear", "wheel:", "do:", "add:", "@", "color:", "element", "on:", "elements", "open"]}),
-smalltalk.ColorWheelExample);
-
 
 
 smalltalk.addClass('ROAnnouncer', smalltalk.Announcer, ['forwarding', 'announcer'], 'ARoassal');

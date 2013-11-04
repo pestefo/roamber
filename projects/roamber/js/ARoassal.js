@@ -388,6 +388,39 @@ referencedClasses: ["Color"]
 }),
 smalltalk.Color);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "wheel:to:",
+category: 'not yet classified',
+fn: function (thisMany,aColor){
+var self=this;
+var sat,bri,step,hue,finishHue;
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+sat=self._saturation();
+bri=self._brightness();
+hue=self._hue();
+finishHue=_st(aColor)._hue();
+step=_st(_st(finishHue).__minus(hue)).__slash(_st(thisMany)._max_((1)));
+$1=_st((1)._to_(thisMany))._collect_((function(num){
+var c;
+return smalltalk.withContext(function($ctx2) {
+c=_st($Color())._h_s_v_(hue,sat,bri);
+c;
+hue=_st(hue).__plus(step);
+hue;
+return c;
+}, function($ctx2) {$ctx2.fillBlock({num:num,c:c},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"wheel:to:",{thisMany:thisMany,aColor:aColor,sat:sat,bri:bri,step:step,hue:hue,finishHue:finishHue},smalltalk.Color)})},
+args: ["thisMany", "aColor"],
+source: "wheel: thisMany to: aColor\x0a\x09\x22An array of thisMany colors around the color wheel starting at self and ending all the way around the hue space just before self.  Array is of length thisMany.  Very useful for displaying color based on a variable in your program.  \x22\x0a\x09| sat bri step hue finishHue |\x0a\x09sat := self saturation.\x0a\x09bri := self brightness.\x0a\x09hue := self hue.\x0a\x09finishHue := aColor hue.\x0a\x09step := ( finishHue - hue) / (thisMany max: 1).\x0a\x09^ (1 to: thisMany) collect: \x0a\x09\x09[ :num | | c | \x0a\x09\x09c := Color \x0a\x09\x09\x09h: hue\x0a\x09\x09\x09s: sat\x0a\x09\x09\x09v: bri.\x09\x22hue is taken mod 360\x22\x0a\x09\x09hue := hue + step.\x0a\x09\x09c ]\x0a\x09\x22\x0a(Color wheel: 8) withIndexDo: [:c :i | Display fill: (i*10@20 extent: 10@20) fillColor: c]\x0a\x22",
+messageSends: ["saturation", "brightness", "hue", "/", "max:", "-", "collect:", "h:s:v:", "+", "to:"],
+referencedClasses: ["Color"]
+}),
+smalltalk.Color);
+
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -585,39 +618,6 @@ messageSends: ["r:g:b:", "new"],
 referencedClasses: []
 }),
 smalltalk.Color.klass);
-
-
-smalltalk.addClass('ColorWheelExample', smalltalk.Object, [], 'ARoassal');
-smalltalk.addMethod(
-smalltalk.method({
-selector: "example",
-category: 'not yet classified',
-fn: function (){
-var self=this;
-var view,colorWheel;
-function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
-function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
-function $RODraggable(){return smalltalk.RODraggable||(typeof RODraggable=="undefined"?nil:RODraggable)}
-function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
-function $ROHorizontalLineLayout(){return smalltalk.ROHorizontalLineLayout||(typeof ROHorizontalLineLayout=="undefined"?nil:ROHorizontalLineLayout)}
-return smalltalk.withContext(function($ctx1) { 
-view=_st($ROView())._new();
-_st(view)._clear();
-colorWheel=_st($Color())._wheel_((20));
-_st(colorWheel)._do_((function(c){
-return smalltalk.withContext(function($ctx2) {
-return _st(view)._add_(_st(_st(_st($ROBox())._element())._color_(c)).__at($RODraggable()));
-}, function($ctx2) {$ctx2.fillBlock({c:c},$ctx1)})}));
-_st($ROHorizontalLineLayout())._on_(_st(view)._elements());
-_st(view)._open();
-return self}, function($ctx1) {$ctx1.fill(self,"example",{view:view,colorWheel:colorWheel},smalltalk.ColorWheelExample)})},
-args: [],
-source: "example\x0a\x09\x22three colors between red to green\x22\x0a\x0a\x09| view colorWheel |\x0a\x09view := ROView new.\x0a\x09view clear.\x0a\x09colorWheel := Color wheel: 20.\x0a\x09colorWheel do: [:c | \x0a\x09\x09view add: (ROBox element color:  c ) @ RODraggable].\x0a\x09ROHorizontalLineLayout on: view elements.\x0a\x09view open.\x0a\x0a\x09",
-messageSends: ["new", "clear", "wheel:", "do:", "add:", "@", "color:", "element", "on:", "elements", "open"],
-referencedClasses: ["ROView", "Color", "RODraggable", "ROBox", "ROHorizontalLineLayout"]
-}),
-smalltalk.ColorWheelExample);
-
 
 
 smalltalk.addClass('ROAnnouncer', smalltalk.Announcer, ['forwarding', 'announcer'], 'ARoassal');

@@ -35,6 +35,25 @@ ROObject subclass: #ROExample
 	instanceVariableNames: ''
 	package: 'ARoassal-Demo'!
 
+!ROExample methodsFor: 'demo'!
+
+boxGenerator
+	" Click on the square multiple times "
+	| view el e |
+	view := ROView new.
+	el := ROElement new.
+	el shape: (ROBox new).
+	view add: el.
+	el on: ROMouseClick do: [:event | 
+		e := ROBox element.
+		e extent: view elements size @ view elements size.
+		Transcript show: view elements size printString; cr.
+		view add: e. 
+		ROCellLayout on: view elements.
+		view signalUpdate].
+	view open.
+! !
+
 !ROExample methodsFor: 'not yet classified'!
 
 cellLayout
@@ -125,6 +144,17 @@ horizontalLayout2
 	1 to: 20 do: [ :i |
 		view add: ((ROElement new model: i) shape: 
 			(ROBox new height: [ :el | el model * 13 ]; width: [ :el | el model * 5 ])) ].
+	ROHorizontalLineLayout on: view elements.
+	view open.
+!
+
+horizontalLineLayout
+	| view colorWheel |
+	view := ROView new.
+	view clear.
+	colorWheel := (Color red) wheel: 20 to: (Color green).
+	colorWheel do: [:c | 
+		view add: (ROBox element color:  c ) @ RODraggable].
 	ROHorizontalLineLayout on: view elements.
 	view open.
 !

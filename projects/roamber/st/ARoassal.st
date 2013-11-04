@@ -92,6 +92,27 @@ wheel: thisMany
 	"
 (Color wheel: 8) withIndexDo: [:c :i | Display fill: (i*10@20 extent: 10@20) fillColor: c]
 "
+!
+
+wheel: thisMany to: aColor
+	"An array of thisMany colors around the color wheel starting at self and ending all the way around the hue space just before self.  Array is of length thisMany.  Very useful for displaying color based on a variable in your program.  "
+	| sat bri step hue finishHue |
+	sat := self saturation.
+	bri := self brightness.
+	hue := self hue.
+	finishHue := aColor hue.
+	step := ( finishHue - hue) / (thisMany max: 1).
+	^ (1 to: thisMany) collect: 
+		[ :num | | c | 
+		c := Color 
+			h: hue
+			s: sat
+			v: bri.	"hue is taken mod 360"
+		hue := hue + step.
+		c ]
+	"
+(Color wheel: 8) withIndexDo: [:c :i | Display fill: (i*10@20 extent: 10@20) fillColor: c]
+"
 ! !
 
 !Color methodsFor: 'private'!
@@ -222,25 +243,6 @@ wheel: thisMany saturation: s brightness: v
 
 white
 	^ self new r: 255 g: 255 b: 255
-! !
-
-Object subclass: #ColorWheelExample
-	instanceVariableNames: ''
-	package: 'ARoassal'!
-
-!ColorWheelExample methodsFor: 'not yet classified'!
-
-example
-	"three colors between red to green"
-
-	| view colorWheel |
-	view := ROView new.
-	view clear.
-	colorWheel := Color wheel: 20.
-	colorWheel do: [:c | 
-		view add: (ROBox element color:  c ) @ RODraggable].
-	ROHorizontalLineLayout on: view elements.
-	view open.
 ! !
 
 Announcer subclass: #ROAnnouncer
