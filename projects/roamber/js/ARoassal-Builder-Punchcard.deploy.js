@@ -169,5 +169,67 @@ return self}, function($ctx1) {$ctx1.fill(self,"testSimpleScenario",{},smalltalk
 messageSends: ["assert:", "=", "numberOfModels", "numberOfMetrics"]}),
 smalltalk.ROPunchcardBuilderTest);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testTwoMetricsScenario",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@builder"])._addMetric_namedAs_((function(word){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(word)._size()).__star((2));
+}, function($ctx2) {$ctx2.fillBlock({word:word},$ctx1)})}),"double lenght");
+self._assert_(_st(_st(self["@builder"])._numberOfModels()).__eq((3)));
+self._assert_(_st(_st(self["@builder"])._numberOfMetrics()).__eq((2)));
+return self}, function($ctx1) {$ctx1.fill(self,"testTwoMetricsScenario",{},smalltalk.ROPunchcardBuilderTest)})},
+messageSends: ["addMetric:namedAs:", "*", "size", "assert:", "=", "numberOfModels", "numberOfMetrics"]}),
+smalltalk.ROPunchcardBuilderTest);
+
+
+
+smalltalk.addClass('ROPunchcardExample', smalltalk.Object, ['builder'], 'ARoassal-Builder-Punchcard');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "example",
+fn: function (){
+var self=this;
+function $ROPunchcardBuilder(){return smalltalk.ROPunchcardBuilder||(typeof ROPunchcardBuilder=="undefined"?nil:ROPunchcardBuilder)}
+return smalltalk.withContext(function($ctx1) { 
+self["@builder"]=_st($ROPunchcardBuilder())._new();
+_st(self["@builder"])._addModels_(["hello", "world", "hello world"]);
+_st(self["@builder"])._addMetric_namedAs_((function(word){
+return smalltalk.withContext(function($ctx2) {
+return _st(word)._size();
+}, function($ctx2) {$ctx2.fillBlock({word:word},$ctx1)})}),"length");
+_st(self["@builder"])._open();
+return self}, function($ctx1) {$ctx1.fill(self,"example",{},smalltalk.ROPunchcardExample)})},
+messageSends: ["new", "addModels:", "addMetric:namedAs:", "size", "open"]}),
+smalltalk.ROPunchcardExample);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "example2",
+fn: function (){
+var self=this;
+function $ROPunchcardBuilder(){return smalltalk.ROPunchcardBuilder||(typeof ROPunchcardBuilder=="undefined"?nil:ROPunchcardBuilder)}
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+return smalltalk.withContext(function($ctx1) { 
+self["@builder"]=_st($ROPunchcardBuilder())._new();
+_st(self["@builder"])._addModels_(["hello", "world", "hello world"]);
+_st(self["@builder"])._addMetric_namedAs_((function(word){
+return smalltalk.withContext(function($ctx2) {
+return _st(word)._size();
+}, function($ctx2) {$ctx2.fillBlock({word:word},$ctx1)})}),"length");
+_st(self["@builder"])._addMetric_namedAs_((function(word){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(word)._size()).__star((2));
+}, function($ctx2) {$ctx2.fillBlock({word:word},$ctx1)})}),"length 2");
+_st(self["@builder"])._minColor_(_st($Color())._green());
+_st(self["@builder"])._maxColor_(_st($Color())._red());
+_st(self["@builder"])._open();
+return self}, function($ctx1) {$ctx1.fill(self,"example2",{},smalltalk.ROPunchcardExample)})},
+messageSends: ["new", "addModels:", "addMetric:namedAs:", "size", "*", "minColor:", "green", "maxColor:", "red", "open"]}),
+smalltalk.ROPunchcardExample);
+
 
 

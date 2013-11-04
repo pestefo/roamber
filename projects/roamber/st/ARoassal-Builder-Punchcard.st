@@ -101,5 +101,36 @@ testRendering
 testSimpleScenario
 	self assert: builder numberOfModels = 3.
 	self assert: builder numberOfMetrics = 1.
+!
+
+testTwoMetricsScenario
+	builder addMetric: [:word | word size * 2] namedAs: 'double lenght'.
+	
+	self assert: builder numberOfModels = 3.
+	self assert: builder numberOfMetrics = 2.
+! !
+
+Object subclass: #ROPunchcardExample
+	instanceVariableNames: 'builder'
+	package: 'ARoassal-Builder-Punchcard'!
+
+!ROPunchcardExample methodsFor: 'not yet classified'!
+
+example
+builder := ROPunchcardBuilder new.
+builder addModels: #( 'hello' 'world' 'hello world' ).
+builder addMetric: [:word | word size] namedAs: 'length'.
+builder open
+!
+
+example2
+
+builder := ROPunchcardBuilder new.
+builder addModels: #( 'hello' 'world' 'hello world' ).
+builder addMetric: [:word | word size] namedAs: 'length'.
+builder addMetric: [:word | word size * 2 ] namedAs: 'length 2'.
+builder minColor: Color green.
+builder maxColor: Color red.
+builder open.
 ! !
 
