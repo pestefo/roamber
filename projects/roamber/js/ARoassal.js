@@ -20,6 +20,24 @@ smalltalk.Color);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "brightness",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st((0.2126).__star(self["@r"])).__plus(_st((0.7152).__star(self["@g"])).__plus((0.0722).__star(self["@b"])));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"brightness",{},smalltalk.Color)})},
+args: [],
+source: "brightness\x0a\x09\x22 From http://stackoverflow.com/questions/596216/formula-to-determine-brightness-of-rgb-color  \x22\x0a\x22\x09^ 0.2126*(self privateRed) + ( 0.7152*(self privateGreen)  + (0.0722*(self privateBlue)) )\x22\x0a\x09^ 0.2126*r + ( 0.7152*g  + (0.0722*b) )",
+messageSends: ["+", "*"],
+referencedClasses: []
+}),
+smalltalk.Color);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "cleanValue:",
 category: 'not yet classified',
 fn: function (anInteger){
@@ -65,6 +83,108 @@ smalltalk.Color);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "hue",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+var red,green,blue,max,min,span,h;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5;
+red=self._privateRed();
+green=self._privateGreen();
+blue=self._privateBlue();
+max=_st(_st(red)._max_(green))._max_(blue);
+min=_st(_st(red)._min_(green))._min_(blue);
+span=_st(_st(max).__minus(min))._asFloat();
+$1=_st(span).__eq((0));
+if(smalltalk.assert($1)){
+return (0);
+};
+$2=_st(red).__eq(max);
+if(smalltalk.assert($2)){
+h=_st(_st(_st(_st(green).__minus(blue))._asFloat()).__slash(span)).__star((60));
+h;
+} else {
+$3=_st(green).__eq(max);
+if(smalltalk.assert($3)){
+h=(120).__plus(_st(_st(_st(_st(blue).__minus(red))._asFloat()).__slash(span)).__star((60)));
+h;
+} else {
+h=(240).__plus(_st(_st(_st(_st(red).__minus(green))._asFloat()).__slash(span)).__star((60)));
+h;
+};
+};
+$4=_st(h).__lt((0));
+if(smalltalk.assert($4)){
+h=(360).__plus(h);
+h;
+};
+$5=h;
+return $5;
+}, function($ctx1) {$ctx1.fill(self,"hue",{red:red,green:green,blue:blue,max:max,min:min,span:span,h:h},smalltalk.Color)})},
+args: [],
+source: "hue\x0a\x09\x22Return the hue of this color, an angle in the range [0.0..360.0].\x22\x0a\x09| red green blue max min span h |\x0a\x09red := self privateRed.\x0a\x09green := self privateGreen.\x0a\x09blue := self privateBlue.\x0a\x09max := (red max: green) max: blue.\x0a\x09min := (red min: green) min: blue.\x0a\x09span := (max - min) asFloat.\x0a\x09span = 0.0 ifTrue: [ ^ 0.0 ].\x0a\x09red = max \x0a\x09\x09ifTrue: [ h := (green - blue) asFloat / span * 60.0 ]\x0a\x09\x09ifFalse: \x0a\x09\x09\x09[ green = max \x0a\x09\x09\x09\x09ifTrue: [ h := 120.0 + ((blue - red) asFloat / span * 60.0) ]\x0a\x09\x09\x09\x09ifFalse: [ h := 240.0 + ((red - green) asFloat / span * 60.0) ] ].\x0a\x09h < 0.0 ifTrue: [ h := 360.0 + h ].\x0a\x09^ h",
+messageSends: ["privateRed", "privateGreen", "privateBlue", "max:", "min:", "asFloat", "-", "ifTrue:", "=", "ifTrue:ifFalse:", "*", "/", "+", "<"],
+referencedClasses: []
+}),
+smalltalk.Color);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "privateBlue",
+category: 'private',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@b"]).__slash((255));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"privateBlue",{},smalltalk.Color)})},
+args: [],
+source: "privateBlue\x0a\x09^ b/255.0",
+messageSends: ["/"],
+referencedClasses: []
+}),
+smalltalk.Color);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "privateGreen",
+category: 'private',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@g"]).__slash((255));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"privateGreen",{},smalltalk.Color)})},
+args: [],
+source: "privateGreen\x0a\x09^ g/255.0",
+messageSends: ["/"],
+referencedClasses: []
+}),
+smalltalk.Color);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "privateRed",
+category: 'private',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@r"]).__slash((255));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"privateRed",{},smalltalk.Color)})},
+args: [],
+source: "privateRed\x0a\x09^ r/255.0",
+messageSends: ["/"],
+referencedClasses: []
+}),
+smalltalk.Color);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "r",
 category: 'not yet classified',
 fn: function (){
@@ -96,6 +216,175 @@ args: ["rVal", "gVal", "bVal"],
 source: "r: rVal g: gVal b: bVal\x0a\x09r :=  self cleanValue: rVal.\x0a\x09g :=  self cleanValue: gVal.\x0a\x09b:=  self cleanValue: bVal. \x0a\x09\x09\x09\x09",
 messageSends: ["cleanValue:"],
 referencedClasses: []
+}),
+smalltalk.Color);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "saturation",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+var red,green,blue,max,min;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6;
+red=self._privateRed();
+green=self._privateGreen();
+blue=self._privateBlue();
+min=red;
+max=min;
+$1=_st(green).__gt(max);
+if(smalltalk.assert($1)){
+max=green;
+max;
+};
+$2=_st(blue).__gt(max);
+if(smalltalk.assert($2)){
+max=blue;
+max;
+};
+$3=_st(green).__lt(min);
+if(smalltalk.assert($3)){
+min=green;
+min;
+};
+$4=_st(blue).__lt(min);
+if(smalltalk.assert($4)){
+min=blue;
+min;
+};
+$5=_st(max).__eq((0));
+if(smalltalk.assert($5)){
+return (0);
+} else {
+$6=_st(_st(_st(max).__minus(min))._asFloat()).__slash(_st(max)._asFloat());
+return $6;
+};
+return self}, function($ctx1) {$ctx1.fill(self,"saturation",{red:red,green:green,blue:blue,max:max,min:min},smalltalk.Color)})},
+args: [],
+source: "saturation\x0a\x09\x22Return the saturation of this color, a value between 0.0 and 1.0.\x22\x0a\x09| red green blue max min |\x0a\x09red := self privateRed.\x0a\x09green := self privateGreen.\x0a\x09blue := self privateBlue.\x0a\x09max := min := red.\x0a\x09green > max ifTrue: [ max := green ].\x0a\x09blue > max ifTrue: [ max := blue ].\x0a\x09green < min ifTrue: [ min := green ].\x0a\x09blue < min ifTrue: [ min := blue ].\x0a\x09max = 0 \x0a\x09\x09ifTrue: [ ^ 0.0 ]\x0a\x09\x09ifFalse: [ ^ (max - min) asFloat / max asFloat ]",
+messageSends: ["privateRed", "privateGreen", "privateBlue", "ifTrue:", ">", "<", "ifTrue:ifFalse:", "/", "asFloat", "-", "="],
+referencedClasses: []
+}),
+smalltalk.Color);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "setHue:saturation:brightness:",
+category: 'private',
+fn: function (hue,saturation,brightness){
+var self=this;
+var s,v,hf,i,f,p,q,t;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15;
+s=_st(_st(_st(saturation)._asFloat())._max_((0)))._min_((1));
+v=_st(_st(_st(brightness)._asFloat())._max_((0)))._min_((1));
+$1=_st(s).__eq((0));
+if(smalltalk.assert($1)){
+$2=self._setRed_green_blue_(v,v,v);
+return $2;
+};
+hf=_st(hue)._asFloat();
+$3=_st(_st(hf).__lt((0)))._or_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(hf).__gt_eq((360));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+if(smalltalk.assert($3)){
+hf=_st(hf).__minus(_st(_st(_st(hf)._quo_((360)))._asFloat()).__star((360)));
+hf;
+};
+hf=_st(hf).__slash((60));
+i=_st(hf)._asInteger();
+f=_st(hf)._fractionPart();
+p=_st((1).__minus(s)).__star(v);
+q=_st((1).__minus(_st(s).__star(f))).__star(v);
+t=_st((1).__minus(_st(s).__star((1).__minus(f)))).__star(v);
+$4=(0).__eq(i);
+if(smalltalk.assert($4)){
+$5=self._setRed_green_blue_(v,t,p);
+return $5;
+};
+$6=(1).__eq(i);
+if(smalltalk.assert($6)){
+$7=self._setRed_green_blue_(q,v,p);
+return $7;
+};
+$8=(2).__eq(i);
+if(smalltalk.assert($8)){
+$9=self._setRed_green_blue_(p,v,t);
+return $9;
+};
+$10=(3).__eq(i);
+if(smalltalk.assert($10)){
+$11=self._setRed_green_blue_(p,q,v);
+return $11;
+};
+$12=(4).__eq(i);
+if(smalltalk.assert($12)){
+$13=self._setRed_green_blue_(t,p,v);
+return $13;
+};
+$14=(5).__eq(i);
+if(smalltalk.assert($14)){
+$15=self._setRed_green_blue_(v,p,q);
+return $15;
+};
+self._error_("implementation error");
+return self}, function($ctx1) {$ctx1.fill(self,"setHue:saturation:brightness:",{hue:hue,saturation:saturation,brightness:brightness,s:s,v:v,hf:hf,i:i,f:f,p:p,q:q,t:t},smalltalk.Color)})},
+args: ["hue", "saturation", "brightness"],
+source: "setHue: hue saturation: saturation brightness: brightness \x0a\x09\x22Initialize this color to the given hue, saturation, and brightness. See the comment in the instance creation method for details.\x22\x0a\x09| s v hf i f p q t |\x0a\x09s := (saturation asFloat max: 0.0) min: 1.0.\x0a\x09v := (brightness asFloat max: 0.0) min: 1.0.\x0a\x0a\x09\x22zero saturation yields gray with the given brightness\x22\x0a\x09s = 0.0 ifTrue: \x0a\x09\x09[ ^ self \x0a\x09\x09\x09setRed: v\x0a\x09\x09\x09green: v\x0a\x09\x09\x09blue: v ].\x0a\x09hf := hue asFloat.\x0a\x09(hf < 0.0 or: [ hf >= 360.0 ]) ifTrue: [ hf := hf - ((hf quo: 360.0) asFloat * 360.0) ].\x0a\x09hf := hf / 60.0.\x0a\x09i := hf asInteger.\x09\x22integer part of hue\x22\x0a\x09f := hf fractionPart.\x09\x22fractional part of hue\x22\x0a\x09p := (1.0 - s) * v.\x0a\x09q := (1.0 - (s * f)) * v.\x0a\x09t := (1.0 - (s * (1.0 - f))) * v.\x0a\x090 = i ifTrue: \x0a\x09\x09[ ^ self \x0a\x09\x09\x09setRed: v\x0a\x09\x09\x09green: t\x0a\x09\x09\x09blue: p ].\x0a\x091 = i ifTrue: \x0a\x09\x09[ ^ self \x0a\x09\x09\x09setRed: q\x0a\x09\x09\x09green: v\x0a\x09\x09\x09blue: p ].\x0a\x092 = i ifTrue: \x0a\x09\x09[ ^ self \x0a\x09\x09\x09setRed: p\x0a\x09\x09\x09green: v\x0a\x09\x09\x09blue: t ].\x0a\x093 = i ifTrue: \x0a\x09\x09[ ^ self \x0a\x09\x09\x09setRed: p\x0a\x09\x09\x09green: q\x0a\x09\x09\x09blue: v ].\x0a\x094 = i ifTrue: \x0a\x09\x09[ ^ self \x0a\x09\x09\x09setRed: t\x0a\x09\x09\x09green: p\x0a\x09\x09\x09blue: v ].\x0a\x095 = i ifTrue: \x0a\x09\x09[ ^ self \x0a\x09\x09\x09setRed: v\x0a\x09\x09\x09green: p\x0a\x09\x09\x09blue: q ].\x0a\x09self error: 'implementation error'",
+messageSends: ["min:", "max:", "asFloat", "ifTrue:", "setRed:green:blue:", "=", "-", "*", "quo:", "or:", ">=", "<", "/", "asInteger", "fractionPart", "error:"],
+referencedClasses: []
+}),
+smalltalk.Color);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "setRed:green:blue:",
+category: 'private',
+fn: function (red,green,blue){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@r"]=_st(red).__star((255));
+self["@g"]=_st(green).__star((255));
+self["@b"]=_st(blue).__star((255));
+return self}, function($ctx1) {$ctx1.fill(self,"setRed:green:blue:",{red:red,green:green,blue:blue},smalltalk.Color)})},
+args: ["red", "green", "blue"],
+source: "setRed: red green: green blue: blue \x0a\x09\x22Initialize this color's r, g, and b components to the given values in the range [0.0..1.0]. \x22\x0a\x09r := red * 255.0.\x0a\x09g := green * 255.0.\x0a\x09b := blue * 255.0.",
+messageSends: ["*"],
+referencedClasses: []
+}),
+smalltalk.Color);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "wheel:",
+category: 'not yet classified',
+fn: function (thisMany){
+var self=this;
+var sat,bri,step,hue;
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+sat=self._saturation();
+bri=self._brightness();
+hue=self._hue();
+step=(360).__slash(_st(thisMany)._max_((1)));
+$1=_st((1)._to_(thisMany))._collect_((function(num){
+var c;
+return smalltalk.withContext(function($ctx2) {
+c=_st($Color())._h_s_v_(hue,sat,bri);
+c;
+hue=_st(hue).__plus(step);
+hue;
+return c;
+}, function($ctx2) {$ctx2.fillBlock({num:num,c:c},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"wheel:",{thisMany:thisMany,sat:sat,bri:bri,step:step,hue:hue},smalltalk.Color)})},
+args: ["thisMany"],
+source: "wheel: thisMany \x0a\x09\x22An array of thisMany colors around the color wheel starting at self and ending all the way around the hue space just before self.  Array is of length thisMany.  Very useful for displaying color based on a variable in your program.  \x22\x0a\x09| sat bri step hue |\x0a\x09sat := self saturation.\x0a\x09bri := self brightness.\x0a\x09hue := self hue.\x0a\x09step := 360.0 / (thisMany max: 1).\x0a\x09^ (1 to: thisMany) collect: \x0a\x09\x09[ :num | | c | \x0a\x09\x09c := Color \x0a\x09\x09\x09h: hue\x0a\x09\x09\x09s: sat\x0a\x09\x09\x09v: bri.\x09\x22hue is taken mod 360\x22\x0a\x09\x09hue := hue + step.\x0a\x09\x09c ]\x0a\x09\x22\x0a(Color wheel: 8) withIndexDo: [:c :i | Display fill: (i*10@20 extent: 10@20) fillColor: c]\x0a\x22",
+messageSends: ["saturation", "brightness", "hue", "/", "max:", "collect:", "h:s:v:", "+", "to:"],
+referencedClasses: ["Color"]
 }),
 smalltalk.Color);
 
@@ -156,6 +445,24 @@ smalltalk.Color.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "h:s:v:",
+category: 'not yet classified',
+fn: function (hue,saturation,brightness){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._basicNew())._setHue_saturation_brightness_(hue,saturation,brightness);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"h:s:v:",{hue:hue,saturation:saturation,brightness:brightness},smalltalk.Color.klass)})},
+args: ["hue", "saturation", "brightness"],
+source: "h: hue s: saturation v: brightness\x0a\x09\x22Create a color with the given hue, saturation, and brightness. Hue is given as the angle in degrees of the color on the color circle where red is zero degrees. Saturation and brightness are numbers in [0.0..1.0] where larger values are more saturated or brighter colors. For example, (Color h: 0 s: 1 v: 1) is pure red.\x22\x0a\x09\x22Note: By convention, brightness is abbreviated 'v' to to avoid confusion with blue.\x22\x0a\x0a\x09^ self basicNew setHue: hue saturation: saturation brightness: brightness",
+messageSends: ["setHue:saturation:brightness:", "basicNew"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "lightGray",
 category: 'not yet classified',
 fn: function (){
@@ -210,6 +517,59 @@ smalltalk.Color.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "wheel:",
+category: 'not yet classified',
+fn: function (thisMany){
+var self=this;
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($Color())._wheel_saturation_brightness_(thisMany,(0.9),(0.7));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"wheel:",{thisMany:thisMany},smalltalk.Color.klass)})},
+args: ["thisMany"],
+source: "wheel: thisMany\x0a\x09\x22Return a collection of thisMany colors evenly spaced around the color wheel.\x22\x0a\x09\x22Color showColors: (Color wheel: 12)\x22\x0a\x0a\x09^ Color wheel: thisMany saturation: 0.9 brightness: 0.7",
+messageSends: ["wheel:saturation:brightness:"],
+referencedClasses: ["Color"]
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "wheel:from:to:",
+category: 'not yet classified',
+fn: function (thisMany,colorA,colorB){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"wheel:from:to:",{thisMany:thisMany,colorA:colorA,colorB:colorB},smalltalk.Color.klass)})},
+args: ["thisMany", "colorA", "colorB"],
+source: "wheel: thisMany from: colorA to: colorB\x0a\x09\x22Returns an array of thisMany colors starting from colorA to colorB \x22\x0a\x09",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "wheel:saturation:brightness:",
+category: 'not yet classified',
+fn: function (thisMany,s,v){
+var self=this;
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st($Color())._h_s_v_((0),s,v))._wheel_(thisMany);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"wheel:saturation:brightness:",{thisMany:thisMany,s:s,v:v},smalltalk.Color.klass)})},
+args: ["thisMany", "s", "v"],
+source: "wheel: thisMany saturation: s brightness: v\x0a\x09\x22Return a collection of thisMany colors evenly spaced around the color wheel, all of the given saturation and brightness.\x22\x0a\x09\x22Color showColors: (Color wheel: 12 saturation: 0.4 brightness: 1.0)\x22\x0a\x09\x22Color showColors: (Color wheel: 12 saturation: 0.8 brightness: 0.5)\x22\x0a\x0a\x09^ (Color h: 0.0 s: s v: v) wheel: thisMany",
+messageSends: ["wheel:", "h:s:v:"],
+referencedClasses: ["Color"]
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "white",
 category: 'not yet classified',
 fn: function (){
@@ -225,6 +585,39 @@ messageSends: ["r:g:b:", "new"],
 referencedClasses: []
 }),
 smalltalk.Color.klass);
+
+
+smalltalk.addClass('ColorWheelExample', smalltalk.Object, [], 'ARoassal');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "example",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+var view,colorWheel;
+function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+function $RODraggable(){return smalltalk.RODraggable||(typeof RODraggable=="undefined"?nil:RODraggable)}
+function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
+function $ROHorizontalLineLayout(){return smalltalk.ROHorizontalLineLayout||(typeof ROHorizontalLineLayout=="undefined"?nil:ROHorizontalLineLayout)}
+return smalltalk.withContext(function($ctx1) { 
+view=_st($ROView())._new();
+_st(view)._clear();
+colorWheel=_st($Color())._wheel_((20));
+_st(colorWheel)._do_((function(c){
+return smalltalk.withContext(function($ctx2) {
+return _st(view)._add_(_st(_st(_st($ROBox())._element())._color_(c)).__at($RODraggable()));
+}, function($ctx2) {$ctx2.fillBlock({c:c},$ctx1)})}));
+_st($ROHorizontalLineLayout())._on_(_st(view)._elements());
+_st(view)._open();
+return self}, function($ctx1) {$ctx1.fill(self,"example",{view:view,colorWheel:colorWheel},smalltalk.ColorWheelExample)})},
+args: [],
+source: "example\x0a\x09\x22three colors between red to green\x22\x0a\x0a\x09| view colorWheel |\x0a\x09view := ROView new.\x0a\x09view clear.\x0a\x09colorWheel := Color wheel: 20.\x0a\x09colorWheel do: [:c | \x0a\x09\x09view add: (ROBox element color:  c ) @ RODraggable].\x0a\x09ROHorizontalLineLayout on: view elements.\x0a\x09view open.\x0a\x0a\x09",
+messageSends: ["new", "clear", "wheel:", "do:", "add:", "@", "color:", "element", "on:", "elements", "open"],
+referencedClasses: ["ROView", "Color", "RODraggable", "ROBox", "ROHorizontalLineLayout"]
+}),
+smalltalk.ColorWheelExample);
+
 
 
 smalltalk.addClass('ROAnnouncer', smalltalk.Announcer, ['forwarding', 'announcer'], 'ARoassal');

@@ -1462,6 +1462,15 @@ ceiling
 	< return Math.ceil(self); >
 !
 
+floor
+	
+	< return Math.floor(self); >
+!
+
+fractionPart
+	^ self - (self floor)
+!
+
 isInteger
 	^ self = (self asInteger)
 !

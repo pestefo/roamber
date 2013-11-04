@@ -15,6 +15,19 @@ smalltalk.Color);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "brightness",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st((0.2126).__star(self["@r"])).__plus(_st((0.7152).__star(self["@g"])).__plus((0.0722).__star(self["@b"])));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"brightness",{},smalltalk.Color)})},
+messageSends: ["+", "*"]}),
+smalltalk.Color);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "cleanValue:",
 fn: function (anInteger){
 var self=this;
@@ -50,6 +63,88 @@ smalltalk.Color);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "hue",
+fn: function (){
+var self=this;
+var red,green,blue,max,min,span,h;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5;
+red=self._privateRed();
+green=self._privateGreen();
+blue=self._privateBlue();
+max=_st(_st(red)._max_(green))._max_(blue);
+min=_st(_st(red)._min_(green))._min_(blue);
+span=_st(_st(max).__minus(min))._asFloat();
+$1=_st(span).__eq((0));
+if(smalltalk.assert($1)){
+return (0);
+};
+$2=_st(red).__eq(max);
+if(smalltalk.assert($2)){
+h=_st(_st(_st(_st(green).__minus(blue))._asFloat()).__slash(span)).__star((60));
+h;
+} else {
+$3=_st(green).__eq(max);
+if(smalltalk.assert($3)){
+h=(120).__plus(_st(_st(_st(_st(blue).__minus(red))._asFloat()).__slash(span)).__star((60)));
+h;
+} else {
+h=(240).__plus(_st(_st(_st(_st(red).__minus(green))._asFloat()).__slash(span)).__star((60)));
+h;
+};
+};
+$4=_st(h).__lt((0));
+if(smalltalk.assert($4)){
+h=(360).__plus(h);
+h;
+};
+$5=h;
+return $5;
+}, function($ctx1) {$ctx1.fill(self,"hue",{red:red,green:green,blue:blue,max:max,min:min,span:span,h:h},smalltalk.Color)})},
+messageSends: ["privateRed", "privateGreen", "privateBlue", "max:", "min:", "asFloat", "-", "ifTrue:", "=", "ifTrue:ifFalse:", "*", "/", "+", "<"]}),
+smalltalk.Color);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "privateBlue",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@b"]).__slash((255));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"privateBlue",{},smalltalk.Color)})},
+messageSends: ["/"]}),
+smalltalk.Color);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "privateGreen",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@g"]).__slash((255));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"privateGreen",{},smalltalk.Color)})},
+messageSends: ["/"]}),
+smalltalk.Color);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "privateRed",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@r"]).__slash((255));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"privateRed",{},smalltalk.Color)})},
+messageSends: ["/"]}),
+smalltalk.Color);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "r",
 fn: function (){
 var self=this;
@@ -72,6 +167,155 @@ self["@g"]=self._cleanValue_(gVal);
 self["@b"]=self._cleanValue_(bVal);
 return self}, function($ctx1) {$ctx1.fill(self,"r:g:b:",{rVal:rVal,gVal:gVal,bVal:bVal},smalltalk.Color)})},
 messageSends: ["cleanValue:"]}),
+smalltalk.Color);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "saturation",
+fn: function (){
+var self=this;
+var red,green,blue,max,min;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6;
+red=self._privateRed();
+green=self._privateGreen();
+blue=self._privateBlue();
+min=red;
+max=min;
+$1=_st(green).__gt(max);
+if(smalltalk.assert($1)){
+max=green;
+max;
+};
+$2=_st(blue).__gt(max);
+if(smalltalk.assert($2)){
+max=blue;
+max;
+};
+$3=_st(green).__lt(min);
+if(smalltalk.assert($3)){
+min=green;
+min;
+};
+$4=_st(blue).__lt(min);
+if(smalltalk.assert($4)){
+min=blue;
+min;
+};
+$5=_st(max).__eq((0));
+if(smalltalk.assert($5)){
+return (0);
+} else {
+$6=_st(_st(_st(max).__minus(min))._asFloat()).__slash(_st(max)._asFloat());
+return $6;
+};
+return self}, function($ctx1) {$ctx1.fill(self,"saturation",{red:red,green:green,blue:blue,max:max,min:min},smalltalk.Color)})},
+messageSends: ["privateRed", "privateGreen", "privateBlue", "ifTrue:", ">", "<", "ifTrue:ifFalse:", "/", "asFloat", "-", "="]}),
+smalltalk.Color);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "setHue:saturation:brightness:",
+fn: function (hue,saturation,brightness){
+var self=this;
+var s,v,hf,i,f,p,q,t;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15;
+s=_st(_st(_st(saturation)._asFloat())._max_((0)))._min_((1));
+v=_st(_st(_st(brightness)._asFloat())._max_((0)))._min_((1));
+$1=_st(s).__eq((0));
+if(smalltalk.assert($1)){
+$2=self._setRed_green_blue_(v,v,v);
+return $2;
+};
+hf=_st(hue)._asFloat();
+$3=_st(_st(hf).__lt((0)))._or_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(hf).__gt_eq((360));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+if(smalltalk.assert($3)){
+hf=_st(hf).__minus(_st(_st(_st(hf)._quo_((360)))._asFloat()).__star((360)));
+hf;
+};
+hf=_st(hf).__slash((60));
+i=_st(hf)._asInteger();
+f=_st(hf)._fractionPart();
+p=_st((1).__minus(s)).__star(v);
+q=_st((1).__minus(_st(s).__star(f))).__star(v);
+t=_st((1).__minus(_st(s).__star((1).__minus(f)))).__star(v);
+$4=(0).__eq(i);
+if(smalltalk.assert($4)){
+$5=self._setRed_green_blue_(v,t,p);
+return $5;
+};
+$6=(1).__eq(i);
+if(smalltalk.assert($6)){
+$7=self._setRed_green_blue_(q,v,p);
+return $7;
+};
+$8=(2).__eq(i);
+if(smalltalk.assert($8)){
+$9=self._setRed_green_blue_(p,v,t);
+return $9;
+};
+$10=(3).__eq(i);
+if(smalltalk.assert($10)){
+$11=self._setRed_green_blue_(p,q,v);
+return $11;
+};
+$12=(4).__eq(i);
+if(smalltalk.assert($12)){
+$13=self._setRed_green_blue_(t,p,v);
+return $13;
+};
+$14=(5).__eq(i);
+if(smalltalk.assert($14)){
+$15=self._setRed_green_blue_(v,p,q);
+return $15;
+};
+self._error_("implementation error");
+return self}, function($ctx1) {$ctx1.fill(self,"setHue:saturation:brightness:",{hue:hue,saturation:saturation,brightness:brightness,s:s,v:v,hf:hf,i:i,f:f,p:p,q:q,t:t},smalltalk.Color)})},
+messageSends: ["min:", "max:", "asFloat", "ifTrue:", "setRed:green:blue:", "=", "-", "*", "quo:", "or:", ">=", "<", "/", "asInteger", "fractionPart", "error:"]}),
+smalltalk.Color);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "setRed:green:blue:",
+fn: function (red,green,blue){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@r"]=_st(red).__star((255));
+self["@g"]=_st(green).__star((255));
+self["@b"]=_st(blue).__star((255));
+return self}, function($ctx1) {$ctx1.fill(self,"setRed:green:blue:",{red:red,green:green,blue:blue},smalltalk.Color)})},
+messageSends: ["*"]}),
+smalltalk.Color);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "wheel:",
+fn: function (thisMany){
+var self=this;
+var sat,bri,step,hue;
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+sat=self._saturation();
+bri=self._brightness();
+hue=self._hue();
+step=(360).__slash(_st(thisMany)._max_((1)));
+$1=_st((1)._to_(thisMany))._collect_((function(num){
+var c;
+return smalltalk.withContext(function($ctx2) {
+c=_st($Color())._h_s_v_(hue,sat,bri);
+c;
+hue=_st(hue).__plus(step);
+hue;
+return c;
+}, function($ctx2) {$ctx2.fillBlock({num:num,c:c},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"wheel:",{thisMany:thisMany,sat:sat,bri:bri,step:step,hue:hue},smalltalk.Color)})},
+messageSends: ["saturation", "brightness", "hue", "/", "max:", "collect:", "h:s:v:", "+", "to:"]}),
 smalltalk.Color);
 
 
@@ -116,6 +360,19 @@ smalltalk.Color.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "h:s:v:",
+fn: function (hue,saturation,brightness){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._basicNew())._setHue_saturation_brightness_(hue,saturation,brightness);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"h:s:v:",{hue:hue,saturation:saturation,brightness:brightness},smalltalk.Color.klass)})},
+messageSends: ["setHue:saturation:brightness:", "basicNew"]}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "lightGray",
 fn: function (){
 var self=this;
@@ -155,6 +412,44 @@ smalltalk.Color.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "wheel:",
+fn: function (thisMany){
+var self=this;
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($Color())._wheel_saturation_brightness_(thisMany,(0.9),(0.7));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"wheel:",{thisMany:thisMany},smalltalk.Color.klass)})},
+messageSends: ["wheel:saturation:brightness:"]}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "wheel:from:to:",
+fn: function (thisMany,colorA,colorB){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"wheel:from:to:",{thisMany:thisMany,colorA:colorA,colorB:colorB},smalltalk.Color.klass)})},
+messageSends: []}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "wheel:saturation:brightness:",
+fn: function (thisMany,s,v){
+var self=this;
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st($Color())._h_s_v_((0),s,v))._wheel_(thisMany);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"wheel:saturation:brightness:",{thisMany:thisMany,s:s,v:v},smalltalk.Color.klass)})},
+messageSends: ["wheel:", "h:s:v:"]}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "white",
 fn: function (){
 var self=this;
@@ -165,6 +460,34 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"white",{},smalltalk.Color.klass)})},
 messageSends: ["r:g:b:", "new"]}),
 smalltalk.Color.klass);
+
+
+smalltalk.addClass('ColorWheelExample', smalltalk.Object, [], 'ARoassal');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "example",
+fn: function (){
+var self=this;
+var view,colorWheel;
+function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+function $RODraggable(){return smalltalk.RODraggable||(typeof RODraggable=="undefined"?nil:RODraggable)}
+function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
+function $ROHorizontalLineLayout(){return smalltalk.ROHorizontalLineLayout||(typeof ROHorizontalLineLayout=="undefined"?nil:ROHorizontalLineLayout)}
+return smalltalk.withContext(function($ctx1) { 
+view=_st($ROView())._new();
+_st(view)._clear();
+colorWheel=_st($Color())._wheel_((20));
+_st(colorWheel)._do_((function(c){
+return smalltalk.withContext(function($ctx2) {
+return _st(view)._add_(_st(_st(_st($ROBox())._element())._color_(c)).__at($RODraggable()));
+}, function($ctx2) {$ctx2.fillBlock({c:c},$ctx1)})}));
+_st($ROHorizontalLineLayout())._on_(_st(view)._elements());
+_st(view)._open();
+return self}, function($ctx1) {$ctx1.fill(self,"example",{view:view,colorWheel:colorWheel},smalltalk.ColorWheelExample)})},
+messageSends: ["new", "clear", "wheel:", "do:", "add:", "@", "color:", "element", "on:", "elements", "open"]}),
+smalltalk.ColorWheelExample);
+
 
 
 smalltalk.addClass('ROAnnouncer', smalltalk.Announcer, ['forwarding', 'announcer'], 'ARoassal');

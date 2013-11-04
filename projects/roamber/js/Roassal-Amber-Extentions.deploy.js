@@ -3109,6 +3109,30 @@ smalltalk.Number);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "floor",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+ return Math.floor(self); ;
+return self}, function($ctx1) {$ctx1.fill(self,"floor",{},smalltalk.Number)})},
+messageSends: []}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "fractionPart",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self.__minus(self._floor());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"fractionPart",{},smalltalk.Number)})},
+messageSends: ["-", "floor"]}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "isInteger",
 fn: function (){
 var self=this;

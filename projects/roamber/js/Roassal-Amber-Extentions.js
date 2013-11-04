@@ -3975,6 +3975,40 @@ smalltalk.Number);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "floor",
+category: '*Roassal-Amber-Extentions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+ return Math.floor(self); ;
+return self}, function($ctx1) {$ctx1.fill(self,"floor",{},smalltalk.Number)})},
+args: [],
+source: "floor\x0a\x09\x0a\x09< return Math.floor(self); >",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "fractionPart",
+category: '*Roassal-Amber-Extentions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self.__minus(self._floor());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"fractionPart",{},smalltalk.Number)})},
+args: [],
+source: "fractionPart\x0a\x09^ self - (self floor)",
+messageSends: ["-", "floor"],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "isInteger",
 category: '*Roassal-Amber-Extentions',
 fn: function (){
