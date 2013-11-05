@@ -290,6 +290,18 @@ view add: element.
 view open.
 !
 
+punchcard
+
+|builder|
+builder := ROPunchcardBuilder new.
+builder addModels: #( 'hello' 'world' 'hello world' ).
+builder addMetric: [:word | word size] namedAs: 'length'.
+builder addMetric: [:word | word size * 2 ] namedAs: 'length 2'.
+builder minColor: Color green.
+builder maxColor: Color red.
+builder open.
+!
+
 treeLayout 
 	"
 	self new treeLayout

@@ -664,6 +664,37 @@ smalltalk.ROExample);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "punchcard",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+var builder;
+function $ROPunchcardBuilder(){return smalltalk.ROPunchcardBuilder||(typeof ROPunchcardBuilder=="undefined"?nil:ROPunchcardBuilder)}
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+return smalltalk.withContext(function($ctx1) { 
+builder=_st($ROPunchcardBuilder())._new();
+_st(builder)._addModels_(["hello", "world", "hello world"]);
+_st(builder)._addMetric_namedAs_((function(word){
+return smalltalk.withContext(function($ctx2) {
+return _st(word)._size();
+}, function($ctx2) {$ctx2.fillBlock({word:word},$ctx1)})}),"length");
+_st(builder)._addMetric_namedAs_((function(word){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(word)._size()).__star((2));
+}, function($ctx2) {$ctx2.fillBlock({word:word},$ctx1)})}),"length 2");
+_st(builder)._minColor_(_st($Color())._green());
+_st(builder)._maxColor_(_st($Color())._red());
+_st(builder)._open();
+return self}, function($ctx1) {$ctx1.fill(self,"punchcard",{builder:builder},smalltalk.ROExample)})},
+args: [],
+source: "punchcard\x0a\x0a|builder|\x0abuilder := ROPunchcardBuilder new.\x0abuilder addModels: #( 'hello' 'world' 'hello world' ).\x0abuilder addMetric: [:word | word size] namedAs: 'length'.\x0abuilder addMetric: [:word | word size * 2 ] namedAs: 'length 2'.\x0abuilder minColor: Color green.\x0abuilder maxColor: Color red.\x0abuilder open.",
+messageSends: ["new", "addModels:", "addMetric:namedAs:", "size", "*", "minColor:", "green", "maxColor:", "red", "open"],
+referencedClasses: ["ROPunchcardBuilder", "Color"]
+}),
+smalltalk.ROExample);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "treeLayout",
 category: 'not yet classified',
 fn: function (){

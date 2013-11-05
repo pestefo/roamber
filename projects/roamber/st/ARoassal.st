@@ -631,7 +631,8 @@ extent: aPoint
 !
 
 height
-	^ shape heightFor: self
+"	^ shape heightFor: self"
+	^ shape height
 !
 
 position
@@ -663,7 +664,8 @@ translateTo: aPoint
 !
 
 width
-	^ shape widthFor: self
+"	^ shape widthFor: self"
+	^ shape width
 ! !
 
 !ROElement methodsFor: 'as yet unclassified'!
@@ -1368,8 +1370,8 @@ size: anInteger
 
 updateSVGElementOn: canvas for: anElement
 	svgElement 
-		attr: 'cx' with: (anElement position x);
-		attr: 'cy' with: (anElement position y);
+		attr: 'cx' with: (anElement position x + (self radius) );
+		attr: 'cy' with: (anElement position y + (self radius) );
 		attr: 'r' with: (self radius);
 		attr:'fill' with: (self rgbColor).
 !

@@ -1722,12 +1722,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self["@shape"])._heightFor_(self);
+$1=_st(self["@shape"])._height();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"height",{},smalltalk.ROElement)})},
 args: [],
-source: "height\x0a\x09^ shape heightFor: self",
-messageSends: ["heightFor:"],
+source: "height\x0a\x22\x09^ shape heightFor: self\x22\x0a\x09^ shape height",
+messageSends: ["height"],
 referencedClasses: []
 }),
 smalltalk.ROElement);
@@ -1947,12 +1947,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self["@shape"])._widthFor_(self);
+$1=_st(self["@shape"])._width();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"width",{},smalltalk.ROElement)})},
 args: [],
-source: "width\x0a\x09^ shape widthFor: self",
-messageSends: ["widthFor:"],
+source: "width\x0a\x22\x09^ shape widthFor: self\x22\x0a\x09^ shape width",
+messageSends: ["width"],
 referencedClasses: []
 }),
 smalltalk.ROElement);
@@ -3706,14 +3706,14 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=self["@svgElement"];
-_st($1)._attr_with_("cx",_st(_st(anElement)._position())._x());
-_st($1)._attr_with_("cy",_st(_st(anElement)._position())._y());
+_st($1)._attr_with_("cx",_st(_st(_st(anElement)._position())._x()).__plus(self._radius()));
+_st($1)._attr_with_("cy",_st(_st(_st(anElement)._position())._y()).__plus(self._radius()));
 _st($1)._attr_with_("r",self._radius());
 $2=_st($1)._attr_with_("fill",self._rgbColor());
 return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROCircle)})},
 args: ["canvas", "anElement"],
-source: "updateSVGElementOn: canvas for: anElement\x0a\x09svgElement \x0a\x09\x09attr: 'cx' with: (anElement position x);\x0a\x09\x09attr: 'cy' with: (anElement position y);\x0a\x09\x09attr: 'r' with: (self radius);\x0a\x09\x09attr:'fill' with: (self rgbColor).",
-messageSends: ["attr:with:", "x", "position", "y", "radius", "rgbColor"],
+source: "updateSVGElementOn: canvas for: anElement\x0a\x09svgElement \x0a\x09\x09attr: 'cx' with: (anElement position x + (self radius) );\x0a\x09\x09attr: 'cy' with: (anElement position y + (self radius) );\x0a\x09\x09attr: 'r' with: (self radius);\x0a\x09\x09attr:'fill' with: (self rgbColor).",
+messageSends: ["attr:with:", "+", "radius", "x", "position", "y", "rgbColor"],
 referencedClasses: []
 }),
 smalltalk.ROCircle);

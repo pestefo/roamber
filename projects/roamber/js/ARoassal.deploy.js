@@ -1335,10 +1335,10 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self["@shape"])._heightFor_(self);
+$1=_st(self["@shape"])._height();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"height",{},smalltalk.ROElement)})},
-messageSends: ["heightFor:"]}),
+messageSends: ["height"]}),
 smalltalk.ROElement);
 
 smalltalk.addMethod(
@@ -1495,10 +1495,10 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self["@shape"])._widthFor_(self);
+$1=_st(self["@shape"])._width();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"width",{},smalltalk.ROElement)})},
-messageSends: ["widthFor:"]}),
+messageSends: ["width"]}),
 smalltalk.ROElement);
 
 
@@ -2769,12 +2769,12 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=self["@svgElement"];
-_st($1)._attr_with_("cx",_st(_st(anElement)._position())._x());
-_st($1)._attr_with_("cy",_st(_st(anElement)._position())._y());
+_st($1)._attr_with_("cx",_st(_st(_st(anElement)._position())._x()).__plus(self._radius()));
+_st($1)._attr_with_("cy",_st(_st(_st(anElement)._position())._y()).__plus(self._radius()));
 _st($1)._attr_with_("r",self._radius());
 $2=_st($1)._attr_with_("fill",self._rgbColor());
 return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROCircle)})},
-messageSends: ["attr:with:", "x", "position", "y", "radius", "rgbColor"]}),
+messageSends: ["attr:with:", "+", "radius", "x", "position", "y", "rgbColor"]}),
 smalltalk.ROCircle);
 
 smalltalk.addMethod(
