@@ -397,13 +397,13 @@ addShape: aShape
 	| s |
 	s := (aShape installedOn: self).
 "	s addLast: shape."
-	Transcript show: (s width asString),'-BEFOREinstalledOn:-',(s class asString),(String cr).
+"	Transcript show: (s width asString),'-BEFOREinstalledOn:-',(s class asString),(String cr)."
 	" set height and width from previous shape <--- needs to be changed when implementing chain of shapes "
 	self shape isNil ifFalse: [
 		s width: self shape width.
 		s height: self shape height.	
 	].
-	Transcript show: (s width asString),'-AFTERinstalledOn:-',(s class asString),(String cr).
+"	Transcript show: (s width asString),'-AFTERinstalledOn:-',(s class asString),(String cr)."
 	shape := s.
 ! !
 

@@ -906,24 +906,20 @@ category: 'drawing',
 fn: function (aShape){
 var self=this;
 var s;
-function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
-function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 s=_st(aShape)._installedOn_(self);
-_st($Transcript())._show_(_st(_st(_st(_st(_st(s)._width())._asString()).__comma("-BEFOREinstalledOn:-")).__comma(_st(_st(s)._class())._asString())).__comma(_st($String())._cr()));
 $1=_st(self._shape())._isNil();
 if(! smalltalk.assert($1)){
 _st(s)._width_(_st(self._shape())._width());
 _st(s)._height_(_st(self._shape())._height());
 };
-_st($Transcript())._show_(_st(_st(_st(_st(_st(s)._width())._asString()).__comma("-AFTERinstalledOn:-")).__comma(_st(_st(s)._class())._asString())).__comma(_st($String())._cr()));
 self["@shape"]=s;
 return self}, function($ctx1) {$ctx1.fill(self,"addShape:",{aShape:aShape,s:s},smalltalk.ROAbstractComponent)})},
 args: ["aShape"],
-source: "addShape: aShape \x0a\x09\x22Add a shape to myself. aShape could either be an instance of a shape class or simply a class\x22\x0a\x0a\x09| s |\x0a\x09s := (aShape installedOn: self).\x0a\x22\x09s addLast: shape.\x22\x0a\x09Transcript show: (s width asString),'-BEFOREinstalledOn:-',(s class asString),(String cr).\x0a\x09\x22 set height and width from previous shape <--- needs to be changed when implementing chain of shapes \x22\x0a\x09self shape isNil ifFalse: [\x0a\x09\x09s width: self shape width.\x0a\x09\x09s height: self shape height.\x09\x0a\x09].\x0a\x09Transcript show: (s width asString),'-AFTERinstalledOn:-',(s class asString),(String cr).\x0a\x09shape := s.",
-messageSends: ["installedOn:", "show:", ",", "cr", "asString", "class", "width", "ifFalse:", "width:", "shape", "height:", "height", "isNil"],
-referencedClasses: ["String", "Transcript"]
+source: "addShape: aShape \x0a\x09\x22Add a shape to myself. aShape could either be an instance of a shape class or simply a class\x22\x0a\x0a\x09| s |\x0a\x09s := (aShape installedOn: self).\x0a\x22\x09s addLast: shape.\x22\x0a\x22\x09Transcript show: (s width asString),'-BEFOREinstalledOn:-',(s class asString),(String cr).\x22\x0a\x09\x22 set height and width from previous shape <--- needs to be changed when implementing chain of shapes \x22\x0a\x09self shape isNil ifFalse: [\x0a\x09\x09s width: self shape width.\x0a\x09\x09s height: self shape height.\x09\x0a\x09].\x0a\x22\x09Transcript show: (s width asString),'-AFTERinstalledOn:-',(s class asString),(String cr).\x22\x0a\x09shape := s.",
+messageSends: ["installedOn:", "ifFalse:", "width:", "width", "shape", "height:", "height", "isNil"],
+referencedClasses: []
 }),
 smalltalk.ROAbstractComponent);
 

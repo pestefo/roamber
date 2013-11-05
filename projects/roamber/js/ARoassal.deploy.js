@@ -719,21 +719,17 @@ selector: "addShape:",
 fn: function (aShape){
 var self=this;
 var s;
-function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
-function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 s=_st(aShape)._installedOn_(self);
-_st($Transcript())._show_(_st(_st(_st(_st(_st(s)._width())._asString()).__comma("-BEFOREinstalledOn:-")).__comma(_st(_st(s)._class())._asString())).__comma(_st($String())._cr()));
 $1=_st(self._shape())._isNil();
 if(! smalltalk.assert($1)){
 _st(s)._width_(_st(self._shape())._width());
 _st(s)._height_(_st(self._shape())._height());
 };
-_st($Transcript())._show_(_st(_st(_st(_st(_st(s)._width())._asString()).__comma("-AFTERinstalledOn:-")).__comma(_st(_st(s)._class())._asString())).__comma(_st($String())._cr()));
 self["@shape"]=s;
 return self}, function($ctx1) {$ctx1.fill(self,"addShape:",{aShape:aShape,s:s},smalltalk.ROAbstractComponent)})},
-messageSends: ["installedOn:", "show:", ",", "cr", "asString", "class", "width", "ifFalse:", "width:", "shape", "height:", "height", "isNil"]}),
+messageSends: ["installedOn:", "ifFalse:", "width:", "width", "shape", "height:", "height", "isNil"]}),
 smalltalk.ROAbstractComponent);
 
 smalltalk.addMethod(
