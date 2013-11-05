@@ -2,14 +2,37 @@ smalltalk.addPackage('ARoassal');
 smalltalk.addClass('Color', smalltalk.Object, ['r', 'g', 'b'], 'ARoassal');
 smalltalk.addMethod(
 smalltalk.method({
-selector: "b",
+selector: "=",
+fn: function (aColor){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(self._class()).__tild_tild(_st(aColor)._class());
+if(smalltalk.assert($1)){
+return false;
+};
+$2=_st(_st(_st(self._red()).__eq(_st(aColor)._red()))._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._green()).__eq(_st(aColor)._green());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._blue()).__eq(_st(aColor)._blue());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"=",{aColor:aColor},smalltalk.Color)})},
+messageSends: ["ifTrue:", "~~", "class", "and:", "=", "blue", "green", "red"]}),
+smalltalk.Color);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "blue",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@b"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"b",{},smalltalk.Color)})},
+}, function($ctx1) {$ctx1.fill(self,"blue",{},smalltalk.Color)})},
 messageSends: []}),
 smalltalk.Color);
 
@@ -20,44 +43,44 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st((0.2126).__star(self["@r"])).__plus(_st((0.7152).__star(self["@g"])).__plus((0.0722).__star(self["@b"])));
+$1=_st(_st((0.2126).__star(self._privateRed())).__star((255))).__plus(_st(_st((0.7152).__star(self._privateGreen())).__star((255))).__plus(_st((0.0722).__star(self._privateBlue())).__star((255))));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"brightness",{},smalltalk.Color)})},
-messageSends: ["+", "*"]}),
+messageSends: ["+", "*", "privateBlue", "privateGreen", "privateRed"]}),
 smalltalk.Color);
 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "cleanValue:",
-fn: function (anInteger){
+fn: function (value){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3;
-$1=_st(anInteger).__gt((255));
+$1=_st(value).__gt((1));
 if(smalltalk.assert($1)){
-return (255);
+return (1);
 } else {
-$2=_st(anInteger).__lt((0));
+$2=_st(value).__lt((0));
 if(smalltalk.assert($2)){
 return (0);
 };
 };
-$3=anInteger;
+$3=value;
 return $3;
-}, function($ctx1) {$ctx1.fill(self,"cleanValue:",{anInteger:anInteger},smalltalk.Color)})},
+}, function($ctx1) {$ctx1.fill(self,"cleanValue:",{value:value},smalltalk.Color)})},
 messageSends: ["ifTrue:ifFalse:", "ifTrue:", "<", ">"]}),
 smalltalk.Color);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "g",
+selector: "green",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@g"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"g",{},smalltalk.Color)})},
+}, function($ctx1) {$ctx1.fill(self,"green",{},smalltalk.Color)})},
 messageSends: []}),
 smalltalk.Color);
 
@@ -111,10 +134,10 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self["@b"]).__slash((255));
+$1=self["@b"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"privateBlue",{},smalltalk.Color)})},
-messageSends: ["/"]}),
+messageSends: []}),
 smalltalk.Color);
 
 smalltalk.addMethod(
@@ -124,10 +147,10 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self["@g"]).__slash((255));
+$1=self["@g"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"privateGreen",{},smalltalk.Color)})},
-messageSends: ["/"]}),
+messageSends: []}),
 smalltalk.Color);
 
 smalltalk.addMethod(
@@ -137,22 +160,9 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self["@r"]).__slash((255));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"privateRed",{},smalltalk.Color)})},
-messageSends: ["/"]}),
-smalltalk.Color);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "r",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
 $1=self["@r"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"r",{},smalltalk.Color)})},
+}, function($ctx1) {$ctx1.fill(self,"privateRed",{},smalltalk.Color)})},
 messageSends: []}),
 smalltalk.Color);
 
@@ -162,11 +172,48 @@ selector: "r:g:b:",
 fn: function (rVal,gVal,bVal){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self["@r"]=self._cleanValue_(rVal);
-self["@g"]=self._cleanValue_(gVal);
-self["@b"]=self._cleanValue_(bVal);
+self._setRed_green_blue_(rVal,gVal,bVal);
 return self}, function($ctx1) {$ctx1.fill(self,"r:g:b:",{rVal:rVal,gVal:gVal,bVal:bVal},smalltalk.Color)})},
-messageSends: ["cleanValue:"]}),
+messageSends: ["setRed:green:blue:"]}),
+smalltalk.Color);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "red",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@r"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"red",{},smalltalk.Color)})},
+messageSends: []}),
+smalltalk.Color);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "rgbTriplet",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=[_st(self["@r"])._copy(),_st(self["@g"])._copy(),_st(self["@b"])._copy()];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"rgbTriplet",{},smalltalk.Color)})},
+messageSends: ["copy"]}),
+smalltalk.Color);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "rgbTriplet255",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=[_st(_st(self["@r"])._copy()).__star((255)),_st(_st(self["@g"])._copy()).__star((255)),_st(_st(self["@b"])._copy()).__star((255))];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"rgbTriplet255",{},smalltalk.Color)})},
+messageSends: ["*", "copy"]}),
 smalltalk.Color);
 
 smalltalk.addMethod(
@@ -281,14 +328,14 @@ smalltalk.Color);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "setRed:green:blue:",
-fn: function (red,green,blue){
+fn: function (rVal,gVal,bVal){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self["@r"]=_st(red).__star((255));
-self["@g"]=_st(green).__star((255));
-self["@b"]=_st(blue).__star((255));
-return self}, function($ctx1) {$ctx1.fill(self,"setRed:green:blue:",{red:red,green:green,blue:blue},smalltalk.Color)})},
-messageSends: ["*"]}),
+self["@r"]=self._cleanValue_(rVal);
+self["@g"]=self._cleanValue_(gVal);
+self["@b"]=self._cleanValue_(bVal);
+return self}, function($ctx1) {$ctx1.fill(self,"setRed:green:blue:",{rVal:rVal,gVal:gVal,bVal:bVal},smalltalk.Color)})},
+messageSends: ["cleanValue:"]}),
 smalltalk.Color);
 
 smalltalk.addMethod(
@@ -367,7 +414,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._new())._r_g_b_((0),(0),(255));
+$1=_st(self._new())._r_g_b_((0),(0),(1));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"blue",{},smalltalk.Color.klass)})},
 messageSends: ["r:g:b:", "new"]}),
@@ -380,7 +427,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._new())._r_g_b_((0),(255),(0));
+$1=_st(self._new())._r_g_b_((0),(1),(0));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"green",{},smalltalk.Color.klass)})},
 messageSends: ["r:g:b:", "new"]}),
@@ -406,7 +453,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._new())._r_g_b_((211),(211),(211));
+$1=_st(self._new())._r_g_b_((0.827),(0.827),(0.827));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"lightGray",{},smalltalk.Color.klass)})},
 messageSends: ["r:g:b:", "new"]}),
@@ -432,9 +479,35 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._new())._r_g_b_((255),(0),(0));
+$1=_st(self._new())._r_g_b_((1),(0),(0));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"red",{},smalltalk.Color.klass)})},
+messageSends: ["r:g:b:", "new"]}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "veryDarkGray",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._new())._r_g_b_((0.25),(0.25),(0.25));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"veryDarkGray",{},smalltalk.Color.klass)})},
+messageSends: ["r:g:b:", "new"]}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "veryVeryDarkGray",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._new())._r_g_b_((0.125),(0.125),(0.125));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"veryVeryDarkGray",{},smalltalk.Color.klass)})},
 messageSends: ["r:g:b:", "new"]}),
 smalltalk.Color.klass);
 
@@ -483,9 +556,22 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._new())._r_g_b_((255),(255),(255));
+$1=_st(self._new())._r_g_b_((1),(1),(1));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"white",{},smalltalk.Color.klass)})},
+messageSends: ["r:g:b:", "new"]}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "yellow",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._new())._r_g_b_((1),(1),(0));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"yellow",{},smalltalk.Color.klass)})},
 messageSends: ["r:g:b:", "new"]}),
 smalltalk.Color.klass);
 
@@ -2006,12 +2092,14 @@ smalltalk.method({
 selector: "rgbColor",
 fn: function (){
 var self=this;
+var triplet;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(_st(_st("rgb(".__comma(_st(_st(self["@color"])._r())._asString())).__comma(",")).__comma(_st(_st(self["@color"])._g())._asString())).__comma(",")).__comma(_st(_st(self["@color"])._b())._asString())).__comma(")");
+triplet=_st(self["@color"])._rgbTriplet255();
+$1=_st(_st(_st(_st(_st("rgb(".__comma(_st(_st(triplet)._first())._asString())).__comma(",")).__comma(_st(_st(triplet)._second())._asString())).__comma(",")).__comma(_st(_st(triplet)._third())._asString())).__comma(")");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"rgbColor",{},smalltalk.ROShape)})},
-messageSends: [",", "asString", "b", "g", "r"]}),
+}, function($ctx1) {$ctx1.fill(self,"rgbColor",{triplet:triplet},smalltalk.ROShape)})},
+messageSends: ["rgbTriplet255", ",", "asString", "third", "second", "first"]}),
 smalltalk.ROShape);
 
 smalltalk.addMethod(

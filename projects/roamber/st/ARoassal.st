@@ -3,59 +3,15 @@ Object subclass: #Color
 	instanceVariableNames: 'r g b'
 	package: 'ARoassal'!
 
-!Color methodsFor: 'not yet classified'!
+!Color methodsFor: 'other'!
 
-b
-	^ b
-!
-
-brightness
-	" From http://stackoverflow.com/questions/596216/formula-to-determine-brightness-of-rgb-color  "
-"	^ 0.2126*(self privateRed) + ( 0.7152*(self privateGreen)  + (0.0722*(self privateBlue)) )"
-	^ 0.2126*r + ( 0.7152*g  + (0.0722*b) )
-!
-
-cleanValue: anInteger
+cleanValue: value
 	" Clean for possible mistaken values"
-	(anInteger > 255) 
-		ifTrue: [^ 255]
+	(value > 1.0) 
+		ifTrue: [^ 1.0]
 		ifFalse: [
-			(anInteger < 0) ifTrue: [^ 0] ].
-	^ anInteger.
-!
-
-g
-	^ g
-!
-
-hue
-	"Return the hue of this color, an angle in the range [0.0..360.0]."
-	| red green blue max min span h |
-	red := self privateRed.
-	green := self privateGreen.
-	blue := self privateBlue.
-	max := (red max: green) max: blue.
-	min := (red min: green) min: blue.
-	span := (max - min) asFloat.
-	span = 0.0 ifTrue: [ ^ 0.0 ].
-	red = max 
-		ifTrue: [ h := (green - blue) asFloat / span * 60.0 ]
-		ifFalse: 
-			[ green = max 
-				ifTrue: [ h := 120.0 + ((blue - red) asFloat / span * 60.0) ]
-				ifFalse: [ h := 240.0 + ((red - green) asFloat / span * 60.0) ] ].
-	h < 0.0 ifTrue: [ h := 360.0 + h ].
-	^ h
-!
-
-r
-	^ r
-!
-
-r: rVal g: gVal b: bVal
-	r :=  self cleanValue: rVal.
-	g :=  self cleanValue: gVal.
-	b:=  self cleanValue: bVal.
+			(value < 0.0) ifTrue: [^ 0.0] ].
+	^ value.
 !
 
 saturation
@@ -72,61 +28,25 @@ saturation
 	max = 0 
 		ifTrue: [ ^ 0.0 ]
 		ifFalse: [ ^ (max - min) asFloat / max asFloat ]
-!
-
-wheel: thisMany 
-	"An array of thisMany colors around the color wheel starting at self and ending all the way around the hue space just before self.  Array is of length thisMany.  Very useful for displaying color based on a variable in your program.  "
-	| sat bri step hue |
-	sat := self saturation.
-	bri := self brightness.
-	hue := self hue.
-	step := 360.0 / (thisMany max: 1).
-	^ (1 to: thisMany) collect: 
-		[ :num | | c | 
-		c := Color 
-			h: hue
-			s: sat
-			v: bri.	"hue is taken mod 360"
-		hue := hue + step.
-		c ]
-	"
-(Color wheel: 8) withIndexDo: [:c :i | Display fill: (i*10@20 extent: 10@20) fillColor: c]
-"
-!
-
-wheel: thisMany to: aColor
-	"An array of thisMany colors around the color wheel starting at self and ending all the way around the hue space just before self.  Array is of length thisMany.  Very useful for displaying color based on a variable in your program.  "
-	| sat bri step hue finishHue |
-	sat := self saturation.
-	bri := self brightness.
-	hue := self hue.
-	finishHue := aColor hue.
-	step := ( finishHue - hue) / (thisMany max: 1).
-	^ (1 to: thisMany) collect: 
-		[ :num | | c | 
-		c := Color 
-			h: hue
-			s: sat
-			v: bri.	"hue is taken mod 360"
-		hue := hue + step.
-		c ]
-	"
-(Color wheel: 8) withIndexDo: [:c :i | Display fill: (i*10@20 extent: 10@20) fillColor: c]
-"
 ! !
 
 !Color methodsFor: 'private'!
 
 privateBlue
-	^ b/255.0
+	^ b
 !
 
 privateGreen
-	^ g/255.0
+	^ g
 !
 
 privateRed
-	^ r/255.0
+	^ r
+!
+
+r: rVal g: gVal b: bVal
+	" values are from 0.0 .. 1.0 "
+	self setRed: rVal green: gVal blue: bVal
 !
 
 setHue: hue saturation: saturation brightness: brightness 
@@ -182,11 +102,11 @@ setHue: hue saturation: saturation brightness: brightness
 	self error: 'implementation error'
 !
 
-setRed: red green: green blue: blue 
+setRed: rVal green: gVal blue: bVal 
 	"Initialize this color's r, g, and b components to the given values in the range [0.0..1.0]. "
-	r := red * 255.0.
-	g := green * 255.0.
-	b := blue * 255.0.
+	r :=  self cleanValue: rVal.
+	g :=  self cleanValue: gVal.
+	b:=  self cleanValue: bVal.
 ! !
 
 !Color class methodsFor: 'not yet classified'!
@@ -196,11 +116,11 @@ black
 !
 
 blue
-	^ self new r: 0 g: 0 b: 255
+	^ self new r: 0 g: 0 b: 1
 !
 
 green
-	^ self new r: 0 g: 255 b: 0
+	^ self new r: 0 g: 1 b: 0
 !
 
 h: hue s: saturation v: brightness
@@ -211,7 +131,7 @@ h: hue s: saturation v: brightness
 !
 
 lightGray
-	^ self new r: 211 g: 211 b: 211
+	^ self new r: 0.827 g: 0.827  b: 0.827
 !
 
 r: rVal g: gVal b: bVal
@@ -219,7 +139,15 @@ r: rVal g: gVal b: bVal
 !
 
 red
-	^ self new r: 255 g: 0 b: 0
+	^ self new r: 1 g: 0 b: 0
+!
+
+veryDarkGray
+	^ self new r: 0.25 g: 0.25 b: 0.25
+!
+
+veryVeryDarkGray
+	^ self new r: 0.125 g: 0.125 b: 0.125
 !
 
 wheel: thisMany
@@ -242,7 +170,11 @@ wheel: thisMany saturation: s brightness: v
 !
 
 white
-	^ self new r: 255 g: 255 b: 255
+	^ self new r: 1 g: 1 b: 1
+!
+
+yellow
+	^ self new r: 1 g: 1 b: 0
 ! !
 
 Announcer subclass: #ROAnnouncer
@@ -899,7 +831,9 @@ removeSVGElement
 !
 
 rgbColor
-	^ 'rgb(',(color r asString),',',(color g asString),',',(color b asString),')'.
+	| triplet |
+	triplet := color rgbTriplet255.
+	^ 'rgb(',(triplet first  asString),',',(triplet second asString),',',(triplet third asString),')'.
 !
 
 svgElement
