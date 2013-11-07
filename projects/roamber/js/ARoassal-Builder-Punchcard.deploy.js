@@ -276,7 +276,7 @@ smalltalk.ROPunchcardBuilderTest);
 
 
 
-smalltalk.addClass('ROPunchcardExample', smalltalk.Object, ['builder'], 'ARoassal-Builder-Punchcard');
+smalltalk.addClass('ROPunchcardExample', smalltalk.ROObject, ['builder'], 'ARoassal-Builder-Punchcard');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "example",

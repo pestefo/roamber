@@ -1,13 +1,22 @@
-Smalltalk current createPackage: 'ARoassal-Builder-Punchcard'!
+Smalltalk current createPackage: 'Roassal-Builder-Punchcard'!
 ROObject subclass: #ROPunchcardBuilder
 	instanceVariableNames: 'models metrics view minColor maxColor popupText'
-	package: 'ARoassal-Builder-Punchcard'!
-!ROPunchcardBuilder commentStamp!
-| builder |
-builder := ROPunchcardBuilder new.
-builder addModels: #( 'hello' 'world' 'hello world' ).
-builder addMetric: [:word | word size] namedAs: 'length'.
-builder open!
+	package: 'Roassal-Builder-Punchcard'!
+
+!ROPunchcardBuilder methodsFor: 'accessing'!
+
+maxColor: aColor
+	maxColor := aColor
+!
+
+minColor: aColor
+	minColor := aColor
+!
+
+popupText: aTreeArgBlock
+	"Block has to match the pattern [ :object :metricName :value |  ... ]."
+	popupText :=  aTreeArgBlock
+! !
 
 !ROPunchcardBuilder methodsFor: 'adding'!
 
@@ -17,11 +26,6 @@ addMetric: aBlock namedAs: metricName
 
 addModels: aCollection
 	models addAll: aCollection.
-!
-
-popupText: aTreeArgBlock
-	"Block has to match the pattern [ :object :metricName :value |  ... ]."
-	popupText :=  aTreeArgBlock
 ! !
 
 !ROPunchcardBuilder methodsFor: 'initialize-release'!
@@ -54,11 +58,37 @@ numberOfModels
 	^ models size
 ! !
 
+!ROPunchcardBuilder methodsFor: 'rendering'!
+
+renderOn: aView
+	|  layout |
+	
+	metrics do: [ :metric |
+		| m name normalizer | 
+		m := metric first.
+		name := metric second.
+		"thresholds :=  self thresholdsFor: metric."
+		normalizer := RONColorLinearNormalizer inContext: (models collect: [:obj | m roValue: obj]) lowColor: minColor highColor: maxColor.
+		models do: [ :obj |
+			| circle metricValue |
+			metricValue := m roValue: obj.
+			circle := ((ROEllipse new size: metricValue ) color: (normalizer roValue: metricValue)) elementOn: obj  .
+			circle @ (ROPopup text: [ :roElement | (popupText value: obj  value: name value: metricValue) asString ]).
+			aView add: circle.
+			 ].
+			 
+		aView add: (ROLabel new elementOn: name) 
+	].
+	
+	models do: [ :obj | aView add: (ROLabel new elementOn: obj) ].
+	
+	layout := ROCellLayout withLineItemsCount: (self numberOfModels + 1).
+	layout on: aView elements
+! !
+
 ROTest subclass: #ROPunchcardBuilderTest
 	instanceVariableNames: 'builder emptyBuilder view'
-	package: 'ARoassal-Builder-Punchcard'!
-!ROPunchcardBuilderTest commentStamp!
-ROPunchcardBuilderTest new setUp!
+	package: 'Roassal-Builder-Punchcard'!
 
 !ROPunchcardBuilderTest methodsFor: 'as yet unclassified'!
 
@@ -98,11 +128,16 @@ testTwoMetricsScenario
 
 ROObject subclass: #ROPunchcardExample
 	instanceVariableNames: 'builder'
-	package: 'ARoassal-Builder-Punchcard'!
+	package: 'Roassal-Builder-Punchcard'!
 
-!ROPunchcardExample methodsFor: 'not yet classified'!
+!ROPunchcardExample methodsFor: 'as yet unclassified'!
 
 example
+
+"
+self new example
+"
+
 builder := ROPunchcardBuilder new.
 builder addModels: #( 'hello' 'world' 'hello world' ).
 builder addMetric: [:word | word size] namedAs: 'length'.
@@ -110,6 +145,10 @@ builder open
 !
 
 example2
+
+"
+self new example2
+"
 
 builder := ROPunchcardBuilder new.
 builder addModels: #( 'hello' 'world' 'hello world' ).
@@ -119,6 +158,10 @@ builder open.
 !
 
 example3
+
+"
+self new example3
+"
 
 builder := ROPunchcardBuilder new.
 builder addModels: #( 'hello' 'world' 'hello world' ).
@@ -131,11 +174,16 @@ builder open.
 
 example4
 
+"
+self new example4
+"
+
 builder := ROPunchcardBuilder new.
-builder addModels: (ROObject withAllSubclasses copyFrom: 1 to: 5).
-builder addMetric: [ :c | c numberOfMethods + 1] namedAs: 'NOM'.
-builder addMetric: [ :c | c numberOfVariables * 2 ] namedAs: 'NOA'.
-builder popupText: [ :class :metricName :value | ].
+builder addModels: (ROObject withAllSubclasses copyFrom: 3 to: 9).
+builder addMetric: [ :c | c numberOfMethods + 5] namedAs: 'NOM'.
+builder addMetric: [ :c | c numberOfVariables * 5 ] namedAs: 'NOA'.
+builder addMetric: [ :c | c numberOfSubclasses * 5  ] namedAs: 'NOS'.
+builder popupText: [ :class :metricName :value | 'The value of ', metricName, ' for ', class name, ' is ', value asString ].
 builder minColor: Color green.
 builder maxColor: Color red.
 builder open.

@@ -1,6 +1,5 @@
-smalltalk.addPackage('ARoassal-Builder-Punchcard');
-smalltalk.addClass('ROPunchcardBuilder', smalltalk.ROObject, ['models', 'metrics', 'view', 'minColor', 'maxColor', 'popupText'], 'ARoassal-Builder-Punchcard');
-smalltalk.ROPunchcardBuilder.comment="| builder |\x0abuilder := ROPunchcardBuilder new.\x0abuilder addModels: #( 'hello' 'world' 'hello world' ).\x0abuilder addMetric: [:word | word size] namedAs: 'length'.\x0abuilder open";
+smalltalk.addPackage('Roassal-Builder-Punchcard');
+smalltalk.addClass('ROPunchcardBuilder', smalltalk.ROObject, ['models', 'metrics', 'view', 'minColor', 'maxColor', 'popupText'], 'Roassal-Builder-Punchcard');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addMetric:namedAs:",
@@ -30,25 +29,6 @@ args: ["aCollection"],
 source: "addModels: aCollection\x0a\x09models addAll: aCollection.",
 messageSends: ["addAll:"],
 referencedClasses: []
-}),
-smalltalk.ROPunchcardBuilder);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "colorFor:thresholds:",
-category: 'rendering',
-fn: function (obj,thresholds){
-var self=this;
-function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st($Color())._lightGray();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"colorFor:thresholds:",{obj:obj,thresholds:thresholds},smalltalk.ROPunchcardBuilder)})},
-args: ["obj", "thresholds"],
-source: "colorFor: obj thresholds: thresholds\x0a\x22\x09| wheel max min |\x0a\x09min := thresholds first.\x0a\x09max := thresholds second.\x0a\x09wheel := Color wheel: minColor to: maxColor.\x0a\x22\x0a\x09^ Color lightGray",
-messageSends: ["lightGray"],
-referencedClasses: ["Color"]
 }),
 smalltalk.ROPunchcardBuilder);
 
@@ -169,14 +149,14 @@ smalltalk.ROPunchcardBuilder);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "popupText:",
-category: 'adding',
+category: 'accessing',
 fn: function (aTreeArgBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self["@popupText"]=aTreeArgBlock;
 return self}, function($ctx1) {$ctx1.fill(self,"popupText:",{aTreeArgBlock:aTreeArgBlock},smalltalk.ROPunchcardBuilder)})},
 args: ["aTreeArgBlock"],
-source: "popupText: aTreeArgBlock\x0a\x09\x22Block has to match the pattern [ :object :metricName :value |  ... ].\x22\x0a\x09popupText :=  aTreeArgBlock\x0a\x09",
+source: "popupText: aTreeArgBlock\x0a\x09\x22Block has to match the pattern [ :object :metricName :value |  ... ].\x22\x0a\x09popupText :=  aTreeArgBlock",
 messageSends: [],
 referencedClasses: []
 }),
@@ -190,7 +170,7 @@ fn: function (aView){
 var self=this;
 var layout;
 function $RONColorLinearNormalizer(){return smalltalk.RONColorLinearNormalizer||(typeof RONColorLinearNormalizer=="undefined"?nil:RONColorLinearNormalizer)}
-function $ROCircle(){return smalltalk.ROCircle||(typeof ROCircle=="undefined"?nil:ROCircle)}
+function $ROEllipse(){return smalltalk.ROEllipse||(typeof ROEllipse=="undefined"?nil:ROEllipse)}
 function $ROPopup(){return smalltalk.ROPopup||(typeof ROPopup=="undefined"?nil:ROPopup)}
 function $ROLabel(){return smalltalk.ROLabel||(typeof ROLabel=="undefined"?nil:ROLabel)}
 function $ROCellLayout(){return smalltalk.ROCellLayout||(typeof ROCellLayout=="undefined"?nil:ROCellLayout)}
@@ -212,7 +192,7 @@ var circle,metricValue;
 return smalltalk.withContext(function($ctx3) {
 metricValue=_st(m)._roValue_(obj);
 metricValue;
-circle=_st(_st(_st(_st($ROCircle())._new())._size_(metricValue))._elementOn_(obj))._color_(_st(normalizer)._roValue_(metricValue));
+circle=_st(_st(_st(_st($ROEllipse())._new())._size_(metricValue))._color_(_st(normalizer)._roValue_(metricValue)))._elementOn_(obj);
 circle;
 _st(circle).__at(_st($ROPopup())._text_((function(roElement){
 return smalltalk.withContext(function($ctx4) {
@@ -230,40 +210,15 @@ layout=_st($ROCellLayout())._withLineItemsCount_(_st(self._numberOfModels()).__p
 _st(layout)._on_(_st(aView)._elements());
 return self}, function($ctx1) {$ctx1.fill(self,"renderOn:",{aView:aView,layout:layout},smalltalk.ROPunchcardBuilder)})},
 args: ["aView"],
-source: "renderOn: aView\x0a\x09|  layout |\x0a\x09\x0a\x09metrics do: [ :metric |\x0a\x09\x09| m name normalizer | \x0a\x09\x09m := metric first.\x0a\x09\x09name := metric second.\x0a\x09\x09\x22thresholds :=  self thresholdsFor: metric.\x22\x0a\x09\x09normalizer := RONColorLinearNormalizer inContext: (models collect: [:obj | m roValue: obj]) lowColor: minColor highColor: maxColor.\x0a\x09\x09models do: [ :obj |\x0a\x09\x09\x09| circle metricValue |\x0a\x09\x09\x09metricValue := m roValue: obj.\x0a\x09\x09\x09circle := ((ROCircle new size: metricValue) elementOn: obj) color: (normalizer roValue: metricValue).\x0a\x09\x09\x09circle @ (ROPopup text: [ :roElement | (popupText value: obj  value: name value: metricValue) asString ]).\x0a\x09\x09\x09aView add: circle.\x0a\x09\x09\x09 ].\x0a\x09\x09\x09 \x0a\x09\x09aView add: (ROLabel new elementOn: name) \x0a\x09].\x0a\x09\x0a\x09models do: [ :obj | aView add: (ROLabel new elementOn: obj) ].\x0a\x09\x0a\x09layout := ROCellLayout withLineItemsCount: (self numberOfModels + 1).\x0a\x09layout on: aView elements",
-messageSends: ["do:", "first", "second", "inContext:lowColor:highColor:", "collect:", "roValue:", "color:", "elementOn:", "size:", "new", "@", "text:", "asString", "value:value:value:", "add:", "withLineItemsCount:", "+", "numberOfModels", "on:", "elements"],
-referencedClasses: ["RONColorLinearNormalizer", "ROCircle", "ROPopup", "ROLabel", "ROCellLayout"]
-}),
-smalltalk.ROPunchcardBuilder);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "thresholdsFor:",
-category: 'rendering',
-fn: function (metric){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=[_st(_st(self["@models"])._collect_((function(obj){
-return smalltalk.withContext(function($ctx2) {
-return _st(obj)._roValue_(metric);
-}, function($ctx2) {$ctx2.fillBlock({obj:obj},$ctx1)})})))._min(),_st(_st(self["@models"])._collect_((function(obj){
-return smalltalk.withContext(function($ctx2) {
-return _st(obj)._roValue_(metric);
-}, function($ctx2) {$ctx2.fillBlock({obj:obj},$ctx1)})})))._max()];
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"thresholdsFor:",{metric:metric},smalltalk.ROPunchcardBuilder)})},
-args: ["metric"],
-source: "thresholdsFor: metric\x0a\x09\x0a\x09^  { \x09(models collect: [:obj | obj roValue: metric ]) min .\x0a\x09\x09\x09 (models collect: [:obj | obj roValue: metric ]) max }",
-messageSends: ["min", "collect:", "roValue:", "max"],
-referencedClasses: []
+source: "renderOn: aView\x0a\x09|  layout |\x0a\x09\x0a\x09metrics do: [ :metric |\x0a\x09\x09| m name normalizer | \x0a\x09\x09m := metric first.\x0a\x09\x09name := metric second.\x0a\x09\x09\x22thresholds :=  self thresholdsFor: metric.\x22\x0a\x09\x09normalizer := RONColorLinearNormalizer inContext: (models collect: [:obj | m roValue: obj]) lowColor: minColor highColor: maxColor.\x0a\x09\x09models do: [ :obj |\x0a\x09\x09\x09| circle metricValue |\x0a\x09\x09\x09metricValue := m roValue: obj.\x0a\x09\x09\x09circle := ((ROEllipse new size: metricValue ) color: (normalizer roValue: metricValue)) elementOn: obj  .\x0a\x09\x09\x09circle @ (ROPopup text: [ :roElement | (popupText value: obj  value: name value: metricValue) asString ]).\x0a\x09\x09\x09aView add: circle.\x0a\x09\x09\x09 ].\x0a\x09\x09\x09 \x0a\x09\x09aView add: (ROLabel new elementOn: name) \x0a\x09].\x0a\x09\x0a\x09models do: [ :obj | aView add: (ROLabel new elementOn: obj) ].\x0a\x09\x0a\x09layout := ROCellLayout withLineItemsCount: (self numberOfModels + 1).\x0a\x09layout on: aView elements",
+messageSends: ["do:", "first", "second", "inContext:lowColor:highColor:", "collect:", "roValue:", "elementOn:", "color:", "size:", "new", "@", "text:", "asString", "value:value:value:", "add:", "withLineItemsCount:", "+", "numberOfModels", "on:", "elements"],
+referencedClasses: ["RONColorLinearNormalizer", "ROEllipse", "ROPopup", "ROLabel", "ROCellLayout"]
 }),
 smalltalk.ROPunchcardBuilder);
 
 
 
-smalltalk.addClass('ROPunchcardBuilderTest', smalltalk.ROTest, ['builder', 'emptyBuilder', 'view'], 'ARoassal-Builder-Punchcard');
-smalltalk.ROPunchcardBuilderTest.comment="ROPunchcardBuilderTest new setUp";
+smalltalk.addClass('ROPunchcardBuilderTest', smalltalk.ROTest, ['builder', 'emptyBuilder', 'view'], 'Roassal-Builder-Punchcard');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "setUp",
@@ -363,11 +318,11 @@ smalltalk.ROPunchcardBuilderTest);
 
 
 
-smalltalk.addClass('ROPunchcardExample', smalltalk.ROObject, ['builder'], 'ARoassal-Builder-Punchcard');
+smalltalk.addClass('ROPunchcardExample', smalltalk.ROObject, ['builder'], 'Roassal-Builder-Punchcard');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "example",
-category: 'not yet classified',
+category: 'as yet unclassified',
 fn: function (){
 var self=this;
 function $ROPunchcardBuilder(){return smalltalk.ROPunchcardBuilder||(typeof ROPunchcardBuilder=="undefined"?nil:ROPunchcardBuilder)}
@@ -381,7 +336,7 @@ return _st(word)._size();
 _st(self["@builder"])._open();
 return self}, function($ctx1) {$ctx1.fill(self,"example",{},smalltalk.ROPunchcardExample)})},
 args: [],
-source: "example\x0abuilder := ROPunchcardBuilder new.\x0abuilder addModels: #( 'hello' 'world' 'hello world' ).\x0abuilder addMetric: [:word | word size] namedAs: 'length'.\x0abuilder open",
+source: "example\x0a\x0a\x22\x0aself new example\x0a\x22\x0a\x0abuilder := ROPunchcardBuilder new.\x0abuilder addModels: #( 'hello' 'world' 'hello world' ).\x0abuilder addMetric: [:word | word size] namedAs: 'length'.\x0abuilder open",
 messageSends: ["new", "addModels:", "addMetric:namedAs:", "size", "open"],
 referencedClasses: ["ROPunchcardBuilder"]
 }),
@@ -390,7 +345,7 @@ smalltalk.ROPunchcardExample);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "example2",
-category: 'not yet classified',
+category: 'as yet unclassified',
 fn: function (){
 var self=this;
 function $ROPunchcardBuilder(){return smalltalk.ROPunchcardBuilder||(typeof ROPunchcardBuilder=="undefined"?nil:ROPunchcardBuilder)}
@@ -408,7 +363,7 @@ return _st(_st(word)._size()).__star((2));
 _st(self["@builder"])._open();
 return self}, function($ctx1) {$ctx1.fill(self,"example2",{},smalltalk.ROPunchcardExample)})},
 args: [],
-source: "example2\x0a\x0abuilder := ROPunchcardBuilder new.\x0abuilder addModels: #( 'hello' 'world' 'hello world' ).\x0abuilder addMetric: [:word | word size] namedAs: 'length'.\x0abuilder addMetric: [:word | word size * 2 ] namedAs: 'length 2'.\x0abuilder open.",
+source: "example2\x0a\x0a\x22\x0aself new example2\x0a\x22\x0a\x0abuilder := ROPunchcardBuilder new.\x0abuilder addModels: #( 'hello' 'world' 'hello world' ).\x0abuilder addMetric: [:word | word size] namedAs: 'length'.\x0abuilder addMetric: [:word | word size * 2 ] namedAs: 'length 2'.\x0abuilder open.",
 messageSends: ["new", "addModels:", "addMetric:namedAs:", "size", "*", "open"],
 referencedClasses: ["ROPunchcardBuilder"]
 }),
@@ -417,7 +372,7 @@ smalltalk.ROPunchcardExample);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "example3",
-category: 'not yet classified',
+category: 'as yet unclassified',
 fn: function (){
 var self=this;
 function $ROPunchcardBuilder(){return smalltalk.ROPunchcardBuilder||(typeof ROPunchcardBuilder=="undefined"?nil:ROPunchcardBuilder)}
@@ -438,7 +393,7 @@ _st(self["@builder"])._maxColor_(_st($Color())._red());
 _st(self["@builder"])._open();
 return self}, function($ctx1) {$ctx1.fill(self,"example3",{},smalltalk.ROPunchcardExample)})},
 args: [],
-source: "example3\x0a\x0abuilder := ROPunchcardBuilder new.\x0abuilder addModels: #( 'hello' 'world' 'hello world' ).\x0abuilder addMetric: [:word | word size] namedAs: 'length'.\x0abuilder addMetric: [:word | word size * 2 ] namedAs: 'length 2'.\x0abuilder minColor: Color green.\x0abuilder maxColor: Color red.\x0abuilder open.",
+source: "example3\x0a\x0a\x22\x0aself new example3\x0a\x22\x0a\x0abuilder := ROPunchcardBuilder new.\x0abuilder addModels: #( 'hello' 'world' 'hello world' ).\x0abuilder addMetric: [:word | word size] namedAs: 'length'.\x0abuilder addMetric: [:word | word size * 2 ] namedAs: 'length 2'.\x0abuilder minColor: Color green.\x0abuilder maxColor: Color red.\x0abuilder open.",
 messageSends: ["new", "addModels:", "addMetric:namedAs:", "size", "*", "minColor:", "green", "maxColor:", "red", "open"],
 referencedClasses: ["ROPunchcardBuilder", "Color"]
 }),
@@ -447,7 +402,7 @@ smalltalk.ROPunchcardExample);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "example4",
-category: 'not yet classified',
+category: 'as yet unclassified',
 fn: function (){
 var self=this;
 function $ROPunchcardBuilder(){return smalltalk.ROPunchcardBuilder||(typeof ROPunchcardBuilder=="undefined"?nil:ROPunchcardBuilder)}
@@ -455,25 +410,30 @@ function $ROObject(){return smalltalk.ROObject||(typeof ROObject=="undefined"?ni
 function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
 return smalltalk.withContext(function($ctx1) { 
 self["@builder"]=_st($ROPunchcardBuilder())._new();
-_st(self["@builder"])._addModels_(_st(_st($ROObject())._withAllSubclasses())._copyFrom_to_((1),(5)));
+_st(self["@builder"])._addModels_(_st(_st($ROObject())._withAllSubclasses())._copyFrom_to_((3),(9)));
 _st(self["@builder"])._addMetric_namedAs_((function(c){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(c)._numberOfMethods()).__plus((1));
+return _st(_st(c)._numberOfMethods()).__plus((5));
 }, function($ctx2) {$ctx2.fillBlock({c:c},$ctx1)})}),"NOM");
 _st(self["@builder"])._addMetric_namedAs_((function(c){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(c)._numberOfVariables()).__star((2));
+return _st(_st(c)._numberOfVariables()).__star((5));
 }, function($ctx2) {$ctx2.fillBlock({c:c},$ctx1)})}),"NOA");
+_st(self["@builder"])._addMetric_namedAs_((function(c){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(c)._numberOfSubclasses()).__star((5));
+}, function($ctx2) {$ctx2.fillBlock({c:c},$ctx1)})}),"NOS");
 _st(self["@builder"])._popupText_((function(class_,metricName,value){
 return smalltalk.withContext(function($ctx2) {
+return _st(_st(_st(_st("The value of ".__comma(metricName)).__comma(" for ")).__comma(_st(class_)._name())).__comma(" is ")).__comma(_st(value)._asString());
 }, function($ctx2) {$ctx2.fillBlock({class_:class_,metricName:metricName,value:value},$ctx1)})}));
 _st(self["@builder"])._minColor_(_st($Color())._green());
 _st(self["@builder"])._maxColor_(_st($Color())._red());
 _st(self["@builder"])._open();
 return self}, function($ctx1) {$ctx1.fill(self,"example4",{},smalltalk.ROPunchcardExample)})},
 args: [],
-source: "example4\x0a\x0abuilder := ROPunchcardBuilder new.\x0abuilder addModels: (ROObject withAllSubclasses copyFrom: 1 to: 5).\x0abuilder addMetric: [ :c | c numberOfMethods + 1] namedAs: 'NOM'.\x0abuilder addMetric: [ :c | c numberOfVariables * 2 ] namedAs: 'NOA'.\x0abuilder popupText: [ :class :metricName :value | ].\x0abuilder minColor: Color green.\x0abuilder maxColor: Color red.\x0abuilder open.",
-messageSends: ["new", "addModels:", "copyFrom:to:", "withAllSubclasses", "addMetric:namedAs:", "+", "numberOfMethods", "*", "numberOfVariables", "popupText:", "minColor:", "green", "maxColor:", "red", "open"],
+source: "example4\x0a\x0a\x22\x0aself new example4\x0a\x22\x0a\x0abuilder := ROPunchcardBuilder new.\x0abuilder addModels: (ROObject withAllSubclasses copyFrom: 3 to: 9).\x0abuilder addMetric: [ :c | c numberOfMethods + 5] namedAs: 'NOM'.\x0abuilder addMetric: [ :c | c numberOfVariables * 5 ] namedAs: 'NOA'.\x0abuilder addMetric: [ :c | c numberOfSubclasses * 5  ] namedAs: 'NOS'.\x0abuilder popupText: [ :class :metricName :value | 'The value of ', metricName, ' for ', class name, ' is ', value asString ].\x0abuilder minColor: Color green.\x0abuilder maxColor: Color red.\x0abuilder open.",
+messageSends: ["new", "addModels:", "copyFrom:to:", "withAllSubclasses", "addMetric:namedAs:", "+", "numberOfMethods", "*", "numberOfVariables", "numberOfSubclasses", "popupText:", ",", "asString", "name", "minColor:", "green", "maxColor:", "red", "open"],
 referencedClasses: ["ROPunchcardBuilder", "ROObject", "Color"]
 }),
 smalltalk.ROPunchcardExample);
