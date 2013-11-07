@@ -2762,16 +2762,17 @@ smalltalk.ROBox);
 
 
 
-smalltalk.addClass('ROCircle', smalltalk.ROShape, ['radius'], 'ARoassal');
+smalltalk.addClass('ROEllipse', smalltalk.ROShape, ['radius'], 'ARoassal');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "defaultRadius",
-fn: function () {
+fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return (10);
-}, function($ctx1) {$ctx1.fill(self,"defaultRadius",{},smalltalk.ROCircle)});},
+return smalltalk.withContext(function($ctx1) { 
+return (10);
+}, function($ctx1) {$ctx1.fill(self,"defaultRadius",{},smalltalk.ROEllipse)})},
 messageSends: []}),
-smalltalk.ROCircle);
+smalltalk.ROEllipse);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2782,9 +2783,9 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._radius()).__star((2));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"height",{},smalltalk.ROCircle)})},
+}, function($ctx1) {$ctx1.fill(self,"height",{},smalltalk.ROEllipse)})},
 messageSends: ["*", "radius"]}),
-smalltalk.ROCircle);
+smalltalk.ROEllipse);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2792,13 +2793,13 @@ selector: "initialize",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.ROCircle.superclass.fn.prototype._initialize.apply(_st(self), []);
+smalltalk.ROEllipse.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@radius"]=self._defaultRadius();
 self["@width"]=_st(self._defaultRadius()).__star((1.5));
 self["@height"]=_st(self._defaultRadius()).__star((1.5));
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROCircle)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROEllipse)})},
 messageSends: ["initialize", "defaultRadius", "*"]}),
-smalltalk.ROCircle);
+smalltalk.ROEllipse);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2807,21 +2808,22 @@ fn: function (canvas,anElement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self["@svgElement"]=_st(canvas)._circle_y_r_(_st(_st(anElement)._position())._x(),_st(_st(anElement)._position())._y(),self._radius());
-return self}, function($ctx1) {$ctx1.fill(self,"initializeSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROCircle)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initializeSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROEllipse)})},
 messageSends: ["circle:y:r:", "x", "position", "y", "radius"]}),
-smalltalk.ROCircle);
+smalltalk.ROEllipse);
 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "radius",
-fn: function () {
+fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@radius"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"radius",{},smalltalk.ROCircle)});},
+}, function($ctx1) {$ctx1.fill(self,"radius",{},smalltalk.ROEllipse)})},
 messageSends: []}),
-smalltalk.ROCircle);
+smalltalk.ROEllipse);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2830,9 +2832,9 @@ fn: function (anInteger){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self["@radius"]=anInteger;
-return self}, function($ctx1) {$ctx1.fill(self,"radius:",{anInteger:anInteger},smalltalk.ROCircle)})},
+return self}, function($ctx1) {$ctx1.fill(self,"radius:",{anInteger:anInteger},smalltalk.ROEllipse)})},
 messageSends: []}),
-smalltalk.ROCircle);
+smalltalk.ROEllipse);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2841,9 +2843,9 @@ fn: function (anInteger){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._radius_(anInteger);
-return self}, function($ctx1) {$ctx1.fill(self,"size:",{anInteger:anInteger},smalltalk.ROCircle)})},
+return self}, function($ctx1) {$ctx1.fill(self,"size:",{anInteger:anInteger},smalltalk.ROEllipse)})},
 messageSends: ["radius:"]}),
-smalltalk.ROCircle);
+smalltalk.ROEllipse);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2857,9 +2859,9 @@ _st($1)._attr_with_("cx",_st(_st(_st(anElement)._position())._x()).__plus(self._
 _st($1)._attr_with_("cy",_st(_st(_st(anElement)._position())._y()).__plus(self._radius()));
 _st($1)._attr_with_("r",self._radius());
 $2=_st($1)._attr_with_("fill",self._rgbColor());
-return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROCircle)})},
+return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROEllipse)})},
 messageSends: ["attr:with:", "+", "radius", "x", "position", "y", "rgbColor"]}),
-smalltalk.ROCircle);
+smalltalk.ROEllipse);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2870,9 +2872,9 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._radius()).__star((2));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"width",{},smalltalk.ROCircle)})},
+}, function($ctx1) {$ctx1.fill(self,"width",{},smalltalk.ROEllipse)})},
 messageSends: ["*", "radius"]}),
-smalltalk.ROCircle);
+smalltalk.ROEllipse);
 
 
 

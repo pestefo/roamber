@@ -131,10 +131,10 @@ var view;
 function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
 function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
 function $RODraggable(){return smalltalk.RODraggable||(typeof RODraggable=="undefined"?nil:RODraggable)}
-function $ROCircle(){return smalltalk.ROCircle||(typeof ROCircle=="undefined"?nil:ROCircle)}
+function $ROEllipse(){return smalltalk.ROEllipse||(typeof ROEllipse=="undefined"?nil:ROEllipse)}
 return smalltalk.withContext(function($ctx1) { 
 view=_st($ROView())._new();
-_st(view)._add_(_st(_st(_st(_st($ROCircle())._element())._translateTo_((50).__at((50)))).__at($RODraggable()))._color_(_st($Color())._green()));
+_st(view)._add_(_st(_st(_st(_st($ROEllipse())._element())._translateTo_((50).__at((50)))).__at($RODraggable()))._color_(_st($Color())._green()));
 _st(view)._open();
 return self}, function($ctx1) {$ctx1.fill(self,"circle",{view:view},smalltalk.ROExample)})},
 messageSends: ["new", "add:", "color:", "green", "@", "translateTo:", "element", "open"]}),
@@ -396,14 +396,14 @@ fn: function (){
 var self=this;
 var view,el1,el2,edge,el3,el4,edge2;
 function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
-function $ROCircle(){return smalltalk.ROCircle||(typeof ROCircle=="undefined"?nil:ROCircle)}
+function $ROEllipse(){return smalltalk.ROEllipse||(typeof ROEllipse=="undefined"?nil:ROEllipse)}
 function $ROLine(){return smalltalk.ROLine||(typeof ROLine=="undefined"?nil:ROLine)}
 function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 view=_st($ROView())._new();
-el1=_st($ROCircle())._element();
-el2=_st($ROCircle())._element();
+el1=_st($ROEllipse())._element();
+el2=_st($ROEllipse())._element();
 _st(el1)._translateTo_((20).__at((30)));
 _st(el2)._translateTo_((300).__at((100)));
 edge=_st($ROLine())._edgeFrom_to_(el1,el2);

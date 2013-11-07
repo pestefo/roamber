@@ -162,16 +162,16 @@ var view;
 function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
 function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
 function $RODraggable(){return smalltalk.RODraggable||(typeof RODraggable=="undefined"?nil:RODraggable)}
-function $ROCircle(){return smalltalk.ROCircle||(typeof ROCircle=="undefined"?nil:ROCircle)}
+function $ROEllipse(){return smalltalk.ROEllipse||(typeof ROEllipse=="undefined"?nil:ROEllipse)}
 return smalltalk.withContext(function($ctx1) { 
 view=_st($ROView())._new();
-_st(view)._add_(_st(_st(_st(_st($ROCircle())._element())._translateTo_((50).__at((50)))).__at($RODraggable()))._color_(_st($Color())._green()));
+_st(view)._add_(_st(_st(_st(_st($ROEllipse())._element())._translateTo_((50).__at((50)))).__at($RODraggable()))._color_(_st($Color())._green()));
 _st(view)._open();
 return self}, function($ctx1) {$ctx1.fill(self,"circle",{view:view},smalltalk.ROExample)})},
 args: [],
-source: "circle\x0a\x09| view |\x0a\x09view := ROView new.\x0a\x09view add: ((ROCircle element translateTo: 50 @ 50) @ RODraggable color: Color green).\x0a\x09view open.",
+source: "circle\x0a\x09| view |\x0a\x09view := ROView new.\x0a\x09view add: ((ROEllipse element translateTo: 50 @ 50) @ RODraggable color: Color green).\x0a\x09view open.",
 messageSends: ["new", "add:", "color:", "green", "@", "translateTo:", "element", "open"],
-referencedClasses: ["ROView", "Color", "RODraggable", "ROCircle"]
+referencedClasses: ["ROView", "Color", "RODraggable", "ROEllipse"]
 }),
 smalltalk.ROExample);
 
@@ -477,14 +477,14 @@ fn: function (){
 var self=this;
 var view,el1,el2,edge,el3,el4,edge2;
 function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
-function $ROCircle(){return smalltalk.ROCircle||(typeof ROCircle=="undefined"?nil:ROCircle)}
+function $ROEllipse(){return smalltalk.ROEllipse||(typeof ROEllipse=="undefined"?nil:ROEllipse)}
 function $ROLine(){return smalltalk.ROLine||(typeof ROLine=="undefined"?nil:ROLine)}
 function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 view=_st($ROView())._new();
-el1=_st($ROCircle())._element();
-el2=_st($ROCircle())._element();
+el1=_st($ROEllipse())._element();
+el2=_st($ROEllipse())._element();
 _st(el1)._translateTo_((20).__at((30)));
 _st(el2)._translateTo_((300).__at((100)));
 edge=_st($ROLine())._edgeFrom_to_(el1,el2);
@@ -503,9 +503,9 @@ $2=_st($1)._add_(edge2);
 _st(view)._open();
 return self}, function($ctx1) {$ctx1.fill(self,"line2",{view:view,el1:el1,el2:el2,edge:edge,el3:el3,el4:el4,edge2:edge2},smalltalk.ROExample)})},
 args: [],
-source: "line2\x0a\x0a\x09| view el1 el2 edge el3 el4 edge2 |\x0a\x09view := ROView new.\x0a\x0a\x09el1 := ROCircle element.\x0a\x09el2 := ROCircle element.\x0a\x09\x0a\x09el1 translateTo: 20 @ 30.\x0a\x09el2 translateTo: 300 @ 100.\x0a\x09\x0a\x09edge := ROLine edgeFrom: el1 to: el2.\x0a\x09\x0a\x09el3 := ROBox element.\x0a\x09el4 := ROBox element.\x0a\x09\x0a\x09el3 translateTo: 150 @ 20.\x0a\x09el4 translateTo: 150 @ 300.\x0a\x09\x0a\x09edge2 := ROLine edgeFrom: el3 to: el4.\x0a\x0a\x09view add: el1; add: el2; add: edge; add: el3; add: el4; add: edge2.\x0a\x09\x0a\x09view open.",
+source: "line2\x0a\x0a\x09| view el1 el2 edge el3 el4 edge2 |\x0a\x09view := ROView new.\x0a\x0a\x09el1 := ROEllipse element.\x0a\x09el2 := ROEllipse element.\x0a\x09\x0a\x09el1 translateTo: 20 @ 30.\x0a\x09el2 translateTo: 300 @ 100.\x0a\x09\x0a\x09edge := ROLine edgeFrom: el1 to: el2.\x0a\x09\x0a\x09el3 := ROBox element.\x0a\x09el4 := ROBox element.\x0a\x09\x0a\x09el3 translateTo: 150 @ 20.\x0a\x09el4 translateTo: 150 @ 300.\x0a\x09\x0a\x09edge2 := ROLine edgeFrom: el3 to: el4.\x0a\x0a\x09view add: el1; add: el2; add: edge; add: el3; add: el4; add: edge2.\x0a\x09\x0a\x09view open.",
 messageSends: ["new", "element", "translateTo:", "@", "edgeFrom:to:", "add:", "open"],
-referencedClasses: ["ROView", "ROCircle", "ROLine", "ROBox"]
+referencedClasses: ["ROView", "ROEllipse", "ROLine", "ROBox"]
 }),
 smalltalk.ROExample);
 

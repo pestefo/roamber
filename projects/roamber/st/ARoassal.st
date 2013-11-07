@@ -3,6 +3,106 @@ Object subclass: #Color
 	instanceVariableNames: 'r g b'
 	package: 'ARoassal'!
 
+!Color methodsFor: 'accessing'!
+
+blue
+	^ b
+!
+
+brightness
+	" From http://stackoverflow.com/questions/596216/formula-to-determine-brightness-of-rgb-color  "
+"	^ 0.2126*(self privateRed) + ( 0.7152*(self privateGreen)  + (0.0722*(self privateBlue)) )"
+	^ 0.2126*(self privateRed)* 255.0 
+			+ ( 0.7152*(self privateGreen) * 255.0  
+			+ (0.0722*(self privateBlue)* 255.0 ) )
+!
+
+green
+	^ g
+!
+
+hue
+	"Return the hue of this color, an angle in the range [0.0..360.0]."
+	| red green blue max min span h |
+	red := self privateRed.
+	green := self privateGreen.
+	blue := self privateBlue.
+	max := (red max: green) max: blue.
+	min := (red min: green) min: blue.
+	span := (max - min) asFloat.
+	span = 0.0 ifTrue: [ ^ 0.0 ].
+	red = max 
+		ifTrue: [ h := (green - blue) asFloat / span * 60.0 ]
+		ifFalse: 
+			[ green = max 
+				ifTrue: [ h := 120.0 + ((blue - red) asFloat / span * 60.0) ]
+				ifFalse: [ h := 240.0 + ((red - green) asFloat / span * 60.0) ] ].
+	h < 0.0 ifTrue: [ h := 360.0 + h ].
+	^ h
+!
+
+red
+	^ r
+! !
+
+!Color methodsFor: 'comparing'!
+
+= aColor
+	self class ~~ aColor class ifTrue: [ ^ false ].
+	^ (self red = aColor red and: [ self green = aColor green ]) and: [ self blue = aColor blue ]
+! !
+
+!Color methodsFor: 'not yet classified'!
+
+rgbTriplet
+	^ { r copy . g copy . b copy }
+!
+
+rgbTriplet255
+	^ { r copy * 255 . g copy * 255 . b copy * 255 }
+!
+
+wheel: thisMany 
+	"An array of thisMany colors around the color wheel starting at self and ending all the way around the hue space just before self.  Array is of length thisMany.  Very useful for displaying color based on a variable in your program.  "
+	| sat bri step hue |
+	sat := self saturation.
+	bri := self brightness.
+	hue := self hue.
+	step := 360.0 / (thisMany max: 1).
+	^ (1 to: thisMany) collect: 
+		[ :num | | c | 
+		c := Color 
+			h: hue
+			s: sat
+			v: bri.	"hue is taken mod 360"
+		hue := hue + step.
+		c ]
+	"
+(Color wheel: 8) withIndexDo: [:c :i | Display fill: (i*10@20 extent: 10@20) fillColor: c]
+"
+!
+
+wheel: thisMany to: aColor
+	"An array of thisMany colors around the color wheel starting at self and ending all the way around the hue space just before self.  Array is of length thisMany.  Very useful for displaying color based on a variable in your program.  "
+	| sat bri step hue finishHue |
+	sat := self saturation.
+	bri := self brightness.
+	hue := self hue.
+	finishHue := aColor hue.
+	step := ( finishHue - hue) / (thisMany max: 1).
+	^ (1 to: thisMany) collect: 
+		[ :num | | c | 
+		c := Color 
+			h: hue
+			s: sat
+			v: bri.	"hue is taken mod 360"
+		hue := hue + step.
+		c ]
+	"
+(Color wheel: 8) withIndexDo: [:c :i | Display fill: (i*10@20 extent: 10@20) fillColor: c]
+"
+! !
+
 !Color methodsFor: 'other'!
 
 cleanValue: value
@@ -1267,17 +1367,17 @@ width
 	^ width
 ! !
 
-ROShape subclass: #ROCircle
+ROShape subclass: #ROEllipse
 	instanceVariableNames: 'radius'
 	package: 'ARoassal'!
 
-!ROCircle methodsFor: 'configuration'!
+!ROEllipse methodsFor: 'configuration'!
 
 defaultRadius
 	^ 10
 ! !
 
-!ROCircle methodsFor: 'drawing'!
+!ROEllipse methodsFor: 'drawing'!
 
 height
 	^ self radius * 2.
@@ -1314,7 +1414,7 @@ width
 	^ self radius * 2.
 ! !
 
-!ROCircle methodsFor: 'initialize'!
+!ROEllipse methodsFor: 'initialize'!
 
 initialize
 	super initialize.

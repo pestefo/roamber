@@ -71,7 +71,7 @@ view clear.
 circle
 	| view |
 	view := ROView new.
-	view add: ((ROCircle element translateTo: 50 @ 50) @ RODraggable color: Color green).
+	view add: ((ROEllipse element translateTo: 50 @ 50) @ RODraggable color: Color green).
 	view open.
 !
 
@@ -204,8 +204,8 @@ line2
 	| view el1 el2 edge el3 el4 edge2 |
 	view := ROView new.
 
-	el1 := ROCircle element.
-	el2 := ROCircle element.
+	el1 := ROEllipse element.
+	el2 := ROEllipse element.
 	
 	el1 translateTo: 20 @ 30.
 	el2 translateTo: 300 @ 100.
