@@ -176,12 +176,22 @@ ROAbstractPopup subclass: #ROPopup
 !ROPopup methodsFor: 'not yet classified'!
 
 createElementFor: anElement
-	^ (ROLabel new elementOn: anElement model asString)
+	^ (ROLabel new elementOn: text)
 !
 
 initialize 
 	super initialize.
-	text := #yourself.
+"	text := #yourself."
+!
+
+text: textBlock
+	text := textBlock value
+! !
+
+!ROPopup class methodsFor: 'not yet classified'!
+
+text: aString
+	^ self new text: aString.
 ! !
 
 ROInteraction subclass: #ROClickable

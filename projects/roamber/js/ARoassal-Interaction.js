@@ -334,12 +334,12 @@ var self=this;
 function $ROLabel(){return smalltalk.ROLabel||(typeof ROLabel=="undefined"?nil:ROLabel)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st($ROLabel())._new())._elementOn_(_st(_st(anElement)._model())._asString());
+$1=_st(_st($ROLabel())._new())._elementOn_(self["@text"]);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"createElementFor:",{anElement:anElement},smalltalk.ROPopup)})},
 args: ["anElement"],
-source: "createElementFor: anElement\x0a\x09^ (ROLabel new elementOn: anElement model asString)",
-messageSends: ["elementOn:", "asString", "model", "new"],
+source: "createElementFor: anElement\x0a\x09^ (ROLabel new elementOn: text)",
+messageSends: ["elementOn:", "new"],
 referencedClasses: ["ROLabel"]
 }),
 smalltalk.ROPopup);
@@ -352,15 +352,48 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.ROPopup.superclass.fn.prototype._initialize.apply(_st(self), []);
-self["@text"]="yourself";
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROPopup)})},
 args: [],
-source: "initialize \x0a\x09super initialize.\x0a\x09text := #yourself.",
+source: "initialize \x0a\x09super initialize.\x0a\x22\x09text := #yourself.\x22",
 messageSends: ["initialize"],
 referencedClasses: []
 }),
 smalltalk.ROPopup);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "text:",
+category: 'not yet classified',
+fn: function (textBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@text"]=_st(textBlock)._value();
+return self}, function($ctx1) {$ctx1.fill(self,"text:",{textBlock:textBlock},smalltalk.ROPopup)})},
+args: ["textBlock"],
+source: "text: textBlock\x0a\x09text := textBlock value",
+messageSends: ["value"],
+referencedClasses: []
+}),
+smalltalk.ROPopup);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "text:",
+category: 'not yet classified',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._new())._text_(aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"text:",{aString:aString},smalltalk.ROPopup.klass)})},
+args: ["aString"],
+source: "text: aString\x0a\x09^ self new text: aString.",
+messageSends: ["text:", "new"],
+referencedClasses: []
+}),
+smalltalk.ROPopup.klass);
 
 
 smalltalk.addClass('ROClickable', smalltalk.ROInteraction, [], 'ARoassal-Interaction');

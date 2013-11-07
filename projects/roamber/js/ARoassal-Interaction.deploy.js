@@ -258,10 +258,10 @@ var self=this;
 function $ROLabel(){return smalltalk.ROLabel||(typeof ROLabel=="undefined"?nil:ROLabel)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st($ROLabel())._new())._elementOn_(_st(_st(anElement)._model())._asString());
+$1=_st(_st($ROLabel())._new())._elementOn_(self["@text"]);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"createElementFor:",{anElement:anElement},smalltalk.ROPopup)})},
-messageSends: ["elementOn:", "asString", "model", "new"]}),
+messageSends: ["elementOn:", "new"]}),
 smalltalk.ROPopup);
 
 smalltalk.addMethod(
@@ -271,11 +271,34 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.ROPopup.superclass.fn.prototype._initialize.apply(_st(self), []);
-self["@text"]="yourself";
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROPopup)})},
 messageSends: ["initialize"]}),
 smalltalk.ROPopup);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "text:",
+fn: function (textBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@text"]=_st(textBlock)._value();
+return self}, function($ctx1) {$ctx1.fill(self,"text:",{textBlock:textBlock},smalltalk.ROPopup)})},
+messageSends: ["value"]}),
+smalltalk.ROPopup);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "text:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._new())._text_(aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"text:",{aString:aString},smalltalk.ROPopup.klass)})},
+messageSends: ["text:", "new"]}),
+smalltalk.ROPopup.klass);
 
 
 smalltalk.addClass('ROClickable', smalltalk.ROInteraction, [], 'ARoassal-Interaction');
