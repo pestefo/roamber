@@ -417,7 +417,7 @@ initialize
 !
 
 paper
-	< return Raphael("roassal-canvas", 800, 600);>
+	< var paper = Raphael("roassal-canvas", 1600 , 900); return paper;>
 ! !
 
 RORaphaelCanvas class instanceVariableNames: 'paper'!
