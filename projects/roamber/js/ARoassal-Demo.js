@@ -133,22 +133,21 @@ var view;
 function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
 function $RODraggable(){return smalltalk.RODraggable||(typeof RODraggable=="undefined"?nil:RODraggable)}
 function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
-function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
 function $ROCellLayout(){return smalltalk.ROCellLayout||(typeof ROCellLayout=="undefined"?nil:ROCellLayout)}
 return smalltalk.withContext(function($ctx1) { 
 view=_st($ROView())._new();
 _st(view)._clear();
 (1)._to_do_((200),(function(i){
 return smalltalk.withContext(function($ctx2) {
-return _st(view)._add_(_st(_st(_st(_st($ROElement())._new())._model_(i))._shape_(_st($ROBox())._new())).__at($RODraggable()));
+return _st(view)._add_(_st(_st($ROBox())._elementOn_(i)).__at($RODraggable()));
 }, function($ctx2) {$ctx2.fillBlock({i:i},$ctx1)})}));
 _st($ROCellLayout())._on_(_st(view)._elements());
 _st(view)._open();
 return self}, function($ctx1) {$ctx1.fill(self,"cellLayout",{view:view},smalltalk.ROExample)})},
 args: [],
-source: "cellLayout\x0a| view |\x0aview := ROView new.\x0aview clear.\x0a\x22 Play changing the number of squares\x22\x0a1 to: 200 do: [ :i |\x0a\x09view add: ((ROElement new model: i) shape: \x0a\x09\x09(ROBox new)) @RODraggable ].\x0a\x09ROCellLayout on: view elements .\x0a\x09view open.",
-messageSends: ["new", "clear", "to:do:", "add:", "@", "shape:", "model:", "on:", "elements", "open"],
-referencedClasses: ["ROView", "RODraggable", "ROBox", "ROElement", "ROCellLayout"]
+source: "cellLayout\x0a| view |\x0aview := ROView new.\x0aview clear.\x0a\x22 Play changing the number of squares\x22\x0a1 to: 200 do: [ :i |\x0a\x09view add: (ROBox elementOn: i) @RODraggable ].\x0a\x09ROCellLayout on: view elements .\x0a\x09view open.",
+messageSends: ["new", "clear", "to:do:", "add:", "@", "elementOn:", "on:", "elements", "open"],
+referencedClasses: ["ROView", "RODraggable", "ROBox", "ROCellLayout"]
 }),
 smalltalk.ROExample);
 
