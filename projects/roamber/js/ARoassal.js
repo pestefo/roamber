@@ -1027,14 +1027,14 @@ var $1;
 s=_st(aShape)._installedOn_(self);
 $1=_st(self._shape())._isNil();
 if(! smalltalk.assert($1)){
-_st(s)._width_(_st(self._shape())._width());
-_st(s)._height_(_st(self._shape())._height());
+_st(s)._width_(_st(_st(s)._width())._max_(_st(self._shape())._width()));
+_st(s)._height_(_st(_st(s)._height())._max_(_st(self._shape())._height()));
 };
 self["@shape"]=s;
 return self}, function($ctx1) {$ctx1.fill(self,"addShape:",{aShape:aShape,s:s},smalltalk.ROAbstractComponent)})},
 args: ["aShape"],
-source: "addShape: aShape \x0a\x09\x22Add a shape to myself. aShape could either be an instance of a shape class or simply a class\x22\x0a\x0a\x09| s |\x0a\x09s := (aShape installedOn: self).\x0a\x22\x09s addLast: shape.\x22\x0a\x22\x09Transcript show: (s width asString),'-BEFOREinstalledOn:-',(s class asString),(String cr).\x22\x0a\x09\x22 set height and width from previous shape <--- needs to be changed when implementing chain of shapes \x22\x0a\x09self shape isNil ifFalse: [\x0a\x09\x09s width: self shape width.\x0a\x09\x09s height: self shape height.\x09\x0a\x09].\x0a\x22\x09Transcript show: (s width asString),'-AFTERinstalledOn:-',(s class asString),(String cr).\x22\x0a\x09shape := s.",
-messageSends: ["installedOn:", "ifFalse:", "width:", "width", "shape", "height:", "height", "isNil"],
+source: "addShape: aShape \x0a\x09\x22Add a shape to myself. aShape could either be an instance of a shape class or simply a class\x22\x0a\x0a\x09| s |\x0a\x09s := (aShape installedOn: self).\x0a\x22\x09s addLast: shape.\x22\x0a\x22\x09Transcript show: (s width asString),'-BEFOREinstalledOn:-',(s class asString),(String cr).\x22\x0a\x09\x22 set height and width from previous shape <--- needs to be changed when implementing chain of shapes \x22\x0a\x0a\x09self shape isNil ifFalse: [\x0a\x22\x09\x09Transcript show: 's ',(s class asString) , ' ' , (s width asString) , ' -' , (s height asString) , ' ' , (s class asString) , ' ' , (String cr).\x0a\x09\x09Transcript show: 'shape ',(shape class asString) , ' ' , (shape width asString) , ' -' , (shape height asString) , ' ' , (shape class asString) , ' ' , (String cr), (String cr).\x22\x0a\x09\x09s width: (s width max: (self shape width)).\x0a\x09\x09s height: (s height max: (self shape height)).\x09\x0a\x09]. \x0a\x0a\x22\x09Transcript show: (s width asString),'-AFTERinstalledOn:-',(s class asString),(String cr).\x22\x0a\x09shape := s.",
+messageSends: ["installedOn:", "ifFalse:", "width:", "max:", "width", "shape", "height:", "height", "isNil"],
 referencedClasses: []
 }),
 smalltalk.ROAbstractComponent);
@@ -1820,7 +1820,7 @@ return $2;
 _st(self["@shape"])._extent_(aPoint);
 return self}, function($ctx1) {$ctx1.fill(self,"extent:",{aPoint:aPoint},smalltalk.ROElement)})},
 args: ["aPoint"],
-source: "extent: aPoint \x0a\x09(aPoint = self extent) ifTrue: [ ^ self ].\x0a\x22\x09self announce: ROElementResized.\x22\x0a\x09shape extent: aPoint",
+source: "extent: aPoint \x0a\x09(aPoint = self extent) ifTrue: [ ^ self ].\x0a\x0a\x09shape extent: aPoint",
 messageSends: ["ifTrue:", "=", "extent", "extent:"],
 referencedClasses: []
 }),
@@ -2600,6 +2600,27 @@ smalltalk.ROShape);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "elementsOn:",
+category: 'creation',
+fn: function (collectionOfObjects){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(collectionOfObjects)._collect_((function(object){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._copy())._elementOn_(object);
+}, function($ctx2) {$ctx2.fillBlock({object:object},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"elementsOn:",{collectionOfObjects:collectionOfObjects},smalltalk.ROShape)})},
+args: ["collectionOfObjects"],
+source: "elementsOn: collectionOfObjects\x0a\x09\x22Easy way to create element from a shape\x22\x0a\x09\x0a\x09^ collectionOfObjects collect: [ :object | self copy elementOn: object ] ",
+messageSends: ["collect:", "elementOn:", "copy"],
+referencedClasses: []
+}),
+smalltalk.ROShape);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "extent:",
 category: 'drawing',
 fn: function (aPoint){
@@ -2619,17 +2640,16 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "extentFor:",
 category: 'drawing',
-fn: function (element) {
+fn: function (element){
 var self=this;
-var res;
-return smalltalk.withContext(function($ctx1) { var $1;
-res=_st(_st(self["@width"])._roValue_(element)).__at(_st(self["@height"])._roValue_(element));
-$1=res;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@width"]).__at(self["@height"]);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"extentFor:",{element:element,res:res},smalltalk.ROShape)});},
+}, function($ctx1) {$ctx1.fill(self,"extentFor:",{element:element},smalltalk.ROShape)})},
 args: ["element"],
-source: "extentFor: element\x0a\x09\x22Return the extent of element\x22\x0a\x09\x0a\x09| res |\x0a\x09\x22\x0a\x09(widthCache notNil and: [ heightCache notNil ]) ifTrue: [ ^ widthCache @ heightCache ].\x0a\x09\x22\x0a\x09\x22res := ((width roValue: element) @ (height roValue: element)) max: (next extentFor: element).\x22\x0a\x09res := ((width roValue: element) @ (height roValue: element)) .\x0a\x09\x22\x0a\x09widthCache := res x.\x0a\x09heightCache := res y.\x0a\x09\x22\x0a\x09^ res",
-messageSends: ["@", "roValue:"],
+source: "extentFor: element\x0a\x09\x22Return the extent of element\x22\x0a\x09\x0a\x09\x22^ ((width roValue: element) @ (height roValue: element)) .\x22\x0a\x09^ width @ height\x0a\x09",
+messageSends: ["@"],
 referencedClasses: []
 }),
 smalltalk.ROShape);
@@ -2801,6 +2821,22 @@ smalltalk.ROShape);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "size:",
+category: 'accessing',
+fn: function (value){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._extent_(_st(value).__at(value));
+return self}, function($ctx1) {$ctx1.fill(self,"size:",{value:value},smalltalk.ROShape)})},
+args: ["value"],
+source: "size: value\x0a\x09self extent: value @ value",
+messageSends: ["extent:", "@"],
+referencedClasses: []
+}),
+smalltalk.ROShape);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "svgElement",
 category: 'accessing',
 fn: function (){
@@ -2935,6 +2971,27 @@ args: ["anObject"],
 source: "elementOn: anObject\x0a\x09\x22Easy way to create element from a shape\x22\x0a\x09\x0a\x09^ (ROElement on: anObject) + self",
 messageSends: ["+", "on:"],
 referencedClasses: ["ROElement"]
+}),
+smalltalk.ROShape.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "elementsOn:",
+category: 'not yet classified',
+fn: function (collectionOfObjects){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(collectionOfObjects)._collect_((function(object){
+return smalltalk.withContext(function($ctx2) {
+return self._elementOn_(object);
+}, function($ctx2) {$ctx2.fillBlock({object:object},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"elementsOn:",{collectionOfObjects:collectionOfObjects},smalltalk.ROShape.klass)})},
+args: ["collectionOfObjects"],
+source: "elementsOn: collectionOfObjects\x0a\x09\x22Easy way to create element from a shape\x22\x0a\x09\x0a\x09^ collectionOfObjects collect: [ :object | self elementOn: object ] ",
+messageSends: ["collect:", "elementOn:"],
+referencedClasses: []
 }),
 smalltalk.ROShape.klass);
 

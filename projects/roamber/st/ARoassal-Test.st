@@ -62,6 +62,58 @@ testShapeSize
 	self assert: (el height = 6).
 ! !
 
+ROTest subclass: #ROShapeTest
+	instanceVariableNames: ''
+	package: 'ARoassal-Test'!
+
+!ROShapeTest methodsFor: 'not yet classified'!
+
+testElementsOn
+	| elements view |
+	elements := (ROBox new size: 20) elementsOn: (1 to: 10).
+	self assert: elements size = 10.
+	self assert: (elements anyOne extent = (20@20)).
+	self assert: elements anyOne height = 20.
+	self assert: elements anyOne width = 20.
+	
+	view := ROView new addAll: elements. 
+	self assert: (view elements size = 10).
+
+	ROHorizontalLineLayout on: view elements.
+	self deny: ( (view elements at: 1) position x  = ((view elements copyFrom: 2 to: 10) anyOne position x )).
+	"
+	ROAbstractComponent>>addShape
+	con cuales medidas me quedo?
+	
+	"
+!
+
+testElementsOn2
+	| elements view |
+	view := ROView new.
+	elements := (ROBox new size: 20) elementsOn: (1 to: 10).
+	view addAll: elements.
+	ROHorizontalLineLayout on: view elements.
+	
+	self assert: elements size = 10.
+	self assert: (elements allSatisfy: [ :el | el class == ROElement and: [ el shape class == ROBox ] ]).
+	self assert: (elements collect: [ :e | e position x ]) asSet size = 10.
+!
+
+testExtentStrategy
+	| e newShape |
+	"  Element is initialized with nullShape with an extent of 15@15  "
+	e := (ROElement on: 1) size: 15.
+	self assert: ((e width = 15) and: [ e height = 15 ]).
+	
+	" Add a ROBox shape with extent 5@20"
+	newShape := ROBox new height: 20.
+	e + newShape.
+	
+	" Element extent is now 15@20 "
+	self assert: ( (e width = 15) and: [ e height = 20] )
+! !
+
 ROTest subclass: #ROViewTest
 	instanceVariableNames: 'view'
 	package: 'ARoassal-Test'!

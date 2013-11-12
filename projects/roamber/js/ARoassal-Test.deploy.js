@@ -104,6 +104,87 @@ smalltalk.ROElementTest);
 
 
 
+smalltalk.addClass('ROShapeTest', smalltalk.ROTest, [], 'ARoassal-Test');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testElementsOn",
+fn: function (){
+var self=this;
+var elements,view;
+function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
+function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
+function $ROHorizontalLineLayout(){return smalltalk.ROHorizontalLineLayout||(typeof ROHorizontalLineLayout=="undefined"?nil:ROHorizontalLineLayout)}
+return smalltalk.withContext(function($ctx1) { 
+elements=_st(_st(_st($ROBox())._new())._size_((20)))._elementsOn_((1)._to_((10)));
+self._assert_(_st(_st(elements)._size()).__eq((10)));
+self._assert_(_st(_st(_st(elements)._anyOne())._extent()).__eq((20).__at((20))));
+self._assert_(_st(_st(_st(elements)._anyOne())._height()).__eq((20)));
+self._assert_(_st(_st(_st(elements)._anyOne())._width()).__eq((20)));
+view=_st(_st($ROView())._new())._addAll_(elements);
+self._assert_(_st(_st(_st(view)._elements())._size()).__eq((10)));
+_st($ROHorizontalLineLayout())._on_(_st(view)._elements());
+self._deny_(_st(_st(_st(_st(_st(view)._elements())._at_((1)))._position())._x()).__eq(_st(_st(_st(_st(_st(view)._elements())._copyFrom_to_((2),(10)))._anyOne())._position())._x()));
+return self}, function($ctx1) {$ctx1.fill(self,"testElementsOn",{elements:elements,view:view},smalltalk.ROShapeTest)})},
+messageSends: ["elementsOn:", "to:", "size:", "new", "assert:", "=", "size", "@", "extent", "anyOne", "height", "width", "addAll:", "elements", "on:", "deny:", "x", "position", "copyFrom:to:", "at:"]}),
+smalltalk.ROShapeTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testElementsOn2",
+fn: function (){
+var self=this;
+var elements,view;
+function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
+function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
+function $ROHorizontalLineLayout(){return smalltalk.ROHorizontalLineLayout||(typeof ROHorizontalLineLayout=="undefined"?nil:ROHorizontalLineLayout)}
+function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
+return smalltalk.withContext(function($ctx1) { 
+view=_st($ROView())._new();
+elements=_st(_st(_st($ROBox())._new())._size_((20)))._elementsOn_((1)._to_((10)));
+_st(view)._addAll_(elements);
+_st($ROHorizontalLineLayout())._on_(_st(view)._elements());
+self._assert_(_st(_st(elements)._size()).__eq((10)));
+self._assert_(_st(elements)._allSatisfy_((function(el){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(_st(el)._class()).__eq_eq($ROElement()))._and_((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(_st(_st(el)._shape())._class()).__eq_eq($ROBox());
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
+}, function($ctx2) {$ctx2.fillBlock({el:el},$ctx1)})})));
+self._assert_(_st(_st(_st(_st(elements)._collect_((function(e){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(e)._position())._x();
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})})))._asSet())._size()).__eq((10)));
+return self}, function($ctx1) {$ctx1.fill(self,"testElementsOn2",{elements:elements,view:view},smalltalk.ROShapeTest)})},
+messageSends: ["new", "elementsOn:", "to:", "size:", "addAll:", "on:", "elements", "assert:", "=", "size", "allSatisfy:", "and:", "==", "class", "shape", "asSet", "collect:", "x", "position"]}),
+smalltalk.ROShapeTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testExtentStrategy",
+fn: function (){
+var self=this;
+var e,newShape;
+function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
+function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
+return smalltalk.withContext(function($ctx1) { 
+e=_st(_st($ROElement())._on_((1)))._size_((15));
+self._assert_(_st(_st(_st(e)._width()).__eq((15)))._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(e)._height()).__eq((15));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})));
+newShape=_st(_st($ROBox())._new())._height_((20));
+_st(e).__plus(newShape);
+self._assert_(_st(_st(_st(e)._width()).__eq((15)))._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(e)._height()).__eq((20));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})));
+return self}, function($ctx1) {$ctx1.fill(self,"testExtentStrategy",{e:e,newShape:newShape},smalltalk.ROShapeTest)})},
+messageSends: ["size:", "on:", "assert:", "and:", "=", "height", "width", "height:", "new", "+"]}),
+smalltalk.ROShapeTest);
+
+
+
 smalltalk.addClass('ROViewTest', smalltalk.ROTest, ['view'], 'ARoassal-Test');
 smalltalk.addMethod(
 smalltalk.method({

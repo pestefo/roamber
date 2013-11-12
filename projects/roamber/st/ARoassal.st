@@ -431,10 +431,14 @@ addShape: aShape
 "	s addLast: shape."
 "	Transcript show: (s width asString),'-BEFOREinstalledOn:-',(s class asString),(String cr)."
 	" set height and width from previous shape <--- needs to be changed when implementing chain of shapes "
+
 	self shape isNil ifFalse: [
-		s width: self shape width.
-		s height: self shape height.	
-	].
+"		Transcript show: 's ',(s class asString) , ' ' , (s width asString) , ' -' , (s height asString) , ' ' , (s class asString) , ' ' , (String cr).
+		Transcript show: 'shape ',(shape class asString) , ' ' , (shape width asString) , ' -' , (shape height asString) , ' ' , (shape class asString) , ' ' , (String cr), (String cr)."
+		s width: (s width max: (self shape width)).
+		s height: (s height max: (self shape height)).	
+	]. 
+
 "	Transcript show: (s width asString),'-AFTERinstalledOn:-',(s class asString),(String cr)."
 	shape := s.
 ! !
@@ -658,7 +662,7 @@ extent
 
 extent: aPoint 
 	(aPoint = self extent) ifTrue: [ ^ self ].
-"	self announce: ROElementResized."
+
 	shape extent: aPoint
 !
 
@@ -936,6 +940,10 @@ rgbColor
 	^ 'rgb(',(triplet first  asString),',',(triplet second asString),',',(triplet third asString),')'.
 !
 
+size: value
+	self extent: value @ value
+!
+
 svgElement
 	^ svgElement
 !
@@ -966,6 +974,12 @@ element
 
 elementOn: anObject
 	^ (ROElement on: anObject) + self
+!
+
+elementsOn: collectionOfObjects
+	"Easy way to create element from a shape"
+	
+	^ collectionOfObjects collect: [ :object | self copy elementOn: object ]
 !
 
 hide
@@ -1001,17 +1015,8 @@ extent: aPoint
 extentFor: element
 	"Return the extent of element"
 	
-	| res |
-	"
-	(widthCache notNil and: [ heightCache notNil ]) ifTrue: [ ^ widthCache @ heightCache ].
-	"
-	"res := ((width roValue: element) @ (height roValue: element)) max: (next extentFor: element)."
-	res := ((width roValue: element) @ (height roValue: element)) .
-	"
-	widthCache := res x.
-	heightCache := res y.
-	"
-	^ res
+	"^ ((width roValue: element) @ (height roValue: element)) ."
+	^ width @ height
 !
 
 initializeSVGElementOn: canvas for: anElement
@@ -1038,6 +1043,12 @@ elementOn: anObject
 	"Easy way to create element from a shape"
 	
 	^ (ROElement on: anObject) + self
+!
+
+elementsOn: collectionOfObjects
+	"Easy way to create element from a shape"
+	
+	^ collectionOfObjects collect: [ :object | self elementOn: object ]
 !
 
 installedOn: element
