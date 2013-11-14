@@ -184,8 +184,8 @@ var view,classElements,edges,associations;
 function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
 function $Collection(){return smalltalk.Collection||(typeof Collection=="undefined"?nil:Collection)}
 function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
-function $ROHighlight(){return smalltalk.ROHighlight||(typeof ROHighlight=="undefined"?nil:ROHighlight)}
 function $ROPopup(){return smalltalk.ROPopup||(typeof ROPopup=="undefined"?nil:ROPopup)}
+function $ROHighlight(){return smalltalk.ROHighlight||(typeof ROHighlight=="undefined"?nil:ROHighlight)}
 function $RODraggable(){return smalltalk.RODraggable||(typeof RODraggable=="undefined"?nil:RODraggable)}
 function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
 function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
@@ -218,7 +218,7 @@ $5=(3);
 $5=_st(numMethods).__star((2));
 };
 _st($4)._height_($5);
-return _st(_st(_st(_st(c).__plus($ROBox())).__at($RODraggable())).__at($ROPopup())).__at($ROHighlight());
+return _st(_st(_st(_st(c).__plus($ROBox())).__at($RODraggable())).__at($ROHighlight())).__at(_st($ROPopup())._text_(_st(_st(c)._model())._asString()));
 }, function($ctx2) {$ctx2.fillBlock({c:c,instVar:instVar,numMethods:numMethods},$ctx1)})}));
 _st(view)._addAll_(classElements);
 associations=_st(classElements)._collect_thenSelect_((function(c){
@@ -237,9 +237,9 @@ _st($ROTreeLayout())._on_edges_(_st(view)._elements(),edges);
 _st(view)._open();
 return self}, function($ctx1) {$ctx1.fill(self,"collectionHierarchy",{view:view,classElements:classElements,edges:edges,associations:associations},smalltalk.ROExample)})},
 args: [],
-source: "collectionHierarchy\x0a| view classElements edges associations |\x0aview := ROView new.\x0aclassElements := ROElement forCollection: Collection withAllSubclasses.\x0aclassElements\x0a\x09do: [:c | | instVar numMethods |\x0a\x09\x09instVar := c model instVarNames size.\x0a\x09\x09c shape width: (( instVar = 0) ifTrue: [ 10 ] ifFalse: [ instVar * 15]) .\x0a\x0a\x09\x09numMethods := c model selectors size.\x0a\x09\x09c shape height: (( numMethods = 0) ifTrue: [ 3 ] ifFalse: [ numMethods * 2]) . \x09\x0a\x09\x09c + ROBox @ RODraggable @ ROPopup @ ROHighlight.\x0a\x0a].\x0aview addAll: classElements.\x0a\x0a\x22 Build and add edges \x22\x0aassociations := classElements collect: [:c |\x0a\x09\x09\x09(c model superclass = Object)\x0a\x09\x09\x09ifFalse: [ (view elementFromModel: c\x0a\x09\x09\x09\x09model superclass) -> c]\x0a\x09\x09\x09] thenSelect: [:assoc | assoc isNil not ].\x0a\x09\x09\x09\x0aedges := ROEdge linesFor: associations.\x0aview addAll: edges.\x0a\x0a\x22 Show the hierarchy as a tree \x22\x0aROTreeLayout on: (view elements) edges: edges.\x0a\x0a\x0aview open.",
-messageSends: ["new", "forCollection:", "withAllSubclasses", "do:", "size", "instVarNames", "model", "width:", "ifTrue:ifFalse:", "*", "=", "shape", "selectors", "height:", "@", "+", "addAll:", "collect:thenSelect:", "ifFalse:", "->", "elementFromModel:", "superclass", "not", "isNil", "linesFor:", "on:edges:", "elements", "open"],
-referencedClasses: ["ROView", "Collection", "ROElement", "ROHighlight", "ROPopup", "RODraggable", "ROBox", "Object", "ROEdge", "ROTreeLayout"]
+source: "collectionHierarchy\x0a| view classElements edges associations |\x0aview := ROView new.\x0aclassElements := ROElement forCollection: Collection withAllSubclasses.\x0aclassElements\x0a\x09do: [:c | | instVar numMethods |\x0a\x09\x09instVar := c model instVarNames size.\x0a\x09\x09c shape width: (( instVar = 0) ifTrue: [ 10 ] ifFalse: [ instVar * 15]) .\x0a\x0a\x09\x09numMethods := c model selectors size.\x0a\x09\x09c shape height: (( numMethods = 0) ifTrue: [ 3 ] ifFalse: [ numMethods * 2]) . \x09\x0a\x09\x09c + ROBox @ RODraggable @ ROHighlight @ (ROPopup text: (c model asString)).\x0a\x0a].\x0aview addAll: classElements.\x0a\x0a\x22 Build and add edges \x22\x0aassociations := classElements collect: [:c |\x0a\x09\x09\x09(c model superclass = Object)\x0a\x09\x09\x09ifFalse: [ (view elementFromModel: c\x0a\x09\x09\x09\x09model superclass) -> c]\x0a\x09\x09\x09] thenSelect: [:assoc | assoc isNil not ].\x0a\x09\x09\x09\x0aedges := ROEdge linesFor: associations.\x0aview addAll: edges.\x0a\x0a\x22 Show the hierarchy as a tree \x22\x0aROTreeLayout on: (view elements) edges: edges.\x0a\x0a\x0aview open.",
+messageSends: ["new", "forCollection:", "withAllSubclasses", "do:", "size", "instVarNames", "model", "width:", "ifTrue:ifFalse:", "*", "=", "shape", "selectors", "height:", "@", "text:", "asString", "+", "addAll:", "collect:thenSelect:", "ifFalse:", "->", "elementFromModel:", "superclass", "not", "isNil", "linesFor:", "on:edges:", "elements", "open"],
+referencedClasses: ["ROView", "Collection", "ROElement", "ROPopup", "ROHighlight", "RODraggable", "ROBox", "Object", "ROEdge", "ROTreeLayout"]
 }),
 smalltalk.ROExample);
 
@@ -288,6 +288,48 @@ args: [],
 source: "drag\x0a\x09| view elements b |\x0a\x09view := ROView new.\x0a\x09elements := OrderedCollection new.\x0a\x09b := (ROBox element translateTo: 50 @ 50).\x0a\x09elements add: b.\x22; \x0a\x09\x09\x09 add: (ROCircle element translateTo: 200 @ 150). \x22\x0a\x09\x0a\x09elements do: [:each | each addInteraction: RODraggable. view add: each].\x0a\x09view open.",
 messageSends: ["new", "translateTo:", "@", "element", "add:", "do:", "addInteraction:", "open"],
 referencedClasses: ["ROView", "OrderedCollection", "ROBox", "RODraggable"]
+}),
+smalltalk.ROExample);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "exampleImage",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+var view,url,el,sh;
+function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
+function $RODraggable(){return smalltalk.RODraggable||(typeof RODraggable=="undefined"?nil:RODraggable)}
+function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
+function $ROImage(){return smalltalk.ROImage||(typeof ROImage=="undefined"?nil:ROImage)}
+return smalltalk.withContext(function($ctx1) { 
+url="https://www.google.cl/images/srpr/logo11w.png";
+view=_st($ROView())._new();
+_st(view)._add_(_st(_st(_st($ROBox())._new())._elementOn_((1))).__at($RODraggable()));
+el=_st(_st(_st($ROImage())._url_(url))._elementOn_((1))).__at($RODraggable());
+_st(el)._size_((200));
+_st(view)._add_(el);
+_st(view)._open();
+return self}, function($ctx1) {$ctx1.fill(self,"exampleImage",{view:view,url:url,el:el,sh:sh},smalltalk.ROExample)})},
+args: [],
+source: "exampleImage\x0a|view url el sh|\x0aurl := 'https://www.google.cl/images/srpr/logo11w.png'.\x0aview := ROView new.\x0aview add: (ROBox new elementOn: 1) @RODraggable.\x0ael := ((ROImage url: url) elementOn: 1) @ RODraggable.\x0ael size: 200.\x0aview add: el.\x0a\x0a\x0a\x0aview open.",
+messageSends: ["new", "add:", "@", "elementOn:", "url:", "size:", "open"],
+referencedClasses: ["ROView", "RODraggable", "ROBox", "ROImage"]
+}),
+smalltalk.ROExample);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "exampleImage2",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"exampleImage2",{},smalltalk.ROExample)})},
+args: [],
+source: "exampleImage2\x0a\x09\x22 two buttons + and - and an image. When clicking any of them, resize the image \x22 ",
+messageSends: [],
+referencedClasses: []
 }),
 smalltalk.ROExample);
 
@@ -689,6 +731,47 @@ args: [],
 source: "punchcard\x0a\x0a|builder|\x0abuilder := ROPunchcardBuilder new.\x0abuilder addModels: #( 'hello' 'world' 'hello world' ).\x0abuilder addMetric: [:word | word size] namedAs: 'length'.\x0abuilder addMetric: [:word | word size * 2 ] namedAs: 'length 2'.\x0abuilder minColor: Color green.\x0abuilder maxColor: Color red.\x0abuilder open.",
 messageSends: ["new", "addModels:", "addMetric:namedAs:", "size", "*", "minColor:", "green", "maxColor:", "red", "open"],
 referencedClasses: ["ROPunchcardBuilder", "Color"]
+}),
+smalltalk.ROExample);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "scale",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+var view,url,elements,scaleFactor,tux;
+function $RODraggable(){return smalltalk.RODraggable||(typeof RODraggable=="undefined"?nil:RODraggable)}
+function $ROImageShape(){return smalltalk.ROImageShape||(typeof ROImageShape=="undefined"?nil:ROImageShape)}
+function $ROEllipse(){return smalltalk.ROEllipse||(typeof ROEllipse=="undefined"?nil:ROEllipse)}
+function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
+function $ROTux(){return smalltalk.ROTux||(typeof ROTux=="undefined"?nil:ROTux)}
+function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
+function $ROHorizontalLineLayout(){return smalltalk.ROHorizontalLineLayout||(typeof ROHorizontalLineLayout=="undefined"?nil:ROHorizontalLineLayout)}
+function $ROMouseClick(){return smalltalk.ROMouseClick||(typeof ROMouseClick=="undefined"?nil:ROMouseClick)}
+return smalltalk.withContext(function($ctx1) { 
+url="https://fbcdn-sphotos-e-a.akamaihd.net/hphotos-ak-prn2/p320x320/1457530_768681953149154_113448858_n.jpg";
+elements=[_st(_st(_st($ROImageShape())._url_(url))._element()).__at($RODraggable()),_st(_st($ROEllipse())._element()).__at($RODraggable()),_st(_st($ROBox())._element()).__at($RODraggable()),_st(_st($ROTux())._element()).__at($RODraggable())];
+scaleFactor=[(0.9), (1.001), (1.1), (1.2)];
+view=_st($ROView())._new();
+tux=_st(_st($ROTux())._element()).__at($RODraggable());
+_st(view)._addAll_(elements);
+_st($ROHorizontalLineLayout())._on_(_st(view)._elements());
+_st(tux)._on_do_($ROMouseClick(),(function(evt){
+return smalltalk.withContext(function($ctx2) {
+_st(elements)._do_((function(e){
+return smalltalk.withContext(function($ctx3) {
+return _st(_st(e)._shape())._scale_(_st(scaleFactor)._at_(_st(elements)._indexOf_(e)));
+}, function($ctx3) {$ctx3.fillBlock({e:e},$ctx2)})}));
+return _st(view)._signalUpdate();
+}, function($ctx2) {$ctx2.fillBlock({evt:evt},$ctx1)})}));
+_st(view)._add_(tux);
+_st(view)._open();
+return self}, function($ctx1) {$ctx1.fill(self,"scale",{view:view,url:url,elements:elements,scaleFactor:scaleFactor,tux:tux},smalltalk.ROExample)})},
+args: [],
+source: "scale\x0a\x0a\x09| view url elements scaleFactor tux|\x0a\x09url := 'https://fbcdn-sphotos-e-a.akamaihd.net/hphotos-ak-prn2/p320x320/1457530_768681953149154_113448858_n.jpg'.\x0a\x09elements := { \x0a\x09\x09\x09((ROImageShape url: url) element @RODraggable) .\x0a\x09\x09\x09ROEllipse element @RODraggable .\x0a\x09\x09\x09ROBox element @RODraggable .\x0a\x09\x09\x09ROTux element @RODraggable \x0a\x09}.\x0a\x09scaleFactor := #( 0.9 1.001 1.1 1.2 ).\x0a\x0a\x09view := ROView new.\x0a\x09tux :=  ROTux element @RODraggable.\x0a\x09view addAll: elements.\x0a\x09ROHorizontalLineLayout on: view elements.\x0a\x09tux on: ROMouseClick do: [:evt | \x0a\x09\x09elements do: [:e |\x0a\x09\x09\x09e shape scale: (scaleFactor at: (elements indexOf: e)).  \x0a\x09\x09].\x0a\x09\x09view signalUpdate.].\x0a\x0a\x09view add: tux.\x0a\x09view open\x0a\x09\x0a\x09",
+messageSends: ["@", "element", "url:", "new", "addAll:", "on:", "elements", "on:do:", "do:", "scale:", "at:", "indexOf:", "shape", "signalUpdate", "add:", "open"],
+referencedClasses: ["RODraggable", "ROImageShape", "ROEllipse", "ROBox", "ROTux", "ROView", "ROHorizontalLineLayout", "ROMouseClick"]
 }),
 smalltalk.ROExample);
 

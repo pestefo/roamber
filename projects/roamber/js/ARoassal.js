@@ -2805,6 +2805,22 @@ smalltalk.ROShape);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "scale:",
+category: 'accessing',
+fn: function (factor){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._size_(_st(self._width()).__star(factor));
+return self}, function($ctx1) {$ctx1.fill(self,"scale:",{factor:factor},smalltalk.ROShape)})},
+args: ["factor"],
+source: "scale: factor\x0a\x09self size: self width * factor",
+messageSends: ["size:", "*", "width"],
+referencedClasses: []
+}),
+smalltalk.ROShape);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "show",
 category: 'creation',
 fn: function (){
@@ -3212,17 +3228,17 @@ smalltalk.ROLine);
 smalltalk.addClass('ROAbstractPathShape', smalltalk.ROShape, [], 'ARoassal');
 smalltalk.addMethod(
 smalltalk.method({
-selector: "centeringPath:into:",
+selector: "centeringPath:into:with:",
 category: 'not yet classified',
-fn: function (svgPath,svgRect){
+fn: function (svgPath,svgRect,anElement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(svgPath)._attr_value_("x",_st(_st(_st(svgRect)._attr_("width")).__slash((2)))._asInteger());
-_st(svgPath)._attr_value_("y",_st(_st(_st(svgRect)._attr_("height")).__slash((2)))._asInteger());
-return self}, function($ctx1) {$ctx1.fill(self,"centeringPath:into:",{svgPath:svgPath,svgRect:svgRect},smalltalk.ROAbstractPathShape)})},
-args: ["svgPath", "svgRect"],
-source: "centeringPath: svgPath into: svgRect\x0a\x09svgPath attr: 'x' value: ((svgRect attr: 'width') / 2) asInteger.\x0a\x09svgPath attr: 'y' value: ((svgRect attr: 'height') / 2) asInteger.",
-messageSends: ["attr:value:", "asInteger", "/", "attr:"],
+_st(svgPath)._attr_value_("x",(0));
+_st(svgPath)._attr_value_("y",(0));
+return self}, function($ctx1) {$ctx1.fill(self,"centeringPath:into:with:",{svgPath:svgPath,svgRect:svgRect,anElement:anElement},smalltalk.ROAbstractPathShape)})},
+args: ["svgPath", "svgRect", "anElement"],
+source: "centeringPath: svgPath into: svgRect  with: anElement\x0a\x0a\x09svgPath attr: 'x' value: 0.\x0a\x09svgPath attr: 'y' value: 0.",
+messageSends: ["attr:value:"],
 referencedClasses: []
 }),
 smalltalk.ROAbstractPathShape);
@@ -3296,13 +3312,13 @@ var svgRect,svgPath;
 return smalltalk.withContext(function($ctx1) { 
 svgRect=self._initializeContainterOn_for_(canvas,anElement);
 svgPath=self._initializePathOn_for_(canvas,anElement);
-self._resizeContainer_for_(svgRect,svgPath);
-self._centeringPath_into_(svgPath,svgRect);
+self._resizeContainer_for_with_(svgRect,svgPath,anElement);
+self._centeringPath_into_with_(svgPath,svgRect,anElement);
 self._createSetWith_and_on_for_(svgRect,svgPath,canvas,anElement);
 return self}, function($ctx1) {$ctx1.fill(self,"initializeSVGElementOn:for:",{canvas:canvas,anElement:anElement,svgRect:svgRect,svgPath:svgPath},smalltalk.ROAbstractPathShape)})},
 args: ["canvas", "anElement"],
-source: "initializeSVGElementOn: canvas for: anElement\x0a\x09| svgRect svgPath |\x0a\x09\x0a\x09svgRect := self initializeContainterOn: canvas for: anElement.\x0a\x09svgPath := self initializePathOn: canvas for: anElement.\x0a\x09\x0a\x09self resizeContainer: svgRect for: svgPath. \x0a\x09self centeringPath: svgPath into: svgRect.\x0a\x09self createSetWith: svgRect and: svgPath on: canvas for: anElement.",
-messageSends: ["initializeContainterOn:for:", "initializePathOn:for:", "resizeContainer:for:", "centeringPath:into:", "createSetWith:and:on:for:"],
+source: "initializeSVGElementOn: canvas for: anElement\x0a\x09| svgRect svgPath |\x0a\x09\x0a\x09svgRect := self initializeContainterOn: canvas for: anElement.\x0a\x09svgPath := self initializePathOn: canvas for: anElement.\x0a\x09\x0a\x09self resizeContainer: svgRect for: svgPath with: anElement. \x0a\x09self centeringPath: svgPath into: svgRect with: anElement.\x0a\x09self createSetWith: svgRect and: svgPath on: canvas for: anElement.",
+messageSends: ["initializeContainterOn:for:", "initializePathOn:for:", "resizeContainer:for:with:", "centeringPath:into:with:", "createSetWith:and:on:for:"],
 referencedClasses: []
 }),
 smalltalk.ROAbstractPathShape);
@@ -3341,15 +3357,15 @@ smalltalk.ROAbstractPathShape);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "resizeContainer:for:",
+selector: "resizeContainer:for:with:",
 category: 'not yet classified',
-fn: function (svgRect,svgPath){
+fn: function (svgRect,svgPath,anElement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"resizeContainer:for:",{svgRect:svgRect,svgPath:svgPath},smalltalk.ROAbstractPathShape)})},
-args: ["svgRect", "svgPath"],
-source: "resizeContainer: svgRect for: svgPath\x0a\x09self subclassResponsibility",
+return self}, function($ctx1) {$ctx1.fill(self,"resizeContainer:for:with:",{svgRect:svgRect,svgPath:svgPath,anElement:anElement},smalltalk.ROAbstractPathShape)})},
+args: ["svgRect", "svgPath", "anElement"],
+source: "resizeContainer: svgRect for: svgPath  with: anElement\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
@@ -3366,7 +3382,7 @@ _st(self["@svgElement"])._transform_("T0,0");
 _st(self["@svgElement"])._transform_(_st(_st("T".__comma(_st(_st(anElement)._position())._x())).__comma(",")).__comma(_st(_st(anElement)._position())._y()));
 return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROAbstractPathShape)})},
 args: ["canvas", "anElement"],
-source: "updateSVGElementOn: canvas for: anElement\x0a\x09svgElement transform: 'T0,0'.\x0a\x09svgElement transform: 'T',(anElement position x),',',(anElement position y).\x0a\x22\x0a\x09svgElement translate: 0 y: 0.\x0a\x09svgElement translate: (anElement position x) y: (anElement position y).\x0a\x22",
+source: "updateSVGElementOn: canvas for: anElement\x0a\x09svgElement transform: 'T0,0'.\x0a\x09svgElement transform: 'T',(anElement position x),',',(anElement position y).\x0a\x0a\x22\x0a\x09svgElement translate: 0 y: 0.\x0a\x09svgElement translate: (anElement position x) y: (anElement position y).\x0a\x22",
 messageSends: ["transform:", ",", "y", "position", "x"],
 referencedClasses: []
 }),
@@ -3374,20 +3390,210 @@ smalltalk.ROAbstractPathShape);
 
 
 
+smalltalk.addClass('ROImageShape', smalltalk.ROAbstractPathShape, ['url', 'imgExtent'], 'ARoassal');
+smalltalk.ROImageShape.comment="Each ROImage is binded to a url to the image that cannot be changed. ";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "imageExtent",
+category: 'initialize-release',
+fn: function (){
+var self=this;
+var myImg;
+function $Image(){return smalltalk.Image||(typeof Image=="undefined"?nil:Image)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+myImg=_st($Image())._new();
+_st(myImg)._src_(self._url());
+$1=_st(_st(myImg)._width()).__at(_st(myImg)._height());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"imageExtent",{myImg:myImg},smalltalk.ROImageShape)})},
+args: [],
+source: "imageExtent\x0a\x09| myImg |\x0a\x09myImg := Image new.\x0a\x09myImg src: self url.\x0a\x09^ (myImg width)@(myImg height) ",
+messageSends: ["new", "src:", "url", "@", "height", "width"],
+referencedClasses: ["Image"]
+}),
+smalltalk.ROImageShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+category: 'initialize-release',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.ROImageShape.superclass.fn.prototype._initialize.apply(_st(self), []);
+self["@imgExtent"]=self._imageExtent();
+self["@width"]=_st(self["@imgExtent"])._x();
+self["@height"]=_st(self["@imgExtent"])._y();
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROImageShape)})},
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a\x09\x0a\x09\x22 Initialize default values \x22\x0a\x09imgExtent := (self imageExtent).\x0a\x09width := imgExtent x.\x0a\x09height := imgExtent y.",
+messageSends: ["initialize", "imageExtent", "x", "y"],
+referencedClasses: []
+}),
+smalltalk.ROImageShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initializePathOn:for:",
+category: 'not yet classified',
+fn: function (canvas,anElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(canvas)._image_x_y_width_height_(self._url(),_st(_st(anElement)._position())._x(),_st(_st(anElement)._position())._y(),_st(self._width())._max_(_st(self._defaultExtent())._x()),_st(self._height())._max_(_st(self._defaultExtent())._y()));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"initializePathOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROImageShape)})},
+args: ["canvas", "anElement"],
+source: "initializePathOn: canvas for: anElement\x0a\x09^  canvas \x0a\x09\x09image: (self url)\x0a\x09\x09x: (anElement position x)\x0a\x09\x09y: (anElement position y) \x0a\x09\x09width: ((self width) max: (self defaultExtent x)) \x0a\x09\x09height: ((self height) max: (self defaultExtent y)) .",
+messageSends: ["image:x:y:width:height:", "url", "x", "position", "y", "max:", "defaultExtent", "width", "height"],
+referencedClasses: []
+}),
+smalltalk.ROImageShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "resizeContainer:for:with:",
+category: 'not yet classified',
+fn: function (svgRect,svgPath,anElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=svgRect;
+_st($1)._attr_with_("width",_st(self._widthFor_(anElement))._max_(_st(self._defaultExtent())._x()));
+$2=_st($1)._attr_with_("height",_st(self._heightFor_(anElement))._max_(_st(self._defaultExtent())._y()));
+return self}, function($ctx1) {$ctx1.fill(self,"resizeContainer:for:with:",{svgRect:svgRect,svgPath:svgPath,anElement:anElement},smalltalk.ROImageShape)})},
+args: ["svgRect", "svgPath", "anElement"],
+source: "resizeContainer: svgRect for: svgPath  with: anElement\x0a\x09svgRect \x09\x09\x0a\x09\x09attr: 'width' with: ((self widthFor: anElement ) max: (self defaultExtent x));\x0a\x09\x09attr: 'height' with: ((self heightFor: anElement) max: (self defaultExtent y))",
+messageSends: ["attr:with:", "max:", "x", "defaultExtent", "widthFor:", "y", "heightFor:"],
+referencedClasses: []
+}),
+smalltalk.ROImageShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "scale:",
+category: 'private',
+fn: function (factor){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._size_(_st(self._width()).__star(factor));
+return self}, function($ctx1) {$ctx1.fill(self,"scale:",{factor:factor},smalltalk.ROImageShape)})},
+args: ["factor"],
+source: "scale: factor\x0a\x09self size: self width * factor",
+messageSends: ["size:", "*", "width"],
+referencedClasses: []
+}),
+smalltalk.ROImageShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "scaleFactor",
+category: 'private',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@width"]).__slash(_st(self["@imgExtent"])._x());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"scaleFactor",{},smalltalk.ROImageShape)})},
+args: [],
+source: "scaleFactor\x0a\x09\x22self assert: (width / imgExtent ) = (height / imgExtent ).\x22\x0a\x0a\x09^ width / (imgExtent x)",
+messageSends: ["/", "x"],
+referencedClasses: []
+}),
+smalltalk.ROImageShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "updateSVGElementOn:for:",
+category: 'not yet classified',
+fn: function (canvas,anElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.ROImageShape.superclass.fn.prototype._updateSVGElementOn_for_.apply(_st(self), [canvas,anElement]);
+_st(self["@svgElement"])._transform_("S".__comma(_st(self._scaleFactor())._asString()));
+return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROImageShape)})},
+args: ["canvas", "anElement"],
+source: "updateSVGElementOn: canvas for: anElement\x0a\x09super updateSVGElementOn: canvas for: anElement.\x0a\x09svgElement transform: 'S',(self scaleFactor asString).",
+messageSends: ["updateSVGElementOn:for:", "transform:", ",", "asString", "scaleFactor"],
+referencedClasses: []
+}),
+smalltalk.ROImageShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "url",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@url"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"url",{},smalltalk.ROImageShape)})},
+args: [],
+source: "url\x0a\x09^ url",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROImageShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "url:",
+category: 'private',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@url"]=aString;
+return self}, function($ctx1) {$ctx1.fill(self,"url:",{aString:aString},smalltalk.ROImageShape)})},
+args: ["aString"],
+source: "url: aString\x0a\x09url := aString",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROImageShape);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "url:",
+category: 'not yet classified',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=self._basicNew();
+_st($2)._url_(aString);
+_st($2)._initialize();
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"url:",{aString:aString},smalltalk.ROImageShape.klass)})},
+args: ["aString"],
+source: "url: aString\x0a\x09^ self basicNew url: aString; initialize; yourself",
+messageSends: ["url:", "basicNew", "initialize", "yourself"],
+referencedClasses: []
+}),
+smalltalk.ROImageShape.klass);
+
+
 smalltalk.addClass('ROLabel', smalltalk.ROAbstractPathShape, ['text'], 'ARoassal');
 smalltalk.addMethod(
 smalltalk.method({
-selector: "centeringPath:into:",
+selector: "centeringPath:into:with:",
 category: 'not yet classified',
-fn: function (svgPath,svgRect){
+fn: function (svgPath,svgRect,anElement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.ROLabel.superclass.fn.prototype._centeringPath_into_.apply(_st(self), [svgPath,svgRect]);
+_st(svgPath)._attr_value_("x",_st(_st(_st(svgRect)._attr_("width")).__slash((2)))._asInteger());
+_st(svgPath)._attr_value_("y",_st(_st(_st(svgRect)._attr_("height")).__slash((2)))._asInteger());
 _st(svgPath)._attr_value_("text-anchor","middle");
-return self}, function($ctx1) {$ctx1.fill(self,"centeringPath:into:",{svgPath:svgPath,svgRect:svgRect},smalltalk.ROLabel)})},
-args: ["svgPath", "svgRect"],
-source: "centeringPath: svgPath into: svgRect\x0a\x09super centeringPath: svgPath into: svgRect.\x0a\x09svgPath  attr: 'text-anchor' value: 'middle'.\x0a\x0a\x09",
-messageSends: ["centeringPath:into:", "attr:value:"],
+return self}, function($ctx1) {$ctx1.fill(self,"centeringPath:into:with:",{svgPath:svgPath,svgRect:svgRect,anElement:anElement},smalltalk.ROLabel)})},
+args: ["svgPath", "svgRect", "anElement"],
+source: "centeringPath: svgPath into: svgRect  with: anElement\x0a\x09svgPath attr: 'x' value: ((svgRect attr: 'width') / 2) asInteger.\x0a\x09svgPath attr: 'y' value: ((svgRect attr: 'height') / 2) asInteger.\x0a\x09svgPath  attr: 'text-anchor' value: 'middle'.\x0a\x0a\x09",
+messageSends: ["attr:value:", "asInteger", "/", "attr:"],
 referencedClasses: []
 }),
 smalltalk.ROLabel);
@@ -3501,16 +3707,16 @@ smalltalk.ROLabel);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "resizeContainer:for:",
+selector: "resizeContainer:for:with:",
 category: 'not yet classified',
-fn: function (svgRect,svgPath){
+fn: function (svgRect,svgPath,anElement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(svgRect)._attr_value_("width",self._width());
 _st(svgRect)._attr_value_("height",_st(self._textHeight()).__plus(_st(self._padding()).__star((2))));
-return self}, function($ctx1) {$ctx1.fill(self,"resizeContainer:for:",{svgRect:svgRect,svgPath:svgPath},smalltalk.ROLabel)})},
-args: ["svgRect", "svgPath"],
-source: "resizeContainer: svgRect for: svgPath \x0a\x09svgRect attr: 'width'  value: (self width).\x0a\x09svgRect attr: 'height' value: self textHeight + (self padding * 2).",
+return self}, function($ctx1) {$ctx1.fill(self,"resizeContainer:for:with:",{svgRect:svgRect,svgPath:svgPath,anElement:anElement},smalltalk.ROLabel)})},
+args: ["svgRect", "svgPath", "anElement"],
+source: "resizeContainer: svgRect for: svgPath  with: anElement\x0a\x09svgRect attr: 'width'  value: (self width).\x0a\x09svgRect attr: 'height' value: self textHeight + (self padding * 2).",
 messageSends: ["attr:value:", "width", "+", "*", "padding", "textHeight"],
 referencedClasses: []
 }),
@@ -3606,6 +3812,23 @@ smalltalk.ROLabel.klass);
 smalltalk.addClass('ROTux', smalltalk.ROAbstractPathShape, [], 'ARoassal');
 smalltalk.addMethod(
 smalltalk.method({
+selector: "initialize",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@width"]=_st(self._defaultExtent())._x();
+self["@height"]=_st(self._defaultExtent())._y();
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROTux)})},
+args: [],
+source: "initialize\x0a\x09\x22 Initialize default values \x22\x0a\x09width := self defaultExtent x.\x0a\x09height := self defaultExtent y.",
+messageSends: ["x", "defaultExtent", "y"],
+referencedClasses: []
+}),
+smalltalk.ROTux);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "initializePathOn:for:",
 category: 'not yet classified',
 fn: function (canvas,anElement){
@@ -3624,16 +3847,16 @@ smalltalk.ROTux);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "resizeContainer:for:",
+selector: "resizeContainer:for:with:",
 category: 'not yet classified',
-fn: function (svgRect,svgPath){
+fn: function (svgRect,svgPath,anElement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(svgRect)._attr_value_("width",(30));
 _st(svgRect)._attr_value_("height",(33));
-return self}, function($ctx1) {$ctx1.fill(self,"resizeContainer:for:",{svgRect:svgRect,svgPath:svgPath},smalltalk.ROTux)})},
-args: ["svgRect", "svgPath"],
-source: "resizeContainer: svgRect for: svgPath\x0a\x09svgRect attr: 'width'  value: 30.\x0a\x09svgRect attr: 'height' value: 33.",
+return self}, function($ctx1) {$ctx1.fill(self,"resizeContainer:for:with:",{svgRect:svgRect,svgPath:svgPath,anElement:anElement},smalltalk.ROTux)})},
+args: ["svgRect", "svgPath", "anElement"],
+source: "resizeContainer: svgRect for: svgPath  with: anElement\x0a\x09svgRect attr: 'width'  value: 30.\x0a\x09svgRect attr: 'height' value: 33.",
 messageSends: ["attr:value:"],
 referencedClasses: []
 }),

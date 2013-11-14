@@ -148,8 +148,8 @@ var view,classElements,edges,associations;
 function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
 function $Collection(){return smalltalk.Collection||(typeof Collection=="undefined"?nil:Collection)}
 function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
-function $ROHighlight(){return smalltalk.ROHighlight||(typeof ROHighlight=="undefined"?nil:ROHighlight)}
 function $ROPopup(){return smalltalk.ROPopup||(typeof ROPopup=="undefined"?nil:ROPopup)}
+function $ROHighlight(){return smalltalk.ROHighlight||(typeof ROHighlight=="undefined"?nil:ROHighlight)}
 function $RODraggable(){return smalltalk.RODraggable||(typeof RODraggable=="undefined"?nil:RODraggable)}
 function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
 function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
@@ -182,7 +182,7 @@ $5=(3);
 $5=_st(numMethods).__star((2));
 };
 _st($4)._height_($5);
-return _st(_st(_st(_st(c).__plus($ROBox())).__at($RODraggable())).__at($ROPopup())).__at($ROHighlight());
+return _st(_st(_st(_st(c).__plus($ROBox())).__at($RODraggable())).__at($ROHighlight())).__at(_st($ROPopup())._text_(_st(_st(c)._model())._asString()));
 }, function($ctx2) {$ctx2.fillBlock({c:c,instVar:instVar,numMethods:numMethods},$ctx1)})}));
 _st(view)._addAll_(classElements);
 associations=_st(classElements)._collect_thenSelect_((function(c){
@@ -200,7 +200,7 @@ _st(view)._addAll_(edges);
 _st($ROTreeLayout())._on_edges_(_st(view)._elements(),edges);
 _st(view)._open();
 return self}, function($ctx1) {$ctx1.fill(self,"collectionHierarchy",{view:view,classElements:classElements,edges:edges,associations:associations},smalltalk.ROExample)})},
-messageSends: ["new", "forCollection:", "withAllSubclasses", "do:", "size", "instVarNames", "model", "width:", "ifTrue:ifFalse:", "*", "=", "shape", "selectors", "height:", "@", "+", "addAll:", "collect:thenSelect:", "ifFalse:", "->", "elementFromModel:", "superclass", "not", "isNil", "linesFor:", "on:edges:", "elements", "open"]}),
+messageSends: ["new", "forCollection:", "withAllSubclasses", "do:", "size", "instVarNames", "model", "width:", "ifTrue:ifFalse:", "*", "=", "shape", "selectors", "height:", "@", "text:", "asString", "+", "addAll:", "collect:thenSelect:", "ifFalse:", "->", "elementFromModel:", "superclass", "not", "isNil", "linesFor:", "on:edges:", "elements", "open"]}),
 smalltalk.ROExample);
 
 smalltalk.addMethod(
@@ -239,6 +239,38 @@ return _st(view)._add_(each);
 _st(view)._open();
 return self}, function($ctx1) {$ctx1.fill(self,"drag",{view:view,elements:elements,b:b},smalltalk.ROExample)})},
 messageSends: ["new", "translateTo:", "@", "element", "add:", "do:", "addInteraction:", "open"]}),
+smalltalk.ROExample);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "exampleImage",
+fn: function (){
+var self=this;
+var view,url,el,sh;
+function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
+function $RODraggable(){return smalltalk.RODraggable||(typeof RODraggable=="undefined"?nil:RODraggable)}
+function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
+function $ROImage(){return smalltalk.ROImage||(typeof ROImage=="undefined"?nil:ROImage)}
+return smalltalk.withContext(function($ctx1) { 
+url="https://www.google.cl/images/srpr/logo11w.png";
+view=_st($ROView())._new();
+_st(view)._add_(_st(_st(_st($ROBox())._new())._elementOn_((1))).__at($RODraggable()));
+el=_st(_st(_st($ROImage())._url_(url))._elementOn_((1))).__at($RODraggable());
+_st(el)._size_((200));
+_st(view)._add_(el);
+_st(view)._open();
+return self}, function($ctx1) {$ctx1.fill(self,"exampleImage",{view:view,url:url,el:el,sh:sh},smalltalk.ROExample)})},
+messageSends: ["new", "add:", "@", "elementOn:", "url:", "size:", "open"]}),
+smalltalk.ROExample);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "exampleImage2",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"exampleImage2",{},smalltalk.ROExample)})},
+messageSends: []}),
 smalltalk.ROExample);
 
 smalltalk.addMethod(
@@ -575,6 +607,42 @@ _st(builder)._maxColor_(_st($Color())._red());
 _st(builder)._open();
 return self}, function($ctx1) {$ctx1.fill(self,"punchcard",{builder:builder},smalltalk.ROExample)})},
 messageSends: ["new", "addModels:", "addMetric:namedAs:", "size", "*", "minColor:", "green", "maxColor:", "red", "open"]}),
+smalltalk.ROExample);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "scale",
+fn: function (){
+var self=this;
+var view,url,elements,scaleFactor,tux;
+function $RODraggable(){return smalltalk.RODraggable||(typeof RODraggable=="undefined"?nil:RODraggable)}
+function $ROImageShape(){return smalltalk.ROImageShape||(typeof ROImageShape=="undefined"?nil:ROImageShape)}
+function $ROEllipse(){return smalltalk.ROEllipse||(typeof ROEllipse=="undefined"?nil:ROEllipse)}
+function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
+function $ROTux(){return smalltalk.ROTux||(typeof ROTux=="undefined"?nil:ROTux)}
+function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
+function $ROHorizontalLineLayout(){return smalltalk.ROHorizontalLineLayout||(typeof ROHorizontalLineLayout=="undefined"?nil:ROHorizontalLineLayout)}
+function $ROMouseClick(){return smalltalk.ROMouseClick||(typeof ROMouseClick=="undefined"?nil:ROMouseClick)}
+return smalltalk.withContext(function($ctx1) { 
+url="https://fbcdn-sphotos-e-a.akamaihd.net/hphotos-ak-prn2/p320x320/1457530_768681953149154_113448858_n.jpg";
+elements=[_st(_st(_st($ROImageShape())._url_(url))._element()).__at($RODraggable()),_st(_st($ROEllipse())._element()).__at($RODraggable()),_st(_st($ROBox())._element()).__at($RODraggable()),_st(_st($ROTux())._element()).__at($RODraggable())];
+scaleFactor=[(0.9), (1.001), (1.1), (1.2)];
+view=_st($ROView())._new();
+tux=_st(_st($ROTux())._element()).__at($RODraggable());
+_st(view)._addAll_(elements);
+_st($ROHorizontalLineLayout())._on_(_st(view)._elements());
+_st(tux)._on_do_($ROMouseClick(),(function(evt){
+return smalltalk.withContext(function($ctx2) {
+_st(elements)._do_((function(e){
+return smalltalk.withContext(function($ctx3) {
+return _st(_st(e)._shape())._scale_(_st(scaleFactor)._at_(_st(elements)._indexOf_(e)));
+}, function($ctx3) {$ctx3.fillBlock({e:e},$ctx2)})}));
+return _st(view)._signalUpdate();
+}, function($ctx2) {$ctx2.fillBlock({evt:evt},$ctx1)})}));
+_st(view)._add_(tux);
+_st(view)._open();
+return self}, function($ctx1) {$ctx1.fill(self,"scale",{view:view,url:url,elements:elements,scaleFactor:scaleFactor,tux:tux},smalltalk.ROExample)})},
+messageSends: ["@", "element", "url:", "new", "addAll:", "on:", "elements", "on:do:", "do:", "scale:", "at:", "indexOf:", "shape", "signalUpdate", "add:", "open"]}),
 smalltalk.ROExample);
 
 smalltalk.addMethod(

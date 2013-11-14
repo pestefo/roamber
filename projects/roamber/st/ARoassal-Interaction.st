@@ -181,7 +181,7 @@ createElementFor: anElement
 
 initialize 
 	super initialize.
-"	text := #yourself."
+"	text := [:obj | ^ obj]."
 !
 
 text: textBlock

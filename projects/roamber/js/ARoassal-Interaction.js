@@ -354,7 +354,7 @@ return smalltalk.withContext(function($ctx1) {
 smalltalk.ROPopup.superclass.fn.prototype._initialize.apply(_st(self), []);
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROPopup)})},
 args: [],
-source: "initialize \x0a\x09super initialize.\x0a\x22\x09text := #yourself.\x22",
+source: "initialize \x0a\x09super initialize.\x0a\x22\x09text := [:obj | ^ obj].\x22",
 messageSends: ["initialize"],
 referencedClasses: []
 }),
