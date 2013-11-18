@@ -381,6 +381,11 @@ elementFromModel: object
 
 !ROContainer methodsFor: 'as yet unclassified'!
 
+elementsAsEdge
+"	^ elements select: #isEdge"
+	^ elements select: [:e | e isEdge]
+!
+
 elementsDo: aBlock
 	^ elements copy do: aBlock
 !
@@ -524,12 +529,26 @@ signalUpdate
 
 !ROAbstractComponent methodsFor: 'testing'!
 
+getShape: shapeClass
+	"Return a shape instance, instance of the shape class provided as parameter"
+
+	^ self shapeDetect: [ :de | de isKindOf: shapeClass ]
+!
+
 isElement
 	^ self isEdge not
 !
 
 isNotEdge
 	^ self isEdge not
+!
+
+isShapedAs: aShapeClass
+	^ shape isShapedAs: aShapeClass
+!
+
+shapeDetect: aBlock
+	^ shape shapeDetect: aBlock
 ! !
 
 !ROAbstractComponent class methodsFor: 'as yet unclassified'!
@@ -929,13 +948,18 @@ resetNullView
 ! !
 
 ROObject subclass: #ROShape
-	instanceVariableNames: 'svgElement height width color'
+	instanceVariableNames: 'svgElement height width color colorCache'
 	package: 'ARoassal'!
 
 !ROShape methodsFor: 'accessing'!
 
+color
+	^ color
+!
+
 color:	 aColor
 	color := aColor.
+	colorCache := nil.
 !
 
 height
@@ -998,6 +1022,21 @@ widthFor: anElement
 
 !ROShape methodsFor: 'creation'!
 
+colorFor: element
+	"Compute the color of the element"
+
+	"We use a cache mechanism since computing the cache can be quite slow"
+	colorCache notNil ifTrue: [ ^ colorCache ].
+	^ colorCache := color roValue: element.
+
+"	(element hasAttribute: (#element, self class name) asSymbol)
+		ifTrue: [ ^ element attributeAt: (#element, self class name) asSymbol ].
+ 
+	colorCache := color roValue: element.
+	element attributeAt: (#element, self class name) asSymbol put: colorCache.
+	^ colorCache"
+!
+
 defaultExtent
 	"Each shape has a minimum size of 5@5"
 
@@ -1058,6 +1097,24 @@ extentFor: element
 initializeSVGElementOn: canvas for: anElement
 	"Initialize svgElement"
 	self subclassResponsibility
+!
+
+isShapedAs: aShapeClass
+"	^ (self isKindOf: aShapeClass) or: [ self next isShapedAs: aShapeClass ]"
+	^ (self isKindOf: aShapeClass)
+!
+
+shapeDetect: aBlock
+
+	(aBlock value: self) ifTrue: [ ^ self ].
+	self error: 'Not found'
+"	^ self next shapeDetect: aBlock"
+!
+
+shapesDo: aBlock
+
+	^ aBlock value: self.
+"	^ self next shapesDo: aBlock"
 !
 
 updateSVGElementOn: canvas for: anElement
@@ -2554,6 +2611,19 @@ extentFor: element
 
 initialize
 		self extent: self defaultExtent.
+!
+
+isShapedAs: aShapeClass
+	^ false
+!
+
+shapeDetect: aBlock
+	(aBlock value: self) ifTrue: [ ^ self ].
+	self error: 'Not found'
+!
+
+shapesDetect: aBlock
+	self error: 'Not found'
 ! !
 
 !Collection methodsFor: '*ARoassal'!

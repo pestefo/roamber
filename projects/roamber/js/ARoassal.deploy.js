@@ -826,6 +826,22 @@ smalltalk.ROContainer);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "elementsAsEdge",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@elements"])._select_((function(e){
+return smalltalk.withContext(function($ctx2) {
+return _st(e)._isEdge();
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"elementsAsEdge",{},smalltalk.ROContainer)})},
+messageSends: ["select:", "isEdge"]}),
+smalltalk.ROContainer);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "elementsDo:",
 fn: function (aBlock){
 var self=this;
@@ -932,6 +948,22 @@ smalltalk.ROAbstractComponent);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "getShape:",
+fn: function (shapeClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._shapeDetect_((function(de){
+return smalltalk.withContext(function($ctx2) {
+return _st(de)._isKindOf_(shapeClass);
+}, function($ctx2) {$ctx2.fillBlock({de:de},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"getShape:",{shapeClass:shapeClass},smalltalk.ROAbstractComponent)})},
+messageSends: ["shapeDetect:", "isKindOf:"]}),
+smalltalk.ROAbstractComponent);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "initialize",
 fn: function (){
 var self=this;
@@ -969,6 +1001,19 @@ $1=_st(self._isEdge())._not();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isNotEdge",{},smalltalk.ROAbstractComponent)})},
 messageSends: ["not", "isEdge"]}),
+smalltalk.ROAbstractComponent);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isShapedAs:",
+fn: function (aShapeClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@shape"])._isShapedAs_(aShapeClass);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isShapedAs:",{aShapeClass:aShapeClass},smalltalk.ROAbstractComponent)})},
+messageSends: ["isShapedAs:"]}),
 smalltalk.ROAbstractComponent);
 
 smalltalk.addMethod(
@@ -1050,6 +1095,19 @@ return _st(self["@eventHandler"])._unsubscribe_(_st(assoc)._value());
 }, function($ctx2) {$ctx2.fillBlock({assoc:assoc},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"removeInteraction:",{anInteractionClass:anInteractionClass,ds:ds},smalltalk.ROAbstractComponent)})},
 messageSends: ["select:", "isKindOf:", "associationsDo:", "removeKey:", "key", "unsubscribe:", "value"]}),
+smalltalk.ROAbstractComponent);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "shapeDetect:",
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@shape"])._shapeDetect_(aBlock);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"shapeDetect:",{aBlock:aBlock},smalltalk.ROAbstractComponent)})},
+messageSends: ["shapeDetect:"]}),
 smalltalk.ROAbstractComponent);
 
 smalltalk.addMethod(
@@ -1985,7 +2043,7 @@ messageSends: []}),
 smalltalk.ROView.klass);
 
 
-smalltalk.addClass('ROShape', smalltalk.ROObject, ['svgElement', 'height', 'width', 'color'], 'ARoassal');
+smalltalk.addClass('ROShape', smalltalk.ROObject, ['svgElement', 'height', 'width', 'color', 'colorCache'], 'ARoassal');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "activateInteractionsOn:",
@@ -1999,13 +2057,46 @@ smalltalk.ROShape);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "color",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@color"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"color",{},smalltalk.ROShape)})},
+messageSends: []}),
+smalltalk.ROShape);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "color:",
 fn: function (aColor){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self["@color"]=aColor;
+self["@colorCache"]=nil;
 return self}, function($ctx1) {$ctx1.fill(self,"color:",{aColor:aColor},smalltalk.ROShape)})},
 messageSends: []}),
+smalltalk.ROShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "colorFor:",
+fn: function (element){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+$1=_st(self["@colorCache"])._notNil();
+if(smalltalk.assert($1)){
+$2=self["@colorCache"];
+return $2;
+};
+self["@colorCache"]=_st(self["@color"])._roValue_(element);
+$3=self["@colorCache"];
+return $3;
+}, function($ctx1) {$ctx1.fill(self,"colorFor:",{element:element},smalltalk.ROShape)})},
+messageSends: ["ifTrue:", "notNil", "roValue:"]}),
 smalltalk.ROShape);
 
 smalltalk.addMethod(
@@ -2185,6 +2276,19 @@ smalltalk.ROShape);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "isShapedAs:",
+fn: function (aShapeClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._isKindOf_(aShapeClass);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isShapedAs:",{aShapeClass:aShapeClass},smalltalk.ROShape)})},
+messageSends: ["isKindOf:"]}),
+smalltalk.ROShape);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "removeSVGElement",
 fn: function (){
 var self=this;
@@ -2218,6 +2322,36 @@ return smalltalk.withContext(function($ctx1) {
 self._size_(_st(self._width()).__star(factor));
 return self}, function($ctx1) {$ctx1.fill(self,"scale:",{factor:factor},smalltalk.ROShape)})},
 messageSends: ["size:", "*", "width"]}),
+smalltalk.ROShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "shapeDetect:",
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(aBlock)._value_(self);
+if(smalltalk.assert($1)){
+$2=self;
+return $2;
+};
+self._error_("Not found");
+return self}, function($ctx1) {$ctx1.fill(self,"shapeDetect:",{aBlock:aBlock},smalltalk.ROShape)})},
+messageSends: ["ifTrue:", "value:", "error:"]}),
+smalltalk.ROShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "shapesDo:",
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(aBlock)._value_(self);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"shapesDo:",{aBlock:aBlock},smalltalk.ROShape)})},
+messageSends: ["value:"]}),
 smalltalk.ROShape);
 
 smalltalk.addMethod(
@@ -5726,6 +5860,45 @@ return smalltalk.withContext(function($ctx1) {
 self._extent_(self._defaultExtent());
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.RONullShape)})},
 messageSends: ["extent:", "defaultExtent"]}),
+smalltalk.RONullShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isShapedAs:",
+fn: function (aShapeClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return false;
+}, function($ctx1) {$ctx1.fill(self,"isShapedAs:",{aShapeClass:aShapeClass},smalltalk.RONullShape)})},
+messageSends: []}),
+smalltalk.RONullShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "shapeDetect:",
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(aBlock)._value_(self);
+if(smalltalk.assert($1)){
+$2=self;
+return $2;
+};
+self._error_("Not found");
+return self}, function($ctx1) {$ctx1.fill(self,"shapeDetect:",{aBlock:aBlock},smalltalk.RONullShape)})},
+messageSends: ["ifTrue:", "value:", "error:"]}),
+smalltalk.RONullShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "shapesDetect:",
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._error_("Not found");
+return self}, function($ctx1) {$ctx1.fill(self,"shapesDetect:",{aBlock:aBlock},smalltalk.RONullShape)})},
+messageSends: ["error:"]}),
 smalltalk.RONullShape);
 
 
