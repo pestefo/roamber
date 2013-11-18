@@ -11,16 +11,43 @@ $1=_st(self._class()).__tild_tild(_st(aColor)._class());
 if(smalltalk.assert($1)){
 return false;
 };
-$2=_st(_st(_st(self._red()).__eq(_st(aColor)._red()))._and_((function(){
+$2=_st(_st(_st(_st(self._red()).__eq(_st(aColor)._red()))._and_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self._green()).__eq(_st(aColor)._green());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._and_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self._blue()).__eq(_st(aColor)._blue());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._alpha()).__eq(_st(aColor)._alpha());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"=",{aColor:aColor},smalltalk.Color)})},
-messageSends: ["ifTrue:", "~~", "class", "and:", "=", "blue", "green", "red"]}),
+messageSends: ["ifTrue:", "~~", "class", "and:", "=", "alpha", "blue", "green", "red"]}),
+smalltalk.Color);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "alpha",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@a"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"alpha",{},smalltalk.Color)})},
+messageSends: []}),
+smalltalk.Color);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "alpha:",
+fn: function (aVal){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@a"]=aVal;
+return self}, function($ctx1) {$ctx1.fill(self,"alpha:",{aVal:aVal},smalltalk.Color)})},
+messageSends: []}),
 smalltalk.Color);
 
 smalltalk.addMethod(
@@ -34,6 +61,19 @@ $1=_st(_st(_st(_st(_st("rgb(".__comma(_st(self["@r"]).__star((255)._asString()))
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asHTMLRGB",{},smalltalk.Color)})},
 messageSends: [",", "*", "asString"]}),
+smalltalk.Color);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "asHTMLRGBA",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(_st(_st(_st(_st(_st("rgba(".__comma(_st(self["@r"]).__star((255)._asString()))).__comma(",")).__comma(_st(self["@g"]).__star((255)._asString()))).__comma(",")).__comma(_st(self["@b"]).__star((255)._asString()))).__comma(",")).__comma(_st(self["@a"])._asString())).__comma(")");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"asHTMLRGBA",{},smalltalk.Color)})},
+messageSends: [",", "asString", "*"]}),
 smalltalk.Color);
 
 smalltalk.addMethod(
@@ -185,9 +225,20 @@ selector: "r:g:b:",
 fn: function (rVal,gVal,bVal){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._setRed_green_blue_(rVal,gVal,bVal);
+self._setRed_green_blue_alpha_(rVal,gVal,bVal,(1));
 return self}, function($ctx1) {$ctx1.fill(self,"r:g:b:",{rVal:rVal,gVal:gVal,bVal:bVal},smalltalk.Color)})},
-messageSends: ["setRed:green:blue:"]}),
+messageSends: ["setRed:green:blue:alpha:"]}),
+smalltalk.Color);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "r:g:b:a:",
+fn: function (rVal,gVal,bVal,aVal){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._setRed_green_blue_alpha_(rVal,gVal,bVal,aVal);
+return self}, function($ctx1) {$ctx1.fill(self,"r:g:b:a:",{rVal:rVal,gVal:gVal,bVal:bVal,aVal:aVal},smalltalk.Color)})},
+messageSends: ["setRed:green:blue:alpha:"]}),
 smalltalk.Color);
 
 smalltalk.addMethod(
@@ -344,10 +395,22 @@ selector: "setRed:green:blue:",
 fn: function (rVal,gVal,bVal){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+self._setRed_green_blue_alpha_(rVal,gVal,bVal,(1));
+return self}, function($ctx1) {$ctx1.fill(self,"setRed:green:blue:",{rVal:rVal,gVal:gVal,bVal:bVal},smalltalk.Color)})},
+messageSends: ["setRed:green:blue:alpha:"]}),
+smalltalk.Color);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "setRed:green:blue:alpha:",
+fn: function (rVal,gVal,bVal,aVal){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
 self["@r"]=self._cleanValue_(rVal);
 self["@g"]=self._cleanValue_(gVal);
 self["@b"]=self._cleanValue_(bVal);
-return self}, function($ctx1) {$ctx1.fill(self,"setRed:green:blue:",{rVal:rVal,gVal:gVal,bVal:bVal},smalltalk.Color)})},
+self["@a"]=self._cleanValue_(aVal);
+return self}, function($ctx1) {$ctx1.fill(self,"setRed:green:blue:alpha:",{rVal:rVal,gVal:gVal,bVal:bVal,aVal:aVal},smalltalk.Color)})},
 messageSends: ["cleanValue:"]}),
 smalltalk.Color);
 
@@ -492,10 +555,10 @@ fn: function (rVal,gVal,bVal){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._new())._r_g_b_(rVal,gVal,bVal);
+$1=self._r_g_b_a_(rVal,gVal,bVal,(1));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"r:g:b:",{rVal:rVal,gVal:gVal,bVal:bVal},smalltalk.Color.klass)})},
-messageSends: ["r:g:b:", "new"]}),
+messageSends: ["r:g:b:a:"]}),
 smalltalk.Color.klass);
 
 smalltalk.addMethod(
@@ -5374,9 +5437,9 @@ _st($1)._attr_with_("x",_st(_st(anElement)._position())._x());
 _st($1)._attr_with_("y",_st(_st(anElement)._position())._y());
 _st($1)._attr_with_("width",_st(self._widthFor_(anElement))._max_(self._defaultSize()));
 _st($1)._attr_with_("height",_st(self._heightFor_(anElement))._max_(self._defaultSize()));
-$2=_st($1)._attr_with_("fill",self._rgbColor());
+$2=_st($1)._attr_with_("fill",_st(self["@color"])._asHTMLRGBA());
 return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROBox)})},
-messageSends: ["attr:with:", "x", "position", "y", "max:", "defaultSize", "widthFor:", "heightFor:", "rgbColor"]}),
+messageSends: ["attr:with:", "x", "position", "y", "max:", "defaultSize", "widthFor:", "heightFor:", "asHTMLRGBA"]}),
 smalltalk.ROBox);
 
 smalltalk.addMethod(
@@ -5606,11 +5669,11 @@ $1=self["@svgElement"];
 _st($1)._attr_with_("cx",_st(_st(_st(anElement)._position())._x()).__plus(self._radius()));
 _st($1)._attr_with_("cy",_st(_st(_st(anElement)._position())._y()).__plus(self._radius()));
 _st($1)._attr_with_("r",self._radius());
-_st($1)._attr_with_("fill",_st(self["@color"])._asHTMLRGB());
+_st($1)._attr_with_("fill",_st(self["@color"])._asHTMLRGBA());
 _st($1)._attr_value_("stroke-width",self._borderWidth());
-$2=_st($1)._attr_value_("stroke",_st(self._borderColor())._asHTMLRGB());
+$2=_st($1)._attr_value_("stroke",_st(self._borderColor())._asHTMLRGBA());
 return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROEllipse)})},
-messageSends: ["attr:with:", "+", "radius", "x", "position", "y", "asHTMLRGB", "attr:value:", "borderWidth", "borderColor"]}),
+messageSends: ["attr:with:", "+", "radius", "x", "position", "y", "asHTMLRGBA", "attr:value:", "borderWidth", "borderColor"]}),
 smalltalk.ROEllipse);
 
 smalltalk.addMethod(

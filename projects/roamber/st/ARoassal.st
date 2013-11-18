@@ -5,6 +5,14 @@ Object subclass: #Color
 
 !Color methodsFor: 'accessing'!
 
+alpha
+	^ a
+!
+
+alpha: aVal
+	a := aVal
+!
+
 blue
 	^ b
 !
@@ -49,7 +57,7 @@ red
 
 = aColor
 	self class ~~ aColor class ifTrue: [ ^ false ].
-	^ (self red = aColor red and: [ self green = aColor green ]) and: [ self blue = aColor blue ]
+	^ ((self red = aColor red and: [ self green = aColor green ]) and: [ self blue = aColor blue ]) and: [ self alpha = aColor alpha]
 ! !
 
 !Color methodsFor: 'not yet classified'!
@@ -137,6 +145,11 @@ asHTMLRGB
 	^ 'rgb(',(r*255  asString),',',(g*255 asString),',',(b*255 asString),')'.
 !
 
+asHTMLRGBA
+
+	^ 'rgba(',(r*255  asString),',',(g*255 asString),',',(b*255 asString),',',(a asString),')'.
+!
+
 privateBlue
 	^ b
 !
@@ -151,7 +164,12 @@ privateRed
 
 r: rVal g: gVal b: bVal
 	" values are from 0.0 .. 1.0 "
-	self setRed: rVal green: gVal blue: bVal
+	self setRed: rVal green: gVal blue: bVal alpha: 1.0
+!
+
+r: rVal g: gVal b: bVal a: aVal
+	" values are from 0.0 .. 1.0 "
+	self setRed: rVal green: gVal blue: bVal alpha: aVal
 !
 
 setHue: hue saturation: saturation brightness: brightness 
@@ -208,10 +226,87 @@ setHue: hue saturation: saturation brightness: brightness
 !
 
 setRed: rVal green: gVal blue: bVal 
+	self setRed: rVal green: gVal blue: bVal alpha: 1.0
+!
+
+setRed: rVal green: gVal blue: bVal alpha: aVal
 	"Initialize this color's r, g, and b components to the given values in the range [0.0..1.0]. "
 	r :=  self cleanValue: rVal.
 	g :=  self cleanValue: gVal.
-	b:=  self cleanValue: bVal.
+	b:=  self cleanValue: bVal. 
+	a:=  self cleanValue: aVal.
+! !
+
+!Color class methodsFor: 'not yet classified'!
+
+black
+	^ self new r: 0 g: 0 b: 0
+!
+
+blue
+	^ self new r: 0 g: 0 b: 1
+!
+
+gray
+	^ self new r: 0.5 g: 0.5  b: 0.5
+!
+
+green
+	^ self new r: 0 g: 1 b: 0
+!
+
+h: hue s: saturation v: brightness
+	"Create a color with the given hue, saturation, and brightness. Hue is given as the angle in degrees of the color on the color circle where red is zero degrees. Saturation and brightness are numbers in [0.0..1.0] where larger values are more saturated or brighter colors. For example, (Color h: 0 s: 1 v: 1) is pure red."
+	"Note: By convention, brightness is abbreviated 'v' to to avoid confusion with blue."
+
+	^ self basicNew setHue: hue saturation: saturation brightness: brightness
+!
+
+lightGray
+	^ self new r: 0.827 g: 0.827  b: 0.827
+!
+
+r: rVal g: gVal b: bVal
+	^ self r: rVal g: gVal b: bVal a: 1.0
+!
+
+r: rVal g: gVal b: bVal a: aVal
+	^ self new r: rVal g: gVal b: bVal a: aVal.
+!
+
+red
+	^ self new r: 1 g: 0 b: 0
+!
+
+veryDarkGray
+	^ self new r: 0.25 g: 0.25 b: 0.25
+!
+
+veryVeryDarkGray
+	^ self new r: 0.125 g: 0.125 b: 0.125
+!
+
+wheel: thisMany
+	"Return a collection of thisMany colors evenly spaced around the color wheel."
+	"Color showColors: (Color wheel: 12)"
+
+	^ Color wheel: thisMany saturation: 0.9 brightness: 0.7
+!
+
+wheel: thisMany saturation: s brightness: v
+	"Return a collection of thisMany colors evenly spaced around the color wheel, all of the given saturation and brightness."
+	"Color showColors: (Color wheel: 12 saturation: 0.4 brightness: 1.0)"
+	"Color showColors: (Color wheel: 12 saturation: 0.8 brightness: 0.5)"
+
+	^ (Color h: 0.0 s: s v: v) wheel: thisMany
+!
+
+white
+	^ self new r: 1 g: 1 b: 1
+!
+
+yellow
+	^ self new r: 1 g: 1 b: 0
 ! !
 
 Announcer subclass: #ROAnnouncer
@@ -1533,6 +1628,29 @@ processPath
 	^ answer asArray
 ! !
 
+!ROSVGPath methodsFor: 'rendering'!
+
+drawOnOLD: aCanvas for: aROElement
+	| b w bc c  |
+	b := self absoluteBoundsFor: aROElement.
+	w := borderWidth roValue: aROElement.
+	bc := borderColor roValue: aROElement.
+	c := color roValue: aROElement.
+
+	"athensCanvas := aCanvas canvas.
+	athensCanvas pathTransform restoreAfter: [
+			athensCanvas pathTransform scaleBy: zoom.
+			svg renderOn: athensCanvas viewportExtent: b extent.
+		]"
+	
+	self lines do: [ :assoc |
+		aCanvas 
+			line: assoc key + b topLeft 
+			to: assoc value + b topLeft 
+			width: w 
+			color: bc ]
+! !
+
 !ROSVGPath methodsFor: 'utility'!
 
 offsetAllLinesBy: aPoint
@@ -2285,7 +2403,7 @@ updateSVGElementOn: canvas for: anElement
 		attr: 'y' with: (anElement position y);
 		attr: 'width' with: ((self widthFor: anElement ) max: (self defaultSize));
 		attr: 'height' with: ((self heightFor: anElement) max: (self defaultSize));
-		attr:'fill' with: (self rgbColor).
+		attr:'fill' with: (color asHTMLRGBA).
 ! !
 
 !ROBox methodsFor: 'initialize'!
@@ -2345,6 +2463,16 @@ ROShape subclass: #ROEllipse
 	instanceVariableNames: 'radius borderWidth borderColor'
 	package: 'ARoassal'!
 
+!ROEllipse methodsFor: 'configuration'!
+
+borderWidth: anInteger
+	borderWidth := anInteger
+!
+
+defaultRadius
+	^ 8
+! !
+
 !ROEllipse methodsFor: 'drawing'!
 
 borderColor
@@ -2383,13 +2511,28 @@ updateSVGElementOn: canvas for: anElement
 		attr: 'cx' with: (anElement position x + (self radius) );
 		attr: 'cy' with: (anElement position y + (self radius) );
 		attr: 'r' with: (self radius);
-		attr:'fill' with: (color asHTMLRGB);
+		attr:'fill' with: (color asHTMLRGBA);
 		attr: 'stroke-width' value: (self borderWidth);
-		attr: 'stroke' value: (self borderColor asHTMLRGB).
+		attr: 'stroke' value: (self borderColor asHTMLRGBA).
 !
 
 width
 	^ self radius * 2.
+! !
+
+!ROEllipse methodsFor: 'initialize'!
+
+borderWidth
+	^ borderWidth
+!
+
+initialize
+	super initialize.
+	radius := self defaultRadius.
+	width := self defaultRadius * 1.5.
+	height := self defaultRadius * 1.5.
+	borderWidth := 0. 
+	borderColor := Color black.
 ! !
 
 ROShape subclass: #RONullShape
