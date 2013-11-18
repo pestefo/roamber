@@ -1,5 +1,5 @@
 smalltalk.addPackage('ARoassal');
-smalltalk.addClass('Color', smalltalk.Object, ['r', 'g', 'b'], 'ARoassal');
+smalltalk.addClass('Color', smalltalk.Object, ['r', 'g', 'b', 'a'], 'ARoassal');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "=",
@@ -21,6 +21,19 @@ return _st(self._blue()).__eq(_st(aColor)._blue());
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"=",{aColor:aColor},smalltalk.Color)})},
 messageSends: ["ifTrue:", "~~", "class", "and:", "=", "blue", "green", "red"]}),
+smalltalk.Color);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "asHTMLRGB",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(_st(_st(_st("rgb(".__comma(_st(self["@r"]).__star((255)._asString()))).__comma(",")).__comma(_st(self["@g"]).__star((255)._asString()))).__comma(",")).__comma(_st(self["@b"]).__star((255)._asString()))).__comma(")");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"asHTMLRGB",{},smalltalk.Color)})},
+messageSends: [",", "*", "asString"]}),
 smalltalk.Color);
 
 smalltalk.addMethod(
@@ -487,6 +500,19 @@ smalltalk.Color.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "r:g:b:a:",
+fn: function (rVal,gVal,bVal,aVal){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._new())._r_g_b_a_(rVal,gVal,bVal,aVal);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"r:g:b:a:",{rVal:rVal,gVal:gVal,bVal:bVal,aVal:aVal},smalltalk.Color.klass)})},
+messageSends: ["r:g:b:a:", "new"]}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "red",
 fn: function (){
 var self=this;
@@ -536,16 +562,6 @@ $1=_st($Color())._wheel_saturation_brightness_(thisMany,(0.9),(0.7));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"wheel:",{thisMany:thisMany},smalltalk.Color.klass)})},
 messageSends: ["wheel:saturation:brightness:"]}),
-smalltalk.Color.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "wheel:from:to:",
-fn: function (thisMany,colorA,colorB){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"wheel:from:to:",{thisMany:thisMany,colorA:colorA,colorB:colorB},smalltalk.Color.klass)})},
-messageSends: []}),
 smalltalk.Color.klass);
 
 smalltalk.addMethod(
@@ -5443,7 +5459,55 @@ messageSends: ["path:", "new"]}),
 smalltalk.ROCountry.klass);
 
 
-smalltalk.addClass('ROEllipse', smalltalk.ROShape, ['radius'], 'ARoassal');
+smalltalk.addClass('ROEllipse', smalltalk.ROShape, ['radius', 'borderWidth', 'borderColor'], 'ARoassal');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "borderColor",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@borderColor"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"borderColor",{},smalltalk.ROEllipse)})},
+messageSends: []}),
+smalltalk.ROEllipse);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "borderColor:",
+fn: function (aBlockOrSymbolOrObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@borderColor"]=aBlockOrSymbolOrObject;
+return self}, function($ctx1) {$ctx1.fill(self,"borderColor:",{aBlockOrSymbolOrObject:aBlockOrSymbolOrObject},smalltalk.ROEllipse)})},
+messageSends: []}),
+smalltalk.ROEllipse);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "borderWidth",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@borderWidth"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"borderWidth",{},smalltalk.ROEllipse)})},
+messageSends: []}),
+smalltalk.ROEllipse);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "borderWidth:",
+fn: function (anInteger){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@borderWidth"]=anInteger;
+return self}, function($ctx1) {$ctx1.fill(self,"borderWidth:",{anInteger:anInteger},smalltalk.ROEllipse)})},
+messageSends: []}),
+smalltalk.ROEllipse);
+
 smalltalk.addMethod(
 smalltalk.method({
 selector: "defaultRadius",
@@ -5473,13 +5537,16 @@ smalltalk.method({
 selector: "initialize",
 fn: function (){
 var self=this;
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.ROEllipse.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@radius"]=self._defaultRadius();
 self["@width"]=_st(self._defaultRadius()).__star((1.5));
 self["@height"]=_st(self._defaultRadius()).__star((1.5));
+self["@borderWidth"]=(0);
+self["@borderColor"]=_st($Color())._black();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROEllipse)})},
-messageSends: ["initialize", "defaultRadius", "*"]}),
+messageSends: ["initialize", "defaultRadius", "*", "black"]}),
 smalltalk.ROEllipse);
 
 smalltalk.addMethod(
@@ -5539,9 +5606,11 @@ $1=self["@svgElement"];
 _st($1)._attr_with_("cx",_st(_st(_st(anElement)._position())._x()).__plus(self._radius()));
 _st($1)._attr_with_("cy",_st(_st(_st(anElement)._position())._y()).__plus(self._radius()));
 _st($1)._attr_with_("r",self._radius());
-$2=_st($1)._attr_with_("fill",self._rgbColor());
+_st($1)._attr_with_("fill",_st(self["@color"])._asHTMLRGB());
+_st($1)._attr_value_("stroke-width",self._borderWidth());
+$2=_st($1)._attr_value_("stroke",_st(self._borderColor())._asHTMLRGB());
 return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROEllipse)})},
-messageSends: ["attr:with:", "+", "radius", "x", "position", "y", "rgbColor"]}),
+messageSends: ["attr:with:", "+", "radius", "x", "position", "y", "asHTMLRGB", "attr:value:", "borderWidth", "borderColor"]}),
 smalltalk.ROEllipse);
 
 smalltalk.addMethod(
