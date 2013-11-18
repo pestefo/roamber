@@ -1064,7 +1064,7 @@ installedOn: element
 ! !
 
 ROShape subclass: #ROAbstractLineShape
-	instanceVariableNames: 'attachPoint'
+	instanceVariableNames: 'attachPoint strokeWidth'
 	package: 'ARoassal'!
 
 !ROAbstractLineShape methodsFor: 'not yet classified'!
@@ -1079,6 +1079,10 @@ attachPoint: attach
 	attachPoint := attach
 !
 
+defaultWidth
+	^ 1
+!
+
 endingPointOf: anEdge
 	 ^ attachPoint endingPointOf: anEdge
 !
@@ -1086,15 +1090,27 @@ endingPointOf: anEdge
 initialize
 	super initialize.
 	attachPoint := ROShorterDistanceAttachPoint instance.
-"	strokeWidth := self defaultWidth.
-	arrows := OrderedCollection new"
+	strokeWidth := self defaultWidth.
+"	arrows := OrderedCollection new"
 !
 
 startingPointOf: anEdge
 	^ attachPoint startingPointOf: anEdge
+!
+
+width
+	^ strokeWidth
+!
+
+width: aNumber
+	strokeWidth := aNumber
 ! !
 
 !ROAbstractLineShape class methodsFor: 'not yet classified'!
+
+defaultColor
+	^ Color black
+!
 
 edgeFrom: el1 to: el2
 	^ (ROEdge from: el1 to: el2) shape: self new; yourself
@@ -1138,6 +1154,8 @@ updateSVGElementOn: canvas for: anEdge
 "	Transcript show: 'x1 ', x,' y1', y, ' x2 ', z, ' y2 ', w, (String cr)."
 
 	svgElement attr: 'path' with: 'M', ( rawEndingPoint x asInteger),' ',  (rawEndingPoint y asInteger), 'L', ( rawStartingPoint x asInteger), ' ', ( rawStartingPoint y asInteger) .
+	svgElement attr: 'stroke-width' value: (self width).
+	svgElement attr: 'stroke' value: (self rgbColor).
 
 
 	
@@ -2280,6 +2298,10 @@ countries
 
 southAmerica
 	^ #(#Argentina #Brazil #Chile #Colombia #Ecuador #Paraguay #Peru #Uruguay #Venezuela)
+!
+
+world
+	^ self countries
 ! !
 
 ROAbstractPathShape subclass: #ROTux
@@ -2393,7 +2415,7 @@ ROShape subclass: #ROEllipse
 !ROEllipse methodsFor: 'configuration'!
 
 defaultRadius
-	^ 10
+	^ 8
 ! !
 
 !ROEllipse methodsFor: 'drawing'!

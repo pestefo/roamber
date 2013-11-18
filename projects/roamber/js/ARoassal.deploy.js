@@ -2295,7 +2295,7 @@ messageSends: ["installedOn:", "new", "yourself"]}),
 smalltalk.ROShape.klass);
 
 
-smalltalk.addClass('ROAbstractLineShape', smalltalk.ROShape, ['attachPoint'], 'ARoassal');
+smalltalk.addClass('ROAbstractLineShape', smalltalk.ROShape, ['attachPoint', 'strokeWidth'], 'ARoassal');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "attachPoint",
@@ -2322,6 +2322,17 @@ smalltalk.ROAbstractLineShape);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "defaultWidth",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return (1);
+}, function($ctx1) {$ctx1.fill(self,"defaultWidth",{},smalltalk.ROAbstractLineShape)})},
+messageSends: []}),
+smalltalk.ROAbstractLineShape);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "endingPointOf:",
 fn: function (anEdge){
 var self=this;
@@ -2342,8 +2353,9 @@ function $ROShorterDistanceAttachPoint(){return smalltalk.ROShorterDistanceAttac
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.ROAbstractLineShape.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@attachPoint"]=_st($ROShorterDistanceAttachPoint())._instance();
+self["@strokeWidth"]=self._defaultWidth();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROAbstractLineShape)})},
-messageSends: ["initialize", "instance"]}),
+messageSends: ["initialize", "instance", "defaultWidth"]}),
 smalltalk.ROAbstractLineShape);
 
 smalltalk.addMethod(
@@ -2359,6 +2371,44 @@ return $1;
 messageSends: ["startingPointOf:"]}),
 smalltalk.ROAbstractLineShape);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "width",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@strokeWidth"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"width",{},smalltalk.ROAbstractLineShape)})},
+messageSends: []}),
+smalltalk.ROAbstractLineShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "width:",
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@strokeWidth"]=aNumber;
+return self}, function($ctx1) {$ctx1.fill(self,"width:",{aNumber:aNumber},smalltalk.ROAbstractLineShape)})},
+messageSends: []}),
+smalltalk.ROAbstractLineShape);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultColor",
+fn: function (){
+var self=this;
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($Color())._black();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultColor",{},smalltalk.ROAbstractLineShape.klass)})},
+messageSends: ["black"]}),
+smalltalk.ROAbstractLineShape.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2431,8 +2481,10 @@ $2=self;
 return $2;
 };
 _st(self["@svgElement"])._attr_with_("path",_st(_st(_st(_st(_st(_st("M".__comma(_st(_st(rawEndingPoint)._x())._asInteger())).__comma(" ")).__comma(_st(_st(rawEndingPoint)._y())._asInteger())).__comma("L")).__comma(_st(_st(rawStartingPoint)._x())._asInteger())).__comma(" ")).__comma(_st(_st(rawStartingPoint)._y())._asInteger()));
+_st(self["@svgElement"])._attr_value_("stroke-width",self._width());
+_st(self["@svgElement"])._attr_value_("stroke",self._rgbColor());
 return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anEdge:anEdge,maxArrowSize:maxArrowSize,unit:unit,startingPoint:startingPoint,endingPoint:endingPoint,rawStartingPoint:rawStartingPoint,rawEndingPoint:rawEndingPoint},smalltalk.ROLine)})},
-messageSends: ["startingPointOf:", "endingPointOf:", "ifTrue:", "=", "attr:with:", ",", "asInteger", "y", "x"]}),
+messageSends: ["startingPointOf:", "endingPointOf:", "ifTrue:", "=", "attr:with:", ",", "asInteger", "y", "x", "attr:value:", "width", "rgbColor"]}),
 smalltalk.ROLine);
 
 
@@ -5192,6 +5244,19 @@ return $1;
 messageSends: []}),
 smalltalk.ROSVGPath.klass);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "world",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._countries();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"world",{},smalltalk.ROSVGPath.klass)})},
+messageSends: ["countries"]}),
+smalltalk.ROSVGPath.klass);
+
 
 smalltalk.addClass('ROTux', smalltalk.ROAbstractPathShape, [], 'ARoassal');
 smalltalk.addMethod(
@@ -5385,7 +5450,7 @@ selector: "defaultRadius",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return (10);
+return (8);
 }, function($ctx1) {$ctx1.fill(self,"defaultRadius",{},smalltalk.ROEllipse)})},
 messageSends: []}),
 smalltalk.ROEllipse);

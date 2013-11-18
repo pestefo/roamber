@@ -3051,7 +3051,7 @@ referencedClasses: []
 smalltalk.ROShape.klass);
 
 
-smalltalk.addClass('ROAbstractLineShape', smalltalk.ROShape, ['attachPoint'], 'ARoassal');
+smalltalk.addClass('ROAbstractLineShape', smalltalk.ROShape, ['attachPoint', 'strokeWidth'], 'ARoassal');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "attachPoint",
@@ -3088,6 +3088,22 @@ smalltalk.ROAbstractLineShape);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "defaultWidth",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return (1);
+}, function($ctx1) {$ctx1.fill(self,"defaultWidth",{},smalltalk.ROAbstractLineShape)})},
+args: [],
+source: "defaultWidth\x0a\x09^ 1",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROAbstractLineShape);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "endingPointOf:",
 category: 'not yet classified',
 fn: function (anEdge){
@@ -3114,10 +3130,11 @@ function $ROShorterDistanceAttachPoint(){return smalltalk.ROShorterDistanceAttac
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.ROAbstractLineShape.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@attachPoint"]=_st($ROShorterDistanceAttachPoint())._instance();
+self["@strokeWidth"]=self._defaultWidth();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROAbstractLineShape)})},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09attachPoint := ROShorterDistanceAttachPoint instance.\x0a\x22\x09strokeWidth := self defaultWidth.\x0a\x09arrows := OrderedCollection new\x22",
-messageSends: ["initialize", "instance"],
+source: "initialize\x0a\x09super initialize.\x0a\x09attachPoint := ROShorterDistanceAttachPoint instance.\x0a\x09strokeWidth := self defaultWidth.\x0a\x22\x09arrows := OrderedCollection new\x22",
+messageSends: ["initialize", "instance", "defaultWidth"],
 referencedClasses: ["ROShorterDistanceAttachPoint"]
 }),
 smalltalk.ROAbstractLineShape);
@@ -3140,6 +3157,59 @@ referencedClasses: []
 }),
 smalltalk.ROAbstractLineShape);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "width",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@strokeWidth"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"width",{},smalltalk.ROAbstractLineShape)})},
+args: [],
+source: "width\x0a\x09^ strokeWidth",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROAbstractLineShape);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "width:",
+category: 'not yet classified',
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@strokeWidth"]=aNumber;
+return self}, function($ctx1) {$ctx1.fill(self,"width:",{aNumber:aNumber},smalltalk.ROAbstractLineShape)})},
+args: ["aNumber"],
+source: "width: aNumber\x0a\x09strokeWidth := aNumber",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROAbstractLineShape);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultColor",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($Color())._black();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultColor",{},smalltalk.ROAbstractLineShape.klass)})},
+args: [],
+source: "defaultColor\x0a\x09^ Color black",
+messageSends: ["black"],
+referencedClasses: ["Color"]
+}),
+smalltalk.ROAbstractLineShape.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3233,10 +3303,12 @@ $2=self;
 return $2;
 };
 _st(self["@svgElement"])._attr_with_("path",_st(_st(_st(_st(_st(_st("M".__comma(_st(_st(rawEndingPoint)._x())._asInteger())).__comma(" ")).__comma(_st(_st(rawEndingPoint)._y())._asInteger())).__comma("L")).__comma(_st(_st(rawStartingPoint)._x())._asInteger())).__comma(" ")).__comma(_st(_st(rawStartingPoint)._y())._asInteger()));
+_st(self["@svgElement"])._attr_value_("stroke-width",self._width());
+_st(self["@svgElement"])._attr_value_("stroke",self._rgbColor());
 return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anEdge:anEdge,maxArrowSize:maxArrowSize,unit:unit,startingPoint:startingPoint,endingPoint:endingPoint,rawStartingPoint:rawStartingPoint,rawEndingPoint:rawEndingPoint},smalltalk.ROLine)})},
 args: ["canvas", "anEdge"],
-source: "updateSVGElementOn: canvas for: anEdge\x0a\x09| maxArrowSize unit startingPoint endingPoint rawStartingPoint rawEndingPoint |\x0a\x09rawEndingPoint  := attachPoint startingPointOf: anEdge.\x0a\x09rawStartingPoint := attachPoint endingPointOf: anEdge.\x0a\x0a\x09(rawStartingPoint = rawEndingPoint)\x0a\x09\x09ifTrue: [ ^ self ].\x0a\x0a\x22\x09Transcript show: 'x1 ', x,' y1', y, ' x2 ', z, ' y2 ', w, (String cr).\x22\x0a\x0a\x09svgElement attr: 'path' with: 'M', ( rawEndingPoint x asInteger),' ',  (rawEndingPoint y asInteger), 'L', ( rawStartingPoint x asInteger), ' ', ( rawStartingPoint y asInteger) .\x0a\x0a\x0a\x09\x0a\x22\x09x1 := anEdge from position x.\x0a\x09y1 := anEdge from position y.\x0a\x0a\x09x2 := anEdge to position x.\x0a\x09y2 := anEdge to position y.\x0a\x09\x0a\x09svgElement attr: 'path' with: 'M', x1,' ', y1, 'L', x2, ' ', y2 .\x22\x0a\x09\x0a\x09\x22We draw a line before each arrow\x22\x0a\x22\x09\x0a\x09arrows do: [ :arrow | \x0a\x09\x09| arr |\x0a\x09\x09arr := arrow drawOn: aCanvas for: anEdge line: self.\x0a\x09\x09aCanvas \x0a\x09\x09\x09line: rawStartingPoint \x0a\x09\x09\x09to: arr first \x0a\x09\x09\x09width: (self widthFor: anEdge) \x0a\x09\x09\x09color: (self colorFor: anEdge).\x0a\x09\x09rawStartingPoint := arr second.\x0a\x09\x09 ].\x0a\x22\x09\x0a\x09\x22We draw a line after the arrow\x22\x0a\x22\x09aCanvas line: rawStartingPoint to: rawEndingPoint width: (self widthFor: anEdge) color: (self colorFor: anEdge).\x22",
-messageSends: ["startingPointOf:", "endingPointOf:", "ifTrue:", "=", "attr:with:", ",", "asInteger", "y", "x"],
+source: "updateSVGElementOn: canvas for: anEdge\x0a\x09| maxArrowSize unit startingPoint endingPoint rawStartingPoint rawEndingPoint |\x0a\x09rawEndingPoint  := attachPoint startingPointOf: anEdge.\x0a\x09rawStartingPoint := attachPoint endingPointOf: anEdge.\x0a\x0a\x09(rawStartingPoint = rawEndingPoint)\x0a\x09\x09ifTrue: [ ^ self ].\x0a\x0a\x22\x09Transcript show: 'x1 ', x,' y1', y, ' x2 ', z, ' y2 ', w, (String cr).\x22\x0a\x0a\x09svgElement attr: 'path' with: 'M', ( rawEndingPoint x asInteger),' ',  (rawEndingPoint y asInteger), 'L', ( rawStartingPoint x asInteger), ' ', ( rawStartingPoint y asInteger) .\x0a\x09svgElement attr: 'stroke-width' value: (self width).\x0a\x09svgElement attr: 'stroke' value: (self rgbColor).\x0a\x0a\x0a\x09\x0a\x22\x09x1 := anEdge from position x.\x0a\x09y1 := anEdge from position y.\x0a\x0a\x09x2 := anEdge to position x.\x0a\x09y2 := anEdge to position y.\x0a\x09\x0a\x09svgElement attr: 'path' with: 'M', x1,' ', y1, 'L', x2, ' ', y2 .\x22\x0a\x09\x0a\x09\x22We draw a line before each arrow\x22\x0a\x22\x09\x0a\x09arrows do: [ :arrow | \x0a\x09\x09| arr |\x0a\x09\x09arr := arrow drawOn: aCanvas for: anEdge line: self.\x0a\x09\x09aCanvas \x0a\x09\x09\x09line: rawStartingPoint \x0a\x09\x09\x09to: arr first \x0a\x09\x09\x09width: (self widthFor: anEdge) \x0a\x09\x09\x09color: (self colorFor: anEdge).\x0a\x09\x09rawStartingPoint := arr second.\x0a\x09\x09 ].\x0a\x22\x09\x0a\x09\x22We draw a line after the arrow\x22\x0a\x22\x09aCanvas line: rawStartingPoint to: rawEndingPoint width: (self widthFor: anEdge) color: (self colorFor: anEdge).\x22",
+messageSends: ["startingPointOf:", "endingPointOf:", "ifTrue:", "=", "attr:with:", ",", "asInteger", "y", "x", "attr:value:", "width", "rgbColor"],
 referencedClasses: []
 }),
 smalltalk.ROLine);
@@ -7139,6 +7211,24 @@ referencedClasses: []
 }),
 smalltalk.ROSVGPath.klass);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "world",
+category: 'list of countries',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._countries();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"world",{},smalltalk.ROSVGPath.klass)})},
+args: [],
+source: "world\x0a\x09^ self countries",
+messageSends: ["countries"],
+referencedClasses: []
+}),
+smalltalk.ROSVGPath.klass);
+
 
 smalltalk.addClass('ROTux', smalltalk.ROAbstractPathShape, [], 'ARoassal');
 smalltalk.addMethod(
@@ -7403,10 +7493,10 @@ category: 'configuration',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return (10);
+return (8);
 }, function($ctx1) {$ctx1.fill(self,"defaultRadius",{},smalltalk.ROEllipse)})},
 args: [],
-source: "defaultRadius\x0a\x09^ 10",
+source: "defaultRadius\x0a\x09^ 8",
 messageSends: [],
 referencedClasses: []
 }),
