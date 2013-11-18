@@ -387,6 +387,25 @@ tux
 	view := ROView new.
 	view add: (ROTux element).
 	view open
+!
+
+worldConnections
+	| builder |
+	builder := ROMapBuilder new.
+	builder countries: #('Canada' 'UnitedStates' 'France' 'Chile' 'Colombia').
+
+	builder shape circle size: 8; color: (Color red alpha: 0.5).
+
+	builder cities: #('New York City' 'Washington, D.C.' 'Paris' 'Bordeaux' 'Santiago' 'Bogota').
+
+	builder shape circle size: 20; color: (Color red alpha: 0.5).
+
+	builder city: 'Vancouver' position: 49.25 @ -123.133333.
+	
+	builder shape line width: 3; color: (Color blue alpha: 0.5).
+	builder edgesFrom: 'Paris' toAll: #('New York City' 'Washington, D.C.' 'Santiago' 'Bogota' 'Vancouver').
+
+	builder open
 ! !
 
 Widget subclass: #ROExampleSelector

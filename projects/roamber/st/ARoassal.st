@@ -2503,13 +2503,15 @@ radius: anInteger
 !
 
 size: anInteger
-	self radius: anInteger
+	self radius: anInteger/2
 !
 
 updateSVGElementOn: canvas for: anElement
 	svgElement 
-		attr: 'cx' with: (anElement position x + (self radius) );
-		attr: 'cy' with: (anElement position y + (self radius) );
+
+		attr: 'cx' with: (anElement position x + (self radius ) );
+		attr: 'cy' with: (anElement position y + (self radius ) );
+
 		attr: 'r' with: (self radius);
 		attr:'fill' with: (color asHTMLRGBA);
 		attr: 'stroke-width' value: (self borderWidth);

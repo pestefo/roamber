@@ -5653,9 +5653,9 @@ selector: "size:",
 fn: function (anInteger){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._radius_(anInteger);
+self._radius_(_st(anInteger).__slash((2)));
 return self}, function($ctx1) {$ctx1.fill(self,"size:",{anInteger:anInteger},smalltalk.ROEllipse)})},
-messageSends: ["radius:"]}),
+messageSends: ["radius:", "/"]}),
 smalltalk.ROEllipse);
 
 smalltalk.addMethod(

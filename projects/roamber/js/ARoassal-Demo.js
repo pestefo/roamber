@@ -863,6 +863,40 @@ referencedClasses: ["ROView", "ROTux"]
 }),
 smalltalk.ROExample);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "worldConnections",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+var builder;
+function $ROMapBuilder(){return smalltalk.ROMapBuilder||(typeof ROMapBuilder=="undefined"?nil:ROMapBuilder)}
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6;
+builder=_st($ROMapBuilder())._new();
+_st(builder)._countries_(["Canada", "UnitedStates", "France", "Chile", "Colombia"]);
+$1=_st(_st(builder)._shape())._circle();
+_st($1)._size_((8));
+$2=_st($1)._color_(_st(_st($Color())._red())._alpha_((0.5)));
+_st(builder)._cities_(["New York City", "Washington, D.C.", "Paris", "Bordeaux", "Santiago", "Bogota"]);
+$3=_st(_st(builder)._shape())._circle();
+_st($3)._size_((20));
+$4=_st($3)._color_(_st(_st($Color())._red())._alpha_((0.5)));
+_st(builder)._city_position_("Vancouver",(49.25).__at((-123.133333)));
+$5=_st(_st(builder)._shape())._line();
+_st($5)._width_((3));
+$6=_st($5)._color_(_st(_st($Color())._blue())._alpha_((0.5)));
+_st(builder)._edgesFrom_toAll_("Paris",["New York City", "Washington, D.C.", "Santiago", "Bogota", "Vancouver"]);
+_st(builder)._open();
+return self}, function($ctx1) {$ctx1.fill(self,"worldConnections",{builder:builder},smalltalk.ROExample)})},
+args: [],
+source: "worldConnections\x0a\x09| builder |\x0a\x09builder := ROMapBuilder new.\x0a\x09builder countries: #('Canada' 'UnitedStates' 'France' 'Chile' 'Colombia').\x0a\x0a\x09builder shape circle size: 8; color: (Color red alpha: 0.5).\x0a\x0a\x09builder cities: #('New York City' 'Washington, D.C.' 'Paris' 'Bordeaux' 'Santiago' 'Bogota').\x0a\x0a\x09builder shape circle size: 20; color: (Color red alpha: 0.5).\x0a\x0a\x09builder city: 'Vancouver' position: 49.25 @ -123.133333.\x0a\x09\x0a\x09builder shape line width: 3; color: (Color blue alpha: 0.5).\x0a\x09builder edgesFrom: 'Paris' toAll: #('New York City' 'Washington, D.C.' 'Santiago' 'Bogota' 'Vancouver').\x0a\x0a\x09builder open ",
+messageSends: ["new", "countries:", "size:", "circle", "shape", "color:", "alpha:", "red", "cities:", "city:position:", "@", "width:", "line", "blue", "edgesFrom:toAll:", "open"],
+referencedClasses: ["ROMapBuilder", "Color"]
+}),
+smalltalk.ROExample);
+
 
 
 smalltalk.addClass('ROExampleSelector', smalltalk.Widget, [], 'ARoassal-Demo');

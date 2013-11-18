@@ -7776,11 +7776,11 @@ category: 'drawing',
 fn: function (anInteger){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._radius_(anInteger);
+self._radius_(_st(anInteger).__slash((2)));
 return self}, function($ctx1) {$ctx1.fill(self,"size:",{anInteger:anInteger},smalltalk.ROEllipse)})},
 args: ["anInteger"],
-source: "size: anInteger\x0a\x09self radius: anInteger",
-messageSends: ["radius:"],
+source: "size: anInteger\x0a\x09self radius: anInteger/2",
+messageSends: ["radius:", "/"],
 referencedClasses: []
 }),
 smalltalk.ROEllipse);
@@ -7802,7 +7802,7 @@ _st($1)._attr_value_("stroke-width",self._borderWidth());
 $2=_st($1)._attr_value_("stroke",_st(self._borderColor())._asHTMLRGBA());
 return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROEllipse)})},
 args: ["canvas", "anElement"],
-source: "updateSVGElementOn: canvas for: anElement\x0a\x09svgElement \x0a\x09\x09attr: 'cx' with: (anElement position x + (self radius) );\x0a\x09\x09attr: 'cy' with: (anElement position y + (self radius) );\x0a\x09\x09attr: 'r' with: (self radius);\x0a\x09\x09attr:'fill' with: (color asHTMLRGBA);\x0a\x09\x09attr: 'stroke-width' value: (self borderWidth);\x0a\x09\x09attr: 'stroke' value: (self borderColor asHTMLRGBA).",
+source: "updateSVGElementOn: canvas for: anElement\x0a\x09svgElement \x0a\x0a\x09\x09attr: 'cx' with: (anElement position x + (self radius ) );\x0a\x09\x09attr: 'cy' with: (anElement position y + (self radius ) );\x0a\x0a\x09\x09attr: 'r' with: (self radius);\x0a\x09\x09attr:'fill' with: (color asHTMLRGBA);\x0a\x09\x09attr: 'stroke-width' value: (self borderWidth);\x0a\x09\x09attr: 'stroke' value: (self borderColor asHTMLRGBA).",
 messageSends: ["attr:with:", "+", "radius", "x", "position", "y", "asHTMLRGBA", "attr:value:", "borderWidth", "borderColor"],
 referencedClasses: []
 }),
