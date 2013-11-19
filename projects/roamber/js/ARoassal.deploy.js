@@ -182,6 +182,17 @@ smalltalk.Color);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "isColor",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return true;
+}, function($ctx1) {$ctx1.fill(self,"isColor",{},smalltalk.Color)})},
+messageSends: []}),
+smalltalk.Color);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "privateBlue",
 fn: function (){
 var self=this;
@@ -1221,6 +1232,19 @@ return smalltalk.withContext(function($ctx1) {
 return true;
 }, function($ctx1) {$ctx1.fill(self,"isEdge",{},smalltalk.ROEdge)})},
 messageSends: []}),
+smalltalk.ROEdge);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "position",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._from())._position();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"position",{},smalltalk.ROEdge)})},
+messageSends: ["position", "from"]}),
 smalltalk.ROEdge);
 
 smalltalk.addMethod(

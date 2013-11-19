@@ -2666,6 +2666,22 @@ smalltalk.Object);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "isColor",
+category: '*Roassal-Amber-Extentions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return false;
+}, function($ctx1) {$ctx1.fill(self,"isColor",{},smalltalk.Object)})},
+args: [],
+source: "isColor\x0a\x09^ false",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Object);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "isPoint",
 category: '*Roassal-Amber-Extentions',
 fn: function (){

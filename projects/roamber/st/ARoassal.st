@@ -111,33 +111,6 @@ wheel: thisMany to: aColor
 "
 ! !
 
-!Color methodsFor: 'other'!
-
-cleanValue: value
-	" Clean for possible mistaken values"
-	(value > 1.0) 
-		ifTrue: [^ 1.0]
-		ifFalse: [
-			(value < 0.0) ifTrue: [^ 0.0] ].
-	^ value.
-!
-
-saturation
-	"Return the saturation of this color, a value between 0.0 and 1.0."
-	| red green blue max min |
-	red := self privateRed.
-	green := self privateGreen.
-	blue := self privateBlue.
-	max := min := red.
-	green > max ifTrue: [ max := green ].
-	blue > max ifTrue: [ max := blue ].
-	green < min ifTrue: [ min := green ].
-	blue < min ifTrue: [ min := blue ].
-	max = 0 
-		ifTrue: [ ^ 0.0 ]
-		ifFalse: [ ^ (max - min) asFloat / max asFloat ]
-! !
-
 !Color methodsFor: 'private'!
 
 asHTMLRGB
@@ -573,6 +546,11 @@ from
 
 from: anElement
 	from := anElement
+!
+
+position 
+	
+	^self from position
 !
 
 shape

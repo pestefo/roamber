@@ -1038,6 +1038,10 @@ isCollection
 	^false.
 !
 
+isColor
+	^ false
+!
+
 isPoint
 	^false
 !
