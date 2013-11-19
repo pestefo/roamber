@@ -2618,6 +2618,22 @@ smalltalk.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "min",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._inject_into_(self._first(),(function(min,each){
+return smalltalk.withContext(function($ctx2) {
+return _st(min)._min_(each);
+}, function($ctx2) {$ctx2.fillBlock({min:min,each:each},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"min",{},smalltalk.Collection)})},
+messageSends: ["inject:into:", "first", "min:"]}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "removeAllSuchThat:",
 fn: function (aBlock){
 var self=this;

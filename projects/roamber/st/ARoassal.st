@@ -1330,7 +1330,6 @@ resizeContainer: svgRect for: svgPath  with: anElement
 updateSVGElementOn: canvas for: anElement
 	svgElement transform: 'T0,0'.
 	svgElement transform: 'T',(anElement position x),',',(anElement position y).
-
 "
 	svgElement translate: 0 y: 0.
 	svgElement translate: (anElement position x) y: (anElement position y).
@@ -1476,6 +1475,10 @@ resizeContainer: svgRect for: svgPath  with: anElement
 	svgRect attr: 'height' value: self textHeight + (self padding * 2).
 !
 
+scaleFactor
+	^ width/ (svgElement attr: 'width').
+!
+
 setBoderTo: container
 	container attr: 'stroke' value: 'lightGray'.
 	container attr: 'stroke-width' value: 0.
@@ -1492,6 +1495,11 @@ text: anObject
 textHeight 
 	" Measured empirically. It's ugly, I know"
 	^  8
+!
+
+updateSVGElementOn: canvas for: anElement
+	super updateSVGElementOn: canvas for: anElement.
+	svgElement transform: 'S',(self scaleFactor asString)
 ! !
 
 !ROLabel class methodsFor: 'not yet classified'!
@@ -2653,6 +2661,10 @@ anyOne
 ! !
 
 !Number methodsFor: '*ARoassal'!
+
+raisedTo: exponent
+< return Math.pow( self , exponent ) >
+!
 
 roValue: aBlock
 

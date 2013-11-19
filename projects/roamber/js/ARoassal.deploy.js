@@ -3065,6 +3065,19 @@ smalltalk.ROLabel);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "scaleFactor",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@width"]).__slash(_st(self["@svgElement"])._attr_("width"));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"scaleFactor",{},smalltalk.ROLabel)})},
+messageSends: ["/", "attr:"]}),
+smalltalk.ROLabel);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "setBoderTo:",
 fn: function (container){
 var self=this;
@@ -3108,6 +3121,18 @@ return smalltalk.withContext(function($ctx1) {
 return (8);
 }, function($ctx1) {$ctx1.fill(self,"textHeight",{},smalltalk.ROLabel)})},
 messageSends: []}),
+smalltalk.ROLabel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "updateSVGElementOn:for:",
+fn: function (canvas,anElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.ROLabel.superclass.fn.prototype._updateSVGElementOn_for_.apply(_st(self), [canvas,anElement]);
+_st(self["@svgElement"])._transform_("S".__comma(_st(self._scaleFactor())._asString()));
+return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROLabel)})},
+messageSends: ["updateSVGElementOn:for:", "transform:", ",", "asString", "scaleFactor"]}),
 smalltalk.ROLabel);
 
 
@@ -5960,6 +5985,17 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"anyOne",{},smalltalk.SequenceableCollection)})},
 messageSends: ["first"]}),
 smalltalk.SequenceableCollection);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "raisedTo:",
+fn: function (exponent){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+ return Math.pow( self , exponent ) ;
+return self}, function($ctx1) {$ctx1.fill(self,"raisedTo:",{exponent:exponent},smalltalk.Number)})},
+messageSends: []}),
+smalltalk.Number);
 
 smalltalk.addMethod(
 smalltalk.method({

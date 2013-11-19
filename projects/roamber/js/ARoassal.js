@@ -3760,7 +3760,7 @@ _st(self["@svgElement"])._transform_("T0,0");
 _st(self["@svgElement"])._transform_(_st(_st("T".__comma(_st(_st(anElement)._position())._x())).__comma(",")).__comma(_st(_st(anElement)._position())._y()));
 return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROAbstractPathShape)})},
 args: ["canvas", "anElement"],
-source: "updateSVGElementOn: canvas for: anElement\x0a\x09svgElement transform: 'T0,0'.\x0a\x09svgElement transform: 'T',(anElement position x),',',(anElement position y).\x0a\x0a\x22\x0a\x09svgElement translate: 0 y: 0.\x0a\x09svgElement translate: (anElement position x) y: (anElement position y).\x0a\x22",
+source: "updateSVGElementOn: canvas for: anElement\x0a\x09svgElement transform: 'T0,0'.\x0a\x09svgElement transform: 'T',(anElement position x),',',(anElement position y).\x0a\x22\x0a\x09svgElement translate: 0 y: 0.\x0a\x09svgElement translate: (anElement position x) y: (anElement position y).\x0a\x22",
 messageSends: ["transform:", ",", "y", "position", "x"],
 referencedClasses: []
 }),
@@ -4102,6 +4102,24 @@ smalltalk.ROLabel);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "scaleFactor",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@width"]).__slash(_st(self["@svgElement"])._attr_("width"));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"scaleFactor",{},smalltalk.ROLabel)})},
+args: [],
+source: "scaleFactor\x0a\x09^ width/ (svgElement attr: 'width').",
+messageSends: ["/", "attr:"],
+referencedClasses: []
+}),
+smalltalk.ROLabel);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "setBoderTo:",
 category: 'not yet classified',
 fn: function (container){
@@ -4163,6 +4181,23 @@ return (8);
 args: [],
 source: "textHeight \x0a\x09\x22 Measured empirically. It's ugly, I know\x22\x0a\x09^  8",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROLabel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "updateSVGElementOn:for:",
+category: 'not yet classified',
+fn: function (canvas,anElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.ROLabel.superclass.fn.prototype._updateSVGElementOn_for_.apply(_st(self), [canvas,anElement]);
+_st(self["@svgElement"])._transform_("S".__comma(_st(self._scaleFactor())._asString()));
+return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROLabel)})},
+args: ["canvas", "anElement"],
+source: "updateSVGElementOn: canvas for: anElement\x0a\x09super updateSVGElementOn: canvas for: anElement.\x0a\x09svgElement transform: 'S',(self scaleFactor asString)",
+messageSends: ["updateSVGElementOn:for:", "transform:", ",", "asString", "scaleFactor"],
 referencedClasses: []
 }),
 smalltalk.ROLabel);
@@ -8192,6 +8227,22 @@ messageSends: ["first"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "raisedTo:",
+category: '*ARoassal',
+fn: function (exponent){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+ return Math.pow( self , exponent ) ;
+return self}, function($ctx1) {$ctx1.fill(self,"raisedTo:",{exponent:exponent},smalltalk.Number)})},
+args: ["exponent"],
+source: "raisedTo: exponent\x0a< return Math.pow( self , exponent ) >",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Number);
 
 smalltalk.addMethod(
 smalltalk.method({

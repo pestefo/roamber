@@ -3319,6 +3319,27 @@ smalltalk.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "min",
+category: '*Roassal-Amber-Extentions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._inject_into_(self._first(),(function(min,each){
+return smalltalk.withContext(function($ctx2) {
+return _st(min)._min_(each);
+}, function($ctx2) {$ctx2.fillBlock({min:min,each:each},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"min",{},smalltalk.Collection)})},
+args: [],
+source: "min\x0a\x09^ self inject: self first into: [:min :each | min min: each]",
+messageSends: ["inject:into:", "first", "min:"],
+referencedClasses: []
+}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "removeAllSuchThat:",
 category: '*Roassal-Amber-Extentions',
 fn: function (aBlock){
