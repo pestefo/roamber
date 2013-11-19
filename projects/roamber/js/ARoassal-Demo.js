@@ -90,26 +90,19 @@ fn: function (){
 var self=this;
 var view,el,e;
 function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
-function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
 function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
 function $ROMouseClick(){return smalltalk.ROMouseClick||(typeof ROMouseClick=="undefined"?nil:ROMouseClick)}
-function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 function $ROCellLayout(){return smalltalk.ROCellLayout||(typeof ROCellLayout=="undefined"?nil:ROCellLayout)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
 view=_st($ROView())._new();
-el=_st($ROElement())._new();
-_st(el)._shape_(_st($ROBox())._new());
+el=_st(_st($ROBox())._element())._color_(_st($Color())._green());
 _st(view)._add_(el);
 _st(el)._on_do_($ROMouseClick(),(function(event){
 return smalltalk.withContext(function($ctx2) {
 e=_st($ROBox())._element();
 e;
-_st(e)._extent_(_st(_st(_st(view)._elements())._size()).__at(_st(_st(view)._elements())._size()));
-$1=$Transcript();
-_st($1)._show_(_st(_st(_st(view)._elements())._size())._printString());
-$2=_st($1)._cr();
-$2;
+_st(e)._size_(_st(_st(view)._elements())._size());
 _st(view)._add_(e);
 _st($ROCellLayout())._on_(_st(view)._elements());
 return _st(view)._signalUpdate();
@@ -117,9 +110,9 @@ return _st(view)._signalUpdate();
 _st(view)._open();
 return self}, function($ctx1) {$ctx1.fill(self,"boxGenerator",{view:view,el:el,e:e},smalltalk.ROExample)})},
 args: [],
-source: "boxGenerator\x0a\x09\x22 Click on the square multiple times \x22\x0a\x09| view el e |\x0a\x09view := ROView new.\x0a\x09el := ROElement new.\x0a\x09el shape: (ROBox new).\x0a\x09view add: el.\x0a\x09el on: ROMouseClick do: [:event | \x0a\x09\x09e := ROBox element.\x0a\x09\x09e extent: view elements size @ view elements size.\x0a\x09\x09Transcript show: view elements size printString; cr.\x0a\x09\x09view add: e. \x0a\x09\x09ROCellLayout on: view elements.\x0a\x09\x09view signalUpdate].\x0a\x09view open.",
-messageSends: ["new", "shape:", "add:", "on:do:", "element", "extent:", "@", "size", "elements", "show:", "printString", "cr", "on:", "signalUpdate", "open"],
-referencedClasses: ["ROView", "ROElement", "ROBox", "ROMouseClick", "Transcript", "ROCellLayout"]
+source: "boxGenerator\x0a\x0a\x09\x22 Click on the green square multiple times \x22\x0a\x09| view el e |\x0a\x09view := ROView new.\x0a\x09el := ROBox element color: (Color green).\x0a\x09view add: el.\x0a\x09el on: ROMouseClick do: [:event | \x0a\x09\x09e := ROBox element.\x0a\x09\x09e size: (view elements size).\x0a\x09\x09view add: e. \x0a\x09\x09ROCellLayout on: view elements.\x0a\x09\x09view signalUpdate\x0a\x09].\x0a\x09view open.",
+messageSends: ["new", "color:", "green", "element", "add:", "on:do:", "size:", "size", "elements", "on:", "signalUpdate", "open"],
+referencedClasses: ["ROView", "Color", "ROBox", "ROMouseClick", "ROCellLayout"]
 }),
 smalltalk.ROExample);
 
@@ -177,7 +170,7 @@ smalltalk.ROExample);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collectionHierarchy",
-category: 'not yet classified',
+category: 'demo',
 fn: function (){
 var self=this;
 var view,classElements,edges,associations;
@@ -706,7 +699,7 @@ smalltalk.ROExample);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "punchcard",
-category: 'not yet classified',
+category: 'demo',
 fn: function (){
 var self=this;
 var builder;
@@ -714,22 +707,26 @@ function $ROPunchcardBuilder(){return smalltalk.ROPunchcardBuilder||(typeof ROPu
 function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
 return smalltalk.withContext(function($ctx1) { 
 builder=_st($ROPunchcardBuilder())._new();
-_st(builder)._addModels_(["hello", "world", "hello world"]);
+_st(builder)._addModels_(["Sed", "molestie", "nec", "nisi quis", "vestibulum", "Morbi tempus", "luctus", "commodo"]);
 _st(builder)._addMetric_namedAs_((function(word){
 return smalltalk.withContext(function($ctx2) {
 return _st(word)._size();
 }, function($ctx2) {$ctx2.fillBlock({word:word},$ctx1)})}),"length");
 _st(builder)._addMetric_namedAs_((function(word){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(word)._size()).__star((2));
-}, function($ctx2) {$ctx2.fillBlock({word:word},$ctx1)})}),"length 2");
+return _st(_st(word)._size()).__star((3));
+}, function($ctx2) {$ctx2.fillBlock({word:word},$ctx1)})}),"length * 3");
+_st(builder)._addMetric_namedAs_((function(word){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(word)._size()).__slash((2));
+}, function($ctx2) {$ctx2.fillBlock({word:word},$ctx1)})}),"length / 2");
 _st(builder)._minColor_(_st($Color())._green());
 _st(builder)._maxColor_(_st($Color())._red());
 _st(builder)._open();
 return self}, function($ctx1) {$ctx1.fill(self,"punchcard",{builder:builder},smalltalk.ROExample)})},
 args: [],
-source: "punchcard\x0a\x0a|builder|\x0abuilder := ROPunchcardBuilder new.\x0abuilder addModels: #( 'hello' 'world' 'hello world' ).\x0abuilder addMetric: [:word | word size] namedAs: 'length'.\x0abuilder addMetric: [:word | word size * 2 ] namedAs: 'length 2'.\x0abuilder minColor: Color green.\x0abuilder maxColor: Color red.\x0abuilder open.",
-messageSends: ["new", "addModels:", "addMetric:namedAs:", "size", "*", "minColor:", "green", "maxColor:", "red", "open"],
+source: "punchcard\x0a\x0a|builder|\x0abuilder := ROPunchcardBuilder new.\x0abuilder addModels: #( 'Sed' 'molestie' 'nec' 'nisi quis' 'vestibulum' 'Morbi tempus' 'luctus' 'commodo' ).\x0abuilder addMetric: [:word | word size] namedAs: 'length'.\x0abuilder addMetric: [:word | word size * 3 ] namedAs: 'length * 3'.\x0abuilder addMetric: [:word | word size / 2 ] namedAs: 'length / 2'.\x0abuilder minColor: Color green.\x0abuilder maxColor: Color red.\x0abuilder open.",
+messageSends: ["new", "addModels:", "addMetric:namedAs:", "size", "*", "/", "minColor:", "green", "maxColor:", "red", "open"],
 referencedClasses: ["ROPunchcardBuilder", "Color"]
 }),
 smalltalk.ROExample);
@@ -772,6 +769,42 @@ args: [],
 source: "scale\x0a\x0a\x09| view url elements scaleFactor tux|\x0a\x09url := 'https://fbcdn-sphotos-e-a.akamaihd.net/hphotos-ak-prn2/p320x320/1457530_768681953149154_113448858_n.jpg'.\x0a\x09elements := { \x0a\x09\x09\x09((ROImageShape url: url) element @RODraggable) .\x0a\x09\x09\x09ROEllipse element @RODraggable .\x0a\x09\x09\x09ROBox element @RODraggable .\x0a\x09\x09\x09ROTux element @RODraggable \x0a\x09}.\x0a\x09scaleFactor := #( 0.9 1.001 1.1 1.2 ).\x0a\x0a\x09view := ROView new.\x0a\x09tux :=  ROTux element @RODraggable.\x0a\x09view addAll: elements.\x0a\x09ROHorizontalLineLayout on: view elements.\x0a\x09tux on: ROMouseClick do: [:evt | \x0a\x09\x09elements do: [:e |\x0a\x09\x09\x09e shape scale: (scaleFactor at: (elements indexOf: e)).  \x0a\x09\x09].\x0a\x09\x09view signalUpdate.].\x0a\x0a\x09view add: tux.\x0a\x09view open\x0a\x09\x0a\x09",
 messageSends: ["@", "element", "url:", "new", "addAll:", "on:", "elements", "on:do:", "do:", "scale:", "at:", "indexOf:", "shape", "signalUpdate", "add:", "open"],
 referencedClasses: ["RODraggable", "ROImageShape", "ROEllipse", "ROBox", "ROTux", "ROView", "ROHorizontalLineLayout", "ROMouseClick"]
+}),
+smalltalk.ROExample);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "scaleLabel",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+var view,plus,tux;
+function $ROLabel(){return smalltalk.ROLabel||(typeof ROLabel=="undefined"?nil:ROLabel)}
+function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
+function $RODraggable(){return smalltalk.RODraggable||(typeof RODraggable=="undefined"?nil:RODraggable)}
+function $ROTux(){return smalltalk.ROTux||(typeof ROTux=="undefined"?nil:ROTux)}
+function $ROMouseClick(){return smalltalk.ROMouseClick||(typeof ROMouseClick=="undefined"?nil:ROMouseClick)}
+function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
+return smalltalk.withContext(function($ctx1) { 
+plus=_st(_st($ROLabel())._element())._on_("+");
+view=_st($ROView())._new();
+_st(view)._add_(plus);
+tux=_st(_st($ROTux())._element()).__at($RODraggable());
+_st(tux)._on_do_($ROMouseClick(),(function(evt){
+return smalltalk.withContext(function($ctx2) {
+_st($Transcript())._show_(_st(_st(_st(_st(_st(_st(plus)._shape())._width())._asString()).__comma(",")).__comma(_st(_st(_st(plus)._shape())._svgElement())._attr_("width"))).__comma("   "));
+_st(_st(plus)._shape())._scale_((2));
+_st($Transcript())._show_(_st(_st(_st(_st(_st(_st(plus)._shape())._width())._asString()).__comma(",")).__comma(_st(_st(_st(plus)._shape())._svgElement())._attr_("width"))).__comma(_st($String())._cr()));
+return _st(view)._signalUpdate();
+}, function($ctx2) {$ctx2.fillBlock({evt:evt},$ctx1)})}));
+_st(view)._add_(tux);
+_st(view)._open();
+return self}, function($ctx1) {$ctx1.fill(self,"scaleLabel",{view:view,plus:plus,tux:tux},smalltalk.ROExample)})},
+args: [],
+source: "scaleLabel\x0a|view plus tux|\x0aplus := (ROLabel element on: '+').\x0aview := ROView new.\x0aview add: plus.\x0a\x0atux :=  ROTux element @RODraggable.\x0a\x0atux on: ROMouseClick do: [:evt | \x0a\x09Transcript show: (plus shape width asString),',',(plus shape svgElement attr: 'width'),'   '.\x0a\x09plus shape scale: 2.  \x0a\x09Transcript show: (plus shape width asString),',',(plus shape svgElement attr: 'width'),(String cr).\x0a\x09view signalUpdate.].\x0a\x09\x0a\x09view add: tux.\x0a\x0aview open",
+messageSends: ["on:", "element", "new", "add:", "@", "on:do:", "show:", ",", "attr:", "svgElement", "shape", "asString", "width", "scale:", "cr", "signalUpdate", "open"],
+referencedClasses: ["ROLabel", "ROView", "RODraggable", "ROTux", "ROMouseClick", "Transcript", "String"]
 }),
 smalltalk.ROExample);
 
@@ -866,7 +899,7 @@ smalltalk.ROExample);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "worldConnections",
-category: 'not yet classified',
+category: 'demo',
 fn: function (){
 var self=this;
 var builder;
@@ -911,7 +944,13 @@ function $ROExample(){return smalltalk.ROExample||(typeof ROExample=="undefined"
 return smalltalk.withContext(function($ctx1) { 
 ul=_st(html)._ul();
 _st(ul)._class_("dropdown-menu");
-_st(_st($ROExample())._selectors())._do_((function(selector){
+_st(_st(_st(_st(_st($ROExample())._methodDictionary())._values())._select_((function(m){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(m)._category()).__eq("demo");
+}, function($ctx2) {$ctx2.fillBlock({m:m},$ctx1)})})))._collect_((function(mtd){
+return smalltalk.withContext(function($ctx2) {
+return _st(mtd)._selector();
+}, function($ctx2) {$ctx2.fillBlock({mtd:mtd},$ctx1)})})))._do_((function(selector){
 return smalltalk.withContext(function($ctx2) {
 li=_st(html)._li();
 li;
@@ -928,8 +967,8 @@ return _st(ul)._append_(li);
 }, function($ctx2) {$ctx2.fillBlock({selector:selector},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html,ul:ul,li:li,a:a},smalltalk.ROExampleSelector)})},
 args: ["html"],
-source: "renderOn: html\x0a\x09| ul li a |\x0a\x09ul := html ul.\x0a\x09ul class: 'dropdown-menu'.\x0a\x09\x0a\x09ROExample selectors do: [:selector |\x0a\x0a\x09\x09li := html li.\x0a\x09\x09a := html a.\x0a\x09\x09a href: '#'.\x0a\x09\x09a onClick: [self show: selector].\x0a\x09\x09a with: selector.\x0a\x09\x09li append: a.\x0a\x09\x09ul append: li.\x0a\x09].\x0a\x0a\x09",
-messageSends: ["ul", "class:", "do:", "li", "a", "href:", "onClick:", "show:", "with:", "append:", "selectors"],
+source: "renderOn: html\x0a\x09| ul li a |\x0a\x09ul := html ul.\x0a\x09ul class: 'dropdown-menu'.\x0a\x09\x0a\x09((ROExample methodDictionary values select: [:m | m category = 'demo']) collect: [:mtd | mtd selector])  do: [:selector |\x0a\x0a\x09\x09li := html li.\x0a\x09\x09a := html a.\x0a\x09\x09a href: '#'.\x0a\x09\x09a onClick: [self show: selector].\x0a\x09\x09a with: selector.\x0a\x09\x09li append: a.\x0a\x09\x09ul append: li.\x0a\x09].\x0a\x0a\x09",
+messageSends: ["ul", "class:", "do:", "li", "a", "href:", "onClick:", "show:", "with:", "append:", "collect:", "selector", "select:", "=", "category", "values", "methodDictionary"],
 referencedClasses: ["ROExample"]
 }),
 smalltalk.ROExampleSelector);

@@ -38,39 +38,19 @@ ROObject subclass: #ROExample
 !ROExample methodsFor: 'demo'!
 
 boxGenerator
-	" Click on the square multiple times "
+
+	" Click on the green square multiple times "
 	| view el e |
 	view := ROView new.
-	el := ROElement new.
-	el shape: (ROBox new).
+	el := ROBox element color: (Color green).
 	view add: el.
 	el on: ROMouseClick do: [:event | 
 		e := ROBox element.
-		e extent: view elements size @ view elements size.
-		Transcript show: view elements size printString; cr.
+		e size: (view elements size).
 		view add: e. 
 		ROCellLayout on: view elements.
-		view signalUpdate].
-	view open.
-! !
-
-!ROExample methodsFor: 'not yet classified'!
-
-cellLayout
-| view |
-view := ROView new.
-view clear.
-" Play changing the number of squares"
-1 to: 200 do: [ :i |
-	view add: (ROBox elementOn: i) @RODraggable ].
-	ROCellLayout on: view elements .
-	view open.
-!
-
-circle
-	| view |
-	view := ROView new.
-	view add: ((ROEllipse element translateTo: 50 @ 50) @ RODraggable color: Color green).
+		view signalUpdate
+	].
 	view open.
 !
 
@@ -105,6 +85,58 @@ ROTreeLayout on: (view elements) edges: edges.
 
 
 view open.
+!
+
+punchcard
+
+|builder|
+builder := ROPunchcardBuilder new.
+builder addModels: #( 'Sed' 'molestie' 'nec' 'nisi quis' 'vestibulum' 'Morbi tempus' 'luctus' 'commodo' ).
+builder addMetric: [:word | word size] namedAs: 'length'.
+builder addMetric: [:word | word size * 3 ] namedAs: 'length * 3'.
+builder addMetric: [:word | word size / 2 ] namedAs: 'length / 2'.
+builder minColor: Color green.
+builder maxColor: Color red.
+builder open.
+!
+
+worldConnections
+	| builder |
+	builder := ROMapBuilder new.
+	builder countries: #('Canada' 'UnitedStates' 'France' 'Chile' 'Colombia').
+
+	builder shape circle size: 8; color: (Color red alpha: 0.5).
+
+	builder cities: #('New York City' 'Washington, D.C.' 'Paris' 'Bordeaux' 'Santiago' 'Bogota').
+
+	builder shape circle size: 20; color: (Color red alpha: 0.5).
+
+	builder city: 'Vancouver' position: 49.25 @ -123.133333.
+	
+	builder shape line width: 3; color: (Color blue alpha: 0.5).
+	builder edgesFrom: 'Paris' toAll: #('New York City' 'Washington, D.C.' 'Santiago' 'Bogota' 'Vancouver').
+
+	builder open
+! !
+
+!ROExample methodsFor: 'not yet classified'!
+
+cellLayout
+| view |
+view := ROView new.
+view clear.
+" Play changing the number of squares"
+1 to: 200 do: [ :i |
+	view add: (ROBox elementOn: i) @RODraggable ].
+	ROCellLayout on: view elements .
+	view open.
+!
+
+circle
+	| view |
+	view := ROView new.
+	view add: ((ROEllipse element translateTo: 50 @ 50) @ RODraggable color: Color green).
+	view open.
 !
 
 create
@@ -307,18 +339,6 @@ view add: element.
 view open.
 !
 
-punchcard
-
-|builder|
-builder := ROPunchcardBuilder new.
-builder addModels: #( 'hello' 'world' 'hello world' ).
-builder addMetric: [:word | word size] namedAs: 'length'.
-builder addMetric: [:word | word size * 2 ] namedAs: 'length 2'.
-builder minColor: Color green.
-builder maxColor: Color red.
-builder open.
-!
-
 scale
 
 	| view url elements scaleFactor tux|
@@ -343,6 +363,25 @@ scale
 
 	view add: tux.
 	view open
+!
+
+scaleLabel
+|view plus tux|
+plus := (ROLabel element on: '+').
+view := ROView new.
+view add: plus.
+
+tux :=  ROTux element @RODraggable.
+
+tux on: ROMouseClick do: [:evt | 
+	Transcript show: (plus shape width asString),',',(plus shape svgElement attr: 'width'),'   '.
+	plus shape scale: 2.  
+	Transcript show: (plus shape width asString),',',(plus shape svgElement attr: 'width'),(String cr).
+	view signalUpdate.].
+	
+	view add: tux.
+
+view open
 !
 
 treeLayout 
@@ -387,25 +426,6 @@ tux
 	view := ROView new.
 	view add: (ROTux element).
 	view open
-!
-
-worldConnections
-	| builder |
-	builder := ROMapBuilder new.
-	builder countries: #('Canada' 'UnitedStates' 'France' 'Chile' 'Colombia').
-
-	builder shape circle size: 8; color: (Color red alpha: 0.5).
-
-	builder cities: #('New York City' 'Washington, D.C.' 'Paris' 'Bordeaux' 'Santiago' 'Bogota').
-
-	builder shape circle size: 20; color: (Color red alpha: 0.5).
-
-	builder city: 'Vancouver' position: 49.25 @ -123.133333.
-	
-	builder shape line width: 3; color: (Color blue alpha: 0.5).
-	builder edgesFrom: 'Paris' toAll: #('New York City' 'Washington, D.C.' 'Santiago' 'Bogota' 'Vancouver').
-
-	builder open
 ! !
 
 Widget subclass: #ROExampleSelector
@@ -419,7 +439,7 @@ renderOn: html
 	ul := html ul.
 	ul class: 'dropdown-menu'.
 	
-	ROExample selectors do: [:selector |
+	((ROExample methodDictionary values select: [:m | m category = 'demo']) collect: [:mtd | mtd selector])  do: [:selector |
 
 		li := html li.
 		a := html a.
