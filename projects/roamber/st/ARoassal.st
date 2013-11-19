@@ -722,6 +722,10 @@ height
 	^ shape height
 !
 
+height: aValue
+	shape height: aValue
+!
+
 position
 	"Return the position of the element. Return a point of floats"
 	
@@ -753,6 +757,10 @@ translateTo: aPoint
 width
 "	^ shape widthFor: self"
 	^ shape width
+!
+
+width: aValue
+	shape width: aValue
 ! !
 
 !ROElement methodsFor: 'as yet unclassified'!

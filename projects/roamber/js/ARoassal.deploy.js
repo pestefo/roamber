@@ -1575,6 +1575,17 @@ smalltalk.ROElement);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "height:",
+fn: function (aValue){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@shape"])._height_(aValue);
+return self}, function($ctx1) {$ctx1.fill(self,"height:",{aValue:aValue},smalltalk.ROElement)})},
+messageSends: ["height:"]}),
+smalltalk.ROElement);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "hide",
 fn: function (){
 var self=this;
@@ -1731,6 +1742,17 @@ $1=_st(self["@shape"])._width();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"width",{},smalltalk.ROElement)})},
 messageSends: ["width"]}),
+smalltalk.ROElement);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "width:",
+fn: function (aValue){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@shape"])._width_(aValue);
+return self}, function($ctx1) {$ctx1.fill(self,"width:",{aValue:aValue},smalltalk.ROElement)})},
+messageSends: ["width:"]}),
 smalltalk.ROElement);
 
 

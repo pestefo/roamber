@@ -2684,6 +2684,29 @@ smalltalk.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "with:collect:",
+fn: function (otherCollection,twoArgBlock){
+var self=this;
+var result;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(_st(otherCollection)._size()).__eq(self._size());
+if(! smalltalk.assert($1)){
+self._error_("otherCollection must be the same size");
+};
+result=_st(self._class())._new_(self._size());
+(1)._to_do_(self._size(),(function(index){
+return smalltalk.withContext(function($ctx2) {
+return _st(result)._addLast_(_st(twoArgBlock)._value_value_(self._at_(index),_st(otherCollection)._at_(index)));
+}, function($ctx2) {$ctx2.fillBlock({index:index},$ctx1)})}));
+$2=result;
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"with:collect:",{otherCollection:otherCollection,twoArgBlock:twoArgBlock,result:result},smalltalk.Collection)})},
+messageSends: ["ifFalse:", "error:", "=", "size", "new:", "class", "to:do:", "addLast:", "value:value:", "at:"]}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "at:ifAbsentPut:",
 fn: function (anIndex,aBlock){
 var self=this;
@@ -2997,6 +3020,19 @@ smalltalk.String);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "value:",
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(anObject)._perform_(self);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"value:",{anObject:anObject},smalltalk.String)})},
+messageSends: ["perform:"]}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "with:",
 fn: function (aUTFCharCode){
 var self=this;
@@ -3210,6 +3246,19 @@ $1=self.__minus(_st(self._quo_(aNumber)).__star(aNumber));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"rem:",{aNumber:aNumber},smalltalk.Number)})},
 messageSends: ["-", "*", "quo:"]}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "roundUpTo:",
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self.__slash(aNumber))._ceiling()).__star(aNumber);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"roundUpTo:",{aNumber:aNumber},smalltalk.Number)})},
+messageSends: ["*", "ceiling", "/"]}),
 smalltalk.Number);
 
 smalltalk.addMethod(

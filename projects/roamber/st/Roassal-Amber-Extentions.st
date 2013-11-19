@@ -1274,6 +1274,18 @@ sum: aBlock
 	sample := aBlock value: self first.
 	sum := self inject: sample into: [ :previousValue :each |  previousValue + (aBlock value: each) ].
 	^ sum - sample
+!
+
+with: otherCollection collect: twoArgBlock 
+	"Collect and return the result of evaluating twoArgBlock with 
+	corresponding elements from this collection and otherCollection."
+	| result |
+	otherCollection size = self size ifFalse: [self error: 'otherCollection must be the same size'].
+	result := self class new: self size.
+	1 to: self size do:
+		[:index | result addLast: (twoArgBlock value: (self at: index)
+									value: (otherCollection at: index))].
+	^ result
 ! !
 
 !Dictionary methodsFor: '*Roassal-Amber-Extentions'!
@@ -1410,6 +1422,10 @@ lineCount
 
 roValue: anObject 
 	^ anObject perform: self
+!
+
+value: anObject 
+	^ anObject perform: self
 ! !
 
 !String class methodsFor: '*Roassal-Amber-Extentions'!
@@ -1519,6 +1535,18 @@ rem: aNumber
 	sign as self. e.g. 9 rem: 4 = 1, -9 rem: 4 = -1. 0.9 rem: 0.4 = 0.1."
 
 	^self - ((self quo: aNumber) * aNumber)
+!
+
+roundUpTo: aNumber 
+	"Answer the next multiple of aNumber toward infinity that is nearest the receiver.
+	Examples:
+               3.1479 roundUpTo: 0.01 -> 3.15
+               3.1479 roundUpTo: 0.1 -> 3.2
+               1923 roundUpTo: 10 -> 1930
+               3.1479 roundUpTo: 0.005 -> 3.15
+               -3.1479 roundUpTo: 0.01 -> -3.14"
+
+	^(self / aNumber) ceiling * aNumber
 !
 
 tan

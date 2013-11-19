@@ -2051,6 +2051,22 @@ smalltalk.ROElement);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "height:",
+category: 'accessing',
+fn: function (aValue){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@shape"])._height_(aValue);
+return self}, function($ctx1) {$ctx1.fill(self,"height:",{aValue:aValue},smalltalk.ROElement)})},
+args: ["aValue"],
+source: "height: aValue\x0a\x09shape height: aValue",
+messageSends: ["height:"],
+referencedClasses: []
+}),
+smalltalk.ROElement);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "hide",
 category: 'initialize',
 fn: function (){
@@ -2270,6 +2286,22 @@ return $1;
 args: [],
 source: "width\x0a\x22\x09^ shape widthFor: self\x22\x0a\x09^ shape width",
 messageSends: ["width"],
+referencedClasses: []
+}),
+smalltalk.ROElement);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "width:",
+category: 'accessing',
+fn: function (aValue){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@shape"])._width_(aValue);
+return self}, function($ctx1) {$ctx1.fill(self,"width:",{aValue:aValue},smalltalk.ROElement)})},
+args: ["aValue"],
+source: "width: aValue\x0a\x09shape width: aValue",
+messageSends: ["width:"],
 referencedClasses: []
 }),
 smalltalk.ROElement);

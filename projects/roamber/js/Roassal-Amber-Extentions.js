@@ -3405,6 +3405,34 @@ smalltalk.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "with:collect:",
+category: '*Roassal-Amber-Extentions',
+fn: function (otherCollection,twoArgBlock){
+var self=this;
+var result;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(_st(otherCollection)._size()).__eq(self._size());
+if(! smalltalk.assert($1)){
+self._error_("otherCollection must be the same size");
+};
+result=_st(self._class())._new_(self._size());
+(1)._to_do_(self._size(),(function(index){
+return smalltalk.withContext(function($ctx2) {
+return _st(result)._addLast_(_st(twoArgBlock)._value_value_(self._at_(index),_st(otherCollection)._at_(index)));
+}, function($ctx2) {$ctx2.fillBlock({index:index},$ctx1)})}));
+$2=result;
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"with:collect:",{otherCollection:otherCollection,twoArgBlock:twoArgBlock,result:result},smalltalk.Collection)})},
+args: ["otherCollection", "twoArgBlock"],
+source: "with: otherCollection collect: twoArgBlock \x0a\x09\x22Collect and return the result of evaluating twoArgBlock with \x0a\x09corresponding elements from this collection and otherCollection.\x22\x0a\x09| result |\x0a\x09otherCollection size = self size ifFalse: [self error: 'otherCollection must be the same size'].\x0a\x09result := self class new: self size.\x0a\x091 to: self size do:\x0a\x09\x09[:index | result addLast: (twoArgBlock value: (self at: index)\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09value: (otherCollection at: index))].\x0a\x09^ result",
+messageSends: ["ifFalse:", "error:", "=", "size", "new:", "class", "to:do:", "addLast:", "value:value:", "at:"],
+referencedClasses: []
+}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "at:ifAbsentPut:",
 category: '*Roassal-Amber-Extentions',
 fn: function (anIndex,aBlock){
@@ -3818,6 +3846,24 @@ smalltalk.String);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "value:",
+category: '*Roassal-Amber-Extentions',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(anObject)._perform_(self);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"value:",{anObject:anObject},smalltalk.String)})},
+args: ["anObject"],
+source: "value: anObject \x0a\x09^ anObject perform: self",
+messageSends: ["perform:"],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "with:",
 category: '*Roassal-Amber-Extentions',
 fn: function (aUTFCharCode){
@@ -4114,6 +4160,24 @@ return $1;
 args: ["aNumber"],
 source: "rem: aNumber \x0a\x09\x22Remainder defined in terms of quo:. Answer a Number with the same \x0a\x09sign as self. e.g. 9 rem: 4 = 1, -9 rem: 4 = -1. 0.9 rem: 0.4 = 0.1.\x22\x0a\x0a\x09^self - ((self quo: aNumber) * aNumber)",
 messageSends: ["-", "*", "quo:"],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "roundUpTo:",
+category: '*Roassal-Amber-Extentions',
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self.__slash(aNumber))._ceiling()).__star(aNumber);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"roundUpTo:",{aNumber:aNumber},smalltalk.Number)})},
+args: ["aNumber"],
+source: "roundUpTo: aNumber \x0a\x09\x22Answer the next multiple of aNumber toward infinity that is nearest the receiver.\x0a\x09Examples:\x0a               3.1479 roundUpTo: 0.01 -> 3.15\x0a               3.1479 roundUpTo: 0.1 -> 3.2\x0a               1923 roundUpTo: 10 -> 1930\x0a               3.1479 roundUpTo: 0.005 -> 3.15\x0a               -3.1479 roundUpTo: 0.01 -> -3.14\x22\x0a\x0a\x09^(self / aNumber) ceiling * aNumber",
+messageSends: ["*", "ceiling", "/"],
 referencedClasses: []
 }),
 smalltalk.Number);
