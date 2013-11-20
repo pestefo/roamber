@@ -1628,6 +1628,63 @@ at: anIndex ifAbsentPut: aBlock
 	    self at: anIndex put: aBlock value]
 ! !
 
+!SequenceableCollection methodsFor: '*Roassal-Amber-Extensions'!
+
+atAllPut: anObject 
+	"Put anObject at every one of the receiver's indices."
+
+	| size |
+	(size := self size) > 26 "first method faster from 27 accesses and on"
+		ifTrue: [self from: 1 to: size put: anObject]
+		ifFalse: [1 to: size do: [:index | self at: index put: anObject]]
+!
+
+doWithIndex: elementAndIndexBlock
+	"Use the new version with consistent naming"
+	^ self withIndexDo: elementAndIndexBlock
+!
+
+eighth
+	^self at: 8
+!
+
+fifth
+	^self at: 5
+!
+
+nineth
+	^self at: 9
+!
+
+reverse
+	^self reversed
+!
+
+roSwapElement: u withElement: v
+	| index1 index2 |
+	index1 := self indexOf: u.
+	index2 := self indexOf: v.
+	self at: index2 put: u.
+	self at: index1 put: v.
+!
+
+seventth
+	^self at: 7
+!
+
+sixth
+	^self at: 6
+!
+
+with: otherCollection do: twoArgBlock 
+	"Evaluate twoArgBlock with corresponding elements from this collection and otherCollection."
+	otherCollection size = self size ifFalse: [self error: 'otherCollection must be the same size'].
+	1 to: self size do:
+		[:index |
+		twoArgBlock value: (self at: index)
+				value: (otherCollection at: index)]
+! !
+
 !Array methodsFor: '*Roassal-Amber-Extensions'!
 
 @ interactionClassOrObject
@@ -1779,6 +1836,14 @@ ceiling
 	< return Math.ceil(self); >
 !
 
+cos
+	<return Math.cos(self)>
+!
+
+exp
+	<return Math.exp(self)>
+!
+
 floor
 	
 	< return Math.floor(self); >
@@ -1844,6 +1909,10 @@ roundUpTo: aNumber
                -3.1479 roundUpTo: 0.01 -> -3.14"
 
 	^(self / aNumber) ceiling * aNumber
+!
+
+sin
+	<return Math.sin(self)>
 !
 
 tan

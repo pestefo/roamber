@@ -3937,6 +3937,28 @@ smalltalk.Number);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "cos",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return Math.cos(self);
+return self}, function($ctx1) {$ctx1.fill(self,"cos",{},smalltalk.Number)})},
+messageSends: []}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "exp",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return Math.exp(self);
+return self}, function($ctx1) {$ctx1.fill(self,"exp",{},smalltalk.Number)})},
+messageSends: []}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "floor",
 fn: function (){
 var self=this;
@@ -4035,6 +4057,17 @@ $1=_st(_st(self.__slash(aNumber))._ceiling()).__star(aNumber);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"roundUpTo:",{aNumber:aNumber},smalltalk.Number)})},
 messageSends: ["*", "ceiling", "/"]}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "sin",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return Math.sin(self);
+return self}, function($ctx1) {$ctx1.fill(self,"sin",{},smalltalk.Number)})},
+messageSends: []}),
 smalltalk.Number);
 
 smalltalk.addMethod(

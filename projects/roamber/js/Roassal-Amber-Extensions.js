@@ -5053,6 +5053,38 @@ smalltalk.Number);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "cos",
+category: '*Roassal-Amber-Extensions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return Math.cos(self);
+return self}, function($ctx1) {$ctx1.fill(self,"cos",{},smalltalk.Number)})},
+args: [],
+source: "cos\x0a\x09<return Math.cos(self)>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "exp",
+category: '*Roassal-Amber-Extensions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return Math.exp(self);
+return self}, function($ctx1) {$ctx1.fill(self,"exp",{},smalltalk.Number)})},
+args: [],
+source: "exp\x0a\x09<return Math.exp(self)>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "floor",
 category: '*Roassal-Amber-Extensions',
 fn: function (){
@@ -5189,6 +5221,22 @@ return $1;
 args: ["aNumber"],
 source: "roundUpTo: aNumber \x0a\x09\x22Answer the next multiple of aNumber toward infinity that is nearest the receiver.\x0a\x09Examples:\x0a               3.1479 roundUpTo: 0.01 -> 3.15\x0a               3.1479 roundUpTo: 0.1 -> 3.2\x0a               1923 roundUpTo: 10 -> 1930\x0a               3.1479 roundUpTo: 0.005 -> 3.15\x0a               -3.1479 roundUpTo: 0.01 -> -3.14\x22\x0a\x0a\x09^(self / aNumber) ceiling * aNumber",
 messageSends: ["*", "ceiling", "/"],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "sin",
+category: '*Roassal-Amber-Extensions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return Math.sin(self);
+return self}, function($ctx1) {$ctx1.fill(self,"sin",{},smalltalk.Number)})},
+args: [],
+source: "sin\x0a\x09<return Math.sin(self)>",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Number);
