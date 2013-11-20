@@ -4420,6 +4420,24 @@ smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "eighth",
+category: '*Roassal-Amber-Extensions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._at_((8));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"eighth",{},smalltalk.SequenceableCollection)})},
+args: [],
+source: "eighth\x0a\x09^self at: 8",
+messageSends: ["at:"],
+referencedClasses: []
+}),
+smalltalk.SequenceableCollection);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "fifth",
 category: '*Roassal-Amber-Extensions',
 fn: function (){
@@ -4431,6 +4449,24 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"fifth",{},smalltalk.SequenceableCollection)})},
 args: [],
 source: "fifth\x0a\x09^self at: 5",
+messageSends: ["at:"],
+referencedClasses: []
+}),
+smalltalk.SequenceableCollection);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "nineth",
+category: '*Roassal-Amber-Extensions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._at_((9));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"nineth",{},smalltalk.SequenceableCollection)})},
+args: [],
+source: "nineth\x0a\x09^self at: 9",
 messageSends: ["at:"],
 referencedClasses: []
 }),
@@ -4470,6 +4506,42 @@ return self}, function($ctx1) {$ctx1.fill(self,"roSwapElement:withElement:",{u:u
 args: ["u", "v"],
 source: "roSwapElement: u withElement: v\x0a\x09| index1 index2 |\x0a\x09index1 := self indexOf: u.\x0a\x09index2 := self indexOf: v.\x0a\x09self at: index2 put: u.\x0a\x09self at: index1 put: v.",
 messageSends: ["indexOf:", "at:put:"],
+referencedClasses: []
+}),
+smalltalk.SequenceableCollection);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "seventth",
+category: '*Roassal-Amber-Extensions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._at_((7));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"seventth",{},smalltalk.SequenceableCollection)})},
+args: [],
+source: "seventth\x0a\x09^self at: 7",
+messageSends: ["at:"],
+referencedClasses: []
+}),
+smalltalk.SequenceableCollection);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "sixth",
+category: '*Roassal-Amber-Extensions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._at_((6));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"sixth",{},smalltalk.SequenceableCollection)})},
+args: [],
+source: "sixth\x0a\x09^self at: 6",
+messageSends: ["at:"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);

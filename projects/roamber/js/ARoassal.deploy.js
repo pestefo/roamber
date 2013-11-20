@@ -103,6 +103,320 @@ smalltalk.ROAnnouncer);
 smalltalk.addClass('ROObject', smalltalk.Object, [], 'ARoassal');
 
 
+smalltalk.addClass('ROAbstractCanvas', smalltalk.ROObject, ['camera', 'extent', 'nativeCanvas', 'offset'], 'ARoassal');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "camera",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._error_(_st(_st("Wow. Such ".__comma(_st(smalltalk.getThisContext()._selector())._asString())).__comma(" very ")).__comma(_st(self._class())._asString()));
+return self}, function($ctx1) {$ctx1.fill(self,"camera",{},smalltalk.ROAbstractCanvas)})},
+messageSends: ["error:", ",", "asString", "class", "selector"]}),
+smalltalk.ROAbstractCanvas);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "camera:",
+fn: function (aROCamera){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@camera"]=aROCamera;
+return self}, function($ctx1) {$ctx1.fill(self,"camera:",{aROCamera:aROCamera},smalltalk.ROAbstractCanvas)})},
+messageSends: []}),
+smalltalk.ROAbstractCanvas);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "canvas",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@nativeCanvas"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"canvas",{},smalltalk.ROAbstractCanvas)})},
+messageSends: []}),
+smalltalk.ROAbstractCanvas);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "canvas:",
+fn: function (aNativeCanvas){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@nativeCanvas"]=aNativeCanvas;
+return self}, function($ctx1) {$ctx1.fill(self,"canvas:",{aNativeCanvas:aNativeCanvas},smalltalk.ROAbstractCanvas)})},
+messageSends: []}),
+smalltalk.ROAbstractCanvas);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "drawPolygon:color:borderWidth:borderColor:",
+fn: function (listOfPoints,color,borderWidthValue,borderColorValue){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"drawPolygon:color:borderWidth:borderColor:",{listOfPoints:listOfPoints,color:color,borderWidthValue:borderWidthValue,borderColorValue:borderColorValue},smalltalk.ROAbstractCanvas)})},
+messageSends: ["subclassResponsibility"]}),
+smalltalk.ROAbstractCanvas);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "drawString:at:",
+fn: function (aByteString,aPoint){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"drawString:at:",{aByteString:aByteString,aPoint:aPoint},smalltalk.ROAbstractCanvas)})},
+messageSends: ["subclassResponsibility"]}),
+smalltalk.ROAbstractCanvas);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "drawString:at:color:",
+fn: function (aByteString,aPoint,color){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"drawString:at:color:",{aByteString:aByteString,aPoint:aPoint,color:color},smalltalk.ROAbstractCanvas)})},
+messageSends: ["subclassResponsibility"]}),
+smalltalk.ROAbstractCanvas);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "drawString:at:font:color:",
+fn: function (aByteString,p,f,color){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"drawString:at:font:color:",{aByteString:aByteString,p:p,f:f,color:color},smalltalk.ROAbstractCanvas)})},
+messageSends: ["subclassResponsibility"]}),
+smalltalk.ROAbstractCanvas);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "extent:",
+fn: function (aPoint){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@extent"]=aPoint;
+return self}, function($ctx1) {$ctx1.fill(self,"extent:",{aPoint:aPoint},smalltalk.ROAbstractCanvas)})},
+messageSends: []}),
+smalltalk.ROAbstractCanvas);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "fillOval:color:borderWidth:borderColor:",
+fn: function (aRectangle,aColor,aSmallInteger,aColor4){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"fillOval:color:borderWidth:borderColor:",{aRectangle:aRectangle,aColor:aColor,aSmallInteger:aSmallInteger,aColor4:aColor4},smalltalk.ROAbstractCanvas)})},
+messageSends: ["subclassResponsibility"]}),
+smalltalk.ROAbstractCanvas);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "fillRectangle:color:",
+fn: function (aRectangle,fillColor){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"fillRectangle:color:",{aRectangle:aRectangle,fillColor:fillColor},smalltalk.ROAbstractCanvas)})},
+messageSends: ["subclassResponsibility"]}),
+smalltalk.ROAbstractCanvas);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "form",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"form",{},smalltalk.ROAbstractCanvas)})},
+messageSends: ["subclassResponsibility"]}),
+smalltalk.ROAbstractCanvas);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "frameAndFillRectangle:fillColor:borderWidth:borderColor:",
+fn: function (aRectangle,fillColor,aSmallInteger,aColor){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"frameAndFillRectangle:fillColor:borderWidth:borderColor:",{aRectangle:aRectangle,fillColor:fillColor,aSmallInteger:aSmallInteger,aColor:aColor},smalltalk.ROAbstractCanvas)})},
+messageSends: ["subclassResponsibility"]}),
+smalltalk.ROAbstractCanvas);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+fn: function (){
+var self=this;
+function $ROCamera(){return smalltalk.ROCamera||(typeof ROCamera=="undefined"?nil:ROCamera)}
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.ROAbstractCanvas.superclass.fn.prototype._initialize.apply(_st(self), []);
+self["@extent"]=_st(self._class())._defaultExtent();
+self["@camera"]=_st($ROCamera())._new();
+self["@offset"]=(0).__at((0));
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROAbstractCanvas)})},
+messageSends: ["initialize", "defaultExtent", "class", "new", "@"]}),
+smalltalk.ROAbstractCanvas);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "line:to:width:color:",
+fn: function (aPoint,aPoint2,aSmallInteger,aColor){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"line:to:width:color:",{aPoint:aPoint,aPoint2:aPoint2,aSmallInteger:aSmallInteger,aColor:aColor},smalltalk.ROAbstractCanvas)})},
+messageSends: ["subclassResponsibility"]}),
+smalltalk.ROAbstractCanvas);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "offset",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@offset"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"offset",{},smalltalk.ROAbstractCanvas)})},
+messageSends: []}),
+smalltalk.ROAbstractCanvas);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "offset:",
+fn: function (anOffsetAsPoint){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@offset"]=anOffsetAsPoint;
+return self}, function($ctx1) {$ctx1.fill(self,"offset:",{anOffsetAsPoint:anOffsetAsPoint},smalltalk.ROAbstractCanvas)})},
+messageSends: []}),
+smalltalk.ROAbstractCanvas);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "paintBackground:",
+fn: function (color){
+var self=this;
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+return smalltalk.withContext(function($ctx1) { 
+self._frameAndFillRectangle_fillColor_borderWidth_borderColor_(_st(self["@camera"])._realToVirtualRectangle_(_st((0).__at((0)))._extent_(self["@extent"])),color,(0),_st($Color())._white());
+return self}, function($ctx1) {$ctx1.fill(self,"paintBackground:",{color:color},smalltalk.ROAbstractCanvas)})},
+messageSends: ["frameAndFillRectangle:fillColor:borderWidth:borderColor:", "realToVirtualRectangle:", "extent:", "@", "white"]}),
+smalltalk.ROAbstractCanvas);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "paintImage:at:",
+fn: function (aForm,aPoint){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"paintImage:at:",{aForm:aForm,aPoint:aPoint},smalltalk.ROAbstractCanvas)})},
+messageSends: ["subclassResponsibility"]}),
+smalltalk.ROAbstractCanvas);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "realToVirtualPoint:",
+fn: function (aPoint){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@camera"])._realToVirtualPoint_(aPoint);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"realToVirtualPoint:",{aPoint:aPoint},smalltalk.ROAbstractCanvas)})},
+messageSends: ["realToVirtualPoint:"]}),
+smalltalk.ROAbstractCanvas);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "realToVirtualRectangle:",
+fn: function (aRectangle){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@camera"])._realToVirtualRectangle_(aRectangle);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"realToVirtualRectangle:",{aRectangle:aRectangle},smalltalk.ROAbstractCanvas)})},
+messageSends: ["realToVirtualRectangle:"]}),
+smalltalk.ROAbstractCanvas);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "virtualToRealPoint:",
+fn: function (aPoint){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self["@camera"])._virtualToRealPoint_(aPoint)).__plus(self["@offset"]);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"virtualToRealPoint:",{aPoint:aPoint},smalltalk.ROAbstractCanvas)})},
+messageSends: ["+", "virtualToRealPoint:"]}),
+smalltalk.ROAbstractCanvas);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "virtualToRealRectangle:",
+fn: function (aRectangle){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self["@camera"])._virtualToRealRectangle_(aRectangle))._translateBy_(self["@offset"]);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"virtualToRealRectangle:",{aRectangle:aRectangle},smalltalk.ROAbstractCanvas)})},
+messageSends: ["translateBy:", "virtualToRealRectangle:"]}),
+smalltalk.ROAbstractCanvas);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "canvas:camera:",
+fn: function (canvas,camera){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=self._new();
+_st($2)._canvas_(canvas);
+_st($2)._camera_(camera);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"canvas:camera:",{canvas:canvas,camera:camera},smalltalk.ROAbstractCanvas.klass)})},
+messageSends: ["canvas:", "new", "camera:", "yourself"]}),
+smalltalk.ROAbstractCanvas.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultExtent",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=(40).__at((30));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultExtent",{},smalltalk.ROAbstractCanvas.klass)})},
+messageSends: ["@"]}),
+smalltalk.ROAbstractCanvas.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onCamera:",
+fn: function (camera){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"onCamera:",{camera:camera},smalltalk.ROAbstractCanvas.klass)})},
+messageSends: ["subclassResponsibility"]}),
+smalltalk.ROAbstractCanvas.klass);
+
+
 smalltalk.addClass('ROContainer', smalltalk.ROObject, ['elements', 'attributes'], 'ARoassal');
 smalltalk.addMethod(
 smalltalk.method({

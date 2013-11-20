@@ -3469,6 +3469,19 @@ smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "eighth",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._at_((8));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"eighth",{},smalltalk.SequenceableCollection)})},
+messageSends: ["at:"]}),
+smalltalk.SequenceableCollection);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "fifth",
 fn: function (){
 var self=this;
@@ -3477,6 +3490,19 @@ var $1;
 $1=self._at_((5));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"fifth",{},smalltalk.SequenceableCollection)})},
+messageSends: ["at:"]}),
+smalltalk.SequenceableCollection);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "nineth",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._at_((9));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"nineth",{},smalltalk.SequenceableCollection)})},
 messageSends: ["at:"]}),
 smalltalk.SequenceableCollection);
 
@@ -3506,6 +3532,32 @@ self._at_put_(index2,u);
 self._at_put_(index1,v);
 return self}, function($ctx1) {$ctx1.fill(self,"roSwapElement:withElement:",{u:u,v:v,index1:index1,index2:index2},smalltalk.SequenceableCollection)})},
 messageSends: ["indexOf:", "at:put:"]}),
+smalltalk.SequenceableCollection);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "seventth",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._at_((7));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"seventth",{},smalltalk.SequenceableCollection)})},
+messageSends: ["at:"]}),
+smalltalk.SequenceableCollection);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "sixth",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._at_((6));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"sixth",{},smalltalk.SequenceableCollection)})},
+messageSends: ["at:"]}),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(

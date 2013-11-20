@@ -304,12 +304,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
+self["@elements"]=_st(self["@elements"])._reject_("isNil");
 $1=self["@elements"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"elements",{},smalltalk.GETAbstractDiagram)})},
 args: [],
-source: "elements\x0a\x0a\x09^ elements",
-messageSends: [],
+source: "elements\x0a\x09elements := elements reject: #isNil.\x0a\x09^ elements",
+messageSends: ["reject:"],
 referencedClasses: []
 }),
 smalltalk.GETAbstractDiagram);

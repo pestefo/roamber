@@ -38,7 +38,7 @@ colorNormalizer: anObject
 !
 
 elements
-
+	elements := elements reject: #isNil.
 	^ elements
 !
 

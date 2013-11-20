@@ -1612,52 +1612,20 @@ with: otherCollection collect: twoArgBlock
 	^ result
 ! !
 
+!HashedCollection methodsFor: '*Roassal-Amber-Extensions'!
+
+doWithIndex: aBlock2
+	"Support Set enumeration with a counter, even though not ordered"
+	| index |
+	index := 0.
+	self do: [:item | aBlock2 value: item value: (index := index+1)]
+! !
+
 !Dictionary methodsFor: '*Roassal-Amber-Extensions'!
 
 at: anIndex ifAbsentPut: aBlock
 	^self at: anIndex ifAbsent: [
 	    self at: anIndex put: aBlock value]
-! !
-
-!SequenceableCollection methodsFor: '*Roassal-Amber-Extensions'!
-
-atAllPut: anObject 
-	"Put anObject at every one of the receiver's indices."
-
-	| size |
-	(size := self size) > 26 "first method faster from 27 accesses and on"
-		ifTrue: [self from: 1 to: size put: anObject]
-		ifFalse: [1 to: size do: [:index | self at: index put: anObject]]
-!
-
-doWithIndex: elementAndIndexBlock
-	"Use the new version with consistent naming"
-	^ self withIndexDo: elementAndIndexBlock
-!
-
-fifth
-	^self at: 5
-!
-
-reverse
-	^self reversed
-!
-
-roSwapElement: u withElement: v
-	| index1 index2 |
-	index1 := self indexOf: u.
-	index2 := self indexOf: v.
-	self at: index2 put: u.
-	self at: index1 put: v.
-!
-
-with: otherCollection do: twoArgBlock 
-	"Evaluate twoArgBlock with corresponding elements from this collection and otherCollection."
-	otherCollection size = self size ifFalse: [self error: 'otherCollection must be the same size'].
-	1 to: self size do:
-		[:index |
-		twoArgBlock value: (self at: index)
-				value: (otherCollection at: index)]
 ! !
 
 !Array methodsFor: '*Roassal-Amber-Extensions'!

@@ -233,10 +233,11 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
+self["@elements"]=_st(self["@elements"])._reject_("isNil");
 $1=self["@elements"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"elements",{},smalltalk.GETAbstractDiagram)})},
-messageSends: []}),
+messageSends: ["reject:"]}),
 smalltalk.GETAbstractDiagram);
 
 smalltalk.addMethod(
