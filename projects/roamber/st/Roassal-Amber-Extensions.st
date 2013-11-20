@@ -1630,6 +1630,11 @@ atAllPut: anObject
 		ifFalse: [1 to: size do: [:index | self at: index put: anObject]]
 !
 
+doWithIndex: elementAndIndexBlock
+	"Use the new version with consistent naming"
+	^ self withIndexDo: elementAndIndexBlock
+!
+
 fifth
 	^self at: 5
 !

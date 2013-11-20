@@ -4332,6 +4332,28 @@ smalltalk.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "doWithIndex:",
+category: '*Roassal-Amber-Extensions',
+fn: function (aBlock2){
+var self=this;
+var index;
+return smalltalk.withContext(function($ctx1) { 
+index=(0);
+self._do_((function(item){
+return smalltalk.withContext(function($ctx2) {
+index=_st(index).__plus((1));
+return _st(aBlock2)._value_value_(item,index);
+}, function($ctx2) {$ctx2.fillBlock({item:item},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"doWithIndex:",{aBlock2:aBlock2,index:index},smalltalk.HashedCollection)})},
+args: ["aBlock2"],
+source: "doWithIndex: aBlock2\x0a\x09\x22Support Set enumeration with a counter, even though not ordered\x22\x0a\x09| index |\x0a\x09index := 0.\x0a\x09self do: [:item | aBlock2 value: item value: (index := index+1)]",
+messageSends: ["do:", "value:value:", "+"],
+referencedClasses: []
+}),
+smalltalk.HashedCollection);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "at:ifAbsentPut:",
 category: '*Roassal-Amber-Extensions',
 fn: function (anIndex,aBlock){
@@ -4374,6 +4396,24 @@ return self}, function($ctx1) {$ctx1.fill(self,"atAllPut:",{anObject:anObject,si
 args: ["anObject"],
 source: "atAllPut: anObject \x0a\x09\x22Put anObject at every one of the receiver's indices.\x22\x0a\x0a\x09| size |\x0a\x09(size := self size) > 26 \x22first method faster from 27 accesses and on\x22\x0a\x09\x09ifTrue: [self from: 1 to: size put: anObject]\x0a\x09\x09ifFalse: [1 to: size do: [:index | self at: index put: anObject]]",
 messageSends: ["ifTrue:ifFalse:", "from:to:put:", "to:do:", "at:put:", ">", "size"],
+referencedClasses: []
+}),
+smalltalk.SequenceableCollection);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "doWithIndex:",
+category: '*Roassal-Amber-Extensions',
+fn: function (elementAndIndexBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._withIndexDo_(elementAndIndexBlock);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"doWithIndex:",{elementAndIndexBlock:elementAndIndexBlock},smalltalk.SequenceableCollection)})},
+args: ["elementAndIndexBlock"],
+source: "doWithIndex: elementAndIndexBlock\x0a\x09\x22Use the new version with consistent naming\x22\x0a\x09^ self withIndexDo: elementAndIndexBlock",
+messageSends: ["withIndexDo:"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);

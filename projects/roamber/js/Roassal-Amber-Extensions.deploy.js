@@ -3401,6 +3401,23 @@ smalltalk.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "doWithIndex:",
+fn: function (aBlock2){
+var self=this;
+var index;
+return smalltalk.withContext(function($ctx1) { 
+index=(0);
+self._do_((function(item){
+return smalltalk.withContext(function($ctx2) {
+index=_st(index).__plus((1));
+return _st(aBlock2)._value_value_(item,index);
+}, function($ctx2) {$ctx2.fillBlock({item:item},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"doWithIndex:",{aBlock2:aBlock2,index:index},smalltalk.HashedCollection)})},
+messageSends: ["do:", "value:value:", "+"]}),
+smalltalk.HashedCollection);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "at:ifAbsentPut:",
 fn: function (anIndex,aBlock){
 var self=this;
@@ -3435,6 +3452,19 @@ return self._at_put_(index,anObject);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"atAllPut:",{anObject:anObject,size:size},smalltalk.SequenceableCollection)})},
 messageSends: ["ifTrue:ifFalse:", "from:to:put:", "to:do:", "at:put:", ">", "size"]}),
+smalltalk.SequenceableCollection);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "doWithIndex:",
+fn: function (elementAndIndexBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._withIndexDo_(elementAndIndexBlock);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"doWithIndex:",{elementAndIndexBlock:elementAndIndexBlock},smalltalk.SequenceableCollection)})},
+messageSends: ["withIndexDo:"]}),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
