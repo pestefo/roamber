@@ -2422,11 +2422,13 @@ smalltalk.method({
 selector: "resizeContainer:for:with:",
 fn: function (svgRect,svgPath,anElement){
 var self=this;
+var textBBox;
 return smalltalk.withContext(function($ctx1) { 
-_st(svgRect)._attr_value_("width",self._width());
-_st(svgRect)._attr_value_("height",_st(self._textHeight()).__plus(_st(self._padding()).__star((2))));
-return self}, function($ctx1) {$ctx1.fill(self,"resizeContainer:for:with:",{svgRect:svgRect,svgPath:svgPath,anElement:anElement},smalltalk.ROLabel)})},
-messageSends: ["attr:value:", "width", "+", "*", "padding", "textHeight"]}),
+textBBox=_st(svgPath)._getBBox();
+_st(svgRect)._attr_value_("width",_st(_st(textBBox)._width()).__plus((5)));
+_st(svgRect)._attr_value_("height",_st(_st(textBBox)._height()).__plus((5)));
+return self}, function($ctx1) {$ctx1.fill(self,"resizeContainer:for:with:",{svgRect:svgRect,svgPath:svgPath,anElement:anElement,textBBox:textBBox},smalltalk.ROLabel)})},
+messageSends: ["getBBox", "attr:value:", "+", "width", "height"]}),
 smalltalk.ROLabel);
 
 smalltalk.addMethod(
@@ -2487,18 +2489,6 @@ return smalltalk.withContext(function($ctx1) {
 return (8);
 }, function($ctx1) {$ctx1.fill(self,"textHeight",{},smalltalk.ROLabel)})},
 messageSends: []}),
-smalltalk.ROLabel);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "updateSVGElementOn:for:",
-fn: function (canvas,anElement){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-smalltalk.ROLabel.superclass.fn.prototype._updateSVGElementOn_for_.apply(_st(self), [canvas,anElement]);
-_st(self["@svgElement"])._transform_("S".__comma(_st(self._scaleFactor())._asString()));
-return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROLabel)})},
-messageSends: ["updateSVGElementOn:for:", "transform:", ",", "asString", "scaleFactor"]}),
 smalltalk.ROLabel);
 
 
@@ -5102,7 +5092,7 @@ selector: "defaultRadius",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return (8);
+return (3);
 }, function($ctx1) {$ctx1.fill(self,"defaultRadius",{},smalltalk.ROEllipse)})},
 messageSends: []}),
 smalltalk.ROEllipse);
@@ -5217,6 +5207,16 @@ smalltalk.ROEllipse);
 
 
 smalltalk.addClass('RONullShape', smalltalk.ROShape, [], 'ARoassal');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "drawOn:for:",
+fn: function (canvas,anElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"drawOn:for:",{canvas:canvas,anElement:anElement},smalltalk.RONullShape)})},
+messageSends: []}),
+smalltalk.RONullShape);
+
 smalltalk.addMethod(
 smalltalk.method({
 selector: "extent:",

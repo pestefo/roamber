@@ -1174,8 +1174,11 @@ padding
 !
 
 resizeContainer: svgRect for: svgPath  with: anElement
-	svgRect attr: 'width'  value: (self width).
-	svgRect attr: 'height' value: self textHeight + (self padding * 2).
+
+	| textBBox |
+	textBBox := svgPath getBBox.	
+	svgRect attr: 'width'  value: (textBBox width + 5).
+	svgRect attr: 'height' value:(textBBox height + 5).
 !
 
 scaleFactor
@@ -1198,11 +1201,6 @@ text: anObject
 textHeight 
 	" Measured empirically. It's ugly, I know"
 	^  8
-!
-
-updateSVGElementOn: canvas for: anElement
-	super updateSVGElementOn: canvas for: anElement.
-	svgElement transform: 'S',(self scaleFactor asString)
 ! !
 
 !ROLabel class methodsFor: 'not yet classified'!
@@ -2243,7 +2241,7 @@ borderWidth: anInteger
 !
 
 defaultRadius
-	^ 8
+	^ 3
 ! !
 
 !ROEllipse methodsFor: 'drawing'!
@@ -2315,6 +2313,9 @@ ROShape subclass: #RONullShape
 	package: 'ARoassal'!
 
 !RONullShape methodsFor: 'hook'!
+
+drawOn: canvas for: anElement
+!
 
 extent: anExtentPoint
 	width := anExtentPoint x.
