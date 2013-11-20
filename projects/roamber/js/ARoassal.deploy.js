@@ -4960,11 +4960,11 @@ var $1,$2;
 $1=self["@svgElement"];
 _st($1)._attr_with_("x",_st(_st(anElement)._position())._x());
 _st($1)._attr_with_("y",_st(_st(anElement)._position())._y());
-_st($1)._attr_with_("width",_st(self._widthFor_(anElement))._max_(self._defaultSize()));
-_st($1)._attr_with_("height",_st(self._heightFor_(anElement))._max_(self._defaultSize()));
+_st($1)._attr_with_("width",self._widthFor_(anElement));
+_st($1)._attr_with_("height",self._heightFor_(anElement));
 $2=_st($1)._attr_with_("fill",_st(self["@color"])._asHTMLRGBA());
 return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROBox)})},
-messageSends: ["attr:with:", "x", "position", "y", "max:", "defaultSize", "widthFor:", "heightFor:", "asHTMLRGBA"]}),
+messageSends: ["attr:with:", "x", "position", "y", "widthFor:", "heightFor:", "asHTMLRGBA"]}),
 smalltalk.ROBox);
 
 smalltalk.addMethod(

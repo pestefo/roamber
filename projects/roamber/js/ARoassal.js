@@ -6873,13 +6873,13 @@ var $1,$2;
 $1=self["@svgElement"];
 _st($1)._attr_with_("x",_st(_st(anElement)._position())._x());
 _st($1)._attr_with_("y",_st(_st(anElement)._position())._y());
-_st($1)._attr_with_("width",_st(self._widthFor_(anElement))._max_(self._defaultSize()));
-_st($1)._attr_with_("height",_st(self._heightFor_(anElement))._max_(self._defaultSize()));
+_st($1)._attr_with_("width",self._widthFor_(anElement));
+_st($1)._attr_with_("height",self._heightFor_(anElement));
 $2=_st($1)._attr_with_("fill",_st(self["@color"])._asHTMLRGBA());
 return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROBox)})},
 args: ["canvas", "anElement"],
-source: "updateSVGElementOn: canvas for: anElement\x0a\x09svgElement \x0a\x09\x09attr: 'x' with: (anElement position x);\x0a\x09\x09attr: 'y' with: (anElement position y);\x0a\x09\x09attr: 'width' with: ((self widthFor: anElement ) max: (self defaultSize));\x0a\x09\x09attr: 'height' with: ((self heightFor: anElement) max: (self defaultSize));\x0a\x09\x09attr:'fill' with: (color asHTMLRGBA).\x0a\x09\x09",
-messageSends: ["attr:with:", "x", "position", "y", "max:", "defaultSize", "widthFor:", "heightFor:", "asHTMLRGBA"],
+source: "updateSVGElementOn: canvas for: anElement\x0a\x09svgElement \x0a\x09\x09attr: 'x' with: (anElement position x);\x0a\x09\x09attr: 'y' with: (anElement position y);\x0a\x09\x09attr: 'width' with: (self widthFor: anElement );\x0a\x09\x09attr: 'height' with: (self heightFor: anElement);\x0a\x09\x09\x0a\x22\x0a\x09\x09attr: 'width' with: ((self widthFor: anElement ) max: (self defaultSize));\x0a\x09\x09attr: 'height' with: ((self heightFor: anElement) max: (self defaultSize));\x0a\x22\x0a\x09\x09attr:'fill' with: (color asHTMLRGBA).\x0a\x09\x09",
+messageSends: ["attr:with:", "x", "position", "y", "widthFor:", "heightFor:", "asHTMLRGBA"],
 referencedClasses: []
 }),
 smalltalk.ROBox);

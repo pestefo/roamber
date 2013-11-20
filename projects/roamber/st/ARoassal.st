@@ -2169,8 +2169,13 @@ updateSVGElementOn: canvas for: anElement
 	svgElement 
 		attr: 'x' with: (anElement position x);
 		attr: 'y' with: (anElement position y);
+		attr: 'width' with: (self widthFor: anElement );
+		attr: 'height' with: (self heightFor: anElement);
+		
+"
 		attr: 'width' with: ((self widthFor: anElement ) max: (self defaultSize));
 		attr: 'height' with: ((self heightFor: anElement) max: (self defaultSize));
+"
 		attr:'fill' with: (color asHTMLRGBA).
 ! !
 
