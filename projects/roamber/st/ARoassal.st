@@ -43,6 +43,208 @@ Object subclass: #ROObject
 	instanceVariableNames: ''
 	package: 'ARoassal'!
 
+ROObject subclass: #ROAbstractCanvas
+	instanceVariableNames: 'camera extent nativeCanvas offset'
+	package: 'ARoassal'!
+
+!ROAbstractCanvas methodsFor: 'accessing'!
+
+camera
+"	^ camera"
+	self error: 'Wow. Such ',(thisContext selector asString),' very ',(self class asString).
+!
+
+camera: aROCamera
+	camera := aROCamera
+!
+
+canvas
+	^ nativeCanvas
+!
+
+canvas: aNativeCanvas 
+	nativeCanvas := aNativeCanvas
+!
+
+extent: aPoint
+	extent := aPoint
+!
+
+offset
+	^ offset
+!
+
+offset: anOffsetAsPoint
+	offset := anOffsetAsPoint
+! !
+
+!ROAbstractCanvas methodsFor: 'convenient'!
+
+paintBackground: color
+
+	self 
+		frameAndFillRectangle: (camera realToVirtualRectangle: (0@0 extent: extent)) 
+		fillColor: color
+		borderWidth: 0 
+		borderColor: Color white.
+! !
+
+!ROAbstractCanvas methodsFor: 'hooks'!
+
+drawPolygon: listOfPoints color: color borderWidth: borderWidthValue borderColor: borderColorValue
+	"Render a polygon at a given position. 
+		nativeCanvas 
+			drawPolygon: (listOfPoints collect: [ :p | self virtualToRealPoint: p ])
+			color: color
+			borderWidth: borderWidthValue 
+			borderColor: borderColorValue.
+	"
+	self subclassResponsibility
+!
+
+drawString: aByteString at: aPoint 
+	"Render a string at a given position. No specification about the font is given. Use the default then"
+	"Implementation example:
+		canvas drawString: aByteString at:  (self virtualToRealPoint: aPoint) font: nil color: Color black
+	"
+	self subclassResponsibility
+!
+
+drawString: aByteString at: aPoint color: color
+	"Render a colored string at a given position. No specification about the font is given. Use the default then"
+	"Implementation example:
+			canvas drawString: aByteString at:  (self virtualToRealPoint: aPoint) font: nil color: color
+	"
+	self subclassResponsibility
+!
+
+drawString: aByteString at:  p font: f color: color
+	"Render a colored string at a given position using a particular font."
+	"Implementation example:
+		canvas drawString: aByteString at:  (self virtualToRealPoint: p) font: f color: color
+	"
+	self subclassResponsibility
+!
+
+fillOval: aRectangle color: aColor borderWidth: aSmallInteger borderColor: aColor4 
+	"Render an oval"
+	"Implementation example
+		canvas
+		fillOval: (self virtualToRealRectangle: aRectangle)  color: aColor borderWidth: aSmallInteger borderColor: aColor4 
+	"
+	self subclassResponsibility
+!
+
+fillRectangle: aRectangle color: fillColor 
+	"Render a rectangle"
+	"Implementation example
+	
+		canvas fillRectangle: (self virtualToRealRectangle: aRectangle) color: fillColor
+	"
+	
+	self subclassResponsibility
+!
+
+form
+	"Return a bitmap"
+	"Implementation example
+		^ canvas form
+	"
+	self subclassResponsibility
+!
+
+frameAndFillRectangle: aRectangle fillColor: fillColor borderWidth: aSmallInteger borderColor: aColor 
+	"Render a framed rectangle. Implementation example:
+
+	canvas 
+		frameAndFillRectangle: (self virtualToRealRectangle: aRectangle) fillColor: fillColor borderWidth: aSmallInteger borderColor: aColor.
+	"
+	
+	self subclassResponsibility.
+!
+
+line: aPoint to: aPoint2 width: aSmallInteger color: aColor 
+	"Draw a line between two points"
+	"Implementation example
+		canvas line: (self virtualToRealPoint: aPoint) to: (self virtualToRealPoint: aPoint2) width: aSmallInteger color: aColor.
+
+	"
+	self subclassResponsibility
+!
+
+paintImage: aForm at: aPoint
+	"Render a bitmap on screen"
+	"Implementation example
+		canvas paintImage: aForm at:  (self virtualToRealPoint: aPoint) 
+
+	"
+	self subclassResponsibility
+! !
+
+!ROAbstractCanvas methodsFor: 'initialize'!
+
+initialize 
+	super initialize.
+	
+	extent := self class defaultExtent.
+	
+	"Maybe a global camera would be useful. The camera object is never used normally. Since the camera of the view has to be set prior any drawing"
+	camera := ROCamera new.
+	
+	offset := 0 @ 0
+!
+
+realToVirtualPoint: aPoint
+	"Return a real point from a one expressed in the virtual coordinates"
+
+	^ camera realToVirtualPoint: aPoint
+!
+
+realToVirtualRectangle: aRectangle
+	"Return a rectangle with virtual coordinates from one expressed in the real coordinates"
+	
+	^ camera realToVirtualRectangle: aRectangle
+! !
+
+!ROAbstractCanvas methodsFor: 'util'!
+
+virtualToRealPoint: aPoint
+	"Return a real point from a one expressed in the virtual coordinates"
+
+	^ (camera virtualToRealPoint: aPoint) + offset
+!
+
+virtualToRealRectangle: aRectangle
+	"Return a rectangle with real coordinates from one expressed in the virtual coordinates"
+	
+	^ (camera virtualToRealRectangle: aRectangle) translateBy: offset
+! !
+
+!ROAbstractCanvas class methodsFor: 'configuration'!
+
+defaultExtent
+	^ 40 @ 30
+! !
+
+!ROAbstractCanvas class methodsFor: 'hooks'!
+
+onCamera: camera
+	"Return a new canvas with a created canvas"
+	"Implementation example: 
+		| form canvas |
+		form := Form extent: camera realExtent depth: Display depth.
+		canvas := FormCanvas on: form.
+		^ self canvas: canvas camera: camera
+	"
+	self subclassResponsibility
+! !
+
+!ROAbstractCanvas class methodsFor: 'public'!
+
+canvas: canvas camera: camera
+	^ self new canvas: canvas; camera: camera; yourself
+! !
+
 ROObject subclass: #ROContainer
 	instanceVariableNames: 'elements attributes'
 	package: 'ARoassal'!
@@ -2144,7 +2346,7 @@ resizeContainer: svgRect for: svgPath  with: anElement
 ! !
 
 ROShape subclass: #ROBox
-	instanceVariableNames: ''
+	instanceVariableNames: 'borderColor borderWidth'
 	package: 'ARoassal'!
 
 !ROBox methodsFor: 'configuration'!
@@ -2154,6 +2356,34 @@ defaultSize
 ! !
 
 !ROBox methodsFor: 'drawing'!
+
+borderColor
+	"Color of a box is set by setting a color, a block or a symbol, which is evaluated against the model of the element"
+	"Return a color, a block or a symbol"
+	^ borderColor
+!
+
+borderColor: aBlockOrSymbolOrObject
+	"Color of a box is set by setting a color, a block or a symbol, which is evaluated against the model of the element"
+
+	borderColor := aBlockOrSymbolOrObject
+!
+
+borderColorFor: element
+	^ borderColor roValue: element
+!
+
+borderWidth
+	^ borderWidth
+!
+
+borderWidth: aBlockOrSymbolOrObject
+	borderWidth := aBlockOrSymbolOrObject.
+!
+
+borderWidthFor: element
+	^ borderWidth roValue: element
+!
 
 initializeSVGElementOn: canvas for: anElement
 	svgElement:= canvas 
@@ -2169,15 +2399,20 @@ updateSVGElementOn: canvas for: anElement
 		attr: 'y' with: (anElement position y);
 		attr: 'width' with: (self widthFor: anElement );
 		attr: 'height' with: (self heightFor: anElement);
-		
 "
 		attr: 'width' with: ((self widthFor: anElement ) max: (self defaultSize));
 		attr: 'height' with: ((self heightFor: anElement) max: (self defaultSize));
 "
-		attr:'fill' with: (color asHTMLRGBA).
+		attr:'fill' with: (color asHTMLRGBA);
+		attr: 'stroke-width' value: (self borderWidth);
+		attr: 'stroke' value: (self borderColor asHTMLRGBA).
 ! !
 
 !ROBox methodsFor: 'initialize'!
+
+defaultBorderColor
+	^ Color black
+!
 
 height
 	^ height
@@ -2189,7 +2424,8 @@ initialize
 	width := self defaultSize.
 	height := self defaultSize.
 	
-	" create svgElement and hide it"
+	borderColor := self defaultBorderColor.
+	borderWidth := 0
 !
 
 width

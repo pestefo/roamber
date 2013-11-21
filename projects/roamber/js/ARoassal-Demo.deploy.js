@@ -155,7 +155,7 @@ classElements=_st($ROElement())._forCollection_(_st($Collection())._withAllSubcl
 _st(classElements)._do_((function(c){
 var instVar,numMethods;
 return smalltalk.withContext(function($ctx2) {
-instVar=_st(_st(_st(c)._model())._instVarNames())._size();
+instVar=_st(_st(c)._model())._numberOfVariables();
 instVar;
 $1=_st(c)._shape();
 $3=_st(instVar).__eq((0));
@@ -165,7 +165,7 @@ $2=(10);
 $2=_st(instVar).__star((15));
 };
 _st($1)._width_($2);
-numMethods=_st(_st(_st(c)._model())._selectors())._size();
+numMethods=_st(_st(c)._model())._numberOfMethods();
 numMethods;
 $4=_st(c)._shape();
 $6=_st(numMethods).__eq((0));
@@ -193,7 +193,7 @@ _st(view)._addAll_(edges);
 _st($ROTreeLayout())._on_edges_(_st(view)._elements(),edges);
 _st(view)._open();
 return self}, function($ctx1) {$ctx1.fill(self,"collectionHierarchy",{view:view,classElements:classElements,edges:edges,associations:associations},smalltalk.ROExample)})},
-messageSends: ["new", "forCollection:", "withAllSubclasses", "do:", "size", "instVarNames", "model", "width:", "ifTrue:ifFalse:", "*", "=", "shape", "selectors", "height:", "@", "text:", "asString", "+", "addAll:", "collect:thenSelect:", "ifFalse:", "->", "elementFromModel:", "superclass", "not", "isNil", "linesFor:", "on:edges:", "elements", "open"]}),
+messageSends: ["new", "forCollection:", "withAllSubclasses", "do:", "numberOfVariables", "model", "width:", "ifTrue:ifFalse:", "*", "=", "shape", "numberOfMethods", "height:", "@", "text:", "asString", "+", "addAll:", "collect:thenSelect:", "ifFalse:", "->", "elementFromModel:", "superclass", "not", "isNil", "linesFor:", "on:edges:", "elements", "open"]}),
 smalltalk.ROExample);
 
 smalltalk.addMethod(

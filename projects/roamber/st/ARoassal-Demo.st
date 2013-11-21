@@ -60,10 +60,10 @@ view := ROView new.
 classElements := ROElement forCollection: Collection withAllSubclasses.
 classElements
 	do: [:c | | instVar numMethods |
-		instVar := c model instVarNames size.
+		instVar := c model numberOfVariables.
 		c shape width: (( instVar = 0) ifTrue: [ 10 ] ifFalse: [ instVar * 15]) .
 
-		numMethods := c model selectors size.
+		numMethods := c model numberOfMethods.
 		c shape height: (( numMethods = 0) ifTrue: [ 3 ] ifFalse: [ numMethods * 2]) . 	
 		c + ROBox @ RODraggable @ ROHighlight @ (ROPopup text: (c model asString)).
 

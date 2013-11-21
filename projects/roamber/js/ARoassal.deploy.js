@@ -5206,7 +5206,95 @@ smalltalk.ROTux);
 
 
 
-smalltalk.addClass('ROBox', smalltalk.ROShape, [], 'ARoassal');
+smalltalk.addClass('ROBox', smalltalk.ROShape, ['borderColor', 'borderWidth'], 'ARoassal');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "borderColor",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@borderColor"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"borderColor",{},smalltalk.ROBox)})},
+messageSends: []}),
+smalltalk.ROBox);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "borderColor:",
+fn: function (aBlockOrSymbolOrObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@borderColor"]=aBlockOrSymbolOrObject;
+return self}, function($ctx1) {$ctx1.fill(self,"borderColor:",{aBlockOrSymbolOrObject:aBlockOrSymbolOrObject},smalltalk.ROBox)})},
+messageSends: []}),
+smalltalk.ROBox);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "borderColorFor:",
+fn: function (element){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@borderColor"])._roValue_(element);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"borderColorFor:",{element:element},smalltalk.ROBox)})},
+messageSends: ["roValue:"]}),
+smalltalk.ROBox);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "borderWidth",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@borderWidth"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"borderWidth",{},smalltalk.ROBox)})},
+messageSends: []}),
+smalltalk.ROBox);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "borderWidth:",
+fn: function (aBlockOrSymbolOrObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@borderWidth"]=aBlockOrSymbolOrObject;
+return self}, function($ctx1) {$ctx1.fill(self,"borderWidth:",{aBlockOrSymbolOrObject:aBlockOrSymbolOrObject},smalltalk.ROBox)})},
+messageSends: []}),
+smalltalk.ROBox);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "borderWidthFor:",
+fn: function (element){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@borderWidth"])._roValue_(element);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"borderWidthFor:",{element:element},smalltalk.ROBox)})},
+messageSends: ["roValue:"]}),
+smalltalk.ROBox);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultBorderColor",
+fn: function (){
+var self=this;
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($Color())._black();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultBorderColor",{},smalltalk.ROBox)})},
+messageSends: ["black"]}),
+smalltalk.ROBox);
+
 smalltalk.addMethod(
 smalltalk.method({
 selector: "defaultSize",
@@ -5239,8 +5327,10 @@ return smalltalk.withContext(function($ctx1) {
 smalltalk.ROBox.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@width"]=self._defaultSize();
 self["@height"]=self._defaultSize();
+self["@borderColor"]=self._defaultBorderColor();
+self["@borderWidth"]=(0);
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROBox)})},
-messageSends: ["initialize", "defaultSize"]}),
+messageSends: ["initialize", "defaultSize", "defaultBorderColor"]}),
 smalltalk.ROBox);
 
 smalltalk.addMethod(
@@ -5266,9 +5356,11 @@ _st($1)._attr_with_("x",_st(_st(anElement)._position())._x());
 _st($1)._attr_with_("y",_st(_st(anElement)._position())._y());
 _st($1)._attr_with_("width",self._widthFor_(anElement));
 _st($1)._attr_with_("height",self._heightFor_(anElement));
-$2=_st($1)._attr_with_("fill",_st(self["@color"])._asHTMLRGBA());
+_st($1)._attr_with_("fill",_st(self["@color"])._asHTMLRGBA());
+_st($1)._attr_value_("stroke-width",self._borderWidth());
+$2=_st($1)._attr_value_("stroke",_st(self._borderColor())._asHTMLRGBA());
 return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROBox)})},
-messageSends: ["attr:with:", "x", "position", "y", "widthFor:", "heightFor:", "asHTMLRGBA"]}),
+messageSends: ["attr:with:", "x", "position", "y", "widthFor:", "heightFor:", "asHTMLRGBA", "attr:value:", "borderWidth", "borderColor"]}),
 smalltalk.ROBox);
 
 smalltalk.addMethod(
