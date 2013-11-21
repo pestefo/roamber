@@ -2410,10 +2410,6 @@ updateSVGElementOn: canvas for: anElement
 
 !ROBox methodsFor: 'initialize'!
 
-defaultBorderColor
-	^ Color black
-!
-
 height
 	^ height
 !
@@ -2424,12 +2420,54 @@ initialize
 	width := self defaultSize.
 	height := self defaultSize.
 	
-	borderColor := self defaultBorderColor.
+	borderColor := self class defaultBorderColor.
 	borderWidth := 0
 !
 
 width
 	^ width
+! !
+
+!ROBox class methodsFor: 'not yet classified'!
+
+defaultBorderColor
+	^ Color black
+! !
+
+ROBox subclass: #ROBorder
+	instanceVariableNames: ''
+	package: 'ARoassal'!
+
+!ROBorder methodsFor: 'not yet classified'!
+
+color
+	^ self borderColor
+!
+
+color: aColor
+	^ self borderColor: aColor
+!
+
+initialize
+	super initialize.
+	" Fill color is inmutable. color and color: methods redirect to borderColor and borderColor:"
+	color := Color white.
+	borderColor := self class defaultColor.
+	borderWidth := self class defaultBorderWidth
+! !
+
+!ROBorder class methodsFor: 'not yet classified'!
+
+defaultBorderColor
+	^ Color black
+!
+
+defaultBorderWidth
+	^ 3
+!
+
+defaultColor
+	^ self defaultBorderColor
 ! !
 
 ROShape subclass: #ROCountry

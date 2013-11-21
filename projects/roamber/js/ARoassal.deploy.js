@@ -5283,20 +5283,6 @@ smalltalk.ROBox);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "defaultBorderColor",
-fn: function (){
-var self=this;
-function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st($Color())._black();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"defaultBorderColor",{},smalltalk.ROBox)})},
-messageSends: ["black"]}),
-smalltalk.ROBox);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "defaultSize",
 fn: function (){
 var self=this;
@@ -5327,10 +5313,10 @@ return smalltalk.withContext(function($ctx1) {
 smalltalk.ROBox.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@width"]=self._defaultSize();
 self["@height"]=self._defaultSize();
-self["@borderColor"]=self._defaultBorderColor();
+self["@borderColor"]=_st(self._class())._defaultBorderColor();
 self["@borderWidth"]=(0);
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROBox)})},
-messageSends: ["initialize", "defaultSize", "defaultBorderColor"]}),
+messageSends: ["initialize", "defaultSize", "defaultBorderColor", "class"]}),
 smalltalk.ROBox);
 
 smalltalk.addMethod(
@@ -5375,6 +5361,102 @@ return $1;
 messageSends: []}),
 smalltalk.ROBox);
 
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultBorderColor",
+fn: function (){
+var self=this;
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($Color())._black();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultBorderColor",{},smalltalk.ROBox.klass)})},
+messageSends: ["black"]}),
+smalltalk.ROBox.klass);
+
+
+smalltalk.addClass('ROBorder', smalltalk.ROBox, [], 'ARoassal');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "color",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._borderColor();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"color",{},smalltalk.ROBorder)})},
+messageSends: ["borderColor"]}),
+smalltalk.ROBorder);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "color:",
+fn: function (aColor){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._borderColor_(aColor);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"color:",{aColor:aColor},smalltalk.ROBorder)})},
+messageSends: ["borderColor:"]}),
+smalltalk.ROBorder);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+fn: function (){
+var self=this;
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.ROBorder.superclass.fn.prototype._initialize.apply(_st(self), []);
+self["@color"]=_st($Color())._white();
+self["@borderColor"]=_st(self._class())._defaultColor();
+self["@borderWidth"]=_st(self._class())._defaultBorderWidth();
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROBorder)})},
+messageSends: ["initialize", "white", "defaultColor", "class", "defaultBorderWidth"]}),
+smalltalk.ROBorder);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultBorderColor",
+fn: function (){
+var self=this;
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($Color())._black();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultBorderColor",{},smalltalk.ROBorder.klass)})},
+messageSends: ["black"]}),
+smalltalk.ROBorder.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultBorderWidth",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return (3);
+}, function($ctx1) {$ctx1.fill(self,"defaultBorderWidth",{},smalltalk.ROBorder.klass)})},
+messageSends: []}),
+smalltalk.ROBorder.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultColor",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._defaultBorderColor();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultColor",{},smalltalk.ROBorder.klass)})},
+messageSends: ["defaultBorderColor"]}),
+smalltalk.ROBorder.klass);
 
 
 smalltalk.addClass('ROCountry', smalltalk.ROShape, ['path'], 'ARoassal');
