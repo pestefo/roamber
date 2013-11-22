@@ -211,7 +211,7 @@ $5=(3);
 $5=_st(numMethods).__star((2));
 };
 _st($4)._height_($5);
-return _st(_st(_st(_st(c).__plus($ROBox())).__at($RODraggable())).__at($ROHighlight())).__at(_st($ROPopup())._text_(_st(_st(c)._model())._asString()));
+return _st(_st(_st(_st(c).__plus($ROBox())).__at($RODraggable())).__at($ROHighlight())).__at($ROPopup());
 }, function($ctx2) {$ctx2.fillBlock({c:c,instVar:instVar,numMethods:numMethods},$ctx1)})}));
 _st(view)._addAll_(classElements);
 associations=_st(classElements)._collect_thenSelect_((function(c){
@@ -230,8 +230,8 @@ _st($ROTreeLayout())._on_edges_(_st(view)._elements(),edges);
 _st(view)._open();
 return self}, function($ctx1) {$ctx1.fill(self,"collectionHierarchy",{view:view,classElements:classElements,edges:edges,associations:associations},smalltalk.ROExample)})},
 args: [],
-source: "collectionHierarchy\x0a| view classElements edges associations |\x0aview := ROView new.\x0aclassElements := ROElement forCollection: Collection withAllSubclasses.\x0aclassElements\x0a\x09do: [:c | | instVar numMethods |\x0a\x09\x09instVar := c model numberOfVariables.\x0a\x09\x09c shape width: (( instVar = 0) ifTrue: [ 10 ] ifFalse: [ instVar * 15]) .\x0a\x0a\x09\x09numMethods := c model numberOfMethods.\x0a\x09\x09c shape height: (( numMethods = 0) ifTrue: [ 3 ] ifFalse: [ numMethods * 2]) . \x09\x0a\x09\x09c + ROBox @ RODraggable @ ROHighlight @ (ROPopup text: (c model asString)).\x0a\x0a].\x0aview addAll: classElements.\x0a\x0a\x22 Build and add edges \x22\x0aassociations := classElements collect: [:c |\x0a\x09\x09\x09(c model superclass = Object)\x0a\x09\x09\x09ifFalse: [ (view elementFromModel: c\x0a\x09\x09\x09\x09model superclass) -> c]\x0a\x09\x09\x09] thenSelect: [:assoc | assoc isNil not ].\x0a\x09\x09\x09\x0aedges := ROEdge linesFor: associations.\x0aview addAll: edges.\x0a\x0a\x22 Show the hierarchy as a tree \x22\x0aROTreeLayout on: (view elements) edges: edges.\x0a\x0a\x0aview open.",
-messageSends: ["new", "forCollection:", "withAllSubclasses", "do:", "numberOfVariables", "model", "width:", "ifTrue:ifFalse:", "*", "=", "shape", "numberOfMethods", "height:", "@", "text:", "asString", "+", "addAll:", "collect:thenSelect:", "ifFalse:", "->", "elementFromModel:", "superclass", "not", "isNil", "linesFor:", "on:edges:", "elements", "open"],
+source: "collectionHierarchy\x0a| view classElements edges associations |\x0aview := ROView new.\x0aclassElements := ROElement forCollection: Collection withAllSubclasses.\x0aclassElements\x0a\x09do: [:c | | instVar numMethods |\x0a\x09\x09instVar := c model numberOfVariables.\x0a\x09\x09c shape width: (( instVar = 0) ifTrue: [ 10 ] ifFalse: [ instVar * 15]) .\x0a\x0a\x09\x09numMethods := c model numberOfMethods.\x0a\x09\x09c shape height: (( numMethods = 0) ifTrue: [ 3 ] ifFalse: [ numMethods * 2]) . \x09\x0a\x09\x09c + ROBox @ RODraggable @ ROHighlight  @ ROPopup.\x0a\x0a].\x0aview addAll: classElements.\x0a\x0a\x22 Build and add edges \x22\x0aassociations := classElements collect: [:c |\x0a\x09\x09\x09(c model superclass = Object)\x0a\x09\x09\x09ifFalse: [ (view elementFromModel: c\x0a\x09\x09\x09\x09model superclass) -> c]\x0a\x09\x09\x09] thenSelect: [:assoc | assoc isNil not ].\x0a\x09\x09\x09\x0aedges := ROEdge linesFor: associations.\x0aview addAll: edges.\x0a\x0a\x22 Show the hierarchy as a tree \x22\x0aROTreeLayout on: (view elements) edges: edges.\x0a\x0a\x0aview open.",
+messageSends: ["new", "forCollection:", "withAllSubclasses", "do:", "numberOfVariables", "model", "width:", "ifTrue:ifFalse:", "*", "=", "shape", "numberOfMethods", "height:", "@", "+", "addAll:", "collect:thenSelect:", "ifFalse:", "->", "elementFromModel:", "superclass", "not", "isNil", "linesFor:", "on:edges:", "elements", "open"],
 referencedClasses: ["ROView", "Collection", "ROElement", "ROPopup", "ROHighlight", "RODraggable", "ROBox", "Object", "ROEdge", "ROTreeLayout"]
 }),
 smalltalk.ROExample);
@@ -814,27 +814,30 @@ selector: "theWorld",
 category: 'demo',
 fn: function (){
 var self=this;
-var view;
+var view,color;
 function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
 function $ROSVGPath(){return smalltalk.ROSVGPath||(typeof ROSVGPath=="undefined"?nil:ROSVGPath)}
 function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
 function $ROHighlight(){return smalltalk.ROHighlight||(typeof ROHighlight=="undefined"?nil:ROHighlight)}
+function $ROPopup(){return smalltalk.ROPopup||(typeof ROPopup=="undefined"?nil:ROPopup)}
 return smalltalk.withContext(function($ctx1) { 
 view=_st($ROView())._new();
 _st(view)._addAll_(_st(_st($ROSVGPath())._world())._collect_((function(country){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st($ROSVGPath())._path_(_st($ROSVGPath())._perform_(country)))._element();
+return _st(_st($ROSVGPath())._path_(_st($ROSVGPath())._perform_(country)))._elementOn_(country);
 }, function($ctx2) {$ctx2.fillBlock({country:country},$ctx1)})})));
+color=_st($Color())._r_g_b_((0.746),(0.652),(0.188));
 _st(view)._elementsDo_((function(e){
 return smalltalk.withContext(function($ctx2) {
-return _st(e).__at(_st($ROHighlight())._color_(_st($Color())._r_g_b_((0.746),(0.652),(0.188))));
+_st(e).__at(_st($ROHighlight())._color_(color));
+return _st(e).__at($ROPopup());
 }, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
 _st(view)._open();
-return self}, function($ctx1) {$ctx1.fill(self,"theWorld",{view:view},smalltalk.ROExample)})},
+return self}, function($ctx1) {$ctx1.fill(self,"theWorld",{view:view,color:color},smalltalk.ROExample)})},
 args: [],
-source: "theWorld\x0a\x09|view|\x0a\x09view := ROView new.\x0a\x09\x0a\x09view addAll: ((ROSVGPath world) collect: [:country |\x0a\x09\x09\x09(ROSVGPath path: (ROSVGPath perform: country)) element]).\x0a\x09\x09\x09\x0a\x09view elementsDo: [:e |\x0a\x09\x09e @ (ROHighlight color: (Color r: 0.746 g: 0.652 b: 0.188) ) ].\x0a\x09view open.",
-messageSends: ["new", "addAll:", "collect:", "element", "path:", "perform:", "world", "elementsDo:", "@", "color:", "r:g:b:", "open"],
-referencedClasses: ["ROView", "ROSVGPath", "Color", "ROHighlight"]
+source: "theWorld\x0a\x0a\x09|view color|\x0a\x09view := ROView new.\x0a\x09\x0a\x09view addAll: ((ROSVGPath world) collect: [:country |\x0a\x09\x09\x09(ROSVGPath path: (ROSVGPath perform: country)) elementOn: country]).\x0a\x09color := Color r: 0.746 g: 0.652 b: 0.188.\x09\x09\x0a\x09view elementsDo: [:e |\x0a\x09\x09e @ (ROHighlight color: color).\x0a\x09\x09e @ ROPopup.\x0a\x09].\x0a\x09view open.",
+messageSends: ["new", "addAll:", "collect:", "elementOn:", "path:", "perform:", "world", "r:g:b:", "elementsDo:", "@", "color:", "open"],
+referencedClasses: ["ROView", "ROSVGPath", "Color", "ROHighlight", "ROPopup"]
 }),
 smalltalk.ROExample);
 

@@ -65,7 +65,7 @@ classElements
 
 		numMethods := c model numberOfMethods.
 		c shape height: (( numMethods = 0) ifTrue: [ 3 ] ifFalse: [ numMethods * 2]) . 	
-		c + ROBox @ RODraggable @ ROHighlight @ (ROPopup text: (c model asString)).
+		c + ROBox @ RODraggable @ ROHighlight  @ ROPopup.
 
 ].
 view addAll: classElements.
@@ -101,14 +101,17 @@ builder open.
 !
 
 theWorld
-	|view|
+
+	|view color|
 	view := ROView new.
 	
 	view addAll: ((ROSVGPath world) collect: [:country |
-			(ROSVGPath path: (ROSVGPath perform: country)) element]).
-			
+			(ROSVGPath path: (ROSVGPath perform: country)) elementOn: country]).
+	color := Color r: 0.746 g: 0.652 b: 0.188.		
 	view elementsDo: [:e |
-		e @ (ROHighlight color: (Color r: 0.746 g: 0.652 b: 0.188) ) ].
+		e @ (ROHighlight color: color).
+		e @ ROPopup.
+	].
 	view open.
 !
 

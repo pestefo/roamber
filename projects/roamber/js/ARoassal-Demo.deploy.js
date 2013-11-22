@@ -175,7 +175,7 @@ $5=(3);
 $5=_st(numMethods).__star((2));
 };
 _st($4)._height_($5);
-return _st(_st(_st(_st(c).__plus($ROBox())).__at($RODraggable())).__at($ROHighlight())).__at(_st($ROPopup())._text_(_st(_st(c)._model())._asString()));
+return _st(_st(_st(_st(c).__plus($ROBox())).__at($RODraggable())).__at($ROHighlight())).__at($ROPopup());
 }, function($ctx2) {$ctx2.fillBlock({c:c,instVar:instVar,numMethods:numMethods},$ctx1)})}));
 _st(view)._addAll_(classElements);
 associations=_st(classElements)._collect_thenSelect_((function(c){
@@ -193,7 +193,7 @@ _st(view)._addAll_(edges);
 _st($ROTreeLayout())._on_edges_(_st(view)._elements(),edges);
 _st(view)._open();
 return self}, function($ctx1) {$ctx1.fill(self,"collectionHierarchy",{view:view,classElements:classElements,edges:edges,associations:associations},smalltalk.ROExample)})},
-messageSends: ["new", "forCollection:", "withAllSubclasses", "do:", "numberOfVariables", "model", "width:", "ifTrue:ifFalse:", "*", "=", "shape", "numberOfMethods", "height:", "@", "text:", "asString", "+", "addAll:", "collect:thenSelect:", "ifFalse:", "->", "elementFromModel:", "superclass", "not", "isNil", "linesFor:", "on:edges:", "elements", "open"]}),
+messageSends: ["new", "forCollection:", "withAllSubclasses", "do:", "numberOfVariables", "model", "width:", "ifTrue:ifFalse:", "*", "=", "shape", "numberOfMethods", "height:", "@", "+", "addAll:", "collect:thenSelect:", "ifFalse:", "->", "elementFromModel:", "superclass", "not", "isNil", "linesFor:", "on:edges:", "elements", "open"]}),
 smalltalk.ROExample);
 
 smalltalk.addMethod(
@@ -678,24 +678,27 @@ smalltalk.method({
 selector: "theWorld",
 fn: function (){
 var self=this;
-var view;
+var view,color;
 function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
 function $ROSVGPath(){return smalltalk.ROSVGPath||(typeof ROSVGPath=="undefined"?nil:ROSVGPath)}
 function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
 function $ROHighlight(){return smalltalk.ROHighlight||(typeof ROHighlight=="undefined"?nil:ROHighlight)}
+function $ROPopup(){return smalltalk.ROPopup||(typeof ROPopup=="undefined"?nil:ROPopup)}
 return smalltalk.withContext(function($ctx1) { 
 view=_st($ROView())._new();
 _st(view)._addAll_(_st(_st($ROSVGPath())._world())._collect_((function(country){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st($ROSVGPath())._path_(_st($ROSVGPath())._perform_(country)))._element();
+return _st(_st($ROSVGPath())._path_(_st($ROSVGPath())._perform_(country)))._elementOn_(country);
 }, function($ctx2) {$ctx2.fillBlock({country:country},$ctx1)})})));
+color=_st($Color())._r_g_b_((0.746),(0.652),(0.188));
 _st(view)._elementsDo_((function(e){
 return smalltalk.withContext(function($ctx2) {
-return _st(e).__at(_st($ROHighlight())._color_(_st($Color())._r_g_b_((0.746),(0.652),(0.188))));
+_st(e).__at(_st($ROHighlight())._color_(color));
+return _st(e).__at($ROPopup());
 }, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
 _st(view)._open();
-return self}, function($ctx1) {$ctx1.fill(self,"theWorld",{view:view},smalltalk.ROExample)})},
-messageSends: ["new", "addAll:", "collect:", "element", "path:", "perform:", "world", "elementsDo:", "@", "color:", "r:g:b:", "open"]}),
+return self}, function($ctx1) {$ctx1.fill(self,"theWorld",{view:view,color:color},smalltalk.ROExample)})},
+messageSends: ["new", "addAll:", "collect:", "elementOn:", "path:", "perform:", "world", "r:g:b:", "elementsDo:", "@", "color:", "open"]}),
 smalltalk.ROExample);
 
 smalltalk.addMethod(
