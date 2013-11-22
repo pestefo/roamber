@@ -100,6 +100,18 @@ builder maxColor: Color red.
 builder open.
 !
 
+theWorld
+	|view|
+	view := ROView new.
+	
+	view addAll: ((ROSVGPath world) collect: [:country |
+			(ROSVGPath path: (ROSVGPath perform: country)) element]).
+			
+	view elementsDo: [:e |
+		e @ (ROHighlight color: (Color r: 0.746 g: 0.652 b: 0.188) ) ].
+	view open.
+!
+
 worldConnections
 	| builder |
 	builder := ROMapBuilder new.
