@@ -1899,6 +1899,12 @@ rem: aNumber
 	^self - ((self quo: aNumber) * aNumber)
 !
 
+roundTo: quantum 
+	"Answer the nearest number that is a multiple of quantum."
+
+	^(self / quantum) rounded * quantum
+!
+
 roundUpTo: aNumber 
 	"Answer the next multiple of aNumber toward infinity that is nearest the receiver.
 	Examples:

@@ -4048,6 +4048,19 @@ smalltalk.Number);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "roundTo:",
+fn: function (quantum){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self.__slash(quantum))._rounded()).__star(quantum);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"roundTo:",{quantum:quantum},smalltalk.Number)})},
+messageSends: ["*", "rounded", "/"]}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "roundUpTo:",
 fn: function (aNumber){
 var self=this;

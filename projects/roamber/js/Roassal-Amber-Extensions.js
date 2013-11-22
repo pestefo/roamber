@@ -5209,6 +5209,24 @@ smalltalk.Number);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "roundTo:",
+category: '*Roassal-Amber-Extensions',
+fn: function (quantum){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self.__slash(quantum))._rounded()).__star(quantum);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"roundTo:",{quantum:quantum},smalltalk.Number)})},
+args: ["quantum"],
+source: "roundTo: quantum \x0a\x09\x22Answer the nearest number that is a multiple of quantum.\x22\x0a\x0a\x09^(self / quantum) rounded * quantum",
+messageSends: ["*", "rounded", "/"],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "roundUpTo:",
 category: '*Roassal-Amber-Extensions',
 fn: function (aNumber){
