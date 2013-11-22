@@ -3233,7 +3233,7 @@ smalltalk.ROLine);
 
 
 
-smalltalk.addClass('ROAbstractPathShape', smalltalk.ROShape, [], 'ARoassal');
+smalltalk.addClass('ROAbstractPathShape', smalltalk.ROShape, ['svgRect', 'svgPath'], 'ARoassal');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "centeringPath:into:with:",
@@ -3316,16 +3316,15 @@ selector: "initializeSVGElementOn:for:",
 category: 'not yet classified',
 fn: function (canvas,anElement){
 var self=this;
-var svgRect,svgPath;
 return smalltalk.withContext(function($ctx1) { 
-svgRect=self._initializeContainterOn_for_(canvas,anElement);
-svgPath=self._initializePathOn_for_(canvas,anElement);
-self._resizeContainer_for_with_(svgRect,svgPath,anElement);
-self._centeringPath_into_with_(svgPath,svgRect,anElement);
-self._createSetWith_and_on_for_(svgRect,svgPath,canvas,anElement);
-return self}, function($ctx1) {$ctx1.fill(self,"initializeSVGElementOn:for:",{canvas:canvas,anElement:anElement,svgRect:svgRect,svgPath:svgPath},smalltalk.ROAbstractPathShape)})},
+self["@svgRect"]=self._initializeContainterOn_for_(canvas,anElement);
+self["@svgPath"]=self._initializePathOn_for_(canvas,anElement);
+self._resizeContainer_for_with_(self["@svgRect"],self["@svgPath"],anElement);
+self._centeringPath_into_with_(self["@svgPath"],self["@svgRect"],anElement);
+self._createSetWith_and_on_for_(self["@svgRect"],self["@svgPath"],canvas,anElement);
+return self}, function($ctx1) {$ctx1.fill(self,"initializeSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROAbstractPathShape)})},
 args: ["canvas", "anElement"],
-source: "initializeSVGElementOn: canvas for: anElement\x0a\x09| svgRect svgPath |\x0a\x09\x0a\x09svgRect := self initializeContainterOn: canvas for: anElement.\x0a\x09svgPath := self initializePathOn: canvas for: anElement.\x0a\x09\x0a\x09self resizeContainer: svgRect for: svgPath with: anElement. \x0a\x09self centeringPath: svgPath into: svgRect with: anElement.\x0a\x09self createSetWith: svgRect and: svgPath on: canvas for: anElement.",
+source: "initializeSVGElementOn: canvas for: anElement\x0a\x0a\x09\x0a\x09svgRect := self initializeContainterOn: canvas for: anElement.\x0a\x09svgPath := self initializePathOn: canvas for: anElement.\x0a\x09\x0a\x09self resizeContainer: svgRect for: svgPath with: anElement. \x0a\x09self centeringPath: svgPath into: svgRect with: anElement.\x0a\x09self createSetWith: svgRect and: svgPath on: canvas for: anElement.",
 messageSends: ["initializeContainterOn:for:", "initializePathOn:for:", "resizeContainer:for:with:", "centeringPath:into:with:", "createSetWith:and:on:for:"],
 referencedClasses: []
 }),
@@ -3388,10 +3387,11 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self["@svgElement"])._transform_("T0,0");
 _st(self["@svgElement"])._transform_(_st(_st("T".__comma(_st(_st(anElement)._position())._x())).__comma(",")).__comma(_st(_st(anElement)._position())._y()));
+_st(self["@svgPath"])._attr_value_("fill",_st(self._color())._asHTMLRGBA());
 return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROAbstractPathShape)})},
 args: ["canvas", "anElement"],
-source: "updateSVGElementOn: canvas for: anElement\x0a\x09svgElement transform: 'T0,0'.\x0a\x09svgElement transform: 'T',(anElement position x),',',(anElement position y).\x0a\x22\x0a\x09svgElement translate: 0 y: 0.\x0a\x09svgElement translate: (anElement position x) y: (anElement position y).\x0a\x22",
-messageSends: ["transform:", ",", "y", "position", "x"],
+source: "updateSVGElementOn: canvas for: anElement\x0a\x09svgElement transform: 'T0,0'.\x0a\x09svgElement transform: 'T',(anElement position x),',',(anElement position y).\x0a\x09svgPath attr: 'fill' value: (self color asHTMLRGBA).\x0a\x22\x0a\x09svgElement translate: 0 y: 0.\x0a\x09svgElement translate: (anElement position x) y: (anElement position y).\x0a\x22",
+messageSends: ["transform:", ",", "y", "position", "x", "attr:value:", "asHTMLRGBA", "color"],
 referencedClasses: []
 }),
 smalltalk.ROAbstractPathShape);
@@ -3963,12 +3963,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=self._borderColor();
+$1=self["@color"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"color",{},smalltalk.ROSVGPath)})},
 args: [],
-source: "color\x0a\x09^ self borderColor",
-messageSends: ["borderColor"],
+source: "color\x0a\x09^ color",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.ROSVGPath);
@@ -3981,12 +3981,13 @@ fn: function (aColor){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=self._borderColor_(aColor);
+self["@color"]=aColor;
+$1=self["@color"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"color:",{aColor:aColor},smalltalk.ROSVGPath)})},
 args: ["aColor"],
-source: "color: aColor\x0a\x09^ self borderColor: aColor",
-messageSends: ["borderColor:"],
+source: "color: aColor\x0a\x09^ color := aColor",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.ROSVGPath);
@@ -7110,6 +7111,25 @@ args: [],
 source: "countries\x0a\x09^ #(#Afghanistan #Albania #Algeria #Angola #Argentina #Armenia #Australia #Austria #Azerbaijan #Bangladesh #Belarus #Belgium #Belize #Benin #Bhutan #Bolivia #BosniaandHerzegovina #Botswana #Brazil #BruneiDarussalam #Bulgaria #BurkinaFaso #Burundi #Cambodia #Cameroon #Canada #CentralAfricanRepublic #Chad #Chile #China #Colombia #Congo #CostaRica #Croatia #Cuba #Cyprus #CzechRepubilc #DemocraticRepublicCongo #Denmark #Djibouti #DominicanRepublic #Ecuador #Egypt #ElSalvador #EquatorialGuinea #Eritrea #Estonia #Ethiopia #FalklandIslandsMalvinas #Fiji #Finland #France #FrenchGuyana #GM #Gabon #Georgia #Germany #Ghana #GreatBritian #Greece #Greenland #Guatemala #Guinea #GuineaBissau #Guyana #Haiti #Honduras #Hungary #Iceland #India #Indonesia #Iran #Iraq #Ireland #Israel #Italy #IvoryCoast #Jamacia #Japan #Jordan #Kazakhstan #Kenya #Kuwait #Kyrgyzstan #Laos #Latvia #Lebanon #Lesotho #Liberia #Libya #Lithuania #Luxembourg #Madagascar #Malawi #Malaysia #Mali #Mauritania #Mexico #Moldova #Mongolia #Morocco #Mozambique #MyanmarBurma #Nambia #Nepal #Netherlands #NewZealand #Nicaragua #Niger #Nigeria #NorthKorea #Norway #Noumea #Oman #Pakistan #Palestine #Panama #PapuaNewGuinea #Paraguay #Peru #Phillipines #Poland #Portugal #PuertoRico #Qatar #RepublicofMacedonia #RepublicofTurkey #Romania #Russia #Rwanda #SaudiArabia #Senegal #Serbia #SierraLeone #Slovakia #SolomonIslands #Somolia #SouthAfrica #SouthKorea #Spain #SriLanka #Sudan #Suriname #SvalbardJanMayen #Swaziland #Sweden #Switzerland #Syria #Taiwan #Tajikistan #Tanzania #Thailand #TimorLeste #Togo #Tunisia #Turkmenistan #Uganda #Ukraine #UnitedArabEmirates #UnitedStates #Uruguay #Uzbekistan #Vanuatu #Venezuela #Vietnam #WesternSahara #Yemen #Zambia #Zimbabwe)",
 messageSends: [],
 referencedClasses: []
+}),
+smalltalk.ROSVGPath.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultColor",
+category: 'configuration',
+fn: function (){
+var self=this;
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($Color())._white();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultColor",{},smalltalk.ROSVGPath.klass)})},
+args: [],
+source: "defaultColor\x0a\x09^ Color white.",
+messageSends: ["white"],
+referencedClasses: ["Color"]
 }),
 smalltalk.ROSVGPath.klass);
 
