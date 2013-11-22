@@ -470,8 +470,59 @@ smalltalk.RODraggable);
 
 
 
-smalltalk.addClass('ROHighlight', smalltalk.ROInteraction, [], 'ARoassal-Interaction');
+smalltalk.addClass('ROHighlight', smalltalk.ROInteraction, ['color'], 'ARoassal-Interaction');
 smalltalk.ROHighlight.comment="REFACTOR:\x0a- Move to ARoassal-Raphaeljs";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "color",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@color"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"color",{},smalltalk.ROHighlight)})},
+args: [],
+source: "color\x0a\x09^ color",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROHighlight);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "color:",
+category: 'not yet classified',
+fn: function (aColor){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@color"]=aColor;
+return self}, function($ctx1) {$ctx1.fill(self,"color:",{aColor:aColor},smalltalk.ROHighlight)})},
+args: ["aColor"],
+source: "color: aColor\x0a\x09color := aColor",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROHighlight);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.ROHighlight.superclass.fn.prototype._initialize.apply(_st(self), []);
+self["@color"]=_st(self._class())._defaultColor();
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROHighlight)})},
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a\x09color := self class defaultColor.",
+messageSends: ["initialize", "defaultColor", "class"],
+referencedClasses: []
+}),
+smalltalk.ROHighlight);
+
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initializeElement:",
@@ -479,12 +530,11 @@ category: 'not yet classified',
 fn: function (element){
 var self=this;
 function $ROMouseEnter(){return smalltalk.ROMouseEnter||(typeof ROMouseEnter=="undefined"?nil:ROMouseEnter)}
-function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
 function $ROMouseLeave(){return smalltalk.ROMouseLeave||(typeof ROMouseLeave=="undefined"?nil:ROMouseLeave)}
 return smalltalk.withContext(function($ctx1) { 
 _st(element)._on_do_($ROMouseEnter(),(function(evt){
 return smalltalk.withContext(function($ctx2) {
-_st(_st(evt)._element())._color_(_st($Color())._red());
+_st(_st(evt)._element())._color_(self._color());
 return _st(_st(_st(evt)._element())._view())._signalUpdate();
 }, function($ctx2) {$ctx2.fillBlock({evt:evt},$ctx1)})}));
 _st(element)._on_do_($ROMouseLeave(),(function(evt){
@@ -494,12 +544,49 @@ return _st(_st(_st(evt)._element())._view())._signalUpdate();
 }, function($ctx2) {$ctx2.fillBlock({evt:evt},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"initializeElement:",{element:element},smalltalk.ROHighlight)})},
 args: ["element"],
-source: "initializeElement: element\x0a\x0a\x09element on: ROMouseEnter do: [:evt | evt element color: (Color red). evt element view signalUpdate].\x0a\x09element on: ROMouseLeave do: [:evt | evt element color: (element shape class defaultColor). evt element view signalUpdate].",
-messageSends: ["on:do:", "color:", "red", "element", "signalUpdate", "view", "defaultColor", "class", "shape"],
-referencedClasses: ["ROMouseEnter", "Color", "ROMouseLeave"]
+source: "initializeElement: element\x0a\x0a\x09element on: ROMouseEnter do: [:evt | evt element color: (self color). evt element view signalUpdate].\x0a\x09element on: ROMouseLeave do: [:evt | evt element color: (element shape class defaultColor). evt element view signalUpdate].",
+messageSends: ["on:do:", "color:", "color", "element", "signalUpdate", "view", "defaultColor", "class", "shape"],
+referencedClasses: ["ROMouseEnter", "ROMouseLeave"]
 }),
 smalltalk.ROHighlight);
 
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "color:",
+category: 'not yet classified',
+fn: function (aColor){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._new())._color_(aColor);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"color:",{aColor:aColor},smalltalk.ROHighlight.klass)})},
+args: ["aColor"],
+source: "color: aColor\x0a\x09^ self new color: aColor",
+messageSends: ["color:", "new"],
+referencedClasses: []
+}),
+smalltalk.ROHighlight.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultColor",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($Color())._red();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultColor",{},smalltalk.ROHighlight.klass)})},
+args: [],
+source: "defaultColor\x0a\x09^ Color red.",
+messageSends: ["red"],
+referencedClasses: ["Color"]
+}),
+smalltalk.ROHighlight.klass);
 
 
 smalltalk.addClass('ROHoverable', smalltalk.ROInteraction, [], 'ARoassal-Interaction');

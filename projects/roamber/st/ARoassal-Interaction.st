@@ -250,7 +250,7 @@ initializeElement: element
 ! !
 
 ROInteraction subclass: #ROHighlight
-	instanceVariableNames: ''
+	instanceVariableNames: 'color'
 	package: 'ARoassal-Interaction'!
 !ROHighlight commentStamp!
 REFACTOR:
@@ -258,10 +258,33 @@ REFACTOR:
 
 !ROHighlight methodsFor: 'not yet classified'!
 
+color
+	^ color
+!
+
+color: aColor
+	color := aColor
+!
+
+initialize
+	super initialize.
+	color := self class defaultColor.
+!
+
 initializeElement: element
 
-	element on: ROMouseEnter do: [:evt | evt element color: (Color red). evt element view signalUpdate].
+	element on: ROMouseEnter do: [:evt | evt element color: (self color). evt element view signalUpdate].
 	element on: ROMouseLeave do: [:evt | evt element color: (element shape class defaultColor). evt element view signalUpdate].
+! !
+
+!ROHighlight class methodsFor: 'not yet classified'!
+
+color: aColor
+	^ self new color: aColor
+!
+
+defaultColor
+	^ Color red.
 ! !
 
 ROInteraction subclass: #ROHoverable
