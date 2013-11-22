@@ -1856,6 +1856,22 @@ smalltalk.ROElement);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "translateBy:",
+category: 'accessing',
+fn: function (aPoint){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._translateTo_(_st(self["@position"]).__plus(aPoint));
+return self}, function($ctx1) {$ctx1.fill(self,"translateBy:",{aPoint:aPoint},smalltalk.ROElement)})},
+args: ["aPoint"],
+source: "translateBy: aPoint \x0a\x0a\x09self translateTo: position + aPoint",
+messageSends: ["translateTo:", "+"],
+referencedClasses: []
+}),
+smalltalk.ROElement);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "translateTo:",
 category: 'accessing',
 fn: function (aPoint){
@@ -2243,6 +2259,25 @@ return self}, function($ctx1) {$ctx1.fill(self,"signalUpdate",{},smalltalk.ROVie
 args: [],
 source: "signalUpdate\x0a\x09\x22self announce: RORefreshNeeded\x22\x0a\x09\x0a\x09self elements do: [:el | el drawOn: svgCanvas].",
 messageSends: ["do:", "drawOn:", "elements"],
+referencedClasses: []
+}),
+smalltalk.ROView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "translateBy:",
+category: 'accessing',
+fn: function (aPoint){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._elements())._do_((function(e){
+return smalltalk.withContext(function($ctx2) {
+return _st(e)._translateBy_(aPoint);
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"translateBy:",{aPoint:aPoint},smalltalk.ROView)})},
+args: ["aPoint"],
+source: "translateBy: aPoint\x0a\x0a\x09self elements do: [:e | e translateBy: aPoint ].",
+messageSends: ["do:", "translateBy:", "elements"],
 referencedClasses: []
 }),
 smalltalk.ROView);

@@ -1552,7 +1552,7 @@ relocateView
 	all isEmpty ifFalse: [ | transX transY |
 		transX := ((all collect: [ :each | each position x ]) min min: 0) negated.
 		transY := ((all collect: [ :each | each position y ]) min min: 0) negated.
-"		rawView translateByRealPoint: (transX + 10) @ (transY + 50) "
+		rawView translateBy: (transX + 10) @ (transY + 50) 
 	]
 ! !
 

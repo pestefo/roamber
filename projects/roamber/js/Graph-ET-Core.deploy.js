@@ -3024,9 +3024,10 @@ return smalltalk.withContext(function($ctx2) {
 return _st(_st(each)._position())._y();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._min())._min_((0)))._negated();
 transY;
+_st(self["@rawView"])._translateBy_(_st(_st(transX).__plus((10))).__at(_st(transY).__plus((50))));
 };
 return self}, function($ctx1) {$ctx1.fill(self,"relocateView",{all:all},smalltalk.GETDiagramBuilder)})},
-messageSends: ["elements", "rawView", "ifFalse:", "negated", "min:", "min", "collect:", "x", "position", "y", "isEmpty"]}),
+messageSends: ["elements", "rawView", "ifFalse:", "negated", "min:", "min", "collect:", "x", "position", "y", "translateBy:", "@", "+", "isEmpty"]}),
 smalltalk.GETDiagramBuilder);
 
 smalltalk.addMethod(

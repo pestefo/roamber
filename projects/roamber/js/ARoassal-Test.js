@@ -127,6 +127,50 @@ referencedClasses: ["ROBox"]
 }),
 smalltalk.ROElementTest);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testTranslateBy",
+category: 'test shape size',
+fn: function (){
+var self=this;
+var element;
+function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
+return smalltalk.withContext(function($ctx1) { 
+element=_st($ROElement())._new();
+_st(element)._translateBy_((10).__at((80)));
+self._assert_(_st(_st(element)._position()).__eq((10).__at((80))));
+_st(element)._translateBy_((-5).__at((100)));
+self._assert_(_st(_st(element)._position()).__eq((5).__at((180))));
+return self}, function($ctx1) {$ctx1.fill(self,"testTranslateBy",{element:element},smalltalk.ROElementTest)})},
+args: [],
+source: "testTranslateBy\x0a\x09|element|\x0a\x09element := ROElement new.\x0a\x09element translateBy: 10@80. \x0a\x09\x220 + 10 @ 0 + 80 = 10@80\x22\x0a\x09self assert: element position = (10 @ 80).\x0a\x09element translateBy: -5@100.\x0a\x09self assert: element position = (5 @ 180).",
+messageSends: ["new", "translateBy:", "@", "assert:", "=", "position"],
+referencedClasses: ["ROElement"]
+}),
+smalltalk.ROElementTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testTranslateTo",
+category: 'test shape size',
+fn: function (){
+var self=this;
+var element;
+function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
+return smalltalk.withContext(function($ctx1) { 
+element=_st($ROElement())._new();
+_st(element)._translateTo_((10).__at((80)));
+self._assert_(_st(_st(element)._position()).__eq((10).__at((80))));
+_st(element)._translateTo_((300).__at((20)._negated()));
+self._assert_(_st(_st(element)._position()).__eq((300).__at((20)._negated())));
+return self}, function($ctx1) {$ctx1.fill(self,"testTranslateTo",{element:element},smalltalk.ROElementTest)})},
+args: [],
+source: "testTranslateTo\x0a\x09|element|\x0a\x09element := ROElement new.\x0a\x09element translateTo: 10@80.\x0a\x09self assert: element position = (10 @ 80).\x0a\x09element translateTo: 300@ (20 negated).\x0a\x09self assert: element position = (300@(20 negated)).",
+messageSends: ["new", "translateTo:", "@", "assert:", "=", "position", "negated"],
+referencedClasses: ["ROElement"]
+}),
+smalltalk.ROElementTest);
+
 
 
 smalltalk.addClass('ROShapeTest', smalltalk.ROTest, [], 'ARoassal-Test');
@@ -256,6 +300,30 @@ args: [],
 source: "testCreation\x0a\x0a\x09self assert: view numberOfElements equals: 0.",
 messageSends: ["assert:equals:", "numberOfElements"],
 referencedClasses: []
+}),
+smalltalk.ROViewTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testTranslateBy",
+category: 'running',
+fn: function (){
+var self=this;
+function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
+function $ROEllipse(){return smalltalk.ROEllipse||(typeof ROEllipse=="undefined"?nil:ROEllipse)}
+function $ROSVGPath(){return smalltalk.ROSVGPath||(typeof ROSVGPath=="undefined"?nil:ROSVGPath)}
+function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
+function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@view"])._addAll_([_st(_st($ROBox())._element())._translateTo_((40).__at((10))),_st(_st($ROEllipse())._element())._translateTo_((100).__at((20))),_st(_st($ROSVGPath())._element())._translateTo_((0).__at((100))),_st($ROElement())._new()]);
+_st(self["@view"])._translateBy_((10).__at((10)));
+_st($Transcript())._show_(_st(_st(_st(_st(self["@view"])._elements())._at_((1)))._position())._asString());
+self._assert_(_st(_st(_st(_st(self["@view"])._elements())._at_((1)))._position()).__eq((50).__at((20))));
+return self}, function($ctx1) {$ctx1.fill(self,"testTranslateBy",{},smalltalk.ROViewTest)})},
+args: [],
+source: "testTranslateBy\x0a\x09view addAll: { ROBox element translateTo: 40@10 . ROEllipse element translateTo: 100@20 . ROSVGPath element translateTo: 0@100 . ROElement new }.\x0a\x09view translateBy: 10@10.\x0a\x09Transcript show: (( view elements at: 1) position asString).\x0a\x09self assert: ((view elements at: 1) position = (50@20)).\x0a\x09",
+messageSends: ["addAll:", "translateTo:", "@", "element", "new", "translateBy:", "show:", "asString", "position", "at:", "elements", "assert:", "="],
+referencedClasses: ["ROBox", "ROEllipse", "ROSVGPath", "ROElement", "Transcript"]
 }),
 smalltalk.ROViewTest);
 

@@ -60,6 +60,25 @@ testShapeSize
 	el := shape elementOn: 4.
 	self assert: (el width = 5).
 	self assert: (el height = 6).
+!
+
+testTranslateBy
+	|element|
+	element := ROElement new.
+	element translateBy: 10@80. 
+	"0 + 10 @ 0 + 80 = 10@80"
+	self assert: element position = (10 @ 80).
+	element translateBy: -5@100.
+	self assert: element position = (5 @ 180).
+!
+
+testTranslateTo
+	|element|
+	element := ROElement new.
+	element translateTo: 10@80.
+	self assert: element position = (10 @ 80).
+	element translateTo: 300@ (20 negated).
+	self assert: element position = (300@(20 negated)).
 ! !
 
 ROTest subclass: #ROShapeTest
@@ -122,6 +141,13 @@ ROTest subclass: #ROViewTest
 
 setUp
 	view := ROView new.
+!
+
+testTranslateBy
+	view addAll: { ROBox element translateTo: 40@10 . ROEllipse element translateTo: 100@20 . ROSVGPath element translateTo: 0@100 . ROElement new }.
+	view translateBy: 10@10.
+	Transcript show: (( view elements at: 1) position asString).
+	self assert: ((view elements at: 1) position = (50@20)).
 ! !
 
 !ROViewTest methodsFor: 'test'!

@@ -102,6 +102,40 @@ return self}, function($ctx1) {$ctx1.fill(self,"testShapeSize",{shape:shape,el:e
 messageSends: ["new", "width:", "+", "model", "height:", "elementOn:", "assert:", "=", "width", "height"]}),
 smalltalk.ROElementTest);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testTranslateBy",
+fn: function (){
+var self=this;
+var element;
+function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
+return smalltalk.withContext(function($ctx1) { 
+element=_st($ROElement())._new();
+_st(element)._translateBy_((10).__at((80)));
+self._assert_(_st(_st(element)._position()).__eq((10).__at((80))));
+_st(element)._translateBy_((-5).__at((100)));
+self._assert_(_st(_st(element)._position()).__eq((5).__at((180))));
+return self}, function($ctx1) {$ctx1.fill(self,"testTranslateBy",{element:element},smalltalk.ROElementTest)})},
+messageSends: ["new", "translateBy:", "@", "assert:", "=", "position"]}),
+smalltalk.ROElementTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testTranslateTo",
+fn: function (){
+var self=this;
+var element;
+function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
+return smalltalk.withContext(function($ctx1) { 
+element=_st($ROElement())._new();
+_st(element)._translateTo_((10).__at((80)));
+self._assert_(_st(_st(element)._position()).__eq((10).__at((80))));
+_st(element)._translateTo_((300).__at((20)._negated()));
+self._assert_(_st(_st(element)._position()).__eq((300).__at((20)._negated())));
+return self}, function($ctx1) {$ctx1.fill(self,"testTranslateTo",{element:element},smalltalk.ROElementTest)})},
+messageSends: ["new", "translateTo:", "@", "assert:", "=", "position", "negated"]}),
+smalltalk.ROElementTest);
+
 
 
 smalltalk.addClass('ROShapeTest', smalltalk.ROTest, [], 'ARoassal-Test');
@@ -207,6 +241,25 @@ return smalltalk.withContext(function($ctx1) {
 self._assert_equals_(_st(self["@view"])._numberOfElements(),(0));
 return self}, function($ctx1) {$ctx1.fill(self,"testCreation",{},smalltalk.ROViewTest)})},
 messageSends: ["assert:equals:", "numberOfElements"]}),
+smalltalk.ROViewTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testTranslateBy",
+fn: function (){
+var self=this;
+function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
+function $ROEllipse(){return smalltalk.ROEllipse||(typeof ROEllipse=="undefined"?nil:ROEllipse)}
+function $ROSVGPath(){return smalltalk.ROSVGPath||(typeof ROSVGPath=="undefined"?nil:ROSVGPath)}
+function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
+function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@view"])._addAll_([_st(_st($ROBox())._element())._translateTo_((40).__at((10))),_st(_st($ROEllipse())._element())._translateTo_((100).__at((20))),_st(_st($ROSVGPath())._element())._translateTo_((0).__at((100))),_st($ROElement())._new()]);
+_st(self["@view"])._translateBy_((10).__at((10)));
+_st($Transcript())._show_(_st(_st(_st(_st(self["@view"])._elements())._at_((1)))._position())._asString());
+self._assert_(_st(_st(_st(_st(self["@view"])._elements())._at_((1)))._position()).__eq((50).__at((20))));
+return self}, function($ctx1) {$ctx1.fill(self,"testTranslateBy",{},smalltalk.ROViewTest)})},
+messageSends: ["addAll:", "translateTo:", "@", "element", "new", "translateBy:", "show:", "asString", "position", "at:", "elements", "assert:", "="]}),
 smalltalk.ROViewTest);
 
 smalltalk.addMethod(

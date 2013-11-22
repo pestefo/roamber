@@ -125,7 +125,7 @@ _st(element)._signalUpdate();
 _st(popupElement)._hide();
 _st(element)._on_do_($ROMouseEnter(),(function(evt){
 return smalltalk.withContext(function($ctx2) {
-_st(popupElement)._translateTo_(self._popupPositionFor_(element));
+_st(popupElement)._translateTo_(_st(evt)._position());
 return _st(popupElement)._show();
 }, function($ctx2) {$ctx2.fillBlock({evt:evt},$ctx1)})}));
 _st(element)._on_do_($ROMouseLeave(),(function(evt){
@@ -141,7 +141,7 @@ return smalltalk.withContext(function($ctx2) {
 return _st(popupElement)._hide();
 }, function($ctx2) {$ctx2.fillBlock({evt:evt},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"initializeElement:",{element:element,svgElement:svgElement,popupElement:popupElement},smalltalk.ROAbstractPopup)})},
-messageSends: ["svgElement", "shape", "createPopupFor:", "signalUpdate", "hide", "on:do:", "translateTo:", "popupPositionFor:", "show"]}),
+messageSends: ["svgElement", "shape", "createPopupFor:", "signalUpdate", "hide", "on:do:", "translateTo:", "position", "show"]}),
 smalltalk.ROAbstractPopup);
 
 smalltalk.addMethod(
@@ -255,13 +255,14 @@ smalltalk.method({
 selector: "createElementFor:",
 fn: function (anElement){
 var self=this;
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
 function $ROLabel(){return smalltalk.ROLabel||(typeof ROLabel=="undefined"?nil:ROLabel)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st($ROLabel())._new())._elementOn_(self["@text"]);
+$1=_st(_st(_st($ROLabel())._new())._elementOn_(_st(self["@text"])._value_(anElement)))._color_(_st($Color())._black());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"createElementFor:",{anElement:anElement},smalltalk.ROPopup)})},
-messageSends: ["elementOn:", "new"]}),
+messageSends: ["color:", "black", "elementOn:", "value:", "new"]}),
 smalltalk.ROPopup);
 
 smalltalk.addMethod(
@@ -271,8 +272,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.ROPopup.superclass.fn.prototype._initialize.apply(_st(self), []);
+self["@text"]=(function(el){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(el)._model())._asString();
+}, function($ctx2) {$ctx2.fillBlock({el:el},$ctx1)})});
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROPopup)})},
-messageSends: ["initialize"]}),
+messageSends: ["initialize", "asString", "model"]}),
 smalltalk.ROPopup);
 
 smalltalk.addMethod(
@@ -281,9 +286,9 @@ selector: "text:",
 fn: function (textBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self["@text"]=_st(textBlock)._value();
+self["@text"]=_st(_st(_st(textBlock)._value())._self())._halt();
 return self}, function($ctx1) {$ctx1.fill(self,"text:",{textBlock:textBlock},smalltalk.ROPopup)})},
-messageSends: ["value"]}),
+messageSends: ["halt", "self", "value"]}),
 smalltalk.ROPopup);
 
 
@@ -460,16 +465,18 @@ fn: function (element){
 var self=this;
 var svgElement;
 function $ROMouseEnter(){return smalltalk.ROMouseEnter||(typeof ROMouseEnter=="undefined"?nil:ROMouseEnter)}
+function $RORaphaelCanvas(){return smalltalk.RORaphaelCanvas||(typeof RORaphaelCanvas=="undefined"?nil:RORaphaelCanvas)}
 function $ROMouseLeave(){return smalltalk.ROMouseLeave||(typeof ROMouseLeave=="undefined"?nil:ROMouseLeave)}
 return smalltalk.withContext(function($ctx1) { 
 svgElement=_st(_st(element)._shape())._svgElement();
-_st(svgElement)._hover_whenLeave_((function(){
+_st(svgElement)._hover_whenLeave_((function(e){
 var ev;
 return smalltalk.withContext(function($ctx2) {
 ev=_st($ROMouseEnter())._new();
 ev;
+_st(ev)._position_(_st(_st(_st(e)._clientX()).__minus(_st(_st($RORaphaelCanvas())._origin())._x())).__at(_st(_st(e)._clientY()).__minus(_st(_st($RORaphaelCanvas())._origin())._y())));
 return _st(element)._announce_(ev);
-}, function($ctx2) {$ctx2.fillBlock({ev:ev},$ctx1)})}),(function(){
+}, function($ctx2) {$ctx2.fillBlock({e:e,ev:ev},$ctx1)})}),(function(){
 var ev;
 return smalltalk.withContext(function($ctx2) {
 ev=_st($ROMouseLeave())._new();
@@ -477,7 +484,7 @@ ev;
 return _st(element)._announce_(ev);
 }, function($ctx2) {$ctx2.fillBlock({ev:ev},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"initializeElement:",{element:element,svgElement:svgElement},smalltalk.ROHoverable)})},
-messageSends: ["svgElement", "shape", "hover:whenLeave:", "new", "announce:"]}),
+messageSends: ["svgElement", "shape", "hover:whenLeave:", "new", "position:", "@", "-", "y", "origin", "clientY", "x", "clientX", "announce:"]}),
 smalltalk.ROHoverable);
 
 

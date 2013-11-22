@@ -79,8 +79,8 @@ initializeElement: element
 	
 	element on: ROMouseEnter 
 		do: [ :evt |
-			popupElement translateTo: (self popupPositionFor: element).
-
+"			popupElement translateTo: (self popupPositionFor: element)."
+			popupElement translateTo: evt position.
 	"
 			popupElement shape svgElement 
 				translate: (element position x - (popupElement position x) )
@@ -176,16 +176,18 @@ ROAbstractPopup subclass: #ROPopup
 !ROPopup methodsFor: 'not yet classified'!
 
 createElementFor: anElement
-	^ (ROLabel new elementOn: text)
+
+	^ (ROLabel new elementOn: (text value: anElement)) color: Color black
 !
 
 initialize 
 	super initialize.
-"	text := [:obj | ^ obj]."
+	text := [:el | el model asString].
 !
 
 text: textBlock
 	text := textBlock value
+	self halt.
 ! !
 
 !ROPopup class methodsFor: 'not yet classified'!
@@ -298,9 +300,10 @@ initializeElement: element
 	svgElement := element shape svgElement.
 
 	svgElement	
-		hover: [ 
+		hover: [ :e|
 		| ev |
 		ev := ROMouseEnter new.
+		ev position: (e clientX  -  (RORaphaelCanvas origin x)) @ (e clientY -  (RORaphaelCanvas origin y)).
 		element announce: ev.
 		]
 		whenLeave: [
