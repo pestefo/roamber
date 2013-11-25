@@ -929,26 +929,6 @@ return self}, function($ctx1) {$ctx1.fill(self,"to:",{anElement:anElement},small
 messageSends: []}),
 smalltalk.ROEdge);
 
-smalltalk.addMethod(
-smalltalk.method({
-selector: "translateBy:",
-fn: function (aPoint){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"translateBy:",{aPoint:aPoint},smalltalk.ROEdge)})},
-messageSends: []}),
-smalltalk.ROEdge);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "translateTo:",
-fn: function (aPoint){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"translateTo:",{aPoint:aPoint},smalltalk.ROEdge)})},
-messageSends: []}),
-smalltalk.ROEdge);
-
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1400,17 +1380,6 @@ smalltalk.ROElement);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "translateBy:",
-fn: function (aPoint){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self._translateTo_(_st(self["@position"]).__plus(aPoint));
-return self}, function($ctx1) {$ctx1.fill(self,"translateBy:",{aPoint:aPoint},smalltalk.ROElement)})},
-messageSends: ["translateTo:", "+"]}),
-smalltalk.ROElement);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "translateTo:",
 fn: function (aPoint){
 var self=this;
@@ -1699,20 +1668,6 @@ smalltalk.ROView);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "translateBy:",
-fn: function (aPoint){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(self._elements())._do_((function(e){
-return smalltalk.withContext(function($ctx2) {
-return _st(e)._translateBy_(aPoint);
-}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"translateBy:",{aPoint:aPoint},smalltalk.ROView)})},
-messageSends: ["do:", "translateBy:", "elements"]}),
-smalltalk.ROView);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "view",
 fn: function (){
 var self=this;
@@ -1859,7 +1814,8 @@ smalltalk.method({
 selector: "element",
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(self)._elementOn_(nil);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"element",{},smalltalk.ROShape)});},
@@ -1926,7 +1882,8 @@ smalltalk.method({
 selector: "height",
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@height"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"height",{},smalltalk.ROShape)});},
@@ -1938,7 +1895,8 @@ smalltalk.method({
 selector: "height:",
 fn: function (aNumberOrABlock) {
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@height"]=aNumberOrABlock;
+return smalltalk.withContext(function($ctx1) { 
+self["@height"]=aNumberOrABlock;
 return self}, function($ctx1) {$ctx1.fill(self,"height:",{aNumberOrABlock:aNumberOrABlock},smalltalk.ROShape)});},
 messageSends: []}),
 smalltalk.ROShape);
@@ -1948,7 +1906,8 @@ smalltalk.method({
 selector: "heightFor:",
 fn: function (anElement) {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(self["@height"])._roValue_(anElement);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"heightFor:",{anElement:anElement},smalltalk.ROShape)});},
@@ -2130,7 +2089,8 @@ smalltalk.method({
 selector: "width",
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@width"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"width",{},smalltalk.ROShape)});},
@@ -2142,7 +2102,8 @@ smalltalk.method({
 selector: "width:",
 fn: function (aNumberOrABlock) {
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@width"]=aNumberOrABlock;
+return smalltalk.withContext(function($ctx1) { 
+self["@width"]=aNumberOrABlock;
 return self}, function($ctx1) {$ctx1.fill(self,"width:",{aNumberOrABlock:aNumberOrABlock},smalltalk.ROShape)});},
 messageSends: []}),
 smalltalk.ROShape);
@@ -2152,7 +2113,8 @@ smalltalk.method({
 selector: "widthFor:",
 fn: function (anElement) {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(self["@width"])._roValue_(anElement);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"widthFor:",{anElement:anElement},smalltalk.ROShape)});},
@@ -2179,7 +2141,8 @@ smalltalk.method({
 selector: "element",
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(_st(self)._new())._element();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"element",{},smalltalk.ROShape.klass)});},
@@ -2353,7 +2316,8 @@ smalltalk.method({
 selector: "edgeFrom:to:",
 fn: function (el1, el2) {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
 $2=_st((smalltalk.ROEdge || ROEdge))._from_to_(el1,el2);
 _st($2)._shape_(_st(self)._new());
 $3=_st($2)._yourself();
@@ -2368,7 +2332,8 @@ smalltalk.method({
 selector: "elementFrom:to:",
 fn: function (el1, el2) {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(self)._edgeFrom_to_(el1,el2);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"elementFrom:to:",{el1:el1,el2:el2},smalltalk.ROAbstractLineShape.klass)});},
@@ -2853,20 +2818,6 @@ smalltalk.ROLabel);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "defaultColor",
-fn: function (){
-var self=this;
-function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st($Color())._black();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"defaultColor",{},smalltalk.ROLabel.klass)})},
-messageSends: ["black"]}),
-smalltalk.ROLabel.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "text:",
 fn: function (aBlock){
 var self=this;
@@ -3311,19 +3262,6 @@ $1=topLeft;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"topLeftFromSVG",{topLeft:topLeft},smalltalk.ROSVGPath)})},
 messageSends: ["@", "maxVal", "do:", "min:", "value", "key", "lines"]}),
-smalltalk.ROSVGPath);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "updateSVGElementOn:for:",
-fn: function (canvas,anElement){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(self["@svgElement"])._transform_("T0,0");
-_st(self["@svgElement"])._transform_(_st(_st("T".__comma(_st(_st(anElement)._position())._x())).__comma(",")).__comma(_st(_st(anElement)._position())._y()));
-_st(self["@svgPath"])._attr_value_("fill",_st(self._color())._asHTMLRGBA());
-return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROSVGPath)})},
-messageSends: ["transform:", ",", "y", "position", "x", "attr:value:", "asHTMLRGBA", "color"]}),
 smalltalk.ROSVGPath);
 
 
@@ -5384,7 +5322,8 @@ smalltalk.method({
 selector: "height",
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@height"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"height",{},smalltalk.ROBox)});},
@@ -5441,7 +5380,8 @@ smalltalk.method({
 selector: "width",
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@width"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"width",{},smalltalk.ROBox)});},
@@ -5869,8 +5809,7 @@ smalltalk.RONullShape);
 
 
 
-smalltalk.addClass('ROPath', smalltalk.ROShape, ['path', 'borderWidth', 'borderColor', '
-	svg', 'zoom'], 'ARoassal');
+smalltalk.addClass('ROPath', smalltalk.ROShape, ['path', 'borderColor', 'borderWidth'], 'ARoassal');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "borderColor",
@@ -5881,17 +5820,6 @@ var $1;
 $1=self["@borderColor"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"borderColor",{},smalltalk.ROPath)})},
-messageSends: []}),
-smalltalk.ROPath);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "borderColor:",
-fn: function (aBlockOrSymbolOrObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@borderColor"]=aBlockOrSymbolOrObject;
-return self}, function($ctx1) {$ctx1.fill(self,"borderColor:",{aBlockOrSymbolOrObject:aBlockOrSymbolOrObject},smalltalk.ROPath)})},
 messageSends: []}),
 smalltalk.ROPath);
 
@@ -5910,44 +5838,6 @@ smalltalk.ROPath);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "borderWidth:",
-fn: function (anInteger){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@borderWidth"]=anInteger;
-return self}, function($ctx1) {$ctx1.fill(self,"borderWidth:",{anInteger:anInteger},smalltalk.ROPath)})},
-messageSends: []}),
-smalltalk.ROPath);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "color",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self["@color"];
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"color",{},smalltalk.ROPath)})},
-messageSends: []}),
-smalltalk.ROPath);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "color:",
-fn: function (aColor){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-self["@color"]=aColor;
-$1=self["@color"];
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"color:",{aColor:aColor},smalltalk.ROPath)})},
-messageSends: []}),
-smalltalk.ROPath);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "initialize",
 fn: function (){
 var self=this;
@@ -5957,23 +5847,11 @@ smalltalk.ROPath.superclass.fn.prototype._initialize.apply(_st(self), []);
 self._path_("");
 self["@borderWidth"]=(1);
 self["@borderColor"]=_st($Color())._gray();
+self["@color"]=_st($Color())._blue();
 self["@height"]=(20);
 self["@width"]=self["@height"];
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROPath)})},
-messageSends: ["initialize", "path:", "gray"]}),
-smalltalk.ROPath);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "initializePathOn:for:",
-fn: function (canvas,anElement){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(canvas)._path_(self["@path"]);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"initializePathOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROPath)})},
-messageSends: ["path:"]}),
+messageSends: ["initialize", "path:", "gray", "blue"]}),
 smalltalk.ROPath);
 
 smalltalk.addMethod(
@@ -5990,11 +5868,11 @@ smalltalk.ROPath);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "path:",
-fn: function (aPathAsString){
+fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self["@path"]=aPathAsString;
-return self}, function($ctx1) {$ctx1.fill(self,"path:",{aPathAsString:aPathAsString},smalltalk.ROPath)})},
+self["@path"]=aString;
+return self}, function($ctx1) {$ctx1.fill(self,"path:",{aString:aString},smalltalk.ROPath)})},
 messageSends: []}),
 smalltalk.ROPath);
 
@@ -6004,49 +5882,28 @@ selector: "updateSVGElementOn:for:",
 fn: function (canvas,anElement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self["@svgElement"])._transform_("T0,0");
-_st(self["@svgElement"])._transform_(_st(_st("T".__comma(_st(_st(anElement)._position())._x())).__comma(",")).__comma(_st(_st(anElement)._position())._y()));
-_st(self["@svgElement"])._attr_value_("fill",_st(self._color())._asHTMLRGBA());
+var $1,$2;
+$1=self["@svgElement"];
+_st($1)._transform_("T0,0");
+_st($1)._transform_(_st(_st("T".__comma(_st(_st(anElement)._position())._x())).__comma(",")).__comma(_st(_st(anElement)._position())._y()));
+_st($1)._attr_with_("fill",_st(self["@color"])._asHTMLRGBA());
+_st($1)._attr_value_("stroke-width",self._borderWidth());
+$2=_st($1)._attr_value_("stroke",_st(self._borderColor())._asHTMLRGBA());
 return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROPath)})},
-messageSends: ["transform:", ",", "y", "position", "x", "attr:value:", "asHTMLRGBA", "color"]}),
+messageSends: ["transform:", ",", "y", "position", "x", "attr:with:", "asHTMLRGBA", "attr:value:", "borderWidth", "borderColor"]}),
 smalltalk.ROPath);
 
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "Argentina",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return "M319.448,295.781l1.288,1.544l0,2.189l-2.319,1.416l-1.801,1.158l-2.961,2.576l-3.605,3.732l-0.772,2.189l-0.644,2.702l0,2.705l-0.643,0.643l-0.129,1.674l-0.257,1.417l3.475,2.317l-0.387,1.802l1.675,1.287l-0.129,1.288l-2.574,3.475l-3.991,1.417l-5.406,0.513l-2.961,-0.257l0.514,1.674l-0.514,1.931l0.514,1.415l-1.673,0.902l-2.703,0.385l-2.575,-1.028l-1.029,0.770l0.386,2.705l1.801,0.772l1.417,-0.901l0.901,1.416l-2.575,0.902l-2.188,1.673l-0.386,2.705l-0.643,1.414l-2.448,0l-2.188,1.416l-0.772,1.932l2.704,2.059l2.574,0.516l-0.901,2.445l-3.218,1.545l-1.803,3.090l-2.445,1.030l-1.031,1.287l0.774,2.832l1.802,1.543l-1.030,-0.127l-2.574,-0.387l-6.436,-0.385l-1.160,-1.545l0,-2.060l-1.801,0.129l-0.902,-0.902l-0.258,-2.831l2.060,-1.288l0.901,-1.674l-0.386,-1.288l1.546,-2.316l0.900,-3.605l-0.257,-1.545l1.158,-0.515l-0.258,-1.030l-1.287,-0.514l0.901,-1.158l-1.157,-1.030l-0.645,-3.089l1.030,-0.516l-0.385,-3.347l0.513,-2.703l0.773,-2.447l1.673,-1.030l-0.900,-2.574l0,-2.446l2.060,-1.802l0,-2.189l1.415,-2.702l0.129,-2.447l-0.772,-0.514l-1.287,-4.636l1.672,-2.831l-0.257,-2.575l1.030,-2.446l1.802,-2.574l1.802,-1.673l-0.772,-1.031l0.515,-0.900l0,-4.378l2.960,-1.415l0.902,-2.704l-0.386,-0.772l2.316,-2.447l3.477,0.644l1.544,2.060l1.030,-2.187l3.089,0.127l0.515,0.515l4.892,4.377l2.188,0.387l3.348,2.059l2.703,1.030l0.386,1.157l-2.574,4.121l2.702,0.772l2.961,0.387l2.189,-0.387l2.446,-2.059l0.386,-2.445l-1.416,0.516zM282.761,371.99l3.475,1.674l3.733,0.642l-1.159,1.417l-2.574,0.130l-1.416,-1.031l-1.546,0l-2.960,0l0.129,-5.923l0.901,1.160l-1.417,-1.931z";
-}, function($ctx1) {$ctx1.fill(self,"Argentina",{},smalltalk.ROPath.klass)})},
-messageSends: []}),
-smalltalk.ROPath.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "defaultColor",
-fn: function (){
-var self=this;
-function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st($Color())._white();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"defaultColor",{},smalltalk.ROPath.klass)})},
-messageSends: ["white"]}),
-smalltalk.ROPath.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "path:",
-fn: function (aPathString){
+fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._new())._path_(aPathString);
+$1=_st(self._new())._path_(aString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"path:",{aPathString:aPathString},smalltalk.ROPath.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"path:",{aString:aString},smalltalk.ROPath.klass)})},
 messageSends: ["path:", "new"]}),
 smalltalk.ROPath.klass);
 
@@ -6125,7 +5982,8 @@ smalltalk.method({
 selector: "roValue:",
 fn: function (aBlock) {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"roValue:",{aBlock:aBlock},smalltalk.Number)});},

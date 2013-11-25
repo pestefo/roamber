@@ -80,7 +80,8 @@ initializeElement: element
 	element on: ROMouseEnter 
 		do: [ :evt |
 "			popupElement translateTo: (self popupPositionFor: element)."
-			popupElement translateTo: evt position.
+			popupElement translateTo: evt position + (5@5).
+			element signalUpdate.
 	"
 			popupElement shape svgElement 
 				translate: (element position x - (popupElement position x) )
@@ -303,7 +304,9 @@ initializeElement: element
 		hover: [ :e|
 		| ev |
 		ev := ROMouseEnter new.
-		ev position: (e clientX  -  (RORaphaelCanvas origin x)) @ (e clientY -  (RORaphaelCanvas origin y)).
+"		ev position: (e clientX  -  (RORaphaelCanvas origin x)) @ (e clientY -  (RORaphaelCanvas origin y))."
+		ev position: (e pageX  -  (RORaphaelCanvas origin x) - ('#roassal-canvas' asJQuery scrollLeft) ) @ (e pageY -  (RORaphaelCanvas origin y) - ('#roassal-canvas' asJQuery scrollTop)).
+		
 		element announce: ev.
 		]
 		whenLeave: [

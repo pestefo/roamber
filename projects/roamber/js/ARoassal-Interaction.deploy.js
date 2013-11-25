@@ -125,7 +125,8 @@ _st(element)._signalUpdate();
 _st(popupElement)._hide();
 _st(element)._on_do_($ROMouseEnter(),(function(evt){
 return smalltalk.withContext(function($ctx2) {
-_st(popupElement)._translateTo_(_st(evt)._position());
+_st(popupElement)._translateTo_(_st(_st(evt)._position()).__plus((5).__at((5))));
+_st(element)._signalUpdate();
 return _st(popupElement)._show();
 }, function($ctx2) {$ctx2.fillBlock({evt:evt},$ctx1)})}));
 _st(element)._on_do_($ROMouseLeave(),(function(evt){
@@ -141,7 +142,7 @@ return smalltalk.withContext(function($ctx2) {
 return _st(popupElement)._hide();
 }, function($ctx2) {$ctx2.fillBlock({evt:evt},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"initializeElement:",{element:element,svgElement:svgElement,popupElement:popupElement},smalltalk.ROAbstractPopup)})},
-messageSends: ["svgElement", "shape", "createPopupFor:", "signalUpdate", "hide", "on:do:", "translateTo:", "position", "show"]}),
+messageSends: ["svgElement", "shape", "createPopupFor:", "signalUpdate", "hide", "on:do:", "translateTo:", "+", "@", "position", "show"]}),
 smalltalk.ROAbstractPopup);
 
 smalltalk.addMethod(
@@ -474,7 +475,7 @@ var ev;
 return smalltalk.withContext(function($ctx2) {
 ev=_st($ROMouseEnter())._new();
 ev;
-_st(ev)._position_(_st(_st(_st(e)._clientX()).__minus(_st(_st($RORaphaelCanvas())._origin())._x())).__at(_st(_st(e)._clientY()).__minus(_st(_st($RORaphaelCanvas())._origin())._y())));
+_st(ev)._position_(_st(_st(_st(_st(e)._pageX()).__minus(_st(_st($RORaphaelCanvas())._origin())._x())).__minus(_st("#roassal-canvas"._asJQuery())._scrollLeft())).__at(_st(_st(_st(e)._pageY()).__minus(_st(_st($RORaphaelCanvas())._origin())._y())).__minus(_st("#roassal-canvas"._asJQuery())._scrollTop())));
 return _st(element)._announce_(ev);
 }, function($ctx2) {$ctx2.fillBlock({e:e,ev:ev},$ctx1)})}),(function(){
 var ev;
@@ -484,7 +485,7 @@ ev;
 return _st(element)._announce_(ev);
 }, function($ctx2) {$ctx2.fillBlock({ev:ev},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"initializeElement:",{element:element,svgElement:svgElement},smalltalk.ROHoverable)})},
-messageSends: ["svgElement", "shape", "hover:whenLeave:", "new", "position:", "@", "-", "y", "origin", "clientY", "x", "clientX", "announce:"]}),
+messageSends: ["svgElement", "shape", "hover:whenLeave:", "new", "position:", "@", "-", "scrollTop", "asJQuery", "y", "origin", "pageY", "scrollLeft", "x", "pageX", "announce:"]}),
 smalltalk.ROHoverable);
 
 

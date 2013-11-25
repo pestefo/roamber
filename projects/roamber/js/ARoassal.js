@@ -1260,36 +1260,6 @@ referencedClasses: []
 }),
 smalltalk.ROEdge);
 
-smalltalk.addMethod(
-smalltalk.method({
-selector: "translateBy:",
-category: 'translation',
-fn: function (aPoint){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"translateBy:",{aPoint:aPoint},smalltalk.ROEdge)})},
-args: ["aPoint"],
-source: "translateBy: aPoint",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.ROEdge);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "translateTo:",
-category: 'translation',
-fn: function (aPoint){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"translateTo:",{aPoint:aPoint},smalltalk.ROEdge)})},
-args: ["aPoint"],
-source: "translateTo: aPoint",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.ROEdge);
-
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1886,22 +1856,6 @@ smalltalk.ROElement);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "translateBy:",
-category: 'accessing',
-fn: function (aPoint){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self._translateTo_(_st(self["@position"]).__plus(aPoint));
-return self}, function($ctx1) {$ctx1.fill(self,"translateBy:",{aPoint:aPoint},smalltalk.ROElement)})},
-args: ["aPoint"],
-source: "translateBy: aPoint \x0a\x0a\x09self translateTo: position + aPoint",
-messageSends: ["translateTo:", "+"],
-referencedClasses: []
-}),
-smalltalk.ROElement);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "translateTo:",
 category: 'accessing',
 fn: function (aPoint){
@@ -2295,25 +2249,6 @@ smalltalk.ROView);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "translateBy:",
-category: 'accessing',
-fn: function (aPoint){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(self._elements())._do_((function(e){
-return smalltalk.withContext(function($ctx2) {
-return _st(e)._translateBy_(aPoint);
-}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"translateBy:",{aPoint:aPoint},smalltalk.ROView)})},
-args: ["aPoint"],
-source: "translateBy: aPoint\x0a\x0a\x09self elements do: [:e | e translateBy: aPoint ].",
-messageSends: ["do:", "translateBy:", "elements"],
-referencedClasses: []
-}),
-smalltalk.ROView);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "view",
 category: 'accessing',
 fn: function (){
@@ -2511,7 +2446,8 @@ selector: "element",
 category: 'creation',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(self)._elementOn_(nil);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"element",{},smalltalk.ROShape)});},
@@ -2603,7 +2539,8 @@ selector: "height",
 category: 'accessing',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@height"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"height",{},smalltalk.ROShape)});},
@@ -2620,7 +2557,8 @@ selector: "height:",
 category: 'accessing',
 fn: function (aNumberOrABlock) {
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@height"]=aNumberOrABlock;
+return smalltalk.withContext(function($ctx1) { 
+self["@height"]=aNumberOrABlock;
 return self}, function($ctx1) {$ctx1.fill(self,"height:",{aNumberOrABlock:aNumberOrABlock},smalltalk.ROShape)});},
 args: ["aNumberOrABlock"],
 source: "height: aNumberOrABlock\x0a\x09height := aNumberOrABlock",
@@ -2635,7 +2573,8 @@ selector: "heightFor:",
 category: 'accessing',
 fn: function (anElement) {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(self["@height"])._roValue_(anElement);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"heightFor:",{anElement:anElement},smalltalk.ROShape)});},
@@ -2892,7 +2831,8 @@ selector: "width",
 category: 'accessing',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@width"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"width",{},smalltalk.ROShape)});},
@@ -2909,7 +2849,8 @@ selector: "width:",
 category: 'accessing',
 fn: function (aNumberOrABlock) {
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@width"]=aNumberOrABlock;
+return smalltalk.withContext(function($ctx1) { 
+self["@width"]=aNumberOrABlock;
 return self}, function($ctx1) {$ctx1.fill(self,"width:",{aNumberOrABlock:aNumberOrABlock},smalltalk.ROShape)});},
 args: ["aNumberOrABlock"],
 source: "width: aNumberOrABlock\x0a\x09width := aNumberOrABlock",
@@ -2924,7 +2865,8 @@ selector: "widthFor:",
 category: 'accessing',
 fn: function (anElement) {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(self["@width"])._roValue_(anElement);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"widthFor:",{anElement:anElement},smalltalk.ROShape)});},
@@ -2961,7 +2903,8 @@ selector: "element",
 category: 'not yet classified',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(_st(self)._new())._element();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"element",{},smalltalk.ROShape.klass)});},
@@ -3200,7 +3143,8 @@ selector: "edgeFrom:to:",
 category: 'not yet classified',
 fn: function (el1, el2) {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
 $2=_st((smalltalk.ROEdge || ROEdge))._from_to_(el1,el2);
 _st($2)._shape_(_st(self)._new());
 $3=_st($2)._yourself();
@@ -3220,7 +3164,8 @@ selector: "elementFrom:to:",
 category: 'not yet classified',
 fn: function (el1, el2) {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(self)._edgeFrom_to_(el1,el2);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"elementFrom:to:",{el1:el1,el2:el2},smalltalk.ROAbstractLineShape.klass)});},
@@ -3885,25 +3830,6 @@ smalltalk.ROLabel);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "defaultColor",
-category: 'not yet classified',
-fn: function (){
-var self=this;
-function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st($Color())._black();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"defaultColor",{},smalltalk.ROLabel.klass)})},
-args: [],
-source: "defaultColor\x0a\x09^ Color black",
-messageSends: ["black"],
-referencedClasses: ["Color"]
-}),
-smalltalk.ROLabel.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "text:",
 category: 'not yet classified',
 fn: function (aBlock){
@@ -4472,24 +4398,6 @@ args: [],
 source: "topLeftFromSVG\x0a\x09| topLeft |\x0a\x09topLeft := SmallInteger maxVal @ SmallInteger maxVal.\x0a\x09self lines do: [ :lineAsAssoc | topLeft := topLeft min: (lineAsAssoc key min: lineAsAssoc value) ].\x0a\x09^ topLeft",
 messageSends: ["@", "maxVal", "do:", "min:", "value", "key", "lines"],
 referencedClasses: ["SmallInteger"]
-}),
-smalltalk.ROSVGPath);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "updateSVGElementOn:for:",
-category: 'rendering',
-fn: function (canvas,anElement){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(self["@svgElement"])._transform_("T0,0");
-_st(self["@svgElement"])._transform_(_st(_st("T".__comma(_st(_st(anElement)._position())._x())).__comma(",")).__comma(_st(_st(anElement)._position())._y()));
-_st(self["@svgPath"])._attr_value_("fill",_st(self._color())._asHTMLRGBA());
-return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROSVGPath)})},
-args: ["canvas", "anElement"],
-source: "updateSVGElementOn: canvas for: anElement\x0a\x09svgElement transform: 'T0,0'.\x0a\x09svgElement transform: 'T',(anElement position x),',',(anElement position y).\x0a\x09svgPath attr: 'fill' value: (self color asHTMLRGBA).\x0a\x22\x0a\x09svgElement translate: 0 y: 0.\x0a\x09svgElement translate: (anElement position x) y: (anElement position y).\x0a\x22",
-messageSends: ["transform:", ",", "y", "position", "x", "attr:value:", "asHTMLRGBA", "color"],
-referencedClasses: []
 }),
 smalltalk.ROSVGPath);
 
@@ -7472,7 +7380,8 @@ selector: "height",
 category: 'initialize',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@height"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"height",{},smalltalk.ROBox)});},
@@ -7549,7 +7458,8 @@ selector: "width",
 category: 'initialize',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@width"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"width",{},smalltalk.ROBox)});},
@@ -8141,13 +8051,11 @@ smalltalk.RONullShape);
 
 
 
-smalltalk.addClass('ROPath', smalltalk.ROShape, ['path', 'borderWidth', 'borderColor', '
-	svg', 'zoom'], 'ARoassal');
-smalltalk.ROPath.comment="It represents a SVGPath without a white rectangle behind due to It is not necessary to make it draggable";
+smalltalk.addClass('ROPath', smalltalk.ROShape, ['path', 'borderColor', 'borderWidth'], 'ARoassal');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "borderColor",
-category: 'accessing',
+category: 'not yet classified',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -8164,24 +8072,8 @@ smalltalk.ROPath);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "borderColor:",
-category: 'accessing',
-fn: function (aBlockOrSymbolOrObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@borderColor"]=aBlockOrSymbolOrObject;
-return self}, function($ctx1) {$ctx1.fill(self,"borderColor:",{aBlockOrSymbolOrObject:aBlockOrSymbolOrObject},smalltalk.ROPath)})},
-args: ["aBlockOrSymbolOrObject"],
-source: "borderColor: aBlockOrSymbolOrObject\x0a\x09borderColor := aBlockOrSymbolOrObject.",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.ROPath);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "borderWidth",
-category: 'accessing',
+category: 'not yet classified',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -8198,61 +8090,8 @@ smalltalk.ROPath);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "borderWidth:",
-category: 'accessing',
-fn: function (anInteger){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@borderWidth"]=anInteger;
-return self}, function($ctx1) {$ctx1.fill(self,"borderWidth:",{anInteger:anInteger},smalltalk.ROPath)})},
-args: ["anInteger"],
-source: "borderWidth: anInteger\x0a\x09borderWidth := anInteger.",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.ROPath);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "color",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self["@color"];
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"color",{},smalltalk.ROPath)})},
-args: [],
-source: "color\x0a\x09^ color",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.ROPath);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "color:",
-category: 'accessing',
-fn: function (aColor){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-self["@color"]=aColor;
-$1=self["@color"];
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"color:",{aColor:aColor},smalltalk.ROPath)})},
-args: ["aColor"],
-source: "color: aColor\x0a\x09^ color := aColor",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.ROPath);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "initialize",
-category: 'initialize',
+category: 'not yet classified',
 fn: function (){
 var self=this;
 function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
@@ -8261,38 +8100,21 @@ smalltalk.ROPath.superclass.fn.prototype._initialize.apply(_st(self), []);
 self._path_("");
 self["@borderWidth"]=(1);
 self["@borderColor"]=_st($Color())._gray();
+self["@color"]=_st($Color())._blue();
 self["@height"]=(20);
 self["@width"]=self["@height"];
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROPath)})},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09self path: ''.\x0a\x09borderWidth := 1. \x0a\x09borderColor := Color gray.\x0a\x09\x0a\x09\x22 added for Amber version \x22\x0a\x09width := height := 20.",
-messageSends: ["initialize", "path:", "gray"],
+source: "initialize\x0a\x09super initialize.\x0a\x09self path: ''.\x0a\x09borderWidth := 1. \x0a\x09borderColor := Color gray.\x0a\x09color := Color blue.\x0a\x09\x0a\x09\x22 added for Amber version \x22\x0a\x09width := height := 20.",
+messageSends: ["initialize", "path:", "gray", "blue"],
 referencedClasses: ["Color"]
 }),
 smalltalk.ROPath);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "initializePathOn:for:",
-category: 'accessing',
-fn: function (canvas,anElement){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(canvas)._path_(self["@path"]);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"initializePathOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROPath)})},
-args: ["canvas", "anElement"],
-source: "initializePathOn: canvas for: anElement\x0a\x09^ canvas path: path",
-messageSends: ["path:"],
-referencedClasses: []
-}),
-smalltalk.ROPath);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "initializeSVGElementOn:for:",
-category: 'accessing',
+category: 'not yet classified',
 fn: function (canvas,anElement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -8308,14 +8130,14 @@ smalltalk.ROPath);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "path:",
-category: 'accessing',
-fn: function (aPathAsString){
+category: 'not yet classified',
+fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self["@path"]=aPathAsString;
-return self}, function($ctx1) {$ctx1.fill(self,"path:",{aPathAsString:aPathAsString},smalltalk.ROPath)})},
-args: ["aPathAsString"],
-source: "path: aPathAsString\x0a\x09\x22Example of SVG path may be found on http://www.w3.org/TR/SVG/paths.html#PathData\x22\x0a\x09path := aPathAsString.\x0a\x09\x0a\x22\x09svg := ASVGRoot new.\x0a\x09svg addShape: (ASPath new d: aPathAsString).\x22",
+self["@path"]=aString;
+return self}, function($ctx1) {$ctx1.fill(self,"path:",{aString:aString},smalltalk.ROPath)})},
+args: ["aString"],
+source: "path: aString\x0a\x09path := aString",
 messageSends: [],
 referencedClasses: []
 }),
@@ -8324,17 +8146,21 @@ smalltalk.ROPath);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "updateSVGElementOn:for:",
-category: 'accessing',
+category: 'not yet classified',
 fn: function (canvas,anElement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self["@svgElement"])._transform_("T0,0");
-_st(self["@svgElement"])._transform_(_st(_st("T".__comma(_st(_st(anElement)._position())._x())).__comma(",")).__comma(_st(_st(anElement)._position())._y()));
-_st(self["@svgElement"])._attr_value_("fill",_st(self._color())._asHTMLRGBA());
+var $1,$2;
+$1=self["@svgElement"];
+_st($1)._transform_("T0,0");
+_st($1)._transform_(_st(_st("T".__comma(_st(_st(anElement)._position())._x())).__comma(",")).__comma(_st(_st(anElement)._position())._y()));
+_st($1)._attr_with_("fill",_st(self["@color"])._asHTMLRGBA());
+_st($1)._attr_value_("stroke-width",self._borderWidth());
+$2=_st($1)._attr_value_("stroke",_st(self._borderColor())._asHTMLRGBA());
 return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anElement:anElement},smalltalk.ROPath)})},
 args: ["canvas", "anElement"],
-source: "updateSVGElementOn: canvas for: anElement\x0a\x09svgElement transform: 'T0,0'.\x0a\x09svgElement transform: 'T',(anElement position x),',',(anElement position y).\x0a\x09svgElement attr: 'fill' value: (self color asHTMLRGBA).",
-messageSends: ["transform:", ",", "y", "position", "x", "attr:value:", "asHTMLRGBA", "color"],
+source: "updateSVGElementOn: canvas for: anElement\x0a\x09svgElement \x0a\x09\x09transform: 'T0,0';\x0a\x09\x09transform: 'T',(anElement position x),',',(anElement position y);\x0a\x09\x09attr:'fill' with: (color asHTMLRGBA);\x0a\x09\x09attr: 'stroke-width' value: (self borderWidth);\x0a\x09\x09attr: 'stroke' value: (self borderColor asHTMLRGBA).",
+messageSends: ["transform:", ",", "y", "position", "x", "attr:with:", "asHTMLRGBA", "attr:value:", "borderWidth", "borderColor"],
 referencedClasses: []
 }),
 smalltalk.ROPath);
@@ -8342,52 +8168,17 @@ smalltalk.ROPath);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "Argentina",
-category: 'not yet classified',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return "M319.448,295.781l1.288,1.544l0,2.189l-2.319,1.416l-1.801,1.158l-2.961,2.576l-3.605,3.732l-0.772,2.189l-0.644,2.702l0,2.705l-0.643,0.643l-0.129,1.674l-0.257,1.417l3.475,2.317l-0.387,1.802l1.675,1.287l-0.129,1.288l-2.574,3.475l-3.991,1.417l-5.406,0.513l-2.961,-0.257l0.514,1.674l-0.514,1.931l0.514,1.415l-1.673,0.902l-2.703,0.385l-2.575,-1.028l-1.029,0.770l0.386,2.705l1.801,0.772l1.417,-0.901l0.901,1.416l-2.575,0.902l-2.188,1.673l-0.386,2.705l-0.643,1.414l-2.448,0l-2.188,1.416l-0.772,1.932l2.704,2.059l2.574,0.516l-0.901,2.445l-3.218,1.545l-1.803,3.090l-2.445,1.030l-1.031,1.287l0.774,2.832l1.802,1.543l-1.030,-0.127l-2.574,-0.387l-6.436,-0.385l-1.160,-1.545l0,-2.060l-1.801,0.129l-0.902,-0.902l-0.258,-2.831l2.060,-1.288l0.901,-1.674l-0.386,-1.288l1.546,-2.316l0.900,-3.605l-0.257,-1.545l1.158,-0.515l-0.258,-1.030l-1.287,-0.514l0.901,-1.158l-1.157,-1.030l-0.645,-3.089l1.030,-0.516l-0.385,-3.347l0.513,-2.703l0.773,-2.447l1.673,-1.030l-0.900,-2.574l0,-2.446l2.060,-1.802l0,-2.189l1.415,-2.702l0.129,-2.447l-0.772,-0.514l-1.287,-4.636l1.672,-2.831l-0.257,-2.575l1.030,-2.446l1.802,-2.574l1.802,-1.673l-0.772,-1.031l0.515,-0.900l0,-4.378l2.960,-1.415l0.902,-2.704l-0.386,-0.772l2.316,-2.447l3.477,0.644l1.544,2.060l1.030,-2.187l3.089,0.127l0.515,0.515l4.892,4.377l2.188,0.387l3.348,2.059l2.703,1.030l0.386,1.157l-2.574,4.121l2.702,0.772l2.961,0.387l2.189,-0.387l2.446,-2.059l0.386,-2.445l-1.416,0.516zM282.761,371.99l3.475,1.674l3.733,0.642l-1.159,1.417l-2.574,0.130l-1.416,-1.031l-1.546,0l-2.960,0l0.129,-5.923l0.901,1.160l-1.417,-1.931z";
-}, function($ctx1) {$ctx1.fill(self,"Argentina",{},smalltalk.ROPath.klass)})},
-args: [],
-source: "Argentina\x0a\x09^ 'M319.448,295.781l1.288,1.544l0,2.189l-2.319,1.416l-1.801,1.158l-2.961,2.576l-3.605,3.732l-0.772,2.189l-0.644,2.702l0,2.705l-0.643,0.643l-0.129,1.674l-0.257,1.417l3.475,2.317l-0.387,1.802l1.675,1.287l-0.129,1.288l-2.574,3.475l-3.991,1.417l-5.406,0.513l-2.961,-0.257l0.514,1.674l-0.514,1.931l0.514,1.415l-1.673,0.902l-2.703,0.385l-2.575,-1.028l-1.029,0.770l0.386,2.705l1.801,0.772l1.417,-0.901l0.901,1.416l-2.575,0.902l-2.188,1.673l-0.386,2.705l-0.643,1.414l-2.448,0l-2.188,1.416l-0.772,1.932l2.704,2.059l2.574,0.516l-0.901,2.445l-3.218,1.545l-1.803,3.090l-2.445,1.030l-1.031,1.287l0.774,2.832l1.802,1.543l-1.030,-0.127l-2.574,-0.387l-6.436,-0.385l-1.160,-1.545l0,-2.060l-1.801,0.129l-0.902,-0.902l-0.258,-2.831l2.060,-1.288l0.901,-1.674l-0.386,-1.288l1.546,-2.316l0.900,-3.605l-0.257,-1.545l1.158,-0.515l-0.258,-1.030l-1.287,-0.514l0.901,-1.158l-1.157,-1.030l-0.645,-3.089l1.030,-0.516l-0.385,-3.347l0.513,-2.703l0.773,-2.447l1.673,-1.030l-0.900,-2.574l0,-2.446l2.060,-1.802l0,-2.189l1.415,-2.702l0.129,-2.447l-0.772,-0.514l-1.287,-4.636l1.672,-2.831l-0.257,-2.575l1.030,-2.446l1.802,-2.574l1.802,-1.673l-0.772,-1.031l0.515,-0.900l0,-4.378l2.960,-1.415l0.902,-2.704l-0.386,-0.772l2.316,-2.447l3.477,0.644l1.544,2.060l1.030,-2.187l3.089,0.127l0.515,0.515l4.892,4.377l2.188,0.387l3.348,2.059l2.703,1.030l0.386,1.157l-2.574,4.121l2.702,0.772l2.961,0.387l2.189,-0.387l2.446,-2.059l0.386,-2.445l-1.416,0.516zM282.761,371.99l3.475,1.674l3.733,0.642l-1.159,1.417l-2.574,0.130l-1.416,-1.031l-1.546,0l-2.960,0l0.129,-5.923l0.901,1.160l-1.417,-1.931z'",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.ROPath.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "defaultColor",
-category: 'not yet classified',
-fn: function (){
-var self=this;
-function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st($Color())._white();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"defaultColor",{},smalltalk.ROPath.klass)})},
-args: [],
-source: "defaultColor\x0a\x09^ Color white.",
-messageSends: ["white"],
-referencedClasses: ["Color"]
-}),
-smalltalk.ROPath.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "path:",
 category: 'not yet classified',
-fn: function (aPathString){
+fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._new())._path_(aPathString);
+$1=_st(self._new())._path_(aString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"path:",{aPathString:aPathString},smalltalk.ROPath.klass)})},
-args: ["aPathString"],
-source: "path: aPathString\x0a\x09^ self new path: aPathString",
+}, function($ctx1) {$ctx1.fill(self,"path:",{aString:aString},smalltalk.ROPath.klass)})},
+args: ["aString"],
+source: "path: aString\x0a\x09^ self new path: aString",
 messageSends: ["path:", "new"],
 referencedClasses: []
 }),
@@ -8494,7 +8285,8 @@ selector: "roValue:",
 category: '*ARoassal',
 fn: function (aBlock) {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"roValue:",{aBlock:aBlock},smalltalk.Number)});},
