@@ -1419,6 +1419,10 @@ textHeight
 
 !ROLabel class methodsFor: 'not yet classified'!
 
+defaultColor
+	^ Color black.
+!
+
 text: aBlock
 	^ self new text: aBlock
 ! !

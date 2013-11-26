@@ -3880,6 +3880,25 @@ smalltalk.ROLabel);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "defaultColor",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($Color())._black();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultColor",{},smalltalk.ROLabel.klass)})},
+args: [],
+source: "defaultColor\x0a\x09^ Color black.",
+messageSends: ["black"],
+referencedClasses: ["Color"]
+}),
+smalltalk.ROLabel.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "text:",
 category: 'not yet classified',
 fn: function (aBlock){

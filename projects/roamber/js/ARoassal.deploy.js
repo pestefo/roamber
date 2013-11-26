@@ -2853,6 +2853,20 @@ smalltalk.ROLabel);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "defaultColor",
+fn: function (){
+var self=this;
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($Color())._black();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultColor",{},smalltalk.ROLabel.klass)})},
+messageSends: ["black"]}),
+smalltalk.ROLabel.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "text:",
 fn: function (aBlock){
 var self=this;
