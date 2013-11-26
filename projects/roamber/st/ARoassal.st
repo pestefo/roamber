@@ -486,6 +486,9 @@ to
 
 to: anElement
 	to := anElement
+!
+
+translateBy: aPoint
 ! !
 
 !ROEdge methodsFor: 'testing'!
@@ -645,6 +648,10 @@ shape: aROShape
 
 size: d
 	self extent: d @ d
+!
+
+translateBy: aPoint 
+	self translateTo: position + aPoint
 !
 
 translateTo: aPoint 
@@ -831,6 +838,10 @@ signalUpdate
 	"self announce: RORefreshNeeded"
 	
 	self elements do: [:el | el drawOn: svgCanvas].
+!
+
+translateBy: aPoint
+	self elementsDo: [:el | el translateBy: aPoint ]
 ! !
 
 ROView class instanceVariableNames: 'nullView'!

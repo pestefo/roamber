@@ -929,6 +929,16 @@ return self}, function($ctx1) {$ctx1.fill(self,"to:",{anElement:anElement},small
 messageSends: []}),
 smalltalk.ROEdge);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "translateBy:",
+fn: function (aPoint){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"translateBy:",{aPoint:aPoint},smalltalk.ROEdge)})},
+messageSends: []}),
+smalltalk.ROEdge);
+
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1380,6 +1390,17 @@ smalltalk.ROElement);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "translateBy:",
+fn: function (aPoint){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._translateTo_(_st(self["@position"]).__plus(aPoint));
+return self}, function($ctx1) {$ctx1.fill(self,"translateBy:",{aPoint:aPoint},smalltalk.ROElement)})},
+messageSends: ["translateTo:", "+"]}),
+smalltalk.ROElement);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "translateTo:",
 fn: function (aPoint){
 var self=this;
@@ -1664,6 +1685,20 @@ return _st(el)._drawOn_(self["@svgCanvas"]);
 }, function($ctx2) {$ctx2.fillBlock({el:el},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"signalUpdate",{},smalltalk.ROView)})},
 messageSends: ["do:", "drawOn:", "elements"]}),
+smalltalk.ROView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "translateBy:",
+fn: function (aPoint){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._elementsDo_((function(el){
+return smalltalk.withContext(function($ctx2) {
+return _st(el)._translateBy_(aPoint);
+}, function($ctx2) {$ctx2.fillBlock({el:el},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"translateBy:",{aPoint:aPoint},smalltalk.ROView)})},
+messageSends: ["elementsDo:", "translateBy:"]}),
 smalltalk.ROView);
 
 smalltalk.addMethod(
