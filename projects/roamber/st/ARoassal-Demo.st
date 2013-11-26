@@ -87,6 +87,44 @@ ROTreeLayout on: (view elements) edges: edges.
 view open.
 !
 
+pib
+| view cityBuilder values graphBuilder color|
+	view := ROView new.
+	color := Color lightBlue.
+	
+	"Maps"
+	cityBuilder := ROMapBuilder new.
+	cityBuilder view: view.
+	cityBuilder allCountries.
+	
+	"Values"
+	values := ROMapBuilder new pib 
+			sorted: [ :ar1 :ar2 | ar2 second < ar1 second ].
+	graphBuilder := GETDiagramBuilder new.
+	graphBuilder rawView: view.
+	graphBuilder verticalBarDiagram
+			models: (values copyFrom: 1 to: 40);
+			y: #second;
+			color: color;
+			regularAxisAsInteger;
+			barWidth: 2;
+			titleLabel: 'Gross Domestic Product (GDP)'.
+	graphBuilder interaction popUpText
+		on: ROMouseEnter 
+		do: [ :event |  
+				(view elementFromModel: 
+					event element model first asSymbol) color: color  ];
+		on: ROMouseLeave 
+		do: [ :event |  
+				(view elementFromModel: 
+					event element model first asSymbol) color: Color white  ] 			.
+	graphBuilder openIn: view.
+	
+	"Openining the thing"
+	view open.
+	"view openInWindowSized: 1000 @ 600."
+!
+
 punchcard
 
 |builder|
@@ -132,353 +170,6 @@ worldConnections
 	builder edgesFrom: 'Paris' toAll: #('New York City' 'Washington, D.C.' 'Santiago' 'Bogota' 'Vancouver').
 
 	builder open
-! !
-
-!ROExample methodsFor: 'not yet classified'!
-
-cellLayout
-| view |
-view := ROView new.
-view clear.
-" Play changing the number of squares"
-1 to: 200 do: [ :i |
-	view add: (ROBox elementOn: i) @RODraggable ].
-	ROCellLayout on: view elements .
-	view open.
-!
-
-circle
-	| view |
-	view := ROView new.
-	view add: ((ROEllipse element translateTo: 50 @ 50) @ RODraggable color: Color green).
-	view open.
-!
-
-create
-	| view |
-	view := ROView new.
-	view add: (ROElement new shape: (ROBox new)).
-	view open.
-!
-
-drag
-	| view elements b |
-	view := ROView new.
-	elements := OrderedCollection new.
-	b := (ROBox element translateTo: 50 @ 50).
-	elements add: b."; 
-			 add: (ROCircle element translateTo: 200 @ 150). "
-	
-	elements do: [:each | each addInteraction: RODraggable. view add: each].
-	view open.
-!
-
-exampleImage
-|view url el sh|
-url := 'https://www.google.cl/images/srpr/logo11w.png'.
-view := ROView new.
-view add: (ROBox new elementOn: 1) @RODraggable.
-el := ((ROImage url: url) elementOn: 1) @ RODraggable.
-el size: 200.
-view add: el.
-
-
-
-view open.
-!
-
-exampleImage2
-	" two buttons + and - and an image. When clicking any of them, resize the image "
-!
-
-horizontalLayout
-	| view |
-	view := ROView new.
-	view clear.
-	10 timesRepeat: [view add: (ROElement new shape: (ROBox new))].
-	ROHorizontalLineLayout on: view elements.
-	view open.
-	^ view.
-!
-
-horizontalLayout2
-	| view |
-	view := ROView new.
-	view clear.
-	1 to: 20 do: [ :i |
-		view add: ((ROElement new model: i) shape: 
-			(ROBox new height: [ :el | el model * 13 ]; width: [ :el | el model * 5 ])) ].
-	ROHorizontalLineLayout on: view elements.
-	view open.
-!
-
-horizontalLineLayout
-	| view colorWheel |
-	view := ROView new.
-	view clear.
-	colorWheel := (Color red) wheel: 20 to: (Color green).
-	colorWheel do: [:c | 
-		view add: (ROBox element color:  c ) @ RODraggable].
-	ROHorizontalLineLayout on: view elements.
-	view open.
-!
-
-hover
-|view element|
-view := ROView new.
-element := ROElement new size: 100.
-element + ROBox.
-"Open an inspector when clicking"
-element on: ROMouseEnter do: [ :event | event element color: Color red. event element view signalUpdate. ].
-element on: ROMouseLeave do: [ :event | event element color: Color blue.  event element view signalUpdate. ].
-view add: element.
-view open.
-!
-
-label
-|view element |
-view := ROView new.
-element := ROElement new size: 100.
-
-element + ROLabel.
-view add: element.
-
-view open.
-!
-
-line
-	| view el1 el2 edge |
-	view := ROView new.
-
-	el1 := ROBox element.
-	el2 := ROBox element.
-	
-	el1 translateTo: 20 @ 30.
-	el2 translateTo: 300 @ 100.
-	
-	edge := ROLine edgeFrom: el1 to: el2.
-
-	view add: el1; add: el2; add: edge.
-	
-	view open.
-!
-
-line2
-
-	| view el1 el2 edge el3 el4 edge2 |
-	view := ROView new.
-
-	el1 := ROEllipse element.
-	el2 := ROEllipse element.
-	
-	el1 translateTo: 20 @ 30.
-	el2 translateTo: 300 @ 100.
-	
-	edge := ROLine edgeFrom: el1 to: el2.
-	
-	el3 := ROBox element.
-	el4 := ROBox element.
-	
-	el3 translateTo: 150 @ 20.
-	el4 translateTo: 150 @ 300.
-	
-	edge2 := ROLine edgeFrom: el3 to: el4.
-
-	view add: el1; add: el2; add: edge; add: el3; add: el4; add: edge2.
-	
-	view open.
-!
-
-mouseclick
-|view element|
-view := ROView new.
-element := ROElement new size: 100.
-element + ROBox.
-"Open an inspector when clicking"
-element on: ROMouseClick do: [ :event | event element hide].
-view add: element.
-view open.
-!
-
-mouseclick2
-|view element|
-view := ROView new.
-element := ROElement new size: 100.
-element + ROBox.
-"Open an inspector when clicking"
-element on: ROMouseLeftClick do: [ :event | event element hide].
-view add: element.
-view open.
-!
-
-mouseclick3
-|view element element2|
-view := ROView new.
-element := ROElement new size: 100.
-element2 := ROElement new size: 50.
-element + ROBox.
-element2 + ROBox.
-"Open an inspector when clicking"
-element on: ROMouseLeftClick do: [ :event | Transcript show: 'e1',(String cr)].
-element2 on: ROMouseLeftClick do: [ :event | Transcript show: '-e2-',(String cr)].
-view add: element.
-view add: element2.
-ROHorizontalLineLayout on: {element . element2}.
-view open.
-!
-
-pib
-| view cityBuilder values graphBuilder color|
-	view := ROView new.
-	color := Color lightBlue.
-	
-	"Maps"
-	cityBuilder := ROMapBuilder new.
-	cityBuilder view: view.
-	cityBuilder allCountries.
-	
-	"Values"
-	values := ROMapBuilder new pib 
-			sorted: [ :ar1 :ar2 | ar2 second < ar1 second ].
-	graphBuilder := GETDiagramBuilder new.
-	graphBuilder rawView: view.
-	graphBuilder verticalBarDiagram
-			models: (values copyFrom: 1 to: 40);
-			y: #second;
-			color: color;
-			regularAxisAsInteger;
-			barWidth: 2;
-			titleLabel: 'Gross Domestic Product (GDP)'.
-	graphBuilder interaction popUpText
-		on: ROMouseEnter 
-		do: [ :event |  
-				(view elementFromModel: 
-					event element model first asSymbol) color: color  ];
-		on: ROMouseLeave 
-		do: [ :event |  
-				(view elementFromModel: 
-					event element model first asSymbol) color: Color white  ] 			.
-	graphBuilder openIn: view.
-	
-	"Openining the thing"
-	view open.
-	"view openInWindowSized: 1000 @ 600."
-!
-
-popup
-|view element|
-view := ROView new.
-"element := (ROElement on: 'Hi there!!') size: 100."
-element := (ROElement forCollection: Collection withAllSubclasses) first.
-element + ROBox.
-element @ ROPopup.
-"Open an inspector when clicking"
-
-view add: element.
-view open.
-!
-
-popupAndDrag
-"not working properly right now"
-|view element|
-view := ROView new.
-element := ROElement new size: 100.
-element + ROBox.
-element @ RODraggable.
-element @ ROPopup.
-"Open an inspector when clicking"
-
-view add: element.
-view open.
-!
-
-scale
-
-	| view url elements scaleFactor tux|
-	url := 'https://fbcdn-sphotos-e-a.akamaihd.net/hphotos-ak-prn2/p320x320/1457530_768681953149154_113448858_n.jpg'.
-	elements := { 
-			((ROImageShape url: url) element @RODraggable) .
-			ROEllipse element @RODraggable .
-			ROBox element @RODraggable .
-			ROTux element @RODraggable 
-	}.
-	scaleFactor := #( 0.9 1.001 1.1 1.2 ).
-
-	view := ROView new.
-	tux :=  ROTux element @RODraggable.
-	view addAll: elements.
-	ROHorizontalLineLayout on: view elements.
-	tux on: ROMouseClick do: [:evt | 
-		elements do: [:e |
-			e shape scale: (scaleFactor at: (elements indexOf: e)).  
-		].
-		view signalUpdate.].
-
-	view add: tux.
-	view open
-!
-
-scaleLabel
-|view plus tux|
-plus := (ROLabel element on: '+').
-view := ROView new.
-view add: plus.
-
-tux :=  ROTux element @RODraggable.
-
-tux on: ROMouseClick do: [:evt | 
-	Transcript show: (plus shape width asString),',',(plus shape svgElement attr: 'width'),'   '.
-	plus shape scale: 2.  
-	Transcript show: (plus shape width asString),',',(plus shape svgElement attr: 'width'),(String cr).
-	view signalUpdate.].
-	
-	view add: tux.
-
-view open
-!
-
-treeLayout 
-	"
-	self new treeLayout
-	"
-	
-	| view elements edges |
-	view := ROView new.
-	elements := ROElement spritesOn: (1 to: 5).
-	elements do:[:el | el addInteraction: RODraggable].
-	view addAll: elements.
-	view addAll: (edges := ROEdge linesFor: { (elements at: 1) -> (elements at: 2) . 
-											  (elements at: 2) -> (elements at: 5) . 
-											  (elements at: 2) -> (elements at: 3) }).
-	
-	ROTreeLayout on: elements edges: edges.
-
-	view open.
-!
-
-treeLayout2
-	"
-	self new treeLayout
-	"
-	
-	| view elements |
-	elements := ROElement forCollection: (1 to: 20).
-	elements do: [ :n | n extent: 50@50; addShape: (ROBox new) ].
-	view := ROView new.
-	view addAll: elements.
-	elements allButFirst do: [:e | 
-	 	view add: (ROEdge lineFrom: elements first to: e) ].
-
-	ROTreeLayout on: elements.
-	view open.
-!
-
-tux
-
-	| view |
-	view := ROView new.
-	view add: (ROTux element).
-	view open
 ! !
 
 Widget subclass: #ROExampleSelector

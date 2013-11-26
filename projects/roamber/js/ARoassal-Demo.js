@@ -644,7 +644,7 @@ smalltalk.ROExample);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "pib",
-category: 'not yet classified',
+category: 'demo',
 fn: function (){
 var self=this;
 var view,cityBuilder,values,graphBuilder,color;

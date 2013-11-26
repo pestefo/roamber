@@ -125,8 +125,8 @@ _st(element)._signalUpdate();
 _st(popupElement)._hide();
 _st(element)._on_do_($ROMouseEnter(),(function(evt){
 return smalltalk.withContext(function($ctx2) {
-_st(popupElement)._translateTo_(_st(_st(evt)._position()).__plus((5).__at((5))));
-_st(element)._signalUpdate();
+_st(popupElement)._translateTo_(_st(evt)._position());
+_st(popupElement)._signalUpdate();
 return _st(popupElement)._show();
 }, function($ctx2) {$ctx2.fillBlock({evt:evt},$ctx1)})}));
 _st(element)._on_do_($ROMouseLeave(),(function(evt){
@@ -142,7 +142,7 @@ return smalltalk.withContext(function($ctx2) {
 return _st(popupElement)._hide();
 }, function($ctx2) {$ctx2.fillBlock({evt:evt},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"initializeElement:",{element:element,svgElement:svgElement,popupElement:popupElement},smalltalk.ROAbstractPopup)})},
-messageSends: ["svgElement", "shape", "createPopupFor:", "signalUpdate", "hide", "on:do:", "translateTo:", "+", "@", "position", "show"]}),
+messageSends: ["svgElement", "shape", "createPopupFor:", "signalUpdate", "hide", "on:do:", "translateTo:", "position", "show"]}),
 smalltalk.ROAbstractPopup);
 
 smalltalk.addMethod(
