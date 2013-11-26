@@ -533,6 +533,53 @@ smalltalk.ROExample);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "pib",
+fn: function (){
+var self=this;
+var view,cityBuilder,values,graphBuilder,color;
+function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+function $ROMapBuilder(){return smalltalk.ROMapBuilder||(typeof ROMapBuilder=="undefined"?nil:ROMapBuilder)}
+function $GETDiagramBuilder(){return smalltalk.GETDiagramBuilder||(typeof GETDiagramBuilder=="undefined"?nil:GETDiagramBuilder)}
+function $ROMouseEnter(){return smalltalk.ROMouseEnter||(typeof ROMouseEnter=="undefined"?nil:ROMouseEnter)}
+function $ROMouseLeave(){return smalltalk.ROMouseLeave||(typeof ROMouseLeave=="undefined"?nil:ROMouseLeave)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4;
+view=_st($ROView())._new();
+color=_st($Color())._lightBlue();
+cityBuilder=_st($ROMapBuilder())._new();
+_st(cityBuilder)._view_(view);
+_st(cityBuilder)._allCountries();
+values=_st(_st(_st($ROMapBuilder())._new())._pib())._sorted_((function(ar1,ar2){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(ar2)._second()).__lt(_st(ar1)._second());
+}, function($ctx2) {$ctx2.fillBlock({ar1:ar1,ar2:ar2},$ctx1)})}));
+graphBuilder=_st($GETDiagramBuilder())._new();
+_st(graphBuilder)._rawView_(view);
+$1=_st(graphBuilder)._verticalBarDiagram();
+_st($1)._models_(_st(values)._copyFrom_to_((1),(40)));
+_st($1)._y_("second");
+_st($1)._color_(color);
+_st($1)._regularAxisAsInteger();
+_st($1)._barWidth_((2));
+$2=_st($1)._titleLabel_("Gross Domestic Product (GDP)");
+$3=_st(_st(graphBuilder)._interaction())._popUpText();
+_st($3)._on_do_($ROMouseEnter(),(function(event){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(view)._elementFromModel_(_st(_st(_st(_st(event)._element())._model())._first())._asSymbol()))._color_(color);
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
+$4=_st($3)._on_do_($ROMouseLeave(),(function(event){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(view)._elementFromModel_(_st(_st(_st(_st(event)._element())._model())._first())._asSymbol()))._color_(_st($Color())._white());
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
+_st(graphBuilder)._openIn_(view);
+_st(view)._open();
+return self}, function($ctx1) {$ctx1.fill(self,"pib",{view:view,cityBuilder:cityBuilder,values:values,graphBuilder:graphBuilder,color:color},smalltalk.ROExample)})},
+messageSends: ["new", "lightBlue", "view:", "allCountries", "sorted:", "<", "second", "pib", "rawView:", "models:", "copyFrom:to:", "verticalBarDiagram", "y:", "color:", "regularAxisAsInteger", "barWidth:", "titleLabel:", "on:do:", "elementFromModel:", "asSymbol", "first", "model", "element", "popUpText", "interaction", "white", "openIn:", "open"]}),
+smalltalk.ROExample);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "popup",
 fn: function (){
 var self=this;

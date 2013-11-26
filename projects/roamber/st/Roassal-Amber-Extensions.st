@@ -272,6 +272,11 @@ h: hue s: saturation v: brightness
 	^ self basicNew setHue: hue saturation: saturation brightness: brightness
 !
 
+lightBlue
+	^ self new r:0.7996089931573802
+ g:1 b:1
+!
+
 lightGray
 	^ self new r: 0.827 g: 0.827  b: 0.827
 !

@@ -551,6 +551,19 @@ smalltalk.Color.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "lightBlue",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._new())._r_g_b_((0.7996089931573802),(1),(1));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"lightBlue",{},smalltalk.Color.klass)})},
+messageSends: ["r:g:b:", "new"]}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "lightGray",
 fn: function (){
 var self=this;

@@ -327,6 +327,44 @@ ROHorizontalLineLayout on: {element . element2}.
 view open.
 !
 
+pib
+| view cityBuilder values graphBuilder color|
+	view := ROView new.
+	color := Color lightBlue.
+	
+	"Maps"
+	cityBuilder := ROMapBuilder new.
+	cityBuilder view: view.
+	cityBuilder allCountries.
+	
+	"Values"
+	values := ROMapBuilder new pib 
+			sorted: [ :ar1 :ar2 | ar2 second < ar1 second ].
+	graphBuilder := GETDiagramBuilder new.
+	graphBuilder rawView: view.
+	graphBuilder verticalBarDiagram
+			models: (values copyFrom: 1 to: 40);
+			y: #second;
+			color: color;
+			regularAxisAsInteger;
+			barWidth: 2;
+			titleLabel: 'Gross Domestic Product (GDP)'.
+	graphBuilder interaction popUpText
+		on: ROMouseEnter 
+		do: [ :event |  
+				(view elementFromModel: 
+					event element model first asSymbol) color: color  ];
+		on: ROMouseLeave 
+		do: [ :event |  
+				(view elementFromModel: 
+					event element model first asSymbol) color: Color white  ] 			.
+	graphBuilder openIn: view.
+	
+	"Openining the thing"
+	view open.
+	"view openInWindowSized: 1000 @ 600."
+!
+
 popup
 |view element|
 view := ROView new.

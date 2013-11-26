@@ -432,6 +432,21 @@ smalltalk.ROInteractionBuilder);
 smalltalk.addClass('ROMapBuilder', smalltalk.ROObject, ['view', 'cities', 'shapeBuilder', 'interactionBuilder'], 'RoassalExtras-Geo');
 smalltalk.addMethod(
 smalltalk.method({
+selector: "allCountries",
+fn: function (){
+var self=this;
+function $ROSVGPath(){return smalltalk.ROSVGPath||(typeof ROSVGPath=="undefined"?nil:ROSVGPath)}
+return smalltalk.withContext(function($ctx1) { 
+_st(_st($ROSVGPath())._countries())._do_((function(c){
+return smalltalk.withContext(function($ctx2) {
+return self._country_(c);
+}, function($ctx2) {$ctx2.fillBlock({c:c},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"allCountries",{},smalltalk.ROMapBuilder)})},
+messageSends: ["do:", "country:", "countries"]}),
+smalltalk.ROMapBuilder);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "cities:",
 fn: function (cityNames){
 var self=this;
@@ -722,6 +737,19 @@ smalltalk.ROMapBuilder);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "pib",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=[["UnitedStates", (16244)], ["China", (12261)], ["India", (4716)], ["Japan", (4575)], ["Germany", (3167)], ["Russia", (2486)], ["Brazil", (2330)], ["France", (2252)], ["Italy", (1813)], ["Mexico", (1758)], ["SouthKorea", (1622)], ["Canada", (1446)], ["Spain", (1407)], ["Indonesia", (1212)], ["Iran", (988)], ["Australia", (961)], ["Taiwan", (902)], ["Poland", (802)], ["Argentina", (747)], ["SaudiArabia", (741)], ["Netherlands", (710)], ["Thailand", (646)], ["SouthAfrica", (579)], ["Egypt", (538)], ["Pakistan", (515)], ["Colombia", (500)], ["Malaysia", (492)], ["Nigeria", (451)], ["Belgium", (421)], ["Venezuela", (402)], ["Sweden", (396)], ["Switzerland", (362)], ["Austria", (359)], ["Ukraine", (335)], ["Peru", (325)], ["Vietnam", (320)], ["Chile", (319)], ["Bangladesh", (306)], ["Greece", (281)], ["Norway", (278)], ["Algeria", (274)], ["Romania", (274)], ["UnitedArabEmirates", (271)], ["Israel", (248)], ["Portugal", (245)], ["Kazakhstan", (232)], ["Denmark", (210)], ["Finland", (198)], ["Hungary", (197)], ["Ireland", (191)], ["Qatar", (189)], ["Morocco", (171)], ["Kuwait", (166)], ["Iraq", (155)], ["Belarus", (150)], ["Ecuador", (135)], ["NewZealand", (129)], ["Angola", (126)], ["SriLanka", (126)], ["Tunisia", (104)], ["Uzbekistan", (103)], ["Bulgaria", (103)], ["Ethiopia", (103)], ["DominicanRepublic", (99)], ["Azerbaijan", (98)], ["Oman", (91)], ["Libya", (88)], ["Ghana", (83)], ["Sudan", (80)], ["Croatia", (79)], ["Serbia", (79)], ["Guatemala", (78)], ["Kenya", (76)], ["Tanzania", (74)], ["Lithuania", (64)], ["Lebanon", (63)], ["CostaRica", (59)], ["Yemen", (57)], ["Panama", (56)], ["Bolivia", (54)], ["Uruguay", (53)], ["Uganda", (51)], ["Cameroon", (50)], ["Turkmenistan", (48)], ["ElSalvador", (46)], ["Luxembourg", (42)], ["Paraguay", (40)], ["Nepal", (40)], ["Jordan", (38)], ["Honduras", (38)], ["Latvia", (37)], ["Cambodia", (36)], ["BosniaandHerzegovina", (32)], ["Afghanistan", (31)], ["Botswana", (31)], ["Estonia", (28)], ["EquatorialGuinea", (28)], ["Gabon", (26)], ["Georgia", (26)], ["Senegal", (26)], ["Mozambique", (26)], ["Albania", (25)], ["BurkinaFaso", (24)], ["Zambia", (23)], ["Cyprus", (23)], ["BruneiDarussalam", (21)], ["Madagascar", (21)], ["Chad", (21)], ["Nicaragua", (19)], ["Laos", (19)], ["Armenia", (19)], ["PapuaNewGuinea", (18)], ["Tajikistan", (17)], ["Mali", (17)], ["Benin", (15)], ["Mongolia", (15)], ["Rwanda", (14)], ["Malawi", (14)], ["Niger", (13)], ["Kyrgyzstan", (13)], ["Haiti", (13)], ["Iceland", (13)], ["Moldova", (12)], ["Guinea", (12)], ["SierraLeone", (8)], ["Mauritania", (7)], ["Zimbabwe", (6)], ["Togo", (6)], ["Suriname", (6)], ["Guyana", (6)], ["Swaziland", (6)], ["Burundi", (5)], ["Bhutan", (4)], ["Eritrea", (4)], ["Fiji", (4)], ["Lesotho", (3)], ["CentralAfricanRepublic", (3)], ["Belize", (2)], ["Liberia", (2)], ["Djibouti", (2)], ["SolomonIslands", (1)], ["Vanuatu", (1)]];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"pib",{},smalltalk.ROMapBuilder)})},
+messageSends: []}),
+smalltalk.ROMapBuilder);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "positionOf:",
 fn: function (aCityName){
 var self=this;
@@ -796,6 +824,17 @@ var $1;
 $1=self["@view"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"view",{},smalltalk.ROMapBuilder)})},
+messageSends: []}),
+smalltalk.ROMapBuilder);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "view:",
+fn: function (aROView){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@view"]=aROView;
+return self}, function($ctx1) {$ctx1.fill(self,"view:",{aROView:aROView},smalltalk.ROMapBuilder)})},
 messageSends: []}),
 smalltalk.ROMapBuilder);
 

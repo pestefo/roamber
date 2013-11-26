@@ -701,6 +701,24 @@ smalltalk.Color.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "lightBlue",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._new())._r_g_b_((0.7996089931573802),(1),(1));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"lightBlue",{},smalltalk.Color.klass)})},
+args: [],
+source: "lightBlue\x0a\x09^ self new r:0.7996089931573802\x0a g:1 b:1",
+messageSends: ["r:g:b:", "new"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "lightGray",
 category: 'not yet classified',
 fn: function (){

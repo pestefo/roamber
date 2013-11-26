@@ -643,6 +643,58 @@ smalltalk.ROExample);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "pib",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+var view,cityBuilder,values,graphBuilder,color;
+function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+function $ROMapBuilder(){return smalltalk.ROMapBuilder||(typeof ROMapBuilder=="undefined"?nil:ROMapBuilder)}
+function $GETDiagramBuilder(){return smalltalk.GETDiagramBuilder||(typeof GETDiagramBuilder=="undefined"?nil:GETDiagramBuilder)}
+function $ROMouseEnter(){return smalltalk.ROMouseEnter||(typeof ROMouseEnter=="undefined"?nil:ROMouseEnter)}
+function $ROMouseLeave(){return smalltalk.ROMouseLeave||(typeof ROMouseLeave=="undefined"?nil:ROMouseLeave)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4;
+view=_st($ROView())._new();
+color=_st($Color())._lightBlue();
+cityBuilder=_st($ROMapBuilder())._new();
+_st(cityBuilder)._view_(view);
+_st(cityBuilder)._allCountries();
+values=_st(_st(_st($ROMapBuilder())._new())._pib())._sorted_((function(ar1,ar2){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(ar2)._second()).__lt(_st(ar1)._second());
+}, function($ctx2) {$ctx2.fillBlock({ar1:ar1,ar2:ar2},$ctx1)})}));
+graphBuilder=_st($GETDiagramBuilder())._new();
+_st(graphBuilder)._rawView_(view);
+$1=_st(graphBuilder)._verticalBarDiagram();
+_st($1)._models_(_st(values)._copyFrom_to_((1),(40)));
+_st($1)._y_("second");
+_st($1)._color_(color);
+_st($1)._regularAxisAsInteger();
+_st($1)._barWidth_((2));
+$2=_st($1)._titleLabel_("Gross Domestic Product (GDP)");
+$3=_st(_st(graphBuilder)._interaction())._popUpText();
+_st($3)._on_do_($ROMouseEnter(),(function(event){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(view)._elementFromModel_(_st(_st(_st(_st(event)._element())._model())._first())._asSymbol()))._color_(color);
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
+$4=_st($3)._on_do_($ROMouseLeave(),(function(event){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(view)._elementFromModel_(_st(_st(_st(_st(event)._element())._model())._first())._asSymbol()))._color_(_st($Color())._white());
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
+_st(graphBuilder)._openIn_(view);
+_st(view)._open();
+return self}, function($ctx1) {$ctx1.fill(self,"pib",{view:view,cityBuilder:cityBuilder,values:values,graphBuilder:graphBuilder,color:color},smalltalk.ROExample)})},
+args: [],
+source: "pib\x0a| view cityBuilder values graphBuilder color|\x0a\x09view := ROView new.\x0a\x09color := Color lightBlue.\x0a\x09\x0a\x09\x22Maps\x22\x0a\x09cityBuilder := ROMapBuilder new.\x0a\x09cityBuilder view: view.\x0a\x09cityBuilder allCountries.\x0a\x09\x0a\x09\x22Values\x22\x0a\x09values := ROMapBuilder new pib \x0a\x09\x09\x09sorted: [ :ar1 :ar2 | ar2 second < ar1 second ].\x0a\x09graphBuilder := GETDiagramBuilder new.\x0a\x09graphBuilder rawView: view.\x0a\x09graphBuilder verticalBarDiagram\x0a\x09\x09\x09models: (values copyFrom: 1 to: 40);\x0a\x09\x09\x09y: #second;\x0a\x09\x09\x09color: color;\x0a\x09\x09\x09regularAxisAsInteger;\x0a\x09\x09\x09barWidth: 2;\x0a\x09\x09\x09titleLabel: 'Gross Domestic Product (GDP)'.\x0a\x09graphBuilder interaction popUpText\x0a\x09\x09on: ROMouseEnter \x0a\x09\x09do: [ :event |  \x0a\x09\x09\x09\x09(view elementFromModel: \x0a\x09\x09\x09\x09\x09event element model first asSymbol) color: color  ];\x0a\x09\x09on: ROMouseLeave \x0a\x09\x09do: [ :event |  \x0a\x09\x09\x09\x09(view elementFromModel: \x0a\x09\x09\x09\x09\x09event element model first asSymbol) color: Color white  ] \x09\x09\x09.\x0a\x09graphBuilder openIn: view.\x0a\x09\x0a\x09\x22Openining the thing\x22\x0a\x09view open.\x0a\x09\x22view openInWindowSized: 1000 @ 600.\x22",
+messageSends: ["new", "lightBlue", "view:", "allCountries", "sorted:", "<", "second", "pib", "rawView:", "models:", "copyFrom:to:", "verticalBarDiagram", "y:", "color:", "regularAxisAsInteger", "barWidth:", "titleLabel:", "on:do:", "elementFromModel:", "asSymbol", "first", "model", "element", "popUpText", "interaction", "white", "openIn:", "open"],
+referencedClasses: ["ROView", "Color", "ROMapBuilder", "GETDiagramBuilder", "ROMouseEnter", "ROMouseLeave"]
+}),
+smalltalk.ROExample);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "popup",
 category: 'not yet classified',
 fn: function (){
