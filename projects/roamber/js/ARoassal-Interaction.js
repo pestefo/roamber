@@ -336,12 +336,12 @@ function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
 function $ROLabel(){return smalltalk.ROLabel||(typeof ROLabel=="undefined"?nil:ROLabel)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st($ROLabel())._new())._elementOn_(_st(self["@text"])._value_(anElement)))._color_(_st($Color())._black());
+$1=_st(_st(_st($ROLabel())._new())._elementOn_(_st(self["@text"])._roValue_(_st(anElement)._model())))._color_(_st($Color())._black());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"createElementFor:",{anElement:anElement},smalltalk.ROPopup)})},
 args: ["anElement"],
-source: "createElementFor: anElement\x0a\x0a\x09^ (ROLabel new elementOn: (text value: anElement)) color: Color black",
-messageSends: ["color:", "black", "elementOn:", "value:", "new"],
+source: "createElementFor: anElement\x0a\x0a\x09^ (ROLabel new elementOn: (text roValue: anElement model)) color: Color black",
+messageSends: ["color:", "black", "elementOn:", "roValue:", "model", "new"],
 referencedClasses: ["Color", "ROLabel"]
 }),
 smalltalk.ROPopup);
@@ -354,14 +354,11 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.ROPopup.superclass.fn.prototype._initialize.apply(_st(self), []);
-self["@text"]=(function(el){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st(el)._model())._asString();
-}, function($ctx2) {$ctx2.fillBlock({el:el},$ctx1)})});
+self["@text"]="yourself";
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROPopup)})},
 args: [],
-source: "initialize \x0a\x09super initialize.\x0a\x09text := [:el | el model asString].",
-messageSends: ["initialize", "asString", "model"],
+source: "initialize \x0a\x09super initialize.\x0a\x09text := #yourself.",
+messageSends: ["initialize"],
 referencedClasses: []
 }),
 smalltalk.ROPopup);
@@ -373,11 +370,11 @@ category: 'not yet classified',
 fn: function (textBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self["@text"]=_st(_st(_st(textBlock)._value())._self())._halt();
+self["@text"]=textBlock;
 return self}, function($ctx1) {$ctx1.fill(self,"text:",{textBlock:textBlock},smalltalk.ROPopup)})},
 args: ["textBlock"],
-source: "text: textBlock\x0a\x09text := textBlock value\x0a\x09self halt.",
-messageSends: ["halt", "self", "value"],
+source: "text: textBlock\x0a\x09text := textBlock ",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.ROPopup);
@@ -614,6 +611,7 @@ return smalltalk.withContext(function($ctx2) {
 ev=_st($ROMouseEnter())._new();
 ev;
 _st(ev)._position_(_st(_st(_st(_st(e)._pageX()).__minus(_st(_st($RORaphaelCanvas())._origin())._x())).__minus(_st("#roassal-canvas"._asJQuery())._scrollLeft())).__at(_st(_st(_st(e)._pageY()).__minus(_st(_st($RORaphaelCanvas())._origin())._y())).__minus(_st("#roassal-canvas"._asJQuery())._scrollTop())));
+_st(ev)._element_(element);
 return _st(element)._announce_(ev);
 }, function($ctx2) {$ctx2.fillBlock({e:e,ev:ev},$ctx1)})}),(function(){
 var ev;
@@ -624,8 +622,8 @@ return _st(element)._announce_(ev);
 }, function($ctx2) {$ctx2.fillBlock({ev:ev},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"initializeElement:",{element:element,svgElement:svgElement},smalltalk.ROHoverable)})},
 args: ["element"],
-source: "initializeElement: element\x0a\x09| svgElement      |\x0a\x09svgElement := element shape svgElement.\x0a\x0a\x09svgElement\x09\x0a\x09\x09hover: [ :e|\x0a\x09\x09| ev |\x0a\x09\x09ev := ROMouseEnter new.\x0a\x22\x09\x09ev position: (e clientX  -  (RORaphaelCanvas origin x)) @ (e clientY -  (RORaphaelCanvas origin y)).\x22\x0a\x09\x09ev position: (e pageX  -  (RORaphaelCanvas origin x) - ('#roassal-canvas' asJQuery scrollLeft) ) @ (e pageY -  (RORaphaelCanvas origin y) - ('#roassal-canvas' asJQuery scrollTop)).\x0a\x09\x09\x0a\x09\x09element announce: ev.\x0a\x09\x09]\x0a\x09\x09whenLeave: [\x0a\x09\x09| ev |\x0a\x09\x09ev := ROMouseLeave new.\x0a\x09\x09element announce: ev.\x0a\x09].",
-messageSends: ["svgElement", "shape", "hover:whenLeave:", "new", "position:", "@", "-", "scrollTop", "asJQuery", "y", "origin", "pageY", "scrollLeft", "x", "pageX", "announce:"],
+source: "initializeElement: element\x0a\x09| svgElement      |\x0a\x09svgElement := element shape svgElement.\x0a\x0a\x09svgElement\x09\x0a\x09\x09hover: [ :e|\x0a\x09\x09| ev |\x0a\x09\x09ev := ROMouseEnter new.\x0a\x22\x09\x09ev position: (e clientX  -  (RORaphaelCanvas origin x)) @ (e clientY -  (RORaphaelCanvas origin y)).\x22\x0a\x09\x09ev position: (e pageX  -  (RORaphaelCanvas origin x) - ('#roassal-canvas' asJQuery scrollLeft) ) @ (e pageY -  (RORaphaelCanvas origin y) - ('#roassal-canvas' asJQuery scrollTop)).\x0a\x09\x09ev element: element.\x0a\x09\x09element announce: ev.\x0a\x09\x09]\x0a\x09\x09whenLeave: [\x0a\x09\x09| ev |\x0a\x09\x09ev := ROMouseLeave new.\x0a\x09\x09element announce: ev.\x0a\x09].",
+messageSends: ["svgElement", "shape", "hover:whenLeave:", "new", "position:", "@", "-", "scrollTop", "asJQuery", "y", "origin", "pageY", "scrollLeft", "x", "pageX", "element:", "announce:"],
 referencedClasses: ["ROMouseEnter", "RORaphaelCanvas", "ROMouseLeave"]
 }),
 smalltalk.ROHoverable);

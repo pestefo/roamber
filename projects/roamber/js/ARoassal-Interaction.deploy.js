@@ -260,10 +260,10 @@ function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
 function $ROLabel(){return smalltalk.ROLabel||(typeof ROLabel=="undefined"?nil:ROLabel)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st($ROLabel())._new())._elementOn_(_st(self["@text"])._value_(anElement)))._color_(_st($Color())._black());
+$1=_st(_st(_st($ROLabel())._new())._elementOn_(_st(self["@text"])._roValue_(_st(anElement)._model())))._color_(_st($Color())._black());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"createElementFor:",{anElement:anElement},smalltalk.ROPopup)})},
-messageSends: ["color:", "black", "elementOn:", "value:", "new"]}),
+messageSends: ["color:", "black", "elementOn:", "roValue:", "model", "new"]}),
 smalltalk.ROPopup);
 
 smalltalk.addMethod(
@@ -273,12 +273,9 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.ROPopup.superclass.fn.prototype._initialize.apply(_st(self), []);
-self["@text"]=(function(el){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st(el)._model())._asString();
-}, function($ctx2) {$ctx2.fillBlock({el:el},$ctx1)})});
+self["@text"]="yourself";
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROPopup)})},
-messageSends: ["initialize", "asString", "model"]}),
+messageSends: ["initialize"]}),
 smalltalk.ROPopup);
 
 smalltalk.addMethod(
@@ -287,9 +284,9 @@ selector: "text:",
 fn: function (textBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self["@text"]=_st(_st(_st(textBlock)._value())._self())._halt();
+self["@text"]=textBlock;
 return self}, function($ctx1) {$ctx1.fill(self,"text:",{textBlock:textBlock},smalltalk.ROPopup)})},
-messageSends: ["halt", "self", "value"]}),
+messageSends: []}),
 smalltalk.ROPopup);
 
 
@@ -476,6 +473,7 @@ return smalltalk.withContext(function($ctx2) {
 ev=_st($ROMouseEnter())._new();
 ev;
 _st(ev)._position_(_st(_st(_st(_st(e)._pageX()).__minus(_st(_st($RORaphaelCanvas())._origin())._x())).__minus(_st("#roassal-canvas"._asJQuery())._scrollLeft())).__at(_st(_st(_st(e)._pageY()).__minus(_st(_st($RORaphaelCanvas())._origin())._y())).__minus(_st("#roassal-canvas"._asJQuery())._scrollTop())));
+_st(ev)._element_(element);
 return _st(element)._announce_(ev);
 }, function($ctx2) {$ctx2.fillBlock({e:e,ev:ev},$ctx1)})}),(function(){
 var ev;
@@ -485,7 +483,7 @@ ev;
 return _st(element)._announce_(ev);
 }, function($ctx2) {$ctx2.fillBlock({ev:ev},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"initializeElement:",{element:element,svgElement:svgElement},smalltalk.ROHoverable)})},
-messageSends: ["svgElement", "shape", "hover:whenLeave:", "new", "position:", "@", "-", "scrollTop", "asJQuery", "y", "origin", "pageY", "scrollLeft", "x", "pageX", "announce:"]}),
+messageSends: ["svgElement", "shape", "hover:whenLeave:", "new", "position:", "@", "-", "scrollTop", "asJQuery", "y", "origin", "pageY", "scrollLeft", "x", "pageX", "element:", "announce:"]}),
 smalltalk.ROHoverable);
 
 

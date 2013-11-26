@@ -178,17 +178,16 @@ ROAbstractPopup subclass: #ROPopup
 
 createElementFor: anElement
 
-	^ (ROLabel new elementOn: (text value: anElement)) color: Color black
+	^ (ROLabel new elementOn: (text roValue: anElement model)) color: Color black
 !
 
 initialize 
 	super initialize.
-	text := [:el | el model asString].
+	text := #yourself.
 !
 
 text: textBlock
-	text := textBlock value
-	self halt.
+	text := textBlock
 ! !
 
 !ROPopup class methodsFor: 'not yet classified'!
@@ -306,7 +305,7 @@ initializeElement: element
 		ev := ROMouseEnter new.
 "		ev position: (e clientX  -  (RORaphaelCanvas origin x)) @ (e clientY -  (RORaphaelCanvas origin y))."
 		ev position: (e pageX  -  (RORaphaelCanvas origin x) - ('#roassal-canvas' asJQuery scrollLeft) ) @ (e pageY -  (RORaphaelCanvas origin y) - ('#roassal-canvas' asJQuery scrollTop)).
-		
+		ev element: element.
 		element announce: ev.
 		]
 		whenLeave: [
