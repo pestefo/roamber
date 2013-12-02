@@ -247,18 +247,111 @@ isColor
 	^ true
 ! !
 
-!Color class methodsFor: 'not yet classified'!
+Color class instanceVariableNames: 'colorDict'!
+
+!Color class methodsFor: 'defaults'!
 
 black
-	^ self new r: 0 g: 0 b: 0
+	^  self colorDict at: #black
 !
 
+defaultColors
+	^ { #black. 0. 0. 0.
+		#veryVeryDarkGray. 0.125. 0.125. 0.125.
+		#veryDarkGray. 0.25. 0.25. 0.25.
+		#darkGray. 0.375. 0.375. 0.375.
+		#gray. 0.5. 0.5. 0.5.
+		#lightGray. 0.625. 0.625. 0.625.
+		#veryLightGray. 0.75. 0.75. 0.75.
+		#veryVeryLightGray. 0.875. 0.875. 0.875.
+		#white. 1.0. 1.0. 1.0 
+		}
+!
+
+defaultColors2
+	^{	#red. 1.0. 0. 0.
+		#yellow. 1.0. 1.0. 0.
+		#green. 0. 1.0. 0.
+		#cyan. 0. 1.0. 1.0.
+		#blue. 0. 0. 1.0.
+		#magenta. 1.0. 0. 1.0.
+		#brown. 0.6. 0.2. 0.
+		#orange. 1.0. 0.6. 0.
+		#lightRed. 1.0. 0.8. 0.8	
+		}
+!
+
+defaultColors3 
+	^{
+	#lightYellow. 1.0. 1.0. 0.8.
+	#lightGreen. 0.8. 1.0. 0.6.
+	#lightCyan. 0.4. 1.0. 1.0.
+	#lightBlue. 0.8. 1.0. 1.0.
+	#lightMagenta. 1.0. 0.8. 1.0.
+	#lightBrown. 1.0. 0.6. 0.2.
+	#lightOrange. 1.0. 0.8. 0.4.
+	#pink. 1.0. 0.752899. 0.796118.
+	#purple. 0.4. 0.0. 0.6.
+	#tan. 0.8. 0.8. 0.5.
+	#veryPaleRed. 1.0. 0.948. 0.948.
+	#paleYellow. 1.0. 1.0. 0.85.
+	#paleTan. 0.921. 0.878. 0.78
+	}
+!
+
+defaultColors4
+	^{
+	#paleRed. 1.0. 0.901. 0.901.
+	#palePeach. 1.0. 0.929. 0.835.
+	#paleOrange. 0.991. 0.929. 0.843.
+	#paleMagenta. 1.0. 0.901. 1.0.
+	#paleGreen. 0.874. 1.0. 0.835.
+	#paleBuff. 0.995. 0.979. 0.921.
+	#paleBlue. 0.87. 0.976. 0.995
+		}
+! !
+
+!Color class methodsFor: 'initialization'!
+
+initializeColorRegistry 
+	| values|
+	colorDict := IdentityDictionary new.
+	values := self defaultColors, self defaultColors2, self defaultColors3, self defaultColors4.
+	1 to: values size by: #(name r g b) size do:[:index|
+		|  colorName red green blue color |
+		colorName := values at: index.
+		red := values at: index + 1.
+		green := values at: index + 2.
+		blue := values at: index +3.
+		color :=  self  r: red g: green b: blue .
+		self registerColor: color named: colorName ].
+	self registerColor: (self r: 0 g: 0 b: 0 alpha: 0.0) named: #transparent.
+!
+
+registerColor: aColor named: aName
+	colorDict at: aName put: aColor.
+! !
+
+!Color class methodsFor: 'not yet classified'!
+
 blue
-	^ self new r: 0 g: 0 b: 1
+	^   colorDict at: #blue
+!
+
+brown
+	^ self colorDict at: #brown
+!
+
+colorDict
+	^ colorDict ifNil: [ self initializeColorRegistry. colorDict ].
+!
+
+cyan
+	^ self colorDict at: #cyan
 !
 
 gray
-	^ self new r: 0.5 g: 0.5  b: 0.5
+	^   self colorDict at: #gray
 !
 
 gray: brightness
@@ -268,7 +361,7 @@ gray: brightness
 !
 
 green
-	^ self new r: 0 g: 1 b: 0
+	^   self colorDict at: #green
 !
 
 h: hue s: saturation v: brightness
@@ -279,12 +372,91 @@ h: hue s: saturation v: brightness
 !
 
 lightBlue
-	^ self new r:0.7996089931573802
- g:1 b:1
+	^   self colorDict at: #lightBlue
+!
+
+lightBrown
+	^ self colorDict at: #lightBrown
+!
+
+lightCyan
+	^  self colorDict at: #lightCyan
 !
 
 lightGray
-	^ self new r: 0.827 g: 0.827  b: 0.827
+	^ self  colorDict at: #lightGray
+!
+
+lightGreen
+	^ self colorDict at: #lightGreen
+!
+
+lightMagenta
+	^  self colorDict at: #lightMagenta
+!
+
+lightOrange
+	^ self colorDict at: #lightOrange
+!
+
+lightRed
+	^  self colorDict at: #lightRed
+!
+
+lightYellow
+	^  self colorDict at: #lightYellow
+!
+
+magenta
+	^ self colorDict at: #magenta
+!
+
+orange
+	^ self colorDict at: #orange
+!
+
+paleBlue
+	^  self colorDict at: #paleBlue
+!
+
+paleBuff
+	^  self colorDict at: #paleBuff
+!
+
+paleGreen
+	^  self colorDict at: #paleGreen
+!
+
+paleMagenta
+	^  self colorDict at: #paleMagenta
+!
+
+paleOrange
+	^  self colorDict at: #paleOrange
+!
+
+palePeach
+	^  self colorDict at: #palePeach
+!
+
+paleRed
+	^ self  colorDict at: #paleRed
+!
+
+paleTan
+	^  self colorDict at: #paleTan
+!
+
+paleYellow
+	^  self colorDict at: #paleYellow.
+!
+
+pink
+ 	^  self colorDict at: #pink.
+!
+
+purple
+ 	^  self colorDict at: #purple
 !
 
 r: rVal g: gVal b: bVal
@@ -295,16 +467,40 @@ r: rVal g: gVal b: bVal a: aVal
 	^ self new r: rVal g: gVal b: bVal a: aVal.
 !
 
+r: rVal g: gVal b: bVal alpha: aVal
+	^ self r: rVal g: gVal b: bVal a: aVal.
+!
+
 red
-	^ self new r: 1 g: 0 b: 0
+	^   self colorDict at: #red
+!
+
+tan
+	^  self colorDict at: #tan
+!
+
+transparent
+  ^   self colorDict at: #transparent
 !
 
 veryDarkGray
-	^ self new r: 0.25 g: 0.25 b: 0.25
+	^ self colorDict at: #veryDarkGray
+!
+
+veryLightGray
+	^ self colorDict at: #veryLightGray
+!
+
+veryPaleRed
+	^  self colorDict at: #veryPaleRed
 !
 
 veryVeryDarkGray
-	^ self new r: 0.125 g: 0.125 b: 0.125
+	^   self colorDict at: #veryVeryDarkGray
+!
+
+veryVeryLightGray
+	^  self colorDict at: #veryVeryLightGray
 !
 
 wheel: thisMany
@@ -323,11 +519,11 @@ wheel: thisMany saturation: s brightness: v
 !
 
 white
-	^ self new r: 1 g: 1 b: 1
+	^  self colorDict at: #white
 !
 
 yellow
-	^ self new r: 1 g: 1 b: 0
+	^   self colorDict at: #yellow
 ! !
 
 Dictionary subclass: #IdentityDictionary

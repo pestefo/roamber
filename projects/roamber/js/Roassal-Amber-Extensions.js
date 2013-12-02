@@ -609,20 +609,21 @@ referencedClasses: ["Color"]
 smalltalk.Color);
 
 
+smalltalk.Color.klass.iVarNames = ['colorDict'];
 smalltalk.addMethod(
 smalltalk.method({
 selector: "black",
-category: 'not yet classified',
+category: 'defaults',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._new())._r_g_b_((0),(0),(0));
+$1=_st(self._colorDict())._at_("black");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"black",{},smalltalk.Color.klass)})},
 args: [],
-source: "black\x0a\x09^ self new r: 0 g: 0 b: 0",
-messageSends: ["r:g:b:", "new"],
+source: "black\x0a\x09^  self colorDict at: #black ",
+messageSends: ["at:", "colorDict"],
 referencedClasses: []
 }),
 smalltalk.Color.klass);
@@ -635,12 +636,144 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._new())._r_g_b_((0),(0),(1));
+$1=_st(self["@colorDict"])._at_("blue");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"blue",{},smalltalk.Color.klass)})},
 args: [],
-source: "blue\x0a\x09^ self new r: 0 g: 0 b: 1",
-messageSends: ["r:g:b:", "new"],
+source: "blue\x0a\x09^   colorDict at: #blue ",
+messageSends: ["at:"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "brown",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._colorDict())._at_("brown");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"brown",{},smalltalk.Color.klass)})},
+args: [],
+source: "brown\x0a\x09^ self colorDict at: #brown",
+messageSends: ["at:", "colorDict"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "colorDict",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@colorDict"];
+if(($receiver = $2) == nil || $receiver == undefined){
+self._initializeColorRegistry();
+$1=self["@colorDict"];
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"colorDict",{},smalltalk.Color.klass)})},
+args: [],
+source: "colorDict\x0a\x09^ colorDict ifNil: [ self initializeColorRegistry. colorDict ].",
+messageSends: ["ifNil:", "initializeColorRegistry"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "cyan",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._colorDict())._at_("cyan");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"cyan",{},smalltalk.Color.klass)})},
+args: [],
+source: "cyan\x0a\x09^ self colorDict at: #cyan",
+messageSends: ["at:", "colorDict"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultColors",
+category: 'defaults',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=["black",(0),(0),(0),"veryVeryDarkGray",(0.125),(0.125),(0.125),"veryDarkGray",(0.25),(0.25),(0.25),"darkGray",(0.375),(0.375),(0.375),"gray",(0.5),(0.5),(0.5),"lightGray",(0.625),(0.625),(0.625),"veryLightGray",(0.75),(0.75),(0.75),"veryVeryLightGray",(0.875),(0.875),(0.875),"white",(1),(1),(1)];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultColors",{},smalltalk.Color.klass)})},
+args: [],
+source: "defaultColors\x0a\x09^ { #black. 0. 0. 0.\x0a\x09\x09#veryVeryDarkGray. 0.125. 0.125. 0.125.\x0a\x09\x09#veryDarkGray. 0.25. 0.25. 0.25.\x0a\x09\x09#darkGray. 0.375. 0.375. 0.375.\x0a\x09\x09#gray. 0.5. 0.5. 0.5.\x0a\x09\x09#lightGray. 0.625. 0.625. 0.625.\x0a\x09\x09#veryLightGray. 0.75. 0.75. 0.75.\x0a\x09\x09#veryVeryLightGray. 0.875. 0.875. 0.875.\x0a\x09\x09#white. 1.0. 1.0. 1.0 \x0a\x09\x09}\x0a\x09\x09",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultColors2",
+category: 'defaults',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=["red",(1),(0),(0),"yellow",(1),(1),(0),"green",(0),(1),(0),"cyan",(0),(1),(1),"blue",(0),(0),(1),"magenta",(1),(0),(1),"brown",(0.6),(0.2),(0),"orange",(1),(0.6),(0),"lightRed",(1),(0.8),(0.8)];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultColors2",{},smalltalk.Color.klass)})},
+args: [],
+source: "defaultColors2\x0a\x09^{\x09#red. 1.0. 0. 0.\x0a\x09\x09#yellow. 1.0. 1.0. 0.\x0a\x09\x09#green. 0. 1.0. 0.\x0a\x09\x09#cyan. 0. 1.0. 1.0.\x0a\x09\x09#blue. 0. 0. 1.0.\x0a\x09\x09#magenta. 1.0. 0. 1.0.\x0a\x09\x09#brown. 0.6. 0.2. 0.\x0a\x09\x09#orange. 1.0. 0.6. 0.\x0a\x09\x09#lightRed. 1.0. 0.8. 0.8\x09\x0a\x09\x09}\x0a\x09",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultColors3",
+category: 'defaults',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=["lightYellow",(1),(1),(0.8),"lightGreen",(0.8),(1),(0.6),"lightCyan",(0.4),(1),(1),"lightBlue",(0.8),(1),(1),"lightMagenta",(1),(0.8),(1),"lightBrown",(1),(0.6),(0.2),"lightOrange",(1),(0.8),(0.4),"pink",(1),(0.752899),(0.796118),"purple",(0.4),(0),(0.6),"tan",(0.8),(0.8),(0.5),"veryPaleRed",(1),(0.948),(0.948),"paleYellow",(1),(1),(0.85),"paleTan",(0.921),(0.878),(0.78)];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultColors3",{},smalltalk.Color.klass)})},
+args: [],
+source: "defaultColors3 \x0a\x09^{\x0a\x09#lightYellow. 1.0. 1.0. 0.8.\x0a\x09#lightGreen. 0.8. 1.0. 0.6.\x0a\x09#lightCyan. 0.4. 1.0. 1.0.\x0a\x09#lightBlue. 0.8. 1.0. 1.0.\x0a\x09#lightMagenta. 1.0. 0.8. 1.0.\x0a\x09#lightBrown. 1.0. 0.6. 0.2.\x0a\x09#lightOrange. 1.0. 0.8. 0.4.\x0a\x09#pink. 1.0. 0.752899. 0.796118.\x0a\x09#purple. 0.4. 0.0. 0.6.\x0a\x09#tan. 0.8. 0.8. 0.5.\x0a\x09#veryPaleRed. 1.0. 0.948. 0.948.\x0a\x09#paleYellow. 1.0. 1.0. 0.85.\x0a\x09#paleTan. 0.921. 0.878. 0.78\x0a\x09}",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultColors4",
+category: 'defaults',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=["paleRed",(1),(0.901),(0.901),"palePeach",(1),(0.929),(0.835),"paleOrange",(0.991),(0.929),(0.843),"paleMagenta",(1),(0.901),(1),"paleGreen",(0.874),(1),(0.835),"paleBuff",(0.995),(0.979),(0.921),"paleBlue",(0.87),(0.976),(0.995)];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultColors4",{},smalltalk.Color.klass)})},
+args: [],
+source: "defaultColors4\x0a\x09^{\x0a\x09#paleRed. 1.0. 0.901. 0.901.\x0a\x09#palePeach. 1.0. 0.929. 0.835.\x0a\x09#paleOrange. 0.991. 0.929. 0.843.\x0a\x09#paleMagenta. 1.0. 0.901. 1.0.\x0a\x09#paleGreen. 0.874. 1.0. 0.835.\x0a\x09#paleBuff. 0.995. 0.979. 0.921.\x0a\x09#paleBlue. 0.87. 0.976. 0.995\x0a\x09\x09}",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Color.klass);
@@ -653,12 +786,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._new())._r_g_b_((0.5),(0.5),(0.5));
+$1=_st(self._colorDict())._at_("gray");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"gray",{},smalltalk.Color.klass)})},
 args: [],
-source: "gray\x0a\x09^ self new r: 0.5 g: 0.5  b: 0.5",
-messageSends: ["r:g:b:", "new"],
+source: "gray\x0a\x09^   self colorDict at: #gray",
+messageSends: ["at:", "colorDict"],
 referencedClasses: []
 }),
 smalltalk.Color.klass);
@@ -689,12 +822,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._new())._r_g_b_((0),(1),(0));
+$1=_st(self._colorDict())._at_("green");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"green",{},smalltalk.Color.klass)})},
 args: [],
-source: "green\x0a\x09^ self new r: 0 g: 1 b: 0",
-messageSends: ["r:g:b:", "new"],
+source: "green\x0a\x09^   self colorDict at: #green",
+messageSends: ["at:", "colorDict"],
 referencedClasses: []
 }),
 smalltalk.Color.klass);
@@ -719,18 +852,89 @@ smalltalk.Color.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "initializeColorRegistry",
+category: 'initialization',
+fn: function (){
+var self=this;
+var values;
+function $IdentityDictionary(){return smalltalk.IdentityDictionary||(typeof IdentityDictionary=="undefined"?nil:IdentityDictionary)}
+return smalltalk.withContext(function($ctx1) { 
+self["@colorDict"]=_st($IdentityDictionary())._new();
+values=_st(_st(_st(self._defaultColors()).__comma(self._defaultColors2())).__comma(self._defaultColors3())).__comma(self._defaultColors4());
+(1)._to_by_do_(_st(values)._size(),["name", "r", "g", "b"]._size(),(function(index){
+var colorName,red,green,blue,color;
+return smalltalk.withContext(function($ctx2) {
+colorName=_st(values)._at_(index);
+colorName;
+red=_st(values)._at_(_st(index).__plus((1)));
+red;
+green=_st(values)._at_(_st(index).__plus((2)));
+green;
+blue=_st(values)._at_(_st(index).__plus((3)));
+blue;
+color=self._r_g_b_(red,green,blue);
+color;
+return self._registerColor_named_(color,colorName);
+}, function($ctx2) {$ctx2.fillBlock({index:index,colorName:colorName,red:red,green:green,blue:blue,color:color},$ctx1)})}));
+self._registerColor_named_(self._r_g_b_alpha_((0),(0),(0),(0)),"transparent");
+return self}, function($ctx1) {$ctx1.fill(self,"initializeColorRegistry",{values:values},smalltalk.Color.klass)})},
+args: [],
+source: "initializeColorRegistry \x0a\x09| values|\x0a\x09colorDict := IdentityDictionary new.\x0a\x09values := self defaultColors, self defaultColors2, self defaultColors3, self defaultColors4.\x0a\x091 to: values size by: #(name r g b) size do:[:index|\x0a\x09\x09|  colorName red green blue color |\x0a\x09\x09colorName := values at: index.\x0a\x09\x09red := values at: index + 1.\x0a\x09\x09green := values at: index + 2.\x0a\x09\x09blue := values at: index +3.\x0a\x09\x09color :=  self  r: red g: green b: blue .\x0a\x09\x09self registerColor: color named: colorName ].\x0a\x09self registerColor: (self r: 0 g: 0 b: 0 alpha: 0.0) named: #transparent. ",
+messageSends: ["new", ",", "defaultColors4", "defaultColors3", "defaultColors2", "defaultColors", "to:by:do:", "size", "at:", "+", "r:g:b:", "registerColor:named:", "r:g:b:alpha:"],
+referencedClasses: ["IdentityDictionary"]
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "lightBlue",
 category: 'not yet classified',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._new())._r_g_b_((0.7996089931573802),(1),(1));
+$1=_st(self._colorDict())._at_("lightBlue");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"lightBlue",{},smalltalk.Color.klass)})},
 args: [],
-source: "lightBlue\x0a\x09^ self new r:0.7996089931573802\x0a g:1 b:1",
-messageSends: ["r:g:b:", "new"],
+source: "lightBlue\x0a\x09^   self colorDict at: #lightBlue",
+messageSends: ["at:", "colorDict"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "lightBrown",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._colorDict())._at_("lightBrown");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"lightBrown",{},smalltalk.Color.klass)})},
+args: [],
+source: "lightBrown\x0a\x09^ self colorDict at: #lightBrown",
+messageSends: ["at:", "colorDict"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "lightCyan",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._colorDict())._at_("lightCyan");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"lightCyan",{},smalltalk.Color.klass)})},
+args: [],
+source: "lightCyan\x0a\x09^  self colorDict at: #lightCyan",
+messageSends: ["at:", "colorDict"],
 referencedClasses: []
 }),
 smalltalk.Color.klass);
@@ -743,12 +947,336 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._new())._r_g_b_((0.827),(0.827),(0.827));
+$1=_st(self._colorDict())._at_("lightGray");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"lightGray",{},smalltalk.Color.klass)})},
 args: [],
-source: "lightGray\x0a\x09^ self new r: 0.827 g: 0.827  b: 0.827",
-messageSends: ["r:g:b:", "new"],
+source: "lightGray\x0a\x09^ self  colorDict at: #lightGray",
+messageSends: ["at:", "colorDict"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "lightGreen",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._colorDict())._at_("lightGreen");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"lightGreen",{},smalltalk.Color.klass)})},
+args: [],
+source: "lightGreen\x0a\x09^ self colorDict at: #lightGreen",
+messageSends: ["at:", "colorDict"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "lightMagenta",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._colorDict())._at_("lightMagenta");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"lightMagenta",{},smalltalk.Color.klass)})},
+args: [],
+source: "lightMagenta\x0a\x09^  self colorDict at: #lightMagenta",
+messageSends: ["at:", "colorDict"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "lightOrange",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._colorDict())._at_("lightOrange");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"lightOrange",{},smalltalk.Color.klass)})},
+args: [],
+source: "lightOrange\x0a\x09^ self colorDict at: #lightOrange",
+messageSends: ["at:", "colorDict"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "lightRed",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._colorDict())._at_("lightRed");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"lightRed",{},smalltalk.Color.klass)})},
+args: [],
+source: "lightRed\x0a\x09^  self colorDict at: #lightRed",
+messageSends: ["at:", "colorDict"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "lightYellow",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._colorDict())._at_("lightYellow");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"lightYellow",{},smalltalk.Color.klass)})},
+args: [],
+source: "lightYellow\x0a\x09^  self colorDict at: #lightYellow",
+messageSends: ["at:", "colorDict"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "magenta",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._colorDict())._at_("magenta");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"magenta",{},smalltalk.Color.klass)})},
+args: [],
+source: "magenta\x0a\x09^ self colorDict at: #magenta",
+messageSends: ["at:", "colorDict"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "orange",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._colorDict())._at_("orange");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"orange",{},smalltalk.Color.klass)})},
+args: [],
+source: "orange\x0a\x09^ self colorDict at: #orange",
+messageSends: ["at:", "colorDict"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "paleBlue",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._colorDict())._at_("paleBlue");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"paleBlue",{},smalltalk.Color.klass)})},
+args: [],
+source: "paleBlue\x0a\x09^  self colorDict at: #paleBlue ",
+messageSends: ["at:", "colorDict"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "paleBuff",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._colorDict())._at_("paleBuff");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"paleBuff",{},smalltalk.Color.klass)})},
+args: [],
+source: "paleBuff\x0a\x09^  self colorDict at: #paleBuff",
+messageSends: ["at:", "colorDict"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "paleGreen",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._colorDict())._at_("paleGreen");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"paleGreen",{},smalltalk.Color.klass)})},
+args: [],
+source: "paleGreen\x0a\x09^  self colorDict at: #paleGreen",
+messageSends: ["at:", "colorDict"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "paleMagenta",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._colorDict())._at_("paleMagenta");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"paleMagenta",{},smalltalk.Color.klass)})},
+args: [],
+source: "paleMagenta\x0a\x09^  self colorDict at: #paleMagenta",
+messageSends: ["at:", "colorDict"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "paleOrange",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._colorDict())._at_("paleOrange");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"paleOrange",{},smalltalk.Color.klass)})},
+args: [],
+source: "paleOrange\x0a\x09^  self colorDict at: #paleOrange",
+messageSends: ["at:", "colorDict"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "palePeach",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._colorDict())._at_("palePeach");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"palePeach",{},smalltalk.Color.klass)})},
+args: [],
+source: "palePeach\x0a\x09^  self colorDict at: #palePeach ",
+messageSends: ["at:", "colorDict"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "paleRed",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._colorDict())._at_("paleRed");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"paleRed",{},smalltalk.Color.klass)})},
+args: [],
+source: "paleRed\x0a\x09^ self  colorDict at: #paleRed",
+messageSends: ["at:", "colorDict"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "paleTan",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._colorDict())._at_("paleTan");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"paleTan",{},smalltalk.Color.klass)})},
+args: [],
+source: "paleTan\x0a\x09^  self colorDict at: #paleTan",
+messageSends: ["at:", "colorDict"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "paleYellow",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._colorDict())._at_("paleYellow");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"paleYellow",{},smalltalk.Color.klass)})},
+args: [],
+source: "paleYellow\x0a\x09^  self colorDict at: #paleYellow.",
+messageSends: ["at:", "colorDict"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "pink",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._colorDict())._at_("pink");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"pink",{},smalltalk.Color.klass)})},
+args: [],
+source: "pink\x0a \x09^  self colorDict at: #pink.",
+messageSends: ["at:", "colorDict"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "purple",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._colorDict())._at_("purple");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"purple",{},smalltalk.Color.klass)})},
+args: [],
+source: "purple\x0a \x09^  self colorDict at: #purple",
+messageSends: ["at:", "colorDict"],
 referencedClasses: []
 }),
 smalltalk.Color.klass);
@@ -791,18 +1319,88 @@ smalltalk.Color.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "r:g:b:alpha:",
+category: 'not yet classified',
+fn: function (rVal,gVal,bVal,aVal){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._r_g_b_a_(rVal,gVal,bVal,aVal);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"r:g:b:alpha:",{rVal:rVal,gVal:gVal,bVal:bVal,aVal:aVal},smalltalk.Color.klass)})},
+args: ["rVal", "gVal", "bVal", "aVal"],
+source: "r: rVal g: gVal b: bVal alpha: aVal\x0a\x09^ self r: rVal g: gVal b: bVal a: aVal.",
+messageSends: ["r:g:b:a:"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "red",
 category: 'not yet classified',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._new())._r_g_b_((1),(0),(0));
+$1=_st(self._colorDict())._at_("red");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"red",{},smalltalk.Color.klass)})},
 args: [],
-source: "red\x0a\x09^ self new r: 1 g: 0 b: 0",
-messageSends: ["r:g:b:", "new"],
+source: "red\x0a\x09^   self colorDict at: #red",
+messageSends: ["at:", "colorDict"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "registerColor:named:",
+category: 'initialization',
+fn: function (aColor,aName){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@colorDict"])._at_put_(aName,aColor);
+return self}, function($ctx1) {$ctx1.fill(self,"registerColor:named:",{aColor:aColor,aName:aName},smalltalk.Color.klass)})},
+args: ["aColor", "aName"],
+source: "registerColor: aColor named: aName\x0a\x09colorDict at: aName put: aColor.\x0a\x09",
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "tan",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._colorDict())._at_("tan");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"tan",{},smalltalk.Color.klass)})},
+args: [],
+source: "tan\x0a\x09^  self colorDict at: #tan",
+messageSends: ["at:", "colorDict"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "transparent",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._colorDict())._at_("transparent");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"transparent",{},smalltalk.Color.klass)})},
+args: [],
+source: "transparent\x0a  ^   self colorDict at: #transparent ",
+messageSends: ["at:", "colorDict"],
 referencedClasses: []
 }),
 smalltalk.Color.klass);
@@ -815,12 +1413,48 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._new())._r_g_b_((0.25),(0.25),(0.25));
+$1=_st(self._colorDict())._at_("veryDarkGray");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"veryDarkGray",{},smalltalk.Color.klass)})},
 args: [],
-source: "veryDarkGray\x0a\x09^ self new r: 0.25 g: 0.25 b: 0.25",
-messageSends: ["r:g:b:", "new"],
+source: "veryDarkGray\x0a\x09^ self colorDict at: #veryDarkGray",
+messageSends: ["at:", "colorDict"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "veryLightGray",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._colorDict())._at_("veryLightGray");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"veryLightGray",{},smalltalk.Color.klass)})},
+args: [],
+source: "veryLightGray\x0a\x09^ self colorDict at: #veryLightGray",
+messageSends: ["at:", "colorDict"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "veryPaleRed",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._colorDict())._at_("veryPaleRed");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"veryPaleRed",{},smalltalk.Color.klass)})},
+args: [],
+source: "veryPaleRed\x0a\x09^  self colorDict at: #veryPaleRed",
+messageSends: ["at:", "colorDict"],
 referencedClasses: []
 }),
 smalltalk.Color.klass);
@@ -833,12 +1467,30 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._new())._r_g_b_((0.125),(0.125),(0.125));
+$1=_st(self._colorDict())._at_("veryVeryDarkGray");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"veryVeryDarkGray",{},smalltalk.Color.klass)})},
 args: [],
-source: "veryVeryDarkGray\x0a\x09^ self new r: 0.125 g: 0.125 b: 0.125",
-messageSends: ["r:g:b:", "new"],
+source: "veryVeryDarkGray\x0a\x09^   self colorDict at: #veryVeryDarkGray",
+messageSends: ["at:", "colorDict"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "veryVeryLightGray",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._colorDict())._at_("veryVeryLightGray");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"veryVeryLightGray",{},smalltalk.Color.klass)})},
+args: [],
+source: "veryVeryLightGray\x0a\x09^  self colorDict at: #veryVeryLightGray",
+messageSends: ["at:", "colorDict"],
 referencedClasses: []
 }),
 smalltalk.Color.klass);
@@ -889,12 +1541,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._new())._r_g_b_((1),(1),(1));
+$1=_st(self._colorDict())._at_("white");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"white",{},smalltalk.Color.klass)})},
 args: [],
-source: "white\x0a\x09^ self new r: 1 g: 1 b: 1",
-messageSends: ["r:g:b:", "new"],
+source: "white\x0a\x09^  self colorDict at: #white",
+messageSends: ["at:", "colorDict"],
 referencedClasses: []
 }),
 smalltalk.Color.klass);
@@ -907,12 +1559,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._new())._r_g_b_((1),(1),(0));
+$1=_st(self._colorDict())._at_("yellow");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"yellow",{},smalltalk.Color.klass)})},
 args: [],
-source: "yellow\x0a\x09^ self new r: 1 g: 1 b: 0",
-messageSends: ["r:g:b:", "new"],
+source: "yellow\x0a\x09^   self colorDict at: #yellow",
+messageSends: ["at:", "colorDict"],
 referencedClasses: []
 }),
 smalltalk.Color.klass);
