@@ -261,6 +261,12 @@ gray
 	^ self new r: 0.5 g: 0.5  b: 0.5
 !
 
+gray: brightness
+	"Return a gray shade with the given brightness in the range [0.0..1.0]."
+
+	^ self r: brightness g: brightness b: brightness
+!
+
 green
 	^ self new r: 0 g: 1 b: 0
 !
@@ -1339,6 +1345,12 @@ assert: aBlock
 
 assert: aBlock description: aString
 	aBlock value ifFalse: [AssertionFailure signal: aString]
+!
+
+assert: aBlock descriptionBlock: descriptionBlock
+	"Throw an assertion error if aBlock does not evaluate to true."
+	
+	aBlock value ifFalse: [AssertionFailure signal: descriptionBlock value asString ]
 !
 
 browse

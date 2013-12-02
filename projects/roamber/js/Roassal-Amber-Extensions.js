@@ -665,6 +665,24 @@ smalltalk.Color.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "gray:",
+category: 'not yet classified',
+fn: function (brightness){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._r_g_b_(brightness,brightness,brightness);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"gray:",{brightness:brightness},smalltalk.Color.klass)})},
+args: ["brightness"],
+source: "gray: brightness\x0a\x09\x22Return a gray shade with the given brightness in the range [0.0..1.0].\x22\x0a\x0a\x09^ self r: brightness g: brightness b: brightness",
+messageSends: ["r:g:b:"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "green",
 category: 'not yet classified',
 fn: function (){
@@ -3473,6 +3491,27 @@ return self}, function($ctx1) {$ctx1.fill(self,"assert:description:",{aBlock:aBl
 args: ["aBlock", "aString"],
 source: "assert: aBlock description: aString\x0a\x09aBlock value ifFalse: [AssertionFailure signal: aString]",
 messageSends: ["ifFalse:", "signal:", "value"],
+referencedClasses: ["AssertionFailure"]
+}),
+smalltalk.Object);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "assert:descriptionBlock:",
+category: '*Roassal-Amber-Extensions',
+fn: function (aBlock,descriptionBlock){
+var self=this;
+function $AssertionFailure(){return smalltalk.AssertionFailure||(typeof AssertionFailure=="undefined"?nil:AssertionFailure)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(aBlock)._value();
+if(! smalltalk.assert($1)){
+_st($AssertionFailure())._signal_(_st(_st(descriptionBlock)._value())._asString());
+};
+return self}, function($ctx1) {$ctx1.fill(self,"assert:descriptionBlock:",{aBlock:aBlock,descriptionBlock:descriptionBlock},smalltalk.Object)})},
+args: ["aBlock", "descriptionBlock"],
+source: "assert: aBlock descriptionBlock: descriptionBlock\x0a\x09\x22Throw an assertion error if aBlock does not evaluate to true.\x22\x0a\x09\x0a\x09aBlock value ifFalse: [AssertionFailure signal: descriptionBlock value asString ]",
+messageSends: ["ifFalse:", "signal:", "asString", "value"],
 referencedClasses: ["AssertionFailure"]
 }),
 smalltalk.Object);

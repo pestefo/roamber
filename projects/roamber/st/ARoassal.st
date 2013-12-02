@@ -386,6 +386,10 @@ announce: anEvent
 	eventHandler announce: eventToBeSent
 !
 
+forward: obj
+	eventHandler forward: obj
+!
+
 on: eventClass do: aBlock
 	"Register a block as an handler for eventClass"
 	

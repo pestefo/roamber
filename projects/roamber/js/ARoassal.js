@@ -794,6 +794,22 @@ smalltalk.ROAbstractComponent);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "forward:",
+category: 'events',
+fn: function (obj){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@eventHandler"])._forward_(obj);
+return self}, function($ctx1) {$ctx1.fill(self,"forward:",{obj:obj},smalltalk.ROAbstractComponent)})},
+args: ["obj"],
+source: "forward: obj\x0a\x09eventHandler forward: obj",
+messageSends: ["forward:"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractComponent);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "getShape:",
 category: 'testing',
 fn: function (shapeClass){

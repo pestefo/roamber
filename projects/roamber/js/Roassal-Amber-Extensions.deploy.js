@@ -525,6 +525,19 @@ smalltalk.Color.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "gray:",
+fn: function (brightness){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._r_g_b_(brightness,brightness,brightness);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"gray:",{brightness:brightness},smalltalk.Color.klass)})},
+messageSends: ["r:g:b:"]}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "green",
 fn: function (){
 var self=this;
@@ -2744,6 +2757,22 @@ _st($AssertionFailure())._signal_(aString);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"assert:description:",{aBlock:aBlock,aString:aString},smalltalk.Object)})},
 messageSends: ["ifFalse:", "signal:", "value"]}),
+smalltalk.Object);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "assert:descriptionBlock:",
+fn: function (aBlock,descriptionBlock){
+var self=this;
+function $AssertionFailure(){return smalltalk.AssertionFailure||(typeof AssertionFailure=="undefined"?nil:AssertionFailure)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(aBlock)._value();
+if(! smalltalk.assert($1)){
+_st($AssertionFailure())._signal_(_st(_st(descriptionBlock)._value())._asString());
+};
+return self}, function($ctx1) {$ctx1.fill(self,"assert:descriptionBlock:",{aBlock:aBlock,descriptionBlock:descriptionBlock},smalltalk.Object)})},
+messageSends: ["ifFalse:", "signal:", "asString", "value"]}),
 smalltalk.Object);
 
 smalltalk.addMethod(
