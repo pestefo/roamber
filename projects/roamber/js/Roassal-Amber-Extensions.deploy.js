@@ -4315,6 +4315,19 @@ smalltalk.String);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "split:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(aString)._subStrings_(self);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"split:",{aString:aString},smalltalk.String)})},
+messageSends: ["subStrings:"]}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "value:",
 fn: function (anObject){
 var self=this;

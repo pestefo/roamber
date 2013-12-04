@@ -5566,6 +5566,24 @@ smalltalk.String);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "split:",
+category: '*Roassal-Amber-Extensions',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(aString)._subStrings_(self);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"split:",{aString:aString},smalltalk.String)})},
+args: ["aString"],
+source: "split: aString\x0a\x09^ aString subStrings: self",
+messageSends: ["subStrings:"],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "value:",
 category: '*Roassal-Amber-Extensions',
 fn: function (anObject){

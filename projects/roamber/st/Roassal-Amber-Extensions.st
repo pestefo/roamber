@@ -1991,6 +1991,10 @@ roValue: anObject
 	^ anObject perform: self
 !
 
+split: aString
+	^ aString subStrings: self
+!
+
 value: anObject 
 	^ anObject perform: self
 ! !
