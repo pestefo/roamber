@@ -12,7 +12,9 @@ rawData
 !ROData methodsFor: 'not yet classified'!
 
 asArray
-	^ ((rawData subStrings: self token) collect:#asNumber)
+	^ (((rawData subStrings: self token) 
+		reject: [:str | str = ''])
+		collect:#asNumber)
 !
 
 rawData: aString
@@ -107,6 +109,67 @@ testToken
 Object subclass: #ROPlot
 	instanceVariableNames: 'url data drawBlock'
 	package: 'Roassal-Plot'!
+
+!ROPlot methodsFor: 'not yet classified'!
+
+continue
+	" draw "
+	| aBlock |
+	aBlock := [:d | d asArray plotBar].		
+	aBlock value: data.
+!
+
+fetchData
+
+  jQuery
+    ajax: (self url)
+    options: #{
+        'type' -> 'GET'.
+"        'dataType' -> 'jsonp'."
+        'success' -> [ :rawData | 
+			data rawData: rawData from: self.
+		].
+        'error' -> [window alert: 'error']
+    }
+!
+
+initialize
+	super initialize.
+	data := ROData new.
+!
+
+plot
+
+
+	self fetchData.
+	
+	" wating for continue "
+!
+
+processDropboxURL: aString 
+	"
+	Dropbox share looks like:
+	https://www.dropbox.com/s/iyf5mscxq8d99e8/numbers.txt
+	The direct link to the file is:
+	https://dl.dropbox.com/s/iyf5mscxq8d99e8/numbers.txt	
+	"
+	| pointPos prefix |
+	prefix := 'https://dl'.
+	pointPos := aString indexOf: '.' .
+	^ prefix , (aString copyFrom: pointPos to: (aString size)).
+!
+
+token: aString
+	data token: aString
+!
+
+url 
+	^ url
+!
+
+url: aString
+	url := self processDropboxURL: aString
+! !
 
 !ROPlot class methodsFor: 'public'!
 

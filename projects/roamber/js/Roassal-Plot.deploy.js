@@ -7,10 +7,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self["@rawData"])._subStrings_(self._token()))._collect_("asNumber");
+$1=_st(_st(_st(self["@rawData"])._subStrings_(self._token()))._reject_((function(str){
+return smalltalk.withContext(function($ctx2) {
+return _st(str).__eq("");
+}, function($ctx2) {$ctx2.fillBlock({str:str},$ctx1)})})))._collect_("asNumber");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asArray",{},smalltalk.ROData)})},
-messageSends: ["collect:", "subStrings:", "token"]}),
+messageSends: ["collect:", "reject:", "=", "subStrings:", "token"]}),
 smalltalk.ROData);
 
 smalltalk.addMethod(
