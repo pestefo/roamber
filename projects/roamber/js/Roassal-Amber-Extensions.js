@@ -5523,6 +5523,22 @@ smalltalk.String);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "isNumeric",
+category: '*Roassal-Amber-Extensions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+ return !isNaN(parseFloat(self)) && isFinite(self); ;
+return self}, function($ctx1) {$ctx1.fill(self,"isNumeric",{},smalltalk.String)})},
+args: [],
+source: "isNumeric\x0a\x09< return !isNaN(parseFloat(self)) && isFinite(self); >",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "lineCount",
 category: '*Roassal-Amber-Extensions',
 fn: function (){
@@ -5578,6 +5594,24 @@ return $1;
 args: ["aString"],
 source: "split: aString\x0a\x09^ aString subStrings: self",
 messageSends: ["subStrings:"],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "trim",
+category: '*Roassal-Amber-Extensions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._trimBoth();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"trim",{},smalltalk.String)})},
+args: [],
+source: "trim\x0a\x09^ self trimBoth",
+messageSends: ["trimBoth"],
 referencedClasses: []
 }),
 smalltalk.String);

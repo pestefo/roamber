@@ -1977,6 +1977,10 @@ endsWith: suffix
 	<return self.indexOf(suffix, self.length - suffix.length) !!== -1>
 !
 
+isNumeric
+	< return !!isNaN(parseFloat(self)) && isFinite(self); >
+!
+
 lineCount
 	"Answer the number of lines represented by the receiver, where every line delimiter CR, LF or CRLF pair adds one line."
 
@@ -1993,6 +1997,10 @@ roValue: anObject
 
 split: aString
 	^ aString subStrings: self
+!
+
+trim
+	^ self trimBoth
 !
 
 value: anObject 

@@ -4282,6 +4282,17 @@ smalltalk.String);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "isNumeric",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+ return !isNaN(parseFloat(self)) && isFinite(self); ;
+return self}, function($ctx1) {$ctx1.fill(self,"isNumeric",{},smalltalk.String)})},
+messageSends: []}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "lineCount",
 fn: function (){
 var self=this;
@@ -4324,6 +4335,19 @@ $1=_st(aString)._subStrings_(self);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"split:",{aString:aString},smalltalk.String)})},
 messageSends: ["subStrings:"]}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "trim",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._trimBoth();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"trim",{},smalltalk.String)})},
+messageSends: ["trimBoth"]}),
 smalltalk.String);
 
 smalltalk.addMethod(
