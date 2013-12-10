@@ -2627,8 +2627,8 @@ initialize
 	super initialize.
 	self path: ''.
 	borderWidth := 1. 
-	borderColor := Color gray.
-	color := Color blue.
+	borderColor := self class defaultBorderColor.
+	color := self class defaultColor.
 	
 	" added for Amber version "
 	width := height := 20.
@@ -2652,6 +2652,14 @@ updateSVGElementOn: canvas for: anElement
 ! !
 
 !ROPath class methodsFor: 'not yet classified'!
+
+defaultBorderColor
+	^ Color black
+!
+
+defaultColor
+	^ Color white
+!
 
 path: aString
 	^ self new path: aString

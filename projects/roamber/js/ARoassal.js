@@ -8088,20 +8088,19 @@ selector: "initialize",
 category: 'not yet classified',
 fn: function (){
 var self=this;
-function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.ROPath.superclass.fn.prototype._initialize.apply(_st(self), []);
 self._path_("");
 self["@borderWidth"]=(1);
-self["@borderColor"]=_st($Color())._gray();
-self["@color"]=_st($Color())._blue();
+self["@borderColor"]=_st(self._class())._defaultBorderColor();
+self["@color"]=_st(self._class())._defaultColor();
 self["@height"]=(20);
 self["@width"]=self["@height"];
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROPath)})},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09self path: ''.\x0a\x09borderWidth := 1. \x0a\x09borderColor := Color gray.\x0a\x09color := Color blue.\x0a\x09\x0a\x09\x22 added for Amber version \x22\x0a\x09width := height := 20.",
-messageSends: ["initialize", "path:", "gray", "blue"],
-referencedClasses: ["Color"]
+source: "initialize\x0a\x09super initialize.\x0a\x09self path: ''.\x0a\x09borderWidth := 1. \x0a\x09borderColor := self class defaultBorderColor.\x0a\x09color := self class defaultColor.\x0a\x09\x0a\x09\x22 added for Amber version \x22\x0a\x09width := height := 20.",
+messageSends: ["initialize", "path:", "defaultBorderColor", "class", "defaultColor"],
+referencedClasses: []
 }),
 smalltalk.ROPath);
 
@@ -8159,6 +8158,44 @@ referencedClasses: []
 }),
 smalltalk.ROPath);
 
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultBorderColor",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($Color())._black();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultBorderColor",{},smalltalk.ROPath.klass)})},
+args: [],
+source: "defaultBorderColor\x0a\x09^ Color black",
+messageSends: ["black"],
+referencedClasses: ["Color"]
+}),
+smalltalk.ROPath.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultColor",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($Color())._white();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultColor",{},smalltalk.ROPath.klass)})},
+args: [],
+source: "defaultColor\x0a\x09^ Color white",
+messageSends: ["white"],
+referencedClasses: ["Color"]
+}),
+smalltalk.ROPath.klass);
 
 smalltalk.addMethod(
 smalltalk.method({

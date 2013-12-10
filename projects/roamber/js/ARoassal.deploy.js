@@ -5835,17 +5835,16 @@ smalltalk.method({
 selector: "initialize",
 fn: function (){
 var self=this;
-function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.ROPath.superclass.fn.prototype._initialize.apply(_st(self), []);
 self._path_("");
 self["@borderWidth"]=(1);
-self["@borderColor"]=_st($Color())._gray();
-self["@color"]=_st($Color())._blue();
+self["@borderColor"]=_st(self._class())._defaultBorderColor();
+self["@color"]=_st(self._class())._defaultColor();
 self["@height"]=(20);
 self["@width"]=self["@height"];
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROPath)})},
-messageSends: ["initialize", "path:", "gray", "blue"]}),
+messageSends: ["initialize", "path:", "defaultBorderColor", "class", "defaultColor"]}),
 smalltalk.ROPath);
 
 smalltalk.addMethod(
@@ -5887,6 +5886,34 @@ return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas
 messageSends: ["transform:", ",", "y", "position", "x", "attr:with:", "asHTMLRGBA", "attr:value:", "borderWidth", "borderColor"]}),
 smalltalk.ROPath);
 
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultBorderColor",
+fn: function (){
+var self=this;
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($Color())._black();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultBorderColor",{},smalltalk.ROPath.klass)})},
+messageSends: ["black"]}),
+smalltalk.ROPath.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultColor",
+fn: function (){
+var self=this;
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($Color())._white();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultColor",{},smalltalk.ROPath.klass)})},
+messageSends: ["white"]}),
+smalltalk.ROPath.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
