@@ -2496,40 +2496,6 @@ defaultColor
 	^ self defaultBorderColor
 ! !
 
-ROShape subclass: #ROCountry
-	instanceVariableNames: 'path'
-	package: 'ARoassal'!
-
-!ROCountry methodsFor: 'not yet classified'!
-
-initialize
-	super initialize.
-	width := height := 20.
-!
-
-initializeSVGElementOn: canvas for: anElement
-	svgElement := canvas path: path
-!
-
-path: aString
-	path := aString
-!
-
-updateSVGElementOn: canvas for: anElement
-	svgElement 
-		attr: 'x' with: (anElement position x);
-		attr: 'y' with: (anElement position y);
-"		attr: 'width' with: ((self widthFor: anElement ) max: (self defaultSize));
-		attr: 'height' with: ((self heightFor: anElement) max: (self defaultSize));"
-		attr:'fill' with: (self rgbColor).
-! !
-
-!ROCountry class methodsFor: 'not yet classified'!
-
-path: aString
-	^ self new path: aString.
-! !
-
 ROShape subclass: #ROEllipse
 	instanceVariableNames: 'radius borderWidth borderColor'
 	package: 'ARoassal'!
