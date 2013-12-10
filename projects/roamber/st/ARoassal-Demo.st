@@ -37,6 +37,27 @@ ROObject subclass: #ROExample
 
 !ROExample methodsFor: 'demo'!
 
+barAndLines
+
+|builder values|
+values := #(10 12 13 80 70 20 56).
+builder := GETDiagramBuilder new.
+builder compositeDiagram
+	add: (GETVerticalBarDiagram new
+			models: values;
+			color: Color lightGreen);
+
+	add: (GETOrdinaryLineDiagram new
+			models: values;
+			y: [:v | v cos abs * 50];
+			color: Color brown);
+	height: 250;
+	regularAxis.
+
+builder interaction popUpText.
+builder open.
+!
+
 boxGenerator
 
 	" Click on the green square multiple times "

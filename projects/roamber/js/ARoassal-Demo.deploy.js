@@ -64,6 +64,41 @@ smalltalk.RODemo.klass);
 smalltalk.addClass('ROExample', smalltalk.ROObject, [], 'ARoassal-Demo');
 smalltalk.addMethod(
 smalltalk.method({
+selector: "barAndLines",
+fn: function (){
+var self=this;
+var builder,values;
+function $GETDiagramBuilder(){return smalltalk.GETDiagramBuilder||(typeof GETDiagramBuilder=="undefined"?nil:GETDiagramBuilder)}
+function $GETVerticalBarDiagram(){return smalltalk.GETVerticalBarDiagram||(typeof GETVerticalBarDiagram=="undefined"?nil:GETVerticalBarDiagram)}
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+function $GETOrdinaryLineDiagram(){return smalltalk.GETOrdinaryLineDiagram||(typeof GETOrdinaryLineDiagram=="undefined"?nil:GETOrdinaryLineDiagram)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6;
+values=[(10), (12), (13), (80), (70), (20), (56)];
+builder=_st($GETDiagramBuilder())._new();
+$1=_st(builder)._compositeDiagram();
+$2=_st($GETVerticalBarDiagram())._new();
+_st($2)._models_(values);
+$3=_st($2)._color_(_st($Color())._lightGreen());
+_st($1)._add_($3);
+$4=_st($GETOrdinaryLineDiagram())._new();
+_st($4)._models_(values);
+_st($4)._y_((function(v){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(_st(v)._cos())._abs()).__star((50));
+}, function($ctx2) {$ctx2.fillBlock({v:v},$ctx1)})}));
+$5=_st($4)._color_(_st($Color())._brown());
+_st($1)._add_($5);
+_st($1)._height_((250));
+$6=_st($1)._regularAxis();
+_st(_st(builder)._interaction())._popUpText();
+_st(builder)._open();
+return self}, function($ctx1) {$ctx1.fill(self,"barAndLines",{builder:builder,values:values},smalltalk.ROExample)})},
+messageSends: ["new", "add:", "models:", "color:", "lightGreen", "compositeDiagram", "y:", "*", "abs", "cos", "brown", "height:", "regularAxis", "popUpText", "interaction", "open"]}),
+smalltalk.ROExample);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "boxGenerator",
 fn: function (){
 var self=this;
