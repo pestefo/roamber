@@ -951,33 +951,32 @@ smalltalk.ROExample);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "theWorld",
-category: 'demo',
+category: 'not yet classified',
 fn: function (){
 var self=this;
 var view,color;
 function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
 function $ROSVGPath(){return smalltalk.ROSVGPath||(typeof ROSVGPath=="undefined"?nil:ROSVGPath)}
+function $ROPath(){return smalltalk.ROPath||(typeof ROPath=="undefined"?nil:ROPath)}
 function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
 function $ROHighlight(){return smalltalk.ROHighlight||(typeof ROHighlight=="undefined"?nil:ROHighlight)}
 function $ROPopup(){return smalltalk.ROPopup||(typeof ROPopup=="undefined"?nil:ROPopup)}
 return smalltalk.withContext(function($ctx1) { 
 view=_st($ROView())._new();
 _st(view)._addAll_(_st(_st($ROSVGPath())._world())._collect_((function(country){
+var el;
 return smalltalk.withContext(function($ctx2) {
-return _st(_st($ROSVGPath())._path_(_st($ROSVGPath())._perform_(country)))._elementOn_(country);
-}, function($ctx2) {$ctx2.fillBlock({country:country},$ctx1)})})));
-color=_st($Color())._r_g_b_((0.746),(0.652),(0.188));
-_st(view)._elementsDo_((function(e){
-return smalltalk.withContext(function($ctx2) {
-_st(e).__at(_st($ROHighlight())._color_(color));
-return _st(e).__at($ROPopup());
-}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+el=_st(_st($ROPath())._path_(_st($ROSVGPath())._perform_(country)))._elementOn_(country);
+el;
+_st(el).__at(_st($ROHighlight())._color_(_st($Color())._brown()));
+return _st(el).__at($ROPopup());
+}, function($ctx2) {$ctx2.fillBlock({country:country,el:el},$ctx1)})})));
 _st(view)._open();
 return self}, function($ctx1) {$ctx1.fill(self,"theWorld",{view:view,color:color},smalltalk.ROExample)})},
 args: [],
-source: "theWorld\x0a\x0a\x09|view color|\x0a\x09view := ROView new.\x0a\x09\x0a\x09view addAll: ((ROSVGPath world) collect: [:country |\x0a\x09\x09\x09(ROSVGPath path: (ROSVGPath perform: country)) elementOn: country]).\x0a\x09color := Color r: 0.746 g: 0.652 b: 0.188.\x09\x09\x0a\x09view elementsDo: [:e |\x0a\x09\x09e @ (ROHighlight color: color).\x0a\x09\x09e @ ROPopup.\x0a\x09].\x0a\x09view open.",
-messageSends: ["new", "addAll:", "collect:", "elementOn:", "path:", "perform:", "world", "r:g:b:", "elementsDo:", "@", "color:", "open"],
-referencedClasses: ["ROView", "ROSVGPath", "Color", "ROHighlight", "ROPopup"]
+source: "theWorld\x0a\x0a\x09|view color|\x0a\x09view := ROView new.\x0a\x09\x0a\x09view addAll: ((ROSVGPath world) collect: [:country |\x0a\x09\x09|el|\x0a\x09\x09el := (ROPath path: (ROSVGPath perform: country)) \x0a\x09\x09\x09\x09\x09elementOn: country.\x0a\x09\x09el @ (ROHighlight color: Color brown).\x0a\x09\x09el @ ROPopup.\x0a\x09]).\x0a\x09\x0a\x09view open.",
+messageSends: ["new", "addAll:", "collect:", "elementOn:", "path:", "perform:", "@", "color:", "brown", "world", "open"],
+referencedClasses: ["ROView", "ROSVGPath", "ROPath", "Color", "ROHighlight", "ROPopup"]
 }),
 smalltalk.ROExample);
 

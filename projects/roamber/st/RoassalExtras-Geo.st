@@ -284,7 +284,7 @@ countries: countryNames
 country: aCountryName
 	| symbol |
 	symbol := aCountryName asSymbol.
-	view add: ((ROSVGPath path: (ROSVGPath perform: symbol)) elementOn: symbol)
+	view add: ((ROPath path: (ROSVGPath perform: symbol)) elementOn: symbol)
 !
 
 edgesFrom: aCityName toAll: cityNames
