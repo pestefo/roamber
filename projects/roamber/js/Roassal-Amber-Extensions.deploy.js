@@ -4130,6 +4130,20 @@ smalltalk.Array);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "asDictionary",
+fn: function (){
+var self=this;
+function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($Dictionary())._from_(self);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"asDictionary",{},smalltalk.Array)})},
+messageSends: ["from:"]}),
+smalltalk.Array);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "asSorted:",
 fn: function (aBlockOrSymbol){
 var self=this;
@@ -4277,17 +4291,6 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return self.indexOf(suffix, self.length - suffix.length) !== -1;
 return self}, function($ctx1) {$ctx1.fill(self,"endsWith:",{suffix:suffix},smalltalk.String)})},
-messageSends: []}),
-smalltalk.String);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "isNumeric",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
- return !isNaN(parseFloat(self)) && isFinite(self); ;
-return self}, function($ctx1) {$ctx1.fill(self,"isNumeric",{},smalltalk.String)})},
 messageSends: []}),
 smalltalk.String);
 

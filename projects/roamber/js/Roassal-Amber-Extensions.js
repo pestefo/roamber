@@ -5321,6 +5321,25 @@ smalltalk.Array);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "asDictionary",
+category: '*Roassal-Amber-Extensions',
+fn: function (){
+var self=this;
+function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($Dictionary())._from_(self);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"asDictionary",{},smalltalk.Array)})},
+args: [],
+source: "asDictionary\x0a\x09^ Dictionary from: self",
+messageSends: ["from:"],
+referencedClasses: ["Dictionary"]
+}),
+smalltalk.Array);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "asSorted:",
 category: '*Roassal-Amber-Extensions',
 fn: function (aBlockOrSymbol){
@@ -5516,22 +5535,6 @@ return self.indexOf(suffix, self.length - suffix.length) !== -1;
 return self}, function($ctx1) {$ctx1.fill(self,"endsWith:",{suffix:suffix},smalltalk.String)})},
 args: ["suffix"],
 source: "endsWith: suffix\x0a\x0a\x09<return self.indexOf(suffix, self.length - suffix.length) !== -1>",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.String);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "isNumeric",
-category: '*Roassal-Amber-Extensions',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
- return !isNaN(parseFloat(self)) && isFinite(self); ;
-return self}, function($ctx1) {$ctx1.fill(self,"isNumeric",{},smalltalk.String)})},
-args: [],
-source: "isNumeric\x0a\x09< return !isNaN(parseFloat(self)) && isFinite(self); >",
 messageSends: [],
 referencedClasses: []
 }),

@@ -268,6 +268,49 @@ smalltalk.ROExample);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "greenAndRedNumbers",
+fn: function (){
+var self=this;
+var diagram,values;
+function $GETDiagramBuilder(){return smalltalk.GETDiagramBuilder||(typeof GETDiagramBuilder=="undefined"?nil:GETDiagramBuilder)}
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4;
+values=_st((1)._to_((10)))._collect_((function(v){
+return smalltalk.withContext(function($ctx2) {
+return _st((10)._atRandom()).__minus((5));
+}, function($ctx2) {$ctx2.fillBlock({v:v},$ctx1)})}));
+diagram=_st($GETDiagramBuilder())._new();
+$1=_st(diagram)._verticalBarDiagram();
+_st($1)._models_(values);
+_st($1)._height_((150));
+_st($1)._color_((function(each){
+return smalltalk.withContext(function($ctx2) {
+$2=_st(each).__lt((0));
+if(smalltalk.assert($2)){
+return _st($Color())._red();
+} else {
+return _st($Color())._green();
+};
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+$3=_st($1)._regularAxis();
+_st(_st(diagram)._rawView())._translateBy_((-100).__at((-100)));
+_st(_st(diagram)._interaction())._popUpText_((function(el){
+return smalltalk.withContext(function($ctx2) {
+$4=_st(el).__gt((0));
+if(smalltalk.assert($4)){
+return _st(_st(el)._asString()).__comma(" is a green number");
+} else {
+return _st(_st(el)._asString()).__comma(" is a red number :(");
+};
+}, function($ctx2) {$ctx2.fillBlock({el:el},$ctx1)})}));
+_st(diagram)._open();
+return self}, function($ctx1) {$ctx1.fill(self,"greenAndRedNumbers",{diagram:diagram,values:values},smalltalk.ROExample)})},
+messageSends: ["collect:", "-", "atRandom", "to:", "new", "models:", "verticalBarDiagram", "height:", "color:", "ifTrue:ifFalse:", "red", "green", "<", "regularAxis", "translateBy:", "@", "rawView", "popUpText:", ",", "asString", ">", "interaction", "open"]}),
+smalltalk.ROExample);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "horizontalLayout",
 fn: function () {
 var self=this;

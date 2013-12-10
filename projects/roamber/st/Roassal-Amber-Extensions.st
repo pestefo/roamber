@@ -1911,6 +1911,10 @@ addFirst: anObject
 	<self.unshift(anObject); return anObject;>
 !
 
+asDictionary
+	^ Dictionary from: self
+!
+
 asSorted: aBlockOrSymbol
 	| c b |
 	c := self copy.
@@ -1975,10 +1979,6 @@ copyReplaceAll: aString with: anotherString
 endsWith: suffix
 
 	<return self.indexOf(suffix, self.length - suffix.length) !!== -1>
-!
-
-isNumeric
-	< return !!isNaN(parseFloat(self)) && isFinite(self); >
 !
 
 lineCount
