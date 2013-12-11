@@ -663,10 +663,18 @@ selector: "url:",
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(aString)._match_(".*dropbox.*");
+if(smalltalk.assert($1)){
 self["@url"]=self._processDropboxURL_(aString);
+self["@url"];
+} else {
+self["@url"]=aString;
+self["@url"];
+};
 self._fetchData();
 return self}, function($ctx1) {$ctx1.fill(self,"url:",{aString:aString},smalltalk.ROPlot)})},
-messageSends: ["processDropboxURL:", "fetchData"]}),
+messageSends: ["ifTrue:ifFalse:", "processDropboxURL:", "match:", "fetchData"]}),
 smalltalk.ROPlot);
 
 
@@ -828,7 +836,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1="\x0a{\x0a\x09\x22type\x22 : \x22verticalBar\x22,\x0a\x09\x22values\x22 : \x22NC\x22,\x0a\x09\x22y\x22 : \x22[:x | x * 2 ]\x22,\x0a\x09\x22color\x22: \x22brown\x22,\x0a\x09\x22axis\x22: \x22regularAxis\x22\x0a}\x0a---".__comma(self._data1());
+$1="\x0a{\x0a\x09\x22type\x22 : \x22verticalBar\x22,\x0a\x09\x22values\x22 : \x22NC\x22,\x0a\x09\x22y\x22 : \x22[:x | x * 2 ]\x22,\x0a\x09\x22color\x22: \x22brown\x22,\x0a\x09\x22axis\x22: \x22regularAxisAsInteger\x22\x0a}\x0a---".__comma(self._data1());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"verticalBar",{},smalltalk.ROPlot.klass)})},
 messageSends: [",", "data1"]}),

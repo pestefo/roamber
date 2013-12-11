@@ -658,6 +658,33 @@ smalltalk.ROExample);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "plotFromCSV",
+fn: function (){
+var self=this;
+var block;
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+function $ROPlot(){return smalltalk.ROPlot||(typeof ROPlot=="undefined"?nil:ROPlot)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4;
+block=(function(d,t){
+return smalltalk.withContext(function($ctx2) {
+$1=_st(d)._verticalBarDiagram();
+_st($1)._models_(_st(t)._dataFromColumn_("NC"));
+_st($1)._color_(_st($Color())._brown());
+_st($1)._regularAxisAsInteger();
+_st($1)._height_((100));
+$2=_st($1)._width_((300));
+return $2;
+}, function($ctx2) {$ctx2.fillBlock({d:d,t:t},$ctx1)})});
+$3=_st($ROPlot())._new();
+_st($3)._url_("https://www.dropbox.com/s/hh1ujh8mofphbnl/data1.csv");
+$4=_st($3)._drawBlock_(block);
+return self}, function($ctx1) {$ctx1.fill(self,"plotFromCSV",{block:block},smalltalk.ROExample)})},
+messageSends: ["models:", "dataFromColumn:", "verticalBarDiagram", "color:", "brown", "regularAxisAsInteger", "height:", "width:", "url:", "new", "drawBlock:"]}),
+smalltalk.ROExample);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "popup",
 fn: function (){
 var self=this;

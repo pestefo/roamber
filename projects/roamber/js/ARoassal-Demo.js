@@ -783,6 +783,38 @@ smalltalk.ROExample);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "plotFromCSV",
+category: 'demo',
+fn: function (){
+var self=this;
+var block;
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+function $ROPlot(){return smalltalk.ROPlot||(typeof ROPlot=="undefined"?nil:ROPlot)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4;
+block=(function(d,t){
+return smalltalk.withContext(function($ctx2) {
+$1=_st(d)._verticalBarDiagram();
+_st($1)._models_(_st(t)._dataFromColumn_("NC"));
+_st($1)._color_(_st($Color())._brown());
+_st($1)._regularAxisAsInteger();
+_st($1)._height_((100));
+$2=_st($1)._width_((300));
+return $2;
+}, function($ctx2) {$ctx2.fillBlock({d:d,t:t},$ctx1)})});
+$3=_st($ROPlot())._new();
+_st($3)._url_("https://www.dropbox.com/s/hh1ujh8mofphbnl/data1.csv");
+$4=_st($3)._drawBlock_(block);
+return self}, function($ctx1) {$ctx1.fill(self,"plotFromCSV",{block:block},smalltalk.ROExample)})},
+args: [],
+source: "plotFromCSV\x0a\x22\x0aThis is a chart of the column 'NC'  of the table in a CSV file hosted on dropbox \x0a\x22\x0a|block|\x0ablock := [:d :t |\x0ad verticalBarDiagram\x0a\x22try yourself by changing 'NNEC' to 'NC' and re-do\x22\x0amodels: (t dataFromColumn: 'NC');\x0a\x22or maybe change the color\x22\x0acolor: Color brown;\x0aregularAxisAsInteger;\x0aheight: 100;\x0awidth: 300\x0a].\x0aROPlot new \x0aurl: 'https://www.dropbox.com/s/hh1ujh8mofphbnl/data1.csv';\x0adrawBlock: block",
+messageSends: ["models:", "dataFromColumn:", "verticalBarDiagram", "color:", "brown", "regularAxisAsInteger", "height:", "width:", "url:", "new", "drawBlock:"],
+referencedClasses: ["Color", "ROPlot"]
+}),
+smalltalk.ROExample);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "popup",
 category: 'not yet classified',
 fn: function (){

@@ -285,7 +285,10 @@ token: aString
 !
 
 url: aString
-	url := self processDropboxURL: aString.
+	(aString match:  '.*dropbox.*') 
+		ifTrue: [ url := self processDropboxURL: aString]
+		ifFalse: [ url := aString ].
+	
 	self fetchData.
 ! !
 
@@ -462,7 +465,7 @@ verticalBar
 	"values" : "NC",
 	"y" : "[:x | x * 2 ]",
 	"color": "brown",
-	"axis": "regularAxis"
+	"axis": "regularAxisAsInteger"
 }
 ---', (self data1)
 ! !
