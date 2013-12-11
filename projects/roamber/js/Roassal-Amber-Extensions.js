@@ -5542,6 +5542,40 @@ smalltalk.String);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "isNotNumeric",
+category: '*Roassal-Amber-Extensions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._isNumeric())._not();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isNotNumeric",{},smalltalk.String)})},
+args: [],
+source: "isNotNumeric\x0a\x09^ self isNumeric not",
+messageSends: ["not", "isNumeric"],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isNumeric",
+category: '*Roassal-Amber-Extensions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+ return !isNaN(parseFloat(self)) && isFinite(self); ;
+return self}, function($ctx1) {$ctx1.fill(self,"isNumeric",{},smalltalk.String)})},
+args: [],
+source: "isNumeric\x0a\x09\x22Answer if it can be converted asNumber\x22\x0a\x09< return !isNaN(parseFloat(self)) && isFinite(self); >\x0a\x22\x0a[ self asNumber] \x0a\x09\x09on: Error \x0a\x09\x09do: [ ^ false ].\x0a\x09^ true.\x0a\x22",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "lineCount",
 category: '*Roassal-Amber-Extensions',
 fn: function (){

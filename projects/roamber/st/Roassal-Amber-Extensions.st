@@ -1981,6 +1981,21 @@ endsWith: suffix
 	<return self.indexOf(suffix, self.length - suffix.length) !!== -1>
 !
 
+isNotNumeric
+	^ self isNumeric not
+!
+
+isNumeric
+	"Answer if it can be converted asNumber"
+	< return !!isNaN(parseFloat(self)) && isFinite(self); >
+"
+[ self asNumber] 
+		on: Error 
+		do: [ ^ false ].
+	^ true.
+"
+!
+
 lineCount
 	"Answer the number of lines represented by the receiver, where every line delimiter CR, LF or CRLF pair adds one line."
 

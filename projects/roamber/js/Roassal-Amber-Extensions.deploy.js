@@ -4296,6 +4296,30 @@ smalltalk.String);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "isNotNumeric",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._isNumeric())._not();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isNotNumeric",{},smalltalk.String)})},
+messageSends: ["not", "isNumeric"]}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isNumeric",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+ return !isNaN(parseFloat(self)) && isFinite(self); ;
+return self}, function($ctx1) {$ctx1.fill(self,"isNumeric",{},smalltalk.String)})},
+messageSends: []}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "lineCount",
 fn: function (){
 var self=this;
