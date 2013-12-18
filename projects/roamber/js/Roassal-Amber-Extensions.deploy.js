@@ -3306,6 +3306,17 @@ smalltalk.Object);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "isBlock",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return false;
+}, function($ctx1) {$ctx1.fill(self,"isBlock",{},smalltalk.Object)})},
+messageSends: []}),
+smalltalk.Object);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "isCollection",
 fn: function (){
 var self=this;
@@ -3618,6 +3629,17 @@ $1=self._value();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"fork",{},smalltalk.BlockClosure)})},
 messageSends: ["value"]}),
+smalltalk.BlockClosure);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isBlock",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return true;
+}, function($ctx1) {$ctx1.fill(self,"isBlock",{},smalltalk.BlockClosure)})},
+messageSends: []}),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
@@ -4575,6 +4597,17 @@ $1=self.__eq(self._asInteger());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isInteger",{},smalltalk.Number)})},
 messageSends: ["=", "asInteger"]}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "ln",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+ return Math.log(self); ;
+return self}, function($ctx1) {$ctx1.fill(self,"ln",{},smalltalk.Number)})},
+messageSends: []}),
 smalltalk.Number);
 
 smalltalk.addMethod(

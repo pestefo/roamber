@@ -594,6 +594,24 @@ smalltalk.ROLayout);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "paddingLeftFor:",
+category: 'not yet classified',
+fn: function (elements){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._resizeStrategyFor_(elements))._paddingLeft();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"paddingLeftFor:",{elements:elements},smalltalk.ROLayout)})},
+args: ["elements"],
+source: "paddingLeftFor: elements\x0a\x09^ (self resizeStrategyFor: elements) paddingLeft",
+messageSends: ["paddingLeft", "resizeStrategyFor:"],
+referencedClasses: []
+}),
+smalltalk.ROLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "step",
 category: 'not yet classified',
 fn: function (){
@@ -1062,6 +1080,22 @@ smalltalk.ROGridLayout);
 smalltalk.addClass('ROAbstractLineLayout', smalltalk.ROLayout, ['gapSize', 'horizontalGap', 'verticalGap', 'horizontalOutGap', 'verticalOutGap', 'alignment', 'horizontallyStretchable', 'verticallyStretchable'], 'ARoassal-Layout');
 smalltalk.addMethod(
 smalltalk.method({
+selector: "alignLeft",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@alignment"]="left";
+return self}, function($ctx1) {$ctx1.fill(self,"alignLeft",{},smalltalk.ROAbstractLineLayout)})},
+args: [],
+source: "alignLeft\x0a\x09\x0a\x09alignment := #left",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROAbstractLineLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "alignTop",
 category: 'not yet classified',
 fn: function () {
@@ -1103,6 +1137,41 @@ return self}, function($ctx1) {$ctx1.fill(self,"alignment:",{anObject:anObject},
 args: ["anObject"],
 source: "alignment: anObject\x0a\x09\x0a\x09alignment := anObject",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROAbstractLineLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "doExecute:",
+category: 'not yet classified',
+fn: function (elements){
+var self=this;
+var pointer,delta;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=self["@horizontallyStretchable"];
+if(smalltalk.assert($1)){
+self._doStretchHorizontal_(elements);
+};
+$2=self["@verticallyStretchable"];
+if(smalltalk.assert($2)){
+self._doStretchVertical_(elements);
+};
+pointer=self._positionOriginalPointer_(elements);
+_st(elements)._do_((function(element){
+return smalltalk.withContext(function($ctx2) {
+delta=self._deltaFor_(element);
+delta;
+_st(self["@translator"])._translate_to_(element,_st(pointer).__minus(delta));
+pointer=self._movePointer_accordingToFigure_(pointer,element);
+pointer;
+return self._step();
+}, function($ctx2) {$ctx2.fillBlock({element:element},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"doExecute:",{elements:elements,pointer:pointer,delta:delta},smalltalk.ROAbstractLineLayout)})},
+args: ["elements"],
+source: "doExecute: elements \x0a\x09| pointer delta |\x0a\x09horizontallyStretchable ifTrue: \x0a\x09\x09[ self doStretchHorizontal: elements ].\x0a\x09verticallyStretchable ifTrue: \x0a\x09\x09[ self doStretchVertical: elements ].\x0a\x09pointer := self positionOriginalPointer: elements.\x0a\x09elements do: \x0a\x09\x09[ :element |\x0a\x09\x09delta := self deltaFor: element.\x0a\x09\x09translator translate: element to: pointer - delta.\x0a\x09\x09pointer := self \x0a\x09\x09\x09\x09\x09movePointer: pointer\x0a\x09\x09\x09\x09\x09accordingToFigure: element.\x0a\x09\x09self step ].",
+messageSends: ["ifTrue:", "doStretchHorizontal:", "doStretchVertical:", "positionOriginalPointer:", "do:", "deltaFor:", "translate:to:", "-", "movePointer:accordingToFigure:", "step"],
 referencedClasses: []
 }),
 smalltalk.ROAbstractLineLayout);
@@ -1158,6 +1227,24 @@ return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROAbstr
 args: [],
 source: "initialize\x0a\x09\x0a\x09super initialize.\x0a\x09verticalGap := 10.\x0a\x09horizontalGap := 10.\x0a\x09horizontalOutGap := 5.\x0a\x09verticalOutGap := 5.\x0a\x09horizontallyStretchable := verticallyStretchable := false",
 messageSends: ["initialize"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractLineLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "verticalGap",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@verticalGap"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"verticalGap",{},smalltalk.ROAbstractLineLayout)})},
+args: [],
+source: "verticalGap\x0a\x09\x0a\x09^verticalGap",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.ROAbstractLineLayout);
@@ -1301,6 +1388,216 @@ messageSends: ["ifTrue:", "maxValue:", "nodes", "==", "alignment", "/", "@", "+"
 referencedClasses: []
 }),
 smalltalk.ROHorizontalLineLayout);
+
+
+
+smalltalk.addClass('ROVerticalLineLayout', smalltalk.ROAbstractLineLayout, [], 'ARoassal-Layout');
+smalltalk.ROVerticalLineLayout.comment="A ROVerticalLineLayout locates all the elements vertically";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "deltaFor:",
+category: 'hook',
+fn: function (aNodeFigure){
+var self=this;
+var delta;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+delta=(0);
+$1=_st(self._alignment()).__eq_eq("right");
+if(smalltalk.assert($1)){
+delta=_st(aNodeFigure)._width();
+delta;
+};
+$2=_st(self._alignment()).__eq_eq("center");
+if(smalltalk.assert($2)){
+delta=_st(_st(aNodeFigure)._width()).__slash((2));
+delta;
+};
+$3=_st(delta).__at((0));
+return $3;
+}, function($ctx1) {$ctx1.fill(self,"deltaFor:",{aNodeFigure:aNodeFigure,delta:delta},smalltalk.ROVerticalLineLayout)})},
+args: ["aNodeFigure"],
+source: "deltaFor: aNodeFigure\x0a\x09\x0a\x09| delta |\x0a\x09delta := 0.\x0a\x09self alignment == #right ifTrue: [delta := aNodeFigure width].\x0a\x09self alignment == #center ifTrue: [delta := aNodeFigure width / 2.0].\x0a\x09^delta @ 0",
+messageSends: ["ifTrue:", "width", "==", "alignment", "/", "@"],
+referencedClasses: []
+}),
+smalltalk.ROVerticalLineLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "doCenter:",
+category: 'hook',
+fn: function (aGraph){
+var self=this;
+var midWidest,step;
+return smalltalk.withContext(function($ctx1) { 
+midWidest=_st(_st(aGraph)._nodes())._inject_into_((0),(function(m,el){
+return smalltalk.withContext(function($ctx2) {
+return _st(m)._max_(_st(_st(el)._bounds())._width());
+}, function($ctx2) {$ctx2.fillBlock({m:m,el:el},$ctx1)})}));
+midWidest=_st(midWidest).__slash((2));
+_st(_st(aGraph)._nodes())._do_((function(node){
+return smalltalk.withContext(function($ctx2) {
+step=_st(_st(_st(midWidest).__minus(_st(_st(_st(node)._bounds())._width()).__slash((2))))._asInteger()).__at((0));
+step;
+_st(_st(node)._bounds())._origin_(_st(_st(_st(node)._bounds())._origin()).__plus(step));
+return _st(_st(node)._bounds())._corner_(_st(_st(_st(node)._bounds())._corner()).__plus(step));
+}, function($ctx2) {$ctx2.fillBlock({node:node},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"doCenter:",{aGraph:aGraph,midWidest:midWidest,step:step},smalltalk.ROVerticalLineLayout)})},
+args: ["aGraph"],
+source: "doCenter: aGraph \x0a\x0a \x09| midWidest step |\x0a\x09midWidest := aGraph nodes \x0a\x09\x09inject: 0\x0a\x09\x09into: [ :m :el | m max: (el bounds width )].\x0a\x09midWidest := midWidest / 2.\x0a\x09aGraph nodes do: [ :node | \x0a\x09\x09step := (midWidest - (node bounds width /2)) asInteger @ 0.\x0a\x09\x09node bounds origin: (node bounds origin + step).\x0a\x09\x09node bounds corner: (node bounds corner + step).\x0a\x09]",
+messageSends: ["inject:into:", "max:", "width", "bounds", "nodes", "/", "do:", "@", "asInteger", "-", "origin:", "+", "origin", "corner:", "corner"],
+referencedClasses: []
+}),
+smalltalk.ROVerticalLineLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "doStretchHorizontal:",
+category: 'hook',
+fn: function (aCollectionOfElements){
+var self=this;
+var parent,parentBounds;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4;
+$1=_st(aCollectionOfElements)._isNil();
+if(smalltalk.assert($1)){
+$2=self;
+return $2;
+};
+parent=_st(_st(aCollectionOfElements)._anyOne())._parent();
+$3=_st(parent)._isView();
+if(smalltalk.assert($3)){
+$4=self;
+return $4;
+};
+parentBounds=_st(parent)._bounds();
+_st(aCollectionOfElements)._do_((function(element){
+return smalltalk.withContext(function($ctx2) {
+return _st(element)._width_(_st(parentBounds)._width());
+}, function($ctx2) {$ctx2.fillBlock({element:element},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"doStretchHorizontal:",{aCollectionOfElements:aCollectionOfElements,parent:parent,parentBounds:parentBounds},smalltalk.ROVerticalLineLayout)})},
+args: ["aCollectionOfElements"],
+source: "doStretchHorizontal: aCollectionOfElements \x0a\x09\x0a \x09| parent parentBounds |\x0a\x09aCollectionOfElements isNil ifTrue: [ ^ self \x22nothing to do\x22 ].\x0a\x09parent := aCollectionOfElements anyOne parent.\x0a\x09parent isView ifTrue: [ ^ self \x22ROView does not have bounds\x22 ].\x0a\x09parentBounds := parent bounds.\x0a\x0a\x09aCollectionOfElements do: [ :element | \x0a\x09\x09element width: parentBounds width ]",
+messageSends: ["ifTrue:", "isNil", "parent", "anyOne", "isView", "bounds", "do:", "width:", "width"],
+referencedClasses: []
+}),
+smalltalk.ROVerticalLineLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "doStretchVertical:",
+category: 'hook',
+fn: function (aCollectionOfElements){
+var self=this;
+var parent,parentBounds,addedHeight,parentBoundsHeight,runningIndex,newHeight;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5;
+$1=_st(aCollectionOfElements)._isEmpty();
+if(smalltalk.assert($1)){
+$2=self;
+return $2;
+};
+parent=_st(_st(aCollectionOfElements)._anyOne())._parent();
+$3=_st(parent)._isView();
+if(smalltalk.assert($3)){
+$4=self;
+return $4;
+};
+parentBounds=_st(parent)._bounds();
+addedHeight=_st(aCollectionOfElements)._inject_into_((0),(function(m,el){
+return smalltalk.withContext(function($ctx2) {
+return _st(m).__plus(_st(el)._height());
+}, function($ctx2) {$ctx2.fillBlock({m:m,el:el},$ctx1)})}));
+parentBoundsHeight=_st(parentBounds)._height();
+runningIndex=(0);
+$5=_st(_st(parentBounds)._height()).__gt(addedHeight);
+if(smalltalk.assert($5)){
+_st(aCollectionOfElements)._do_((function(element){
+return smalltalk.withContext(function($ctx2) {
+newHeight=_st(_st(_st(_st(element)._height()).__star(parentBoundsHeight)).__slash(addedHeight))._asInteger();
+newHeight;
+_st(element)._height_(newHeight);
+runningIndex=_st(_st(runningIndex).__plus(newHeight)).__plus(self["@verticalGap"]);
+return runningIndex;
+}, function($ctx2) {$ctx2.fillBlock({element:element},$ctx1)})}));
+};
+return self}, function($ctx1) {$ctx1.fill(self,"doStretchVertical:",{aCollectionOfElements:aCollectionOfElements,parent:parent,parentBounds:parentBounds,addedHeight:addedHeight,parentBoundsHeight:parentBoundsHeight,runningIndex:runningIndex,newHeight:newHeight},smalltalk.ROVerticalLineLayout)})},
+args: ["aCollectionOfElements"],
+source: "doStretchVertical: aCollectionOfElements \x0a\x0a \x09| parent parentBounds addedHeight parentBoundsHeight runningIndex newHeight |\x0a\x0a\x09aCollectionOfElements isEmpty ifTrue: [ ^ self \x22nothing to do\x22 ].\x0a\x09parent := aCollectionOfElements anyOne parent.\x0a\x09parent isView ifTrue: [ ^ self \x22ROView does not have bounds\x22 ].\x0a\x09parentBounds := parent bounds.\x0a\x0a\x09addedHeight := aCollectionOfElements \x0a\x09\x09inject: 0\x0a\x09\x09into: [ :m :el | m + el height ].\x0a\x0a\x09parentBoundsHeight := parentBounds height.\x0a\x09\x22parentBoundsHeight := parentBoundsHeight - ((aCollectionOfElements size - 1) * verticalGap) - (2 * verticalOutGap).\x22\x0a\x09\x0a\x09runningIndex := 0.\x0a\x09parentBounds height > addedHeight\x0a\x09\x09ifTrue: [ aCollectionOfElements do: [ :element | \x0a\x09\x09\x09\x09\x09\x09newHeight := (element height * parentBoundsHeight / addedHeight) asInteger.\x0a\x09\x09\x09\x09\x09\x09element height: newHeight.\x0a\x09\x09\x09\x09\x09\x09runningIndex := runningIndex + newHeight + verticalGap ] ]",
+messageSends: ["ifTrue:", "isEmpty", "parent", "anyOne", "isView", "bounds", "inject:into:", "+", "height", "do:", "asInteger", "/", "*", "height:", ">"],
+referencedClasses: []
+}),
+smalltalk.ROVerticalLineLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+category: 'initialize-release',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.ROVerticalLineLayout.superclass.fn.prototype._initialize.apply(_st(self), []);
+self._alignLeft();
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROVerticalLineLayout)})},
+args: [],
+source: "initialize\x0a\x09\x0a\x09super initialize.\x0a\x09self alignLeft",
+messageSends: ["initialize", "alignLeft"],
+referencedClasses: []
+}),
+smalltalk.ROVerticalLineLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "movePointer:accordingToFigure:",
+category: 'hook',
+fn: function (pointer,aNodeFigure){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(pointer)._setX_setY_(_st(pointer)._x(),_st(_st(_st(pointer)._y()).__plus(_st(aNodeFigure)._height())).__plus(self._verticalGap()));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"movePointer:accordingToFigure:",{pointer:pointer,aNodeFigure:aNodeFigure},smalltalk.ROVerticalLineLayout)})},
+args: ["pointer", "aNodeFigure"],
+source: "movePointer: pointer accordingToFigure: aNodeFigure\x0a\x09\x0a\x09^ pointer setX: pointer x setY: pointer y + aNodeFigure height + self verticalGap",
+messageSends: ["setX:setY:", "x", "+", "verticalGap", "height", "y"],
+referencedClasses: []
+}),
+smalltalk.ROVerticalLineLayout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "positionOriginalPointer:",
+category: 'hook',
+fn: function (elements){
+var self=this;
+var maxWidth,delta;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+delta=(0);
+$1=_st(self._alignment()).__eq_eq("right");
+if(smalltalk.assert($1)){
+maxWidth=_st(elements)._maxValue_("width");
+maxWidth;
+delta=maxWidth;
+delta;
+};
+$2=_st(self._alignment()).__eq_eq("center");
+if(smalltalk.assert($2)){
+maxWidth=_st(elements)._maxValue_("width");
+maxWidth;
+delta=_st(maxWidth).__slash((2));
+delta;
+};
+$3=_st(_st(self._horizontalOutGap()).__plus(delta)).__at(self._verticalOutGap());
+return $3;
+}, function($ctx1) {$ctx1.fill(self,"positionOriginalPointer:",{elements:elements,maxWidth:maxWidth,delta:delta},smalltalk.ROVerticalLineLayout)})},
+args: ["elements"],
+source: "positionOriginalPointer: elements \x0a\x09| maxWidth delta |\x0a\x09delta := 0.\x0a\x09self alignment == #right ifTrue: \x0a\x09\x09[ maxWidth := elements maxValue: #width.\x0a\x09\x09delta := maxWidth ].\x0a\x09self alignment == #center ifTrue: \x0a\x09\x09[ maxWidth := elements maxValue: #width.\x0a\x09\x09delta := maxWidth / 2.0 ].\x0a\x09^ (self horizontalOutGap + delta) @ self verticalOutGap",
+messageSends: ["ifTrue:", "maxValue:", "==", "alignment", "/", "@", "verticalOutGap", "+", "horizontalOutGap"],
+referencedClasses: []
+}),
+smalltalk.ROVerticalLineLayout);
 
 
 

@@ -245,8 +245,203 @@ canvas: canvas camera: camera
 	^ self new canvas: canvas; camera: camera; yourself
 ! !
 
+ROObject subclass: #ROConstraint
+	instanceVariableNames: ''
+	package: 'ARoassal'!
+!ROConstraint commentStamp!
+A ROConstraint is a utility class that contains methods to position elements against others.!
+
+!ROConstraint class methodsFor: 'public'!
+
+constraintInItsParent: element
+	
+	element
+		on: ROElementTranslated
+		do2: [ :event | 
+			element translateTo: ((element position max: (0 @ 0)) min: (element parent extent - element extent)) ]
+!
+
+stick: element above: anotherElement
+	self move: element above: anotherElement.
+	anotherElement
+		on: ROElementEvent
+		do2: [ :event | self move: element above: anotherElement ]
+!
+
+stick: element below: anotherElement
+	self move: element below: anotherElement.
+	anotherElement
+		on: ROElementEvent
+		do2: [ :event | self move: element below: anotherElement ].
+!
+
+stick: element between: el1 and: el2
+	self move: element between: el1 and: el2.
+	el1
+		on: ROElementEvent
+		do2: [ :event | self move: element between: el1 and: el2. ].
+	el2
+		on: ROElementEvent
+		do2: [ :event | self move: element between: el1 and: el2. ].
+!
+
+stick: element onTheCenterOf: anotherElement
+	self move: element onTheCenterOf: anotherElement.
+	anotherElement
+		on: ROElementEvent
+		do2: [ :event | self move: element onTheCenterOf: anotherElement ].
+!
+
+stick: element onTheLeftCenteredOf: anotherElement
+	self move: element onTheLeftCenteredOf: anotherElement.
+	anotherElement
+		on: ROElementEvent
+		do2: [ :event | self move: element onTheLeftCenteredOf: anotherElement ].
+!
+
+stick: element onTheLeftOf: anotherElement
+	self move: element onTheLeftOf: anotherElement.
+	anotherElement
+		on: ROElementEvent
+		do2: [ :event | self move: element onTheLeftOf: anotherElement ].
+!
+
+stick: element onTheRightCenteredOf: anotherElement
+	self move: element onTheRightCenteredOf: anotherElement.
+	anotherElement
+		on: ROElementEvent
+		do2: [ :event | self move: element onTheRightCenteredOf: anotherElement ].
+!
+
+stick: element onTheRightOf: anotherElement
+	self move: element onTheRightOf: anotherElement.
+	anotherElement
+		on: ROElementEvent
+		do2: [ :event | self move: element onTheRightOf: anotherElement ].
+! !
+
+!ROConstraint class methodsFor: 'public - window'!
+
+stickAtBottomRightOfTheWindow: element 
+	self moveAtBottomRightOfTheWindow: element.
+	element view
+		on: ROWindowResized
+		do2: [ :event | self moveAtBottomRightOfTheWindow: element ]
+!
+
+stickAtCenterOfTheWindow: element 
+	self moveAtCenterOfTheWindow: element.
+	element view
+		on: ROWindowResized
+		do2: [ :event | self moveAtCenterOfTheWindow: element ]
+!
+
+stickAtTheBottomOfTheWindow: element 
+	self moveAtTheBottomOfTheWindow: element.
+	element view
+		on: ROWindowResized
+		do2: [ :event | self moveAtTheBottomOfTheWindow: element ]
+!
+
+stickAtTheTopRightOfTheWindow: element 
+	self moveAtTheTopRightOfTheWindow: element.
+	element view
+		on: ROWindowResized
+		do2: [ :event | self moveAtTheTopRightOfTheWindow: element ]
+!
+
+stickToBottomLeft: element 
+	^ self stickToBottomLeft: element offset: 0
+!
+
+stickToBottomLeft: element offset: aNumber
+	element translateTo: (aNumber @ element view camera windowSize y - element height - aNumber).
+	element view
+		on: ROWindowResized
+		do2: [ :event | element translateTo: (aNumber @ (event extent y - element height - aNumber)) ].
+!
+
+stickToTopRight: element
+	^ self stickToTopRight: element offset: 0
+!
+
+stickToTopRight: element offset: aNumber
+	element translateTo: ((element view camera windowSize x - element width) - aNumber @ aNumber).
+	element view
+		on: ROWindowResized
+		do2: [ :event | element translateTo:  ((event extent x - element width) - aNumber @ aNumber)].
+! !
+
+!ROConstraint class methodsFor: 'util'!
+
+move: element above: anotherElement
+	^ element translateTo: anotherElement position - (0 @ element height)
+!
+
+move: element below: anotherElement
+	^ element translateTo: anotherElement position + (0 @ anotherElement height)
+!
+
+move: element between: el1 and: el2
+
+	^ element translateTo: ((el1 position + el2 position) / 2)
+!
+
+move: element onTheCenterOf: anotherElement
+
+	|p|
+	p := ((anotherElement width - element width) /2) @ ((anotherElement height - element height ) /2).
+	^ element translateTo: anotherElement position + p.
+!
+
+move: element onTheLeftCenteredOf: anotherElement
+	^ element translateTo: (anotherElement position - (element width @ 0) + (0 @ (anotherElement height /2 - (element height / 2))))
+!
+
+move: element onTheLeftOf: anotherElement
+	^ element translateTo: anotherElement position - (element width @ 0)
+!
+
+move: element onTheRightCenteredOf: anotherElement
+	^ element translateTo: anotherElement position + (anotherElement width @ (anotherElement height /2 - (element height / 2)))
+!
+
+move: element onTheRightOf: anotherElement
+	^ element translateTo: anotherElement position + (anotherElement width @ 0)
+! !
+
+!ROConstraint class methodsFor: 'util - window'!
+
+moveAtBottomRightOfTheWindow: element
+
+	| windowSize |
+	windowSize := element view camera windowSize.
+	element translateTo: windowSize - (element extent)
+!
+
+moveAtCenterOfTheWindow: element
+
+	| windowSize |
+	windowSize := element view camera windowSize.
+	element translateTo: ((windowSize / 2) asIntegerPoint - (element bounds extent / 2) asIntegerPoint )
+!
+
+moveAtTheBottomOfTheWindow: element
+
+	| windowSize |
+	windowSize := element view camera windowSize.
+	element translateTo: (0 @ (windowSize y - element height))
+!
+
+moveAtTheTopRightOfTheWindow: element
+
+	| windowSize |
+	windowSize := element view camera windowSize.
+	element translateTo: ((windowSize x - element width) @ 0)
+! !
+
 ROObject subclass: #ROContainer
-	instanceVariableNames: 'elements attributes'
+	instanceVariableNames: 'elements attributes eventHandler interactions'
 	package: 'ARoassal'!
 
 !ROContainer methodsFor: 'actions'!
@@ -273,6 +468,23 @@ elementFromModel: object
 
 !ROContainer methodsFor: 'as yet unclassified'!
 
+allElementsDo: aBlockOrSymbol
+	"Recursively perform an action for each elements."
+	self elementsDo: [ :each | each withAllElementsDo: aBlockOrSymbol ]
+!
+
+announce: anEvent
+	"trigger an event. Objects who registered to me will get notified"
+
+	| eventToBeSent |
+	eventToBeSent := anEvent isBehavior 
+						ifTrue: [ anEvent new ]
+						ifFalse: [ anEvent ]. 
+	
+	eventToBeSent element: self.
+	eventHandler announce: eventToBeSent
+!
+
 elementsAsEdge
 "	^ elements select: #isEdge"
 	^ elements select: [:e | e isEdge]
@@ -286,13 +498,53 @@ elementsSuchThat: aBlock
 	^ elements select: aBlock
 !
 
+forward: obj
+	eventHandler forward: obj
+!
+
 initialize
 	super initialize.
 	elements := OrderedCollection new.
+	eventHandler := ROAnnouncer new.
+!
+
+on: eventClass do2: aBlock
+	"Register a block as an handler for eventClass"
+	
+
+	"eventHandler on: eventClass do: aBlock."
+	interactions at: eventClass put: aBlock
+!
+
+on: eventClass do: aBlock
+	"Register a block as an handler for eventClass"
+	
+
+	eventHandler on: eventClass do: aBlock.
+	"interactions at: eventClass put: aBlock"
+!
+
+on: eventClass doOnce: aBlock
+	"Register a block as an handler for eventClass. The callback is removed when exected"
+	
+	eventHandler on: eventClass do: [ :arg | 
+		aBlock value: arg.
+		eventHandler unsubscribeForEvent: eventClass.
+		"self removeInteraction: eventClass "]
+!
+
+removeInteraction: anInteractionClass
+	"Remove an interaction from the receiver. No error is raised if no interaction is found"
+	
+	| ds |
+	ds := interactions select: [ :d | d isKindOf: anInteractionClass ].
+	ds associationsDo: [ :assoc | 
+		interactions removeKey: assoc key.
+		eventHandler unsubscribe: assoc value ].
 ! !
 
 ROContainer subclass: #ROAbstractComponent
-	instanceVariableNames: 'model view interactions shape eventHandler'
+	instanceVariableNames: 'model view shape'
 	package: 'ARoassal'!
 
 !ROAbstractComponent methodsFor: 'accessing'!
@@ -340,7 +592,6 @@ initialize
 	super initialize.
 "	parent := ROView nullView."
 	
-	eventHandler := ROAnnouncer new.
 	view := ROView nullView.
 	
 	"Actually, I am not sure we need to have a variable interactions"
@@ -348,6 +599,21 @@ initialize
 
 	zIndex := 0
 "
+!
+
+remove
+	"Remove myself from the view I belong to (if I actually belong to the view, else do nothing) and from my parent."
+
+	"self removeFromParent."
+	"self view removeElementToRender: self.	""We remove all the subelements"
+	self shape remove.
+	self view remove: self.
+	"self allElementsDo: #remove"
+!
+
+withAllElementsDo: aBlock
+	aBlock value: self.
+	self allElementsDo: aBlock
 ! !
 
 !ROAbstractComponent methodsFor: 'drawing'!
@@ -601,6 +867,26 @@ absolutePosition
 	^ self position
 !
 
+allEdgesFrom
+	"Return all the edges that begins from me"
+	| edges |
+	edges := OrderedCollection new.
+	self view allElementsDo:  [ :edge | 
+		(edge isEdge and: [ edge from == self ]) 
+			ifTrue: [ edges add: edge ] ].
+	^ edges
+!
+
+allEdgesTo
+	"Return all the edges that ends to me"
+	| edges |
+	edges := OrderedCollection new.
+	self view allElementsDo:  [ :edge | 
+		(edge isEdge and: [ edge to == self ]) 
+			ifTrue: [ edges add: edge ] ].
+	^ edges
+!
+
 bounds
 	"Return the bounds of the element"
 	
@@ -777,8 +1063,9 @@ numberOfElements
 
 remove: element
 	"Remove the element from myself. However, the element is not removed from the visualization. Send #remove to element to actually remove it."
-	element removeShape.
-	elements remove: element
+	"element removeShape."
+	elements remove: element ifAbsent: [].
+	self signalUpdate.
 !
 
 view
@@ -906,8 +1193,12 @@ installedOn: element
 	"element extent: (element extent max: extent)."
 !
 
+remove
+	self removeSVGElement.
+!
+
 removeSVGElement
-	svgElement remove.
+	svgElement = nil ifFalse:[ svgElement remove]
 !
 
 rgbColor
@@ -1189,6 +1480,51 @@ updateSVGElementOn: canvas for: anEdge
 "	aCanvas line: rawStartingPoint to: rawEndingPoint width: (self widthFor: anEdge) color: (self colorFor: anEdge)."
 ! !
 
+ROLine subclass: #ROBSplineLine
+	instanceVariableNames: 'controlElements'
+	package: 'ARoassal'!
+
+!ROBSplineLine methodsFor: 'not yet classified'!
+
+addControlElement: anElement
+	self controlElements add: anElement
+!
+
+controlElements
+	^controlElements
+!
+
+initialize
+	controlElements := OrderedCollection new.
+	super initialize.
+!
+
+initializeSVGElementOn: canvas for: anEdge
+	|startPoint  endPoint x1 y1 xn yn mid p|
+	endPoint  := attachPoint startingPointOf: anEdge.
+	startPoint := attachPoint endingPointOf: anEdge.
+	x1 := startPoint x.
+	y1 := startPoint y.
+	xn := endPoint x.
+	yn := endPoint y.
+	p :=''.
+	controlElements do: [ :e | p:= p,(e position x asString), ' ', (e position y asString),' ' ].
+	p :=  'M', x1,' ', y1, 'C', p, xn, ' ', yn.
+	svgElement := canvas path: p
+!
+
+updateSVGElementOn: canvas for: anEdge
+	| "maxArrowSize unit startingPoint endingPoint" rawStartingPoint rawEndingPoint |
+	rawStartingPoint  := attachPoint startingPointOf: anEdge.
+	rawEndingPoint := attachPoint endingPointOf: anEdge.
+
+	(rawStartingPoint = rawEndingPoint)
+		ifTrue: [ ^ self ].
+	"svgElement attr: 'path' with: 'M', ( rawEndingPoint x asInteger),' ',  (rawEndingPoint y asInteger), 'L', ( rawStartingPoint x asInteger), ' ', ( rawStartingPoint y asInteger) ."
+	svgElement attr: 'stroke-width' value: (self width).
+	svgElement attr: 'stroke' value: (self rgbColor).
+! !
+
 ROShape subclass: #ROAbstractPathShape
 	instanceVariableNames: 'svgRect svgPath'
 	package: 'ARoassal'!
@@ -1240,7 +1576,8 @@ padding
 !
 
 removeSVGElement
-	svgElement clear.
+	"svgElement clear."
+	svgElement remove
 !
 
 resizeContainer: svgRect for: svgPath  with: anElement
@@ -1339,6 +1676,9 @@ centeringPath: svgPath into: svgRect  with: anElement
 	svgPath attr: 'x' value: ((svgRect attr: 'width') / 2) asInteger.
 	svgPath attr: 'y' value: ((svgRect attr: 'height') / 2) asInteger.
 	svgPath  attr: 'text-anchor' value: 'middle'.
+!
+
+fontSize: aNumber
 !
 
 initialize 

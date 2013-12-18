@@ -1567,6 +1567,10 @@ isBehavior
 	^false
 !
 
+isBlock
+	^false
+!
+
 isCollection
 	^false.
 !
@@ -1692,6 +1696,10 @@ withAllSuperclasses
 
 fork
 	^self value
+!
+
+isBlock
+	^true
 !
 
 roValue: valueOrArray
@@ -2095,6 +2103,11 @@ fractionPart
 
 isInteger
 	^ self = (self asInteger)
+!
+
+ln
+   
+   < return Math.log(self); >
 !
 
 max: max in: anInterval 

@@ -4242,6 +4242,22 @@ smalltalk.Object);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "isBlock",
+category: '*Roassal-Amber-Extensions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return false;
+}, function($ctx1) {$ctx1.fill(self,"isBlock",{},smalltalk.Object)})},
+args: [],
+source: "isBlock\x0a\x09^false",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Object);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "isCollection",
 category: '*Roassal-Amber-Extensions',
 fn: function (){
@@ -4662,6 +4678,22 @@ return $1;
 args: [],
 source: "fork\x0a\x09^self value",
 messageSends: ["value"],
+referencedClasses: []
+}),
+smalltalk.BlockClosure);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isBlock",
+category: '*Roassal-Amber-Extensions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return true;
+}, function($ctx1) {$ctx1.fill(self,"isBlock",{},smalltalk.BlockClosure)})},
+args: [],
+source: "isBlock\x0a\x09^true",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.BlockClosure);
@@ -5929,6 +5961,22 @@ return $1;
 args: [],
 source: "isInteger\x0a\x09^ self = (self asInteger)",
 messageSends: ["=", "asInteger"],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "ln",
+category: '*Roassal-Amber-Extensions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+ return Math.log(self); ;
+return self}, function($ctx1) {$ctx1.fill(self,"ln",{},smalltalk.Number)})},
+args: [],
+source: "ln\x0a   \x0a   < return Math.log(self); >",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Number);

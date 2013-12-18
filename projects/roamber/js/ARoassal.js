@@ -573,7 +573,627 @@ referencedClasses: []
 smalltalk.ROAbstractCanvas.klass);
 
 
-smalltalk.addClass('ROContainer', smalltalk.ROObject, ['elements', 'attributes'], 'ARoassal');
+smalltalk.addClass('ROConstraint', smalltalk.ROObject, [], 'ARoassal');
+smalltalk.ROConstraint.comment="A ROConstraint is a utility class that contains methods to position elements against others.";
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "constraintInItsParent:",
+category: 'public',
+fn: function (element){
+var self=this;
+function $ROElementTranslated(){return smalltalk.ROElementTranslated||(typeof ROElementTranslated=="undefined"?nil:ROElementTranslated)}
+return smalltalk.withContext(function($ctx1) { 
+_st(element)._on_do2_($ROElementTranslated(),(function(event){
+return smalltalk.withContext(function($ctx2) {
+return _st(element)._translateTo_(_st(_st(_st(element)._position())._max_((0).__at((0))))._min_(_st(_st(_st(element)._parent())._extent()).__minus(_st(element)._extent())));
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"constraintInItsParent:",{element:element},smalltalk.ROConstraint.klass)})},
+args: ["element"],
+source: "constraintInItsParent: element\x0a\x09\x0a\x09element\x0a\x09\x09on: ROElementTranslated\x0a\x09\x09do2: [ :event | \x0a\x09\x09\x09element translateTo: ((element position max: (0 @ 0)) min: (element parent extent - element extent)) ]",
+messageSends: ["on:do2:", "translateTo:", "min:", "-", "extent", "parent", "max:", "@", "position"],
+referencedClasses: ["ROElementTranslated"]
+}),
+smalltalk.ROConstraint.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "move:above:",
+category: 'util',
+fn: function (element,anotherElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(element)._translateTo_(_st(_st(anotherElement)._position()).__minus((0).__at(_st(element)._height())));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"move:above:",{element:element,anotherElement:anotherElement},smalltalk.ROConstraint.klass)})},
+args: ["element", "anotherElement"],
+source: "move: element above: anotherElement\x0a\x09^ element translateTo: anotherElement position - (0 @ element height)",
+messageSends: ["translateTo:", "-", "@", "height", "position"],
+referencedClasses: []
+}),
+smalltalk.ROConstraint.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "move:below:",
+category: 'util',
+fn: function (element,anotherElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(element)._translateTo_(_st(_st(anotherElement)._position()).__plus((0).__at(_st(anotherElement)._height())));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"move:below:",{element:element,anotherElement:anotherElement},smalltalk.ROConstraint.klass)})},
+args: ["element", "anotherElement"],
+source: "move: element below: anotherElement\x0a\x09^ element translateTo: anotherElement position + (0 @ anotherElement height)",
+messageSends: ["translateTo:", "+", "@", "height", "position"],
+referencedClasses: []
+}),
+smalltalk.ROConstraint.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "move:between:and:",
+category: 'util',
+fn: function (element,el1,el2){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(element)._translateTo_(_st(_st(_st(el1)._position()).__plus(_st(el2)._position())).__slash((2)));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"move:between:and:",{element:element,el1:el1,el2:el2},smalltalk.ROConstraint.klass)})},
+args: ["element", "el1", "el2"],
+source: "move: element between: el1 and: el2\x0a\x0a\x09^ element translateTo: ((el1 position + el2 position) / 2)",
+messageSends: ["translateTo:", "/", "+", "position"],
+referencedClasses: []
+}),
+smalltalk.ROConstraint.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "move:onTheCenterOf:",
+category: 'util',
+fn: function (element,anotherElement){
+var self=this;
+var p;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+p=_st(_st(_st(_st(anotherElement)._width()).__minus(_st(element)._width())).__slash((2))).__at(_st(_st(_st(anotherElement)._height()).__minus(_st(element)._height())).__slash((2)));
+$1=_st(element)._translateTo_(_st(_st(anotherElement)._position()).__plus(p));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"move:onTheCenterOf:",{element:element,anotherElement:anotherElement,p:p},smalltalk.ROConstraint.klass)})},
+args: ["element", "anotherElement"],
+source: "move: element onTheCenterOf: anotherElement\x0a\x0a\x09|p|\x0a\x09p := ((anotherElement width - element width) /2) @ ((anotherElement height - element height ) /2).\x0a\x09^ element translateTo: anotherElement position + p.",
+messageSends: ["@", "/", "-", "height", "width", "translateTo:", "+", "position"],
+referencedClasses: []
+}),
+smalltalk.ROConstraint.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "move:onTheLeftCenteredOf:",
+category: 'util',
+fn: function (element,anotherElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(element)._translateTo_(_st(_st(_st(anotherElement)._position()).__minus(_st(_st(element)._width()).__at((0)))).__plus((0).__at(_st(_st(_st(anotherElement)._height()).__slash((2))).__minus(_st(_st(element)._height()).__slash((2))))));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"move:onTheLeftCenteredOf:",{element:element,anotherElement:anotherElement},smalltalk.ROConstraint.klass)})},
+args: ["element", "anotherElement"],
+source: "move: element onTheLeftCenteredOf: anotherElement\x0a\x09^ element translateTo: (anotherElement position - (element width @ 0) + (0 @ (anotherElement height /2 - (element height / 2))))",
+messageSends: ["translateTo:", "+", "@", "-", "/", "height", "width", "position"],
+referencedClasses: []
+}),
+smalltalk.ROConstraint.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "move:onTheLeftOf:",
+category: 'util',
+fn: function (element,anotherElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(element)._translateTo_(_st(_st(anotherElement)._position()).__minus(_st(_st(element)._width()).__at((0))));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"move:onTheLeftOf:",{element:element,anotherElement:anotherElement},smalltalk.ROConstraint.klass)})},
+args: ["element", "anotherElement"],
+source: "move: element onTheLeftOf: anotherElement\x0a\x09^ element translateTo: anotherElement position - (element width @ 0)",
+messageSends: ["translateTo:", "-", "@", "width", "position"],
+referencedClasses: []
+}),
+smalltalk.ROConstraint.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "move:onTheRightCenteredOf:",
+category: 'util',
+fn: function (element,anotherElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(element)._translateTo_(_st(_st(anotherElement)._position()).__plus(_st(_st(anotherElement)._width()).__at(_st(_st(_st(anotherElement)._height()).__slash((2))).__minus(_st(_st(element)._height()).__slash((2))))));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"move:onTheRightCenteredOf:",{element:element,anotherElement:anotherElement},smalltalk.ROConstraint.klass)})},
+args: ["element", "anotherElement"],
+source: "move: element onTheRightCenteredOf: anotherElement\x0a\x09^ element translateTo: anotherElement position + (anotherElement width @ (anotherElement height /2 - (element height / 2)))",
+messageSends: ["translateTo:", "+", "@", "-", "/", "height", "width", "position"],
+referencedClasses: []
+}),
+smalltalk.ROConstraint.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "move:onTheRightOf:",
+category: 'util',
+fn: function (element,anotherElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(element)._translateTo_(_st(_st(anotherElement)._position()).__plus(_st(_st(anotherElement)._width()).__at((0))));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"move:onTheRightOf:",{element:element,anotherElement:anotherElement},smalltalk.ROConstraint.klass)})},
+args: ["element", "anotherElement"],
+source: "move: element onTheRightOf: anotherElement\x0a\x09^ element translateTo: anotherElement position + (anotherElement width @ 0)",
+messageSends: ["translateTo:", "+", "@", "width", "position"],
+referencedClasses: []
+}),
+smalltalk.ROConstraint.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "moveAtBottomRightOfTheWindow:",
+category: 'util - window',
+fn: function (element){
+var self=this;
+var windowSize;
+return smalltalk.withContext(function($ctx1) { 
+windowSize=_st(_st(_st(element)._view())._camera())._windowSize();
+_st(element)._translateTo_(_st(windowSize).__minus(_st(element)._extent()));
+return self}, function($ctx1) {$ctx1.fill(self,"moveAtBottomRightOfTheWindow:",{element:element,windowSize:windowSize},smalltalk.ROConstraint.klass)})},
+args: ["element"],
+source: "moveAtBottomRightOfTheWindow: element\x0a\x0a\x09| windowSize |\x0a\x09windowSize := element view camera windowSize.\x0a\x09element translateTo: windowSize - (element extent)",
+messageSends: ["windowSize", "camera", "view", "translateTo:", "-", "extent"],
+referencedClasses: []
+}),
+smalltalk.ROConstraint.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "moveAtCenterOfTheWindow:",
+category: 'util - window',
+fn: function (element){
+var self=this;
+var windowSize;
+return smalltalk.withContext(function($ctx1) { 
+windowSize=_st(_st(_st(element)._view())._camera())._windowSize();
+_st(element)._translateTo_(_st(_st(_st(windowSize).__slash((2)))._asIntegerPoint()).__minus(_st(_st(_st(_st(element)._bounds())._extent()).__slash((2)))._asIntegerPoint()));
+return self}, function($ctx1) {$ctx1.fill(self,"moveAtCenterOfTheWindow:",{element:element,windowSize:windowSize},smalltalk.ROConstraint.klass)})},
+args: ["element"],
+source: "moveAtCenterOfTheWindow: element\x0a\x0a\x09| windowSize |\x0a\x09windowSize := element view camera windowSize.\x0a\x09element translateTo: ((windowSize / 2) asIntegerPoint - (element bounds extent / 2) asIntegerPoint )",
+messageSends: ["windowSize", "camera", "view", "translateTo:", "-", "asIntegerPoint", "/", "extent", "bounds"],
+referencedClasses: []
+}),
+smalltalk.ROConstraint.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "moveAtTheBottomOfTheWindow:",
+category: 'util - window',
+fn: function (element){
+var self=this;
+var windowSize;
+return smalltalk.withContext(function($ctx1) { 
+windowSize=_st(_st(_st(element)._view())._camera())._windowSize();
+_st(element)._translateTo_((0).__at(_st(_st(windowSize)._y()).__minus(_st(element)._height())));
+return self}, function($ctx1) {$ctx1.fill(self,"moveAtTheBottomOfTheWindow:",{element:element,windowSize:windowSize},smalltalk.ROConstraint.klass)})},
+args: ["element"],
+source: "moveAtTheBottomOfTheWindow: element\x0a\x0a\x09| windowSize |\x0a\x09windowSize := element view camera windowSize.\x0a\x09element translateTo: (0 @ (windowSize y - element height))",
+messageSends: ["windowSize", "camera", "view", "translateTo:", "@", "-", "height", "y"],
+referencedClasses: []
+}),
+smalltalk.ROConstraint.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "moveAtTheTopRightOfTheWindow:",
+category: 'util - window',
+fn: function (element){
+var self=this;
+var windowSize;
+return smalltalk.withContext(function($ctx1) { 
+windowSize=_st(_st(_st(element)._view())._camera())._windowSize();
+_st(element)._translateTo_(_st(_st(_st(windowSize)._x()).__minus(_st(element)._width())).__at((0)));
+return self}, function($ctx1) {$ctx1.fill(self,"moveAtTheTopRightOfTheWindow:",{element:element,windowSize:windowSize},smalltalk.ROConstraint.klass)})},
+args: ["element"],
+source: "moveAtTheTopRightOfTheWindow: element\x0a\x0a\x09| windowSize |\x0a\x09windowSize := element view camera windowSize.\x0a\x09element translateTo: ((windowSize x - element width) @ 0)",
+messageSends: ["windowSize", "camera", "view", "translateTo:", "@", "-", "width", "x"],
+referencedClasses: []
+}),
+smalltalk.ROConstraint.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "stick:above:",
+category: 'public',
+fn: function (element,anotherElement){
+var self=this;
+function $ROElementEvent(){return smalltalk.ROElementEvent||(typeof ROElementEvent=="undefined"?nil:ROElementEvent)}
+return smalltalk.withContext(function($ctx1) { 
+self._move_above_(element,anotherElement);
+_st(anotherElement)._on_do2_($ROElementEvent(),(function(event){
+return smalltalk.withContext(function($ctx2) {
+return self._move_above_(element,anotherElement);
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"stick:above:",{element:element,anotherElement:anotherElement},smalltalk.ROConstraint.klass)})},
+args: ["element", "anotherElement"],
+source: "stick: element above: anotherElement\x0a\x09self move: element above: anotherElement.\x0a\x09anotherElement\x0a\x09\x09on: ROElementEvent\x0a\x09\x09do2: [ :event | self move: element above: anotherElement ]",
+messageSends: ["move:above:", "on:do2:"],
+referencedClasses: ["ROElementEvent"]
+}),
+smalltalk.ROConstraint.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "stick:below:",
+category: 'public',
+fn: function (element,anotherElement){
+var self=this;
+function $ROElementEvent(){return smalltalk.ROElementEvent||(typeof ROElementEvent=="undefined"?nil:ROElementEvent)}
+return smalltalk.withContext(function($ctx1) { 
+self._move_below_(element,anotherElement);
+_st(anotherElement)._on_do2_($ROElementEvent(),(function(event){
+return smalltalk.withContext(function($ctx2) {
+return self._move_below_(element,anotherElement);
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"stick:below:",{element:element,anotherElement:anotherElement},smalltalk.ROConstraint.klass)})},
+args: ["element", "anotherElement"],
+source: "stick: element below: anotherElement\x0a\x09self move: element below: anotherElement.\x0a\x09anotherElement\x0a\x09\x09on: ROElementEvent\x0a\x09\x09do2: [ :event | self move: element below: anotherElement ].",
+messageSends: ["move:below:", "on:do2:"],
+referencedClasses: ["ROElementEvent"]
+}),
+smalltalk.ROConstraint.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "stick:between:and:",
+category: 'public',
+fn: function (element,el1,el2){
+var self=this;
+function $ROElementEvent(){return smalltalk.ROElementEvent||(typeof ROElementEvent=="undefined"?nil:ROElementEvent)}
+return smalltalk.withContext(function($ctx1) { 
+self._move_between_and_(element,el1,el2);
+_st(el1)._on_do2_($ROElementEvent(),(function(event){
+return smalltalk.withContext(function($ctx2) {
+return self._move_between_and_(element,el1,el2);
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
+_st(el2)._on_do2_($ROElementEvent(),(function(event){
+return smalltalk.withContext(function($ctx2) {
+return self._move_between_and_(element,el1,el2);
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"stick:between:and:",{element:element,el1:el1,el2:el2},smalltalk.ROConstraint.klass)})},
+args: ["element", "el1", "el2"],
+source: "stick: element between: el1 and: el2\x0a\x09self move: element between: el1 and: el2.\x0a\x09el1\x0a\x09\x09on: ROElementEvent\x0a\x09\x09do2: [ :event | self move: element between: el1 and: el2. ].\x0a\x09el2\x0a\x09\x09on: ROElementEvent\x0a\x09\x09do2: [ :event | self move: element between: el1 and: el2. ].",
+messageSends: ["move:between:and:", "on:do2:"],
+referencedClasses: ["ROElementEvent"]
+}),
+smalltalk.ROConstraint.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "stick:onTheCenterOf:",
+category: 'public',
+fn: function (element,anotherElement){
+var self=this;
+function $ROElementEvent(){return smalltalk.ROElementEvent||(typeof ROElementEvent=="undefined"?nil:ROElementEvent)}
+return smalltalk.withContext(function($ctx1) { 
+self._move_onTheCenterOf_(element,anotherElement);
+_st(anotherElement)._on_do2_($ROElementEvent(),(function(event){
+return smalltalk.withContext(function($ctx2) {
+return self._move_onTheCenterOf_(element,anotherElement);
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"stick:onTheCenterOf:",{element:element,anotherElement:anotherElement},smalltalk.ROConstraint.klass)})},
+args: ["element", "anotherElement"],
+source: "stick: element onTheCenterOf: anotherElement\x0a\x09self move: element onTheCenterOf: anotherElement.\x0a\x09anotherElement\x0a\x09\x09on: ROElementEvent\x0a\x09\x09do2: [ :event | self move: element onTheCenterOf: anotherElement ].",
+messageSends: ["move:onTheCenterOf:", "on:do2:"],
+referencedClasses: ["ROElementEvent"]
+}),
+smalltalk.ROConstraint.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "stick:onTheLeftCenteredOf:",
+category: 'public',
+fn: function (element,anotherElement){
+var self=this;
+function $ROElementEvent(){return smalltalk.ROElementEvent||(typeof ROElementEvent=="undefined"?nil:ROElementEvent)}
+return smalltalk.withContext(function($ctx1) { 
+self._move_onTheLeftCenteredOf_(element,anotherElement);
+_st(anotherElement)._on_do2_($ROElementEvent(),(function(event){
+return smalltalk.withContext(function($ctx2) {
+return self._move_onTheLeftCenteredOf_(element,anotherElement);
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"stick:onTheLeftCenteredOf:",{element:element,anotherElement:anotherElement},smalltalk.ROConstraint.klass)})},
+args: ["element", "anotherElement"],
+source: "stick: element onTheLeftCenteredOf: anotherElement\x0a\x09self move: element onTheLeftCenteredOf: anotherElement.\x0a\x09anotherElement\x0a\x09\x09on: ROElementEvent\x0a\x09\x09do2: [ :event | self move: element onTheLeftCenteredOf: anotherElement ].",
+messageSends: ["move:onTheLeftCenteredOf:", "on:do2:"],
+referencedClasses: ["ROElementEvent"]
+}),
+smalltalk.ROConstraint.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "stick:onTheLeftOf:",
+category: 'public',
+fn: function (element,anotherElement){
+var self=this;
+function $ROElementEvent(){return smalltalk.ROElementEvent||(typeof ROElementEvent=="undefined"?nil:ROElementEvent)}
+return smalltalk.withContext(function($ctx1) { 
+self._move_onTheLeftOf_(element,anotherElement);
+_st(anotherElement)._on_do2_($ROElementEvent(),(function(event){
+return smalltalk.withContext(function($ctx2) {
+return self._move_onTheLeftOf_(element,anotherElement);
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"stick:onTheLeftOf:",{element:element,anotherElement:anotherElement},smalltalk.ROConstraint.klass)})},
+args: ["element", "anotherElement"],
+source: "stick: element onTheLeftOf: anotherElement\x0a\x09self move: element onTheLeftOf: anotherElement.\x0a\x09anotherElement\x0a\x09\x09on: ROElementEvent\x0a\x09\x09do2: [ :event | self move: element onTheLeftOf: anotherElement ].",
+messageSends: ["move:onTheLeftOf:", "on:do2:"],
+referencedClasses: ["ROElementEvent"]
+}),
+smalltalk.ROConstraint.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "stick:onTheRightCenteredOf:",
+category: 'public',
+fn: function (element,anotherElement){
+var self=this;
+function $ROElementEvent(){return smalltalk.ROElementEvent||(typeof ROElementEvent=="undefined"?nil:ROElementEvent)}
+return smalltalk.withContext(function($ctx1) { 
+self._move_onTheRightCenteredOf_(element,anotherElement);
+_st(anotherElement)._on_do2_($ROElementEvent(),(function(event){
+return smalltalk.withContext(function($ctx2) {
+return self._move_onTheRightCenteredOf_(element,anotherElement);
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"stick:onTheRightCenteredOf:",{element:element,anotherElement:anotherElement},smalltalk.ROConstraint.klass)})},
+args: ["element", "anotherElement"],
+source: "stick: element onTheRightCenteredOf: anotherElement\x0a\x09self move: element onTheRightCenteredOf: anotherElement.\x0a\x09anotherElement\x0a\x09\x09on: ROElementEvent\x0a\x09\x09do2: [ :event | self move: element onTheRightCenteredOf: anotherElement ].",
+messageSends: ["move:onTheRightCenteredOf:", "on:do2:"],
+referencedClasses: ["ROElementEvent"]
+}),
+smalltalk.ROConstraint.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "stick:onTheRightOf:",
+category: 'public',
+fn: function (element,anotherElement){
+var self=this;
+function $ROElementEvent(){return smalltalk.ROElementEvent||(typeof ROElementEvent=="undefined"?nil:ROElementEvent)}
+return smalltalk.withContext(function($ctx1) { 
+self._move_onTheRightOf_(element,anotherElement);
+_st(anotherElement)._on_do2_($ROElementEvent(),(function(event){
+return smalltalk.withContext(function($ctx2) {
+return self._move_onTheRightOf_(element,anotherElement);
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"stick:onTheRightOf:",{element:element,anotherElement:anotherElement},smalltalk.ROConstraint.klass)})},
+args: ["element", "anotherElement"],
+source: "stick: element onTheRightOf: anotherElement\x0a\x09self move: element onTheRightOf: anotherElement.\x0a\x09anotherElement\x0a\x09\x09on: ROElementEvent\x0a\x09\x09do2: [ :event | self move: element onTheRightOf: anotherElement ].",
+messageSends: ["move:onTheRightOf:", "on:do2:"],
+referencedClasses: ["ROElementEvent"]
+}),
+smalltalk.ROConstraint.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "stickAtBottomRightOfTheWindow:",
+category: 'public - window',
+fn: function (element){
+var self=this;
+function $ROWindowResized(){return smalltalk.ROWindowResized||(typeof ROWindowResized=="undefined"?nil:ROWindowResized)}
+return smalltalk.withContext(function($ctx1) { 
+self._moveAtBottomRightOfTheWindow_(element);
+_st(_st(element)._view())._on_do2_($ROWindowResized(),(function(event){
+return smalltalk.withContext(function($ctx2) {
+return self._moveAtBottomRightOfTheWindow_(element);
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"stickAtBottomRightOfTheWindow:",{element:element},smalltalk.ROConstraint.klass)})},
+args: ["element"],
+source: "stickAtBottomRightOfTheWindow: element \x0a\x09self moveAtBottomRightOfTheWindow: element.\x0a\x09element view\x0a\x09\x09on: ROWindowResized\x0a\x09\x09do2: [ :event | self moveAtBottomRightOfTheWindow: element ]",
+messageSends: ["moveAtBottomRightOfTheWindow:", "on:do2:", "view"],
+referencedClasses: ["ROWindowResized"]
+}),
+smalltalk.ROConstraint.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "stickAtCenterOfTheWindow:",
+category: 'public - window',
+fn: function (element){
+var self=this;
+function $ROWindowResized(){return smalltalk.ROWindowResized||(typeof ROWindowResized=="undefined"?nil:ROWindowResized)}
+return smalltalk.withContext(function($ctx1) { 
+self._moveAtCenterOfTheWindow_(element);
+_st(_st(element)._view())._on_do2_($ROWindowResized(),(function(event){
+return smalltalk.withContext(function($ctx2) {
+return self._moveAtCenterOfTheWindow_(element);
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"stickAtCenterOfTheWindow:",{element:element},smalltalk.ROConstraint.klass)})},
+args: ["element"],
+source: "stickAtCenterOfTheWindow: element \x0a\x09self moveAtCenterOfTheWindow: element.\x0a\x09element view\x0a\x09\x09on: ROWindowResized\x0a\x09\x09do2: [ :event | self moveAtCenterOfTheWindow: element ]",
+messageSends: ["moveAtCenterOfTheWindow:", "on:do2:", "view"],
+referencedClasses: ["ROWindowResized"]
+}),
+smalltalk.ROConstraint.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "stickAtTheBottomOfTheWindow:",
+category: 'public - window',
+fn: function (element){
+var self=this;
+function $ROWindowResized(){return smalltalk.ROWindowResized||(typeof ROWindowResized=="undefined"?nil:ROWindowResized)}
+return smalltalk.withContext(function($ctx1) { 
+self._moveAtTheBottomOfTheWindow_(element);
+_st(_st(element)._view())._on_do2_($ROWindowResized(),(function(event){
+return smalltalk.withContext(function($ctx2) {
+return self._moveAtTheBottomOfTheWindow_(element);
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"stickAtTheBottomOfTheWindow:",{element:element},smalltalk.ROConstraint.klass)})},
+args: ["element"],
+source: "stickAtTheBottomOfTheWindow: element \x0a\x09self moveAtTheBottomOfTheWindow: element.\x0a\x09element view\x0a\x09\x09on: ROWindowResized\x0a\x09\x09do2: [ :event | self moveAtTheBottomOfTheWindow: element ]",
+messageSends: ["moveAtTheBottomOfTheWindow:", "on:do2:", "view"],
+referencedClasses: ["ROWindowResized"]
+}),
+smalltalk.ROConstraint.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "stickAtTheTopRightOfTheWindow:",
+category: 'public - window',
+fn: function (element){
+var self=this;
+function $ROWindowResized(){return smalltalk.ROWindowResized||(typeof ROWindowResized=="undefined"?nil:ROWindowResized)}
+return smalltalk.withContext(function($ctx1) { 
+self._moveAtTheTopRightOfTheWindow_(element);
+_st(_st(element)._view())._on_do2_($ROWindowResized(),(function(event){
+return smalltalk.withContext(function($ctx2) {
+return self._moveAtTheTopRightOfTheWindow_(element);
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"stickAtTheTopRightOfTheWindow:",{element:element},smalltalk.ROConstraint.klass)})},
+args: ["element"],
+source: "stickAtTheTopRightOfTheWindow: element \x0a\x09self moveAtTheTopRightOfTheWindow: element.\x0a\x09element view\x0a\x09\x09on: ROWindowResized\x0a\x09\x09do2: [ :event | self moveAtTheTopRightOfTheWindow: element ]",
+messageSends: ["moveAtTheTopRightOfTheWindow:", "on:do2:", "view"],
+referencedClasses: ["ROWindowResized"]
+}),
+smalltalk.ROConstraint.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "stickToBottomLeft:",
+category: 'public - window',
+fn: function (element){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._stickToBottomLeft_offset_(element,(0));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"stickToBottomLeft:",{element:element},smalltalk.ROConstraint.klass)})},
+args: ["element"],
+source: "stickToBottomLeft: element \x0a\x09^ self stickToBottomLeft: element offset: 0",
+messageSends: ["stickToBottomLeft:offset:"],
+referencedClasses: []
+}),
+smalltalk.ROConstraint.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "stickToBottomLeft:offset:",
+category: 'public - window',
+fn: function (element,aNumber){
+var self=this;
+function $ROWindowResized(){return smalltalk.ROWindowResized||(typeof ROWindowResized=="undefined"?nil:ROWindowResized)}
+return smalltalk.withContext(function($ctx1) { 
+_st(element)._translateTo_(_st(_st(_st(aNumber).__at(_st(_st(_st(_st(element)._view())._camera())._windowSize())._y())).__minus(_st(element)._height())).__minus(aNumber));
+_st(_st(element)._view())._on_do2_($ROWindowResized(),(function(event){
+return smalltalk.withContext(function($ctx2) {
+return _st(element)._translateTo_(_st(aNumber).__at(_st(_st(_st(_st(event)._extent())._y()).__minus(_st(element)._height())).__minus(aNumber)));
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"stickToBottomLeft:offset:",{element:element,aNumber:aNumber},smalltalk.ROConstraint.klass)})},
+args: ["element", "aNumber"],
+source: "stickToBottomLeft: element offset: aNumber\x0a\x09element translateTo: (aNumber @ element view camera windowSize y - element height - aNumber).\x0a\x09element view\x0a\x09\x09on: ROWindowResized\x0a\x09\x09do2: [ :event | element translateTo: (aNumber @ (event extent y - element height - aNumber)) ].",
+messageSends: ["translateTo:", "-", "height", "@", "y", "windowSize", "camera", "view", "on:do2:", "extent"],
+referencedClasses: ["ROWindowResized"]
+}),
+smalltalk.ROConstraint.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "stickToTopRight:",
+category: 'public - window',
+fn: function (element){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._stickToTopRight_offset_(element,(0));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"stickToTopRight:",{element:element},smalltalk.ROConstraint.klass)})},
+args: ["element"],
+source: "stickToTopRight: element\x0a\x09^ self stickToTopRight: element offset: 0",
+messageSends: ["stickToTopRight:offset:"],
+referencedClasses: []
+}),
+smalltalk.ROConstraint.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "stickToTopRight:offset:",
+category: 'public - window',
+fn: function (element,aNumber){
+var self=this;
+function $ROWindowResized(){return smalltalk.ROWindowResized||(typeof ROWindowResized=="undefined"?nil:ROWindowResized)}
+return smalltalk.withContext(function($ctx1) { 
+_st(element)._translateTo_(_st(_st(_st(_st(_st(_st(_st(element)._view())._camera())._windowSize())._x()).__minus(_st(element)._width())).__minus(aNumber)).__at(aNumber));
+_st(_st(element)._view())._on_do2_($ROWindowResized(),(function(event){
+return smalltalk.withContext(function($ctx2) {
+return _st(element)._translateTo_(_st(_st(_st(_st(_st(event)._extent())._x()).__minus(_st(element)._width())).__minus(aNumber)).__at(aNumber));
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"stickToTopRight:offset:",{element:element,aNumber:aNumber},smalltalk.ROConstraint.klass)})},
+args: ["element", "aNumber"],
+source: "stickToTopRight: element offset: aNumber\x0a\x09element translateTo: ((element view camera windowSize x - element width) - aNumber @ aNumber).\x0a\x09element view\x0a\x09\x09on: ROWindowResized\x0a\x09\x09do2: [ :event | element translateTo:  ((event extent x - element width) - aNumber @ aNumber)].",
+messageSends: ["translateTo:", "@", "-", "width", "x", "windowSize", "camera", "view", "on:do2:", "extent"],
+referencedClasses: ["ROWindowResized"]
+}),
+smalltalk.ROConstraint.klass);
+
+
+smalltalk.addClass('ROContainer', smalltalk.ROObject, ['elements', 'attributes', 'eventHandler', 'interactions'], 'ARoassal');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "allElementsDo:",
+category: 'as yet unclassified',
+fn: function (aBlockOrSymbol){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._elementsDo_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each)._withAllElementsDo_(aBlockOrSymbol);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"allElementsDo:",{aBlockOrSymbol:aBlockOrSymbol},smalltalk.ROContainer)})},
+args: ["aBlockOrSymbol"],
+source: "allElementsDo: aBlockOrSymbol\x0a\x09\x22Recursively perform an action for each elements.\x22\x0a\x09self elementsDo: [ :each | each withAllElementsDo: aBlockOrSymbol ]",
+messageSends: ["elementsDo:", "withAllElementsDo:"],
+referencedClasses: []
+}),
+smalltalk.ROContainer);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "announce:",
+category: 'as yet unclassified',
+fn: function (anEvent){
+var self=this;
+var eventToBeSent;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(anEvent)._isBehavior();
+if(smalltalk.assert($1)){
+eventToBeSent=_st(anEvent)._new();
+} else {
+eventToBeSent=anEvent;
+};
+_st(eventToBeSent)._element_(self);
+_st(self["@eventHandler"])._announce_(eventToBeSent);
+return self}, function($ctx1) {$ctx1.fill(self,"announce:",{anEvent:anEvent,eventToBeSent:eventToBeSent},smalltalk.ROContainer)})},
+args: ["anEvent"],
+source: "announce: anEvent\x0a\x09\x22trigger an event. Objects who registered to me will get notified\x22\x0a\x0a\x09| eventToBeSent |\x0a\x09eventToBeSent := anEvent isBehavior \x0a\x09\x09\x09\x09\x09\x09ifTrue: [ anEvent new ]\x0a\x09\x09\x09\x09\x09\x09ifFalse: [ anEvent ]. \x0a\x09\x0a\x09eventToBeSent element: self.\x0a\x09eventHandler announce: eventToBeSent",
+messageSends: ["ifTrue:ifFalse:", "new", "isBehavior", "element:", "announce:"],
+referencedClasses: []
+}),
+smalltalk.ROContainer);
+
 smalltalk.addMethod(
 smalltalk.method({
 selector: "elementFromModel:",
@@ -689,25 +1309,120 @@ smalltalk.ROContainer);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "forward:",
+category: 'as yet unclassified',
+fn: function (obj){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@eventHandler"])._forward_(obj);
+return self}, function($ctx1) {$ctx1.fill(self,"forward:",{obj:obj},smalltalk.ROContainer)})},
+args: ["obj"],
+source: "forward: obj\x0a\x09eventHandler forward: obj",
+messageSends: ["forward:"],
+referencedClasses: []
+}),
+smalltalk.ROContainer);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "initialize",
 category: 'as yet unclassified',
 fn: function (){
 var self=this;
 function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
+function $ROAnnouncer(){return smalltalk.ROAnnouncer||(typeof ROAnnouncer=="undefined"?nil:ROAnnouncer)}
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.ROContainer.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@elements"]=_st($OrderedCollection())._new();
+self["@eventHandler"]=_st($ROAnnouncer())._new();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROContainer)})},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09elements := OrderedCollection new.\x0a\x09",
+source: "initialize\x0a\x09super initialize.\x0a\x09elements := OrderedCollection new.\x0a\x09eventHandler := ROAnnouncer new.\x0a\x09",
 messageSends: ["initialize", "new"],
-referencedClasses: ["OrderedCollection"]
+referencedClasses: ["OrderedCollection", "ROAnnouncer"]
+}),
+smalltalk.ROContainer);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "on:do2:",
+category: 'as yet unclassified',
+fn: function (eventClass,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@interactions"])._at_put_(eventClass,aBlock);
+return self}, function($ctx1) {$ctx1.fill(self,"on:do2:",{eventClass:eventClass,aBlock:aBlock},smalltalk.ROContainer)})},
+args: ["eventClass", "aBlock"],
+source: "on: eventClass do2: aBlock\x0a\x09\x22Register a block as an handler for eventClass\x22\x0a\x09\x0a\x0a\x09\x22eventHandler on: eventClass do: aBlock.\x22\x0a\x09interactions at: eventClass put: aBlock",
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.ROContainer);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "on:do:",
+category: 'as yet unclassified',
+fn: function (eventClass,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@eventHandler"])._on_do_(eventClass,aBlock);
+return self}, function($ctx1) {$ctx1.fill(self,"on:do:",{eventClass:eventClass,aBlock:aBlock},smalltalk.ROContainer)})},
+args: ["eventClass", "aBlock"],
+source: "on: eventClass do: aBlock\x0a\x09\x22Register a block as an handler for eventClass\x22\x0a\x09\x0a\x0a\x09eventHandler on: eventClass do: aBlock.\x0a\x09\x22interactions at: eventClass put: aBlock\x22",
+messageSends: ["on:do:"],
+referencedClasses: []
+}),
+smalltalk.ROContainer);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "on:doOnce:",
+category: 'as yet unclassified',
+fn: function (eventClass,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@eventHandler"])._on_do_(eventClass,(function(arg){
+return smalltalk.withContext(function($ctx2) {
+_st(aBlock)._value_(arg);
+return _st(self["@eventHandler"])._unsubscribeForEvent_(eventClass);
+}, function($ctx2) {$ctx2.fillBlock({arg:arg},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"on:doOnce:",{eventClass:eventClass,aBlock:aBlock},smalltalk.ROContainer)})},
+args: ["eventClass", "aBlock"],
+source: "on: eventClass doOnce: aBlock\x0a\x09\x22Register a block as an handler for eventClass. The callback is removed when exected\x22\x0a\x09\x0a\x09eventHandler on: eventClass do: [ :arg | \x0a\x09\x09aBlock value: arg.\x0a\x09\x09eventHandler unsubscribeForEvent: eventClass.\x0a\x09\x09\x22self removeInteraction: eventClass \x22]",
+messageSends: ["on:do:", "value:", "unsubscribeForEvent:"],
+referencedClasses: []
+}),
+smalltalk.ROContainer);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "removeInteraction:",
+category: 'as yet unclassified',
+fn: function (anInteractionClass){
+var self=this;
+var ds;
+return smalltalk.withContext(function($ctx1) { 
+ds=_st(self["@interactions"])._select_((function(d){
+return smalltalk.withContext(function($ctx2) {
+return _st(d)._isKindOf_(anInteractionClass);
+}, function($ctx2) {$ctx2.fillBlock({d:d},$ctx1)})}));
+_st(ds)._associationsDo_((function(assoc){
+return smalltalk.withContext(function($ctx2) {
+_st(self["@interactions"])._removeKey_(_st(assoc)._key());
+return _st(self["@eventHandler"])._unsubscribe_(_st(assoc)._value());
+}, function($ctx2) {$ctx2.fillBlock({assoc:assoc},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"removeInteraction:",{anInteractionClass:anInteractionClass,ds:ds},smalltalk.ROContainer)})},
+args: ["anInteractionClass"],
+source: "removeInteraction: anInteractionClass\x0a\x09\x22Remove an interaction from the receiver. No error is raised if no interaction is found\x22\x0a\x09\x0a\x09| ds |\x0a\x09ds := interactions select: [ :d | d isKindOf: anInteractionClass ].\x0a\x09ds associationsDo: [ :assoc | \x0a\x09\x09interactions removeKey: assoc key.\x0a\x09\x09eventHandler unsubscribe: assoc value ].",
+messageSends: ["select:", "isKindOf:", "associationsDo:", "removeKey:", "key", "unsubscribe:", "value"],
+referencedClasses: []
 }),
 smalltalk.ROContainer);
 
 
 
-smalltalk.addClass('ROAbstractComponent', smalltalk.ROContainer, ['model', 'view', 'interactions', 'shape', 'eventHandler'], 'ARoassal');
+smalltalk.addClass('ROAbstractComponent', smalltalk.ROContainer, ['model', 'view', 'shape'], 'ARoassal');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "+",
@@ -835,17 +1550,15 @@ selector: "initialize",
 category: 'as yet unclassified',
 fn: function (){
 var self=this;
-function $ROAnnouncer(){return smalltalk.ROAnnouncer||(typeof ROAnnouncer=="undefined"?nil:ROAnnouncer)}
 function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.ROAbstractComponent.superclass.fn.prototype._initialize.apply(_st(self), []);
-self["@eventHandler"]=_st($ROAnnouncer())._new();
 self["@view"]=_st($ROView())._nullView();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROAbstractComponent)})},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x22\x09parent := ROView nullView.\x22\x0a\x09\x0a\x09eventHandler := ROAnnouncer new.\x0a\x09view := ROView nullView.\x0a\x09\x0a\x09\x22Actually, I am not sure we need to have a variable interactions\x22\x0a\x22\x09interactions := IdentityDictionary new.\x0a\x0a\x09zIndex := 0\x0a\x22",
-messageSends: ["initialize", "new", "nullView"],
-referencedClasses: ["ROAnnouncer", "ROView"]
+source: "initialize\x0a\x09super initialize.\x0a\x22\x09parent := ROView nullView.\x22\x0a\x09\x0a\x09view := ROView nullView.\x0a\x09\x0a\x09\x22Actually, I am not sure we need to have a variable interactions\x22\x0a\x22\x09interactions := IdentityDictionary new.\x0a\x0a\x09zIndex := 0\x0a\x22",
+messageSends: ["initialize", "nullView"],
+referencedClasses: ["ROView"]
 }),
 smalltalk.ROAbstractComponent);
 
@@ -991,6 +1704,23 @@ smalltalk.ROAbstractComponent);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "remove",
+category: 'as yet unclassified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._shape())._remove();
+_st(self._view())._remove_(self);
+return self}, function($ctx1) {$ctx1.fill(self,"remove",{},smalltalk.ROAbstractComponent)})},
+args: [],
+source: "remove\x0a\x09\x22Remove myself from the view I belong to (if I actually belong to the view, else do nothing) and from my parent.\x22\x0a\x0a\x09\x22self removeFromParent.\x22\x0a\x09\x22self view removeElementToRender: self.\x09\x22\x22We remove all the subelements\x22\x0a\x09self shape remove.\x0a\x09self view remove: self.\x0a\x09\x22self allElementsDo: #remove\x22",
+messageSends: ["remove", "shape", "remove:", "view"],
+referencedClasses: []
+}),
+smalltalk.ROAbstractComponent);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "removeInteraction:",
 category: 'events',
 fn: function (anInteractionClass){
@@ -1080,6 +1810,23 @@ return self}, function($ctx1) {$ctx1.fill(self,"view:",{aView:aView},smalltalk.R
 args: ["aView"],
 source: "view: aView\x0a\x09\x22Set the view in which I am defined. All my elements should also belong to the same view\x22\x0a\x09view := aView.",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROAbstractComponent);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "withAllElementsDo:",
+category: 'as yet unclassified',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(aBlock)._value_(self);
+self._allElementsDo_(aBlock);
+return self}, function($ctx1) {$ctx1.fill(self,"withAllElementsDo:",{aBlock:aBlock},smalltalk.ROAbstractComponent)})},
+args: ["aBlock"],
+source: "withAllElementsDo: aBlock\x0a\x09aBlock value: self.\x0a\x09self allElementsDo: aBlock",
+messageSends: ["value:", "allElementsDo:"],
 referencedClasses: []
 }),
 smalltalk.ROAbstractComponent);
@@ -1567,6 +2314,68 @@ args: ["anInteractionClassOrInstance"],
 source: "addInteraction: anInteractionClassOrInstance\x0a\x09\x22Add an interaction to the node\x22\x0a\x09\x0a\x09interactions at: anInteractionClassOrInstance key put: [anInteractionClassOrInstance initializeElement: self]",
 messageSends: ["at:put:", "key", "initializeElement:"],
 referencedClasses: []
+}),
+smalltalk.ROElement);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "allEdgesFrom",
+category: 'accessing',
+fn: function (){
+var self=this;
+var edges;
+function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+edges=_st($OrderedCollection())._new();
+_st(self._view())._allElementsDo_((function(edge){
+return smalltalk.withContext(function($ctx2) {
+$1=_st(_st(edge)._isEdge())._and_((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(_st(edge)._from()).__eq_eq(self);
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
+if(smalltalk.assert($1)){
+return _st(edges)._add_(edge);
+};
+}, function($ctx2) {$ctx2.fillBlock({edge:edge},$ctx1)})}));
+$2=edges;
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"allEdgesFrom",{edges:edges},smalltalk.ROElement)})},
+args: [],
+source: "allEdgesFrom\x0a\x09\x22Return all the edges that begins from me\x22\x0a\x09| edges |\x0a\x09edges := OrderedCollection new.\x0a\x09self view allElementsDo:  [ :edge | \x0a\x09\x09(edge isEdge and: [ edge from == self ]) \x0a\x09\x09\x09ifTrue: [ edges add: edge ] ].\x0a\x09^ edges",
+messageSends: ["new", "allElementsDo:", "ifTrue:", "add:", "and:", "==", "from", "isEdge", "view"],
+referencedClasses: ["OrderedCollection"]
+}),
+smalltalk.ROElement);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "allEdgesTo",
+category: 'accessing',
+fn: function (){
+var self=this;
+var edges;
+function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+edges=_st($OrderedCollection())._new();
+_st(self._view())._allElementsDo_((function(edge){
+return smalltalk.withContext(function($ctx2) {
+$1=_st(_st(edge)._isEdge())._and_((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(_st(edge)._to()).__eq_eq(self);
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
+if(smalltalk.assert($1)){
+return _st(edges)._add_(edge);
+};
+}, function($ctx2) {$ctx2.fillBlock({edge:edge},$ctx1)})}));
+$2=edges;
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"allEdgesTo",{edges:edges},smalltalk.ROElement)})},
+args: [],
+source: "allEdgesTo\x0a\x09\x22Return all the edges that ends to me\x22\x0a\x09| edges |\x0a\x09edges := OrderedCollection new.\x0a\x09self view allElementsDo:  [ :edge | \x0a\x09\x09(edge isEdge and: [ edge to == self ]) \x0a\x09\x09\x09ifTrue: [ edges add: edge ] ].\x0a\x09^ edges",
+messageSends: ["new", "allElementsDo:", "ifTrue:", "add:", "and:", "==", "to", "isEdge", "view"],
+referencedClasses: ["OrderedCollection"]
 }),
 smalltalk.ROElement);
 
@@ -2265,12 +3074,14 @@ category: 'accessing',
 fn: function (element){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(element)._removeShape();
-_st(self["@elements"])._remove_(element);
+_st(self["@elements"])._remove_ifAbsent_(element,(function(){
+return smalltalk.withContext(function($ctx2) {
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+self._signalUpdate();
 return self}, function($ctx1) {$ctx1.fill(self,"remove:",{element:element},smalltalk.ROView)})},
 args: ["element"],
-source: "remove: element\x0a\x09\x22Remove the element from myself. However, the element is not removed from the visualization. Send #remove to element to actually remove it.\x22\x0a\x09element removeShape.\x0a\x09elements remove: element",
-messageSends: ["removeShape", "remove:"],
+source: "remove: element\x0a\x09\x22Remove the element from myself. However, the element is not removed from the visualization. Send #remove to element to actually remove it.\x22\x0a\x09\x22element removeShape.\x22\x0a\x09elements remove: element ifAbsent: [].\x0a\x09self signalUpdate.",
+messageSends: ["remove:ifAbsent:", "signalUpdate"],
 referencedClasses: []
 }),
 smalltalk.ROView);
@@ -2735,16 +3546,36 @@ smalltalk.ROShape);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "remove",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._removeSVGElement();
+return self}, function($ctx1) {$ctx1.fill(self,"remove",{},smalltalk.ROShape)})},
+args: [],
+source: "remove\x0a\x09self removeSVGElement.",
+messageSends: ["removeSVGElement"],
+referencedClasses: []
+}),
+smalltalk.ROShape);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "removeSVGElement",
 category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@svgElement"]).__eq(nil);
+if(! smalltalk.assert($1)){
 _st(self["@svgElement"])._remove();
+};
 return self}, function($ctx1) {$ctx1.fill(self,"removeSVGElement",{},smalltalk.ROShape)})},
 args: [],
-source: "removeSVGElement\x0a\x09svgElement remove.",
-messageSends: ["remove"],
+source: "removeSVGElement\x0a\x09svgElement = nil ifFalse:[ svgElement remove]",
+messageSends: ["ifFalse:", "remove", "="],
 referencedClasses: []
 }),
 smalltalk.ROShape);
@@ -3309,6 +4140,117 @@ smalltalk.ROLine);
 
 
 
+smalltalk.addClass('ROBSplineLine', smalltalk.ROLine, ['controlElements'], 'ARoassal');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "addControlElement:",
+category: 'not yet classified',
+fn: function (anElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._controlElements())._add_(anElement);
+return self}, function($ctx1) {$ctx1.fill(self,"addControlElement:",{anElement:anElement},smalltalk.ROBSplineLine)})},
+args: ["anElement"],
+source: "addControlElement: anElement\x0a\x09self controlElements add: anElement",
+messageSends: ["add:", "controlElements"],
+referencedClasses: []
+}),
+smalltalk.ROBSplineLine);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "controlElements",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@controlElements"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"controlElements",{},smalltalk.ROBSplineLine)})},
+args: [],
+source: "controlElements\x0a\x09^controlElements",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROBSplineLine);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
+return smalltalk.withContext(function($ctx1) { 
+self["@controlElements"]=_st($OrderedCollection())._new();
+smalltalk.ROBSplineLine.superclass.fn.prototype._initialize.apply(_st(self), []);
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROBSplineLine)})},
+args: [],
+source: "initialize\x0a\x09controlElements := OrderedCollection new.\x0a\x09super initialize.",
+messageSends: ["new", "initialize"],
+referencedClasses: ["OrderedCollection"]
+}),
+smalltalk.ROBSplineLine);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initializeSVGElementOn:for:",
+category: 'not yet classified',
+fn: function (canvas,anEdge){
+var self=this;
+var startPoint,endPoint,x1,y1,xn,yn,mid,p;
+return smalltalk.withContext(function($ctx1) { 
+endPoint=_st(self["@attachPoint"])._startingPointOf_(anEdge);
+startPoint=_st(self["@attachPoint"])._endingPointOf_(anEdge);
+x1=_st(startPoint)._x();
+y1=_st(startPoint)._y();
+xn=_st(endPoint)._x();
+yn=_st(endPoint)._y();
+p="";
+_st(self["@controlElements"])._do_((function(e){
+return smalltalk.withContext(function($ctx2) {
+p=_st(_st(_st(_st(p).__comma(_st(_st(_st(e)._position())._x())._asString())).__comma(" ")).__comma(_st(_st(_st(e)._position())._y())._asString())).__comma(" ");
+return p;
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+p=_st(_st(_st(_st(_st(_st(_st("M".__comma(x1)).__comma(" ")).__comma(y1)).__comma("C")).__comma(p)).__comma(xn)).__comma(" ")).__comma(yn);
+self["@svgElement"]=_st(canvas)._path_(p);
+return self}, function($ctx1) {$ctx1.fill(self,"initializeSVGElementOn:for:",{canvas:canvas,anEdge:anEdge,startPoint:startPoint,endPoint:endPoint,x1:x1,y1:y1,xn:xn,yn:yn,mid:mid,p:p},smalltalk.ROBSplineLine)})},
+args: ["canvas", "anEdge"],
+source: "initializeSVGElementOn: canvas for: anEdge\x0a\x09|startPoint  endPoint x1 y1 xn yn mid p|\x0a\x09endPoint  := attachPoint startingPointOf: anEdge.\x0a\x09startPoint := attachPoint endingPointOf: anEdge.\x0a\x09x1 := startPoint x.\x0a\x09y1 := startPoint y.\x0a\x09xn := endPoint x.\x0a\x09yn := endPoint y.\x0a\x09p :=''.\x0a\x09controlElements do: [ :e | p:= p,(e position x asString), ' ', (e position y asString),' ' ].\x0a\x09p :=  'M', x1,' ', y1, 'C', p, xn, ' ', yn.\x0a\x09svgElement := canvas path: p",
+messageSends: ["startingPointOf:", "endingPointOf:", "x", "y", "do:", ",", "asString", "position", "path:"],
+referencedClasses: []
+}),
+smalltalk.ROBSplineLine);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "updateSVGElementOn:for:",
+category: 'not yet classified',
+fn: function (canvas,anEdge){
+var self=this;
+var rawStartingPoint,rawEndingPoint;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+rawStartingPoint=_st(self["@attachPoint"])._startingPointOf_(anEdge);
+rawEndingPoint=_st(self["@attachPoint"])._endingPointOf_(anEdge);
+$1=_st(rawStartingPoint).__eq(rawEndingPoint);
+if(smalltalk.assert($1)){
+$2=self;
+return $2;
+};
+_st(self["@svgElement"])._attr_value_("stroke-width",self._width());
+_st(self["@svgElement"])._attr_value_("stroke",self._rgbColor());
+return self}, function($ctx1) {$ctx1.fill(self,"updateSVGElementOn:for:",{canvas:canvas,anEdge:anEdge,rawStartingPoint:rawStartingPoint,rawEndingPoint:rawEndingPoint},smalltalk.ROBSplineLine)})},
+args: ["canvas", "anEdge"],
+source: "updateSVGElementOn: canvas for: anEdge\x0a\x09| \x22maxArrowSize unit startingPoint endingPoint\x22 rawStartingPoint rawEndingPoint |\x0a\x09rawStartingPoint  := attachPoint startingPointOf: anEdge.\x0a\x09rawEndingPoint := attachPoint endingPointOf: anEdge.\x0a\x0a\x09(rawStartingPoint = rawEndingPoint)\x0a\x09\x09ifTrue: [ ^ self ].\x0a\x09\x22svgElement attr: 'path' with: 'M', ( rawEndingPoint x asInteger),' ',  (rawEndingPoint y asInteger), 'L', ( rawStartingPoint x asInteger), ' ', ( rawStartingPoint y asInteger) .\x22\x0a\x09svgElement attr: 'stroke-width' value: (self width).\x0a\x09svgElement attr: 'stroke' value: (self rgbColor).",
+messageSends: ["startingPointOf:", "endingPointOf:", "ifTrue:", "=", "attr:value:", "width", "rgbColor"],
+referencedClasses: []
+}),
+smalltalk.ROBSplineLine);
+
+
+
 smalltalk.addClass('ROAbstractPathShape', smalltalk.ROShape, ['svgRect', 'svgPath'], 'ARoassal');
 smalltalk.addMethod(
 smalltalk.method({
@@ -3429,11 +4371,11 @@ category: 'not yet classified',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self["@svgElement"])._clear();
+_st(self["@svgElement"])._remove();
 return self}, function($ctx1) {$ctx1.fill(self,"removeSVGElement",{},smalltalk.ROAbstractPathShape)})},
 args: [],
-source: "removeSVGElement\x0a\x09svgElement clear.",
-messageSends: ["clear"],
+source: "removeSVGElement\x0a\x09\x22svgElement clear.\x22\x0a\x09svgElement remove",
+messageSends: ["remove"],
 referencedClasses: []
 }),
 smalltalk.ROAbstractPathShape);
@@ -3678,6 +4620,21 @@ return self}, function($ctx1) {$ctx1.fill(self,"centeringPath:into:with:",{svgPa
 args: ["svgPath", "svgRect", "anElement"],
 source: "centeringPath: svgPath into: svgRect  with: anElement\x0a\x09svgPath attr: 'x' value: ((svgRect attr: 'width') / 2) asInteger.\x0a\x09svgPath attr: 'y' value: ((svgRect attr: 'height') / 2) asInteger.\x0a\x09svgPath  attr: 'text-anchor' value: 'middle'.\x0a\x0a\x09",
 messageSends: ["attr:value:", "asInteger", "/", "attr:"],
+referencedClasses: []
+}),
+smalltalk.ROLabel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "fontSize:",
+category: 'not yet classified',
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"fontSize:",{aNumber:aNumber},smalltalk.ROLabel)})},
+args: ["aNumber"],
+source: "fontSize: aNumber",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.ROLabel);
