@@ -12,7 +12,7 @@ $1=self;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"elementToBeAdded",{},smalltalk.ROInteraction)})},
 args: [],
-source: "elementToBeAdded\x0a\x09^ self ",
+source: "elementToBeAdded\x0a\x09^ self",
 messageSends: [],
 referencedClasses: []
 }),
@@ -28,7 +28,7 @@ return smalltalk.withContext(function($ctx1) {
 self._subclassResponsibility();
 return self}, function($ctx1) {$ctx1.fill(self,"initializeElement:",{element:element},smalltalk.ROInteraction)})},
 args: ["element"],
-source: "initializeElement: element\x0a\x09self subclassResponsibility ",
+source: "initializeElement: element\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
@@ -65,7 +65,7 @@ $1=self._new();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"elementToBeAdded",{},smalltalk.ROInteraction.klass)})},
 args: [],
-source: "elementToBeAdded\x0a\x09^ self new ",
+source: "elementToBeAdded\x0a\x09^ self new",
 messageSends: ["new"],
 referencedClasses: []
 }),
@@ -104,7 +104,7 @@ $1=self;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.ROInteraction.klass)})},
 args: [],
-source: "key \x0a\x09\x22Used in the dictionary each element has\x22\x0a\x0a\x09^ self ",
+source: "key \x0a\x09\x22Used in the dictionary each element has\x22\x0a\x0a\x09^ self",
 messageSends: [],
 referencedClasses: []
 }),
@@ -259,7 +259,7 @@ return _st(_st(_st(evt)._element())._view())._signalUpdate();
 }, function($ctx2) {$ctx2.fillBlock({evt:evt},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"initializeElement:",{element:element},smalltalk.ROHighlight)})},
 args: ["element"],
-source: "initializeElement: element\x0a\x0a\x09element on: ROMouseEnter do: [:evt | evt element color: (self color). evt element view signalUpdate].\x0a\x09element on: ROMouseLeave do: [:evt | evt element color: (element shape class defaultColor). evt element view signalUpdate].",
+source: "initializeElement: element\x0a\x0a\x09element \x0a\x09\x09on:  ROMouseEnter \x0a\x09\x09do: [:evt | \x0a\x09\x09\x09\x09\x09evt element color: (self color). \x0a\x09\x09\x09\x09\x09evt element view signalUpdate\x0a\x09].\x0a\x09\x0a\x09element \x0a\x09\x09on: ROMouseLeave \x0a\x09\x09do: [:evt | \x0a\x09\x09\x09\x09\x09evt element color: (element shape class defaultColor). \x0a\x09\x09\x09\x09\x09evt element view signalUpdate\x0a\x09].",
 messageSends: ["on:do:", "color:", "color", "element", "signalUpdate", "view", "defaultColor", "class", "shape"],
 referencedClasses: ["ROMouseEnter", "ROMouseLeave"]
 }),
@@ -343,6 +343,7 @@ smalltalk.ROHoverable);
 
 
 smalltalk.addClass('ROPopup', smalltalk.ROInteraction, ['text'], 'ARoassal-Interaction');
+smalltalk.ROPopup.comment="OLD ROPopup";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "createElementFor:",
@@ -436,7 +437,7 @@ return _st(popupElement)._hide();
 }, function($ctx2) {$ctx2.fillBlock({evt:evt},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"initializeElement:",{element:element,popupElement:popupElement},smalltalk.ROPopup)})},
 args: ["element"],
-source: "initializeElement: element\x0a\x09|  popupElement     |\x0a\x09\x0a\x09popupElement := self createPopupFor: element.\x0a\x09\x0a\x09popupElement signalUpdate.\x0a\x09popupElement hide.\x0a\x0a\x09\x0a\x09element on: ROMouseEnter \x0a\x09\x09do: [ :evt |\x0a\x0a\x09\x09\x09popupElement translateTo: evt position.\x0a\x09\x09\x09popupElement signalUpdate.\x0a\x0a\x09\x09\x09popupElement show.\x0a\x0a\x09].\x0a\x09element on: ROMouseLeave \x0a\x09\x09do: [:evt |\x0a\x09\x09popupElement hide.\x0a\x09].\x0a\x09\x09\x09\x0a\x09element on: ROMouseDragging \x0a\x09\x09do: [ :evt | \x0a\x0a\x09\x09\x09popupElement hide.\x09\x09\x0a\x09].\x09\x0a\x0a\x09element on: ROMouseDragged \x0a\x09\x09do: [ :evt | \x0a\x09\x09\x09popupElement hide.\x09\x09\x0a\x09].\x09",
+source: "initializeElement: element\x0a\x09|  popupElement     |\x0a\x09\x0a\x09popupElement := self createPopupFor: element.\x0a\x09\x0a\x09popupElement signalUpdate.\x0a\x09popupElement hide.\x0a\x0a\x09\x0a\x09element on: ROMouseEnter \x0a\x09\x09do: [ :evt |\x0a\x0a\x09\x09\x09popupElement translateTo: evt position.\x0a\x09\x09\x09popupElement signalUpdate.\x0a\x0a\x09\x09\x09popupElement show.\x0a\x0a\x09].\x0a\x09element on: ROMouseLeave \x0a\x09\x09do: [:evt |\x0a\x09\x09popupElement hide.\x0a\x09].\x0a\x09\x09\x09\x0a\x09element on: ROMouseDragging \x0a\x09\x09do: [ :evt | \x0a\x0a\x09\x09\x09popupElement hide.\x09\x09\x0a\x09].\x09\x0a\x0a\x09element on: ROMouseDragged \x0a\x09\x09do: [ :evt | \x0a\x09\x09\x09popupElement hide.\x09\x09\x0a\x09].",
 messageSends: ["createPopupFor:", "signalUpdate", "hide", "on:do:", "translateTo:", "position", "show"],
 referencedClasses: ["ROMouseEnter", "ROMouseLeave", "ROMouseDragging", "ROMouseDragged"]
 }),
@@ -470,7 +471,7 @@ return smalltalk.withContext(function($ctx1) {
 self["@text"]=textBlock;
 return self}, function($ctx1) {$ctx1.fill(self,"text:",{textBlock:textBlock},smalltalk.ROPopup)})},
 args: ["textBlock"],
-source: "text: textBlock\x0a\x09text := textBlock ",
+source: "text: textBlock\x0a\x09text := textBlock",
 messageSends: [],
 referencedClasses: []
 }),
