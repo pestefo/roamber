@@ -418,20 +418,20 @@ selector: "noPopup",
 category: 'as yet unclassified',
 fn: function (){
 var self=this;
-function $ROAbstractPopup(){return smalltalk.ROAbstractPopup||(typeof ROAbstractPopup=="undefined"?nil:ROAbstractPopup)}
+function $ROPopup(){return smalltalk.ROPopup||(typeof ROPopup=="undefined"?nil:ROPopup)}
 return smalltalk.withContext(function($ctx1) { 
 _st(self["@selfDefinedInteraction"])._add_((function(listOfElements){
 return smalltalk.withContext(function($ctx2) {
 return _st(listOfElements)._do_((function(element){
 return smalltalk.withContext(function($ctx3) {
-return _st(element)._removeInteraction_($ROAbstractPopup());
+return _st(element)._removeInteraction_($ROPopup());
 }, function($ctx3) {$ctx3.fillBlock({element:element},$ctx2)})}));
 }, function($ctx2) {$ctx2.fillBlock({listOfElements:listOfElements},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"noPopup",{},smalltalk.ROInteractionBuilder)})},
 args: [],
-source: "noPopup \x0a\x0a\x09selfDefinedInteraction add: [ :listOfElements | \x0a\x09\x09listOfElements do: [ :element | element removeInteraction: ROAbstractPopup ] ].",
+source: "noPopup \x0a\x0a\x09selfDefinedInteraction add: [ :listOfElements | \x0a\x09\x09listOfElements do: [ :element | element removeInteraction: ROPopup ] ].",
 messageSends: ["add:", "do:", "removeInteraction:"],
-referencedClasses: ["ROAbstractPopup"]
+referencedClasses: ["ROPopup"]
 }),
 smalltalk.ROInteractionBuilder);
 
@@ -506,7 +506,6 @@ fn: function (aBlockOrSelector){
 var self=this;
 function $ROPopup(){return smalltalk.ROPopup||(typeof ROPopup=="undefined"?nil:ROPopup)}
 function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
-function $ROAbstractPopup(){return smalltalk.ROAbstractPopup||(typeof ROAbstractPopup=="undefined"?nil:ROAbstractPopup)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=_st(self["@selfDefinedInteraction"])._add_((function(element){
@@ -515,14 +514,14 @@ return smalltalk.withContext(function($ctx2) {
 int=_st($ROPopup())._text_(aBlockOrSelector);
 int;
 _st(int)._textColor_(_st($Color())._black());
-return _st(element)._changeInteraction_for_($ROAbstractPopup(),int);
+return _st(element)._changeInteraction_for_($ROPopup(),int);
 }, function($ctx2) {$ctx2.fillBlock({element:element,int:int},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"popupText:",{aBlockOrSelector:aBlockOrSelector},smalltalk.ROInteractionBuilder)})},
 args: ["aBlockOrSelector"],
-source: "popupText: aBlockOrSelector\x0a\x0a\x09^ selfDefinedInteraction add: [ :element | \x0a\x09\x09\x09| int |\x0a\x09\x09\x09int := ROPopup text: aBlockOrSelector.\x0a\x09\x09\x09int textColor: Color black.\x0a\x09\x09\x09element changeInteraction: ROAbstractPopup for: int.\x0a\x09\x09\x09 ]",
+source: "popupText: aBlockOrSelector\x0a\x0a\x09^ selfDefinedInteraction add: [ :element | \x0a\x09\x09\x09| int |\x0a\x09\x09\x09int := ROPopup text: aBlockOrSelector.\x0a\x09\x09\x09int textColor: Color black.\x0a\x09\x09\x09element changeInteraction: ROPopup for: int.\x0a\x09\x09\x09 ]",
 messageSends: ["add:", "text:", "textColor:", "black", "changeInteraction:for:"],
-referencedClasses: ["ROPopup", "Color", "ROAbstractPopup"]
+referencedClasses: ["ROPopup", "Color"]
 }),
 smalltalk.ROInteractionBuilder);
 
@@ -532,14 +531,14 @@ selector: "popupView:",
 category: 'as yet unclassified',
 fn: function (aTwoArgsBlock){
 var self=this;
-function $ROAbstractPopup(){return smalltalk.ROAbstractPopup||(typeof ROAbstractPopup=="undefined"?nil:ROAbstractPopup)}
+function $ROPopup(){return smalltalk.ROPopup||(typeof ROPopup=="undefined"?nil:ROPopup)}
 function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
 function $ROPopupView(){return smalltalk.ROPopupView||(typeof ROPopupView=="undefined"?nil:ROPopupView)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=_st(self["@selfDefinedInteraction"])._add_((function(element){
 return smalltalk.withContext(function($ctx2) {
-return _st(element)._changeInteraction_for_($ROAbstractPopup(),_st(_st($ROPopupView())._new())._view_((function(anElement){
+return _st(element)._changeInteraction_for_($ROPopup(),_st(_st($ROPopupView())._new())._view_((function(anElement){
 var roView;
 return smalltalk.withContext(function($ctx3) {
 roView=_st($ROView())._new();
@@ -551,9 +550,9 @@ return roView;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"popupView:",{aTwoArgsBlock:aTwoArgsBlock},smalltalk.ROInteractionBuilder)})},
 args: ["aTwoArgsBlock"],
-source: "popupView: aTwoArgsBlock\x0a\x0a\x09^ selfDefinedInteraction add: [ :element | \x0a\x09\x09\x09element changeInteraction: ROAbstractPopup for: \x0a\x09\x09\x09\x09(ROPopupView new \x0a\x09\x09\x09\x09\x09view: [ :anElement | \x0a\x09\x09\x09\x09\x09\x09| roView |\x0a\x09\x09\x09\x09\x09\x09roView := ROView new.\x0a\x09\x09\x09\x09\x09\x09aTwoArgsBlock value: anElement model value: roView.\x0a\x09\x09\x09\x09\x09\x09roView ] )  ]",
+source: "popupView: aTwoArgsBlock\x0a\x0a\x09^ selfDefinedInteraction add: [ :element | \x0a\x09\x09\x09element changeInteraction: ROPopup for: \x0a\x09\x09\x09\x09(ROPopupView new \x0a\x09\x09\x09\x09\x09view: [ :anElement | \x0a\x09\x09\x09\x09\x09\x09| roView |\x0a\x09\x09\x09\x09\x09\x09roView := ROView new.\x0a\x09\x09\x09\x09\x09\x09aTwoArgsBlock value: anElement model value: roView.\x0a\x09\x09\x09\x09\x09\x09roView ] )  ]",
 messageSends: ["add:", "changeInteraction:for:", "view:", "new", "value:value:", "model"],
-referencedClasses: ["ROAbstractPopup", "ROView", "ROPopupView"]
+referencedClasses: ["ROPopup", "ROView", "ROPopupView"]
 }),
 smalltalk.ROInteractionBuilder);
 

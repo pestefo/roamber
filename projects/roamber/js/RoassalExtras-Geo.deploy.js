@@ -317,13 +317,13 @@ smalltalk.method({
 selector: "noPopup",
 fn: function (){
 var self=this;
-function $ROAbstractPopup(){return smalltalk.ROAbstractPopup||(typeof ROAbstractPopup=="undefined"?nil:ROAbstractPopup)}
+function $ROPopup(){return smalltalk.ROPopup||(typeof ROPopup=="undefined"?nil:ROPopup)}
 return smalltalk.withContext(function($ctx1) { 
 _st(self["@selfDefinedInteraction"])._add_((function(listOfElements){
 return smalltalk.withContext(function($ctx2) {
 return _st(listOfElements)._do_((function(element){
 return smalltalk.withContext(function($ctx3) {
-return _st(element)._removeInteraction_($ROAbstractPopup());
+return _st(element)._removeInteraction_($ROPopup());
 }, function($ctx3) {$ctx3.fillBlock({element:element},$ctx2)})}));
 }, function($ctx2) {$ctx2.fillBlock({listOfElements:listOfElements},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"noPopup",{},smalltalk.ROInteractionBuilder)})},
@@ -385,7 +385,6 @@ fn: function (aBlockOrSelector){
 var self=this;
 function $ROPopup(){return smalltalk.ROPopup||(typeof ROPopup=="undefined"?nil:ROPopup)}
 function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
-function $ROAbstractPopup(){return smalltalk.ROAbstractPopup||(typeof ROAbstractPopup=="undefined"?nil:ROAbstractPopup)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=_st(self["@selfDefinedInteraction"])._add_((function(element){
@@ -394,7 +393,7 @@ return smalltalk.withContext(function($ctx2) {
 int=_st($ROPopup())._text_(aBlockOrSelector);
 int;
 _st(int)._textColor_(_st($Color())._black());
-return _st(element)._changeInteraction_for_($ROAbstractPopup(),int);
+return _st(element)._changeInteraction_for_($ROPopup(),int);
 }, function($ctx2) {$ctx2.fillBlock({element:element,int:int},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"popupText:",{aBlockOrSelector:aBlockOrSelector},smalltalk.ROInteractionBuilder)})},
@@ -406,14 +405,14 @@ smalltalk.method({
 selector: "popupView:",
 fn: function (aTwoArgsBlock){
 var self=this;
-function $ROAbstractPopup(){return smalltalk.ROAbstractPopup||(typeof ROAbstractPopup=="undefined"?nil:ROAbstractPopup)}
+function $ROPopup(){return smalltalk.ROPopup||(typeof ROPopup=="undefined"?nil:ROPopup)}
 function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
 function $ROPopupView(){return smalltalk.ROPopupView||(typeof ROPopupView=="undefined"?nil:ROPopupView)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=_st(self["@selfDefinedInteraction"])._add_((function(element){
 return smalltalk.withContext(function($ctx2) {
-return _st(element)._changeInteraction_for_($ROAbstractPopup(),_st(_st($ROPopupView())._new())._view_((function(anElement){
+return _st(element)._changeInteraction_for_($ROPopup(),_st(_st($ROPopupView())._new())._view_((function(anElement){
 var roView;
 return smalltalk.withContext(function($ctx3) {
 roView=_st($ROView())._new();

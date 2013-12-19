@@ -179,7 +179,7 @@ initialize
 noPopup 
 
 	selfDefinedInteraction add: [ :listOfElements | 
-		listOfElements do: [ :element | element removeInteraction: ROAbstractPopup ] ].
+		listOfElements do: [ :element | element removeInteraction: ROPopup ] ].
 !
 
 numberOfDefinedInteractions
@@ -202,14 +202,14 @@ popupText: aBlockOrSelector
 			| int |
 			int := ROPopup text: aBlockOrSelector.
 			int textColor: Color black.
-			element changeInteraction: ROAbstractPopup for: int.
+			element changeInteraction: ROPopup for: int.
 			 ]
 !
 
 popupView: aTwoArgsBlock
 
 	^ selfDefinedInteraction add: [ :element | 
-			element changeInteraction: ROAbstractPopup for: 
+			element changeInteraction: ROPopup for: 
 				(ROPopupView new 
 					view: [ :anElement | 
 						| roView |
