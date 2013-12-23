@@ -65,7 +65,7 @@
           ],
         prefix: 'projects/roamber/js',
         ready: function() {
-        	$('#roassal-canvas').hide();
+        	
           // smalltalk.Browser._open();
           // smalltalk.RODemo._init();
         }}) 
@@ -89,31 +89,19 @@
 					<!-- EXAMPLE ROW -->
 					<div class="row-fluid example-row">
 						<div class="span4"> 
-							<a href="#" onclick="smalltalk.ROExample._new()._worldConnections(); showCanvas();"><img src="images/punchcard.png" /> </a>
+							<a href="#" onclick="smalltalk.ROExample._new()._worldConnections(); "><img src="images/maps.png" /> </a>
 						</div>
 						<div class="span4">
-							<a href="#" onclick="smalltalk.ROExample._new()._worldConnections(); showCanvas();"><img src="images/punchcard.png" /> </a>
+							<a href="#" onclick="smalltalk.ROExample._new()._punchcard();"><img src="images/punchcard.png" /> </a>
 						</div>
 						<div class="span4">
-							<a href="#" onclick="smalltalk.ROExample._new()._worldConnections(); showCanvas();"><img src="images/punchcard.png" /> </a>
+							<a href="#" onclick="smalltalk.ROExample._new()._worldConnections(); "><img src="images/maps.png" /> </a>
 						</div>
 					</div>
-					<!-- EXAMPLE ROW -->
-					<div class="row-fluid example-row">
-						<div class="span4"> 
-							<a href="#" onclick="smalltalk.ROExample._new()._worldConnections(); showCanvas();"><img src="images/punchcard.png" /> </a>
-						</div>
-						<div class="span4">
-							<a href="#" onclick="smalltalk.ROExample._new()._worldConnections(); showCanvas();"><img src="images/punchcard.png" /> </a>
-						</div>
-						<div class="span4">
-							<a href="#" onclick="smalltalk.ROExample._new()._worldConnections(); showCanvas();"><img src="images/punchcard.png" /> </a>
-						</div>
-					</div>
+					
 
 					<!-- CANVAS -->
 					<div class="row-fluid">
-						<div  align="right"><a href="#" onclick="hideCanvas()"> Back</a></div>
 						<div id="roassal-canvas" style="width:800x;height:600px;">
          	 			</div>	
 					</div>					
@@ -173,16 +161,7 @@
 </div>
 
 <script src="js/lib/bootstrap/js/bootstrap.js"></script>
-<script >
-	function showCanvas(){
-		$('#roassal-canvas').show();
-		$('.example-row').hide();	
-	}
-	function hideCanvas(){
-		$('#roassal-canvas').hide();
-		$('.example-row').show();	
-	}
-</script>
+
 
 </body>
 </html>
