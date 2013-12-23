@@ -368,6 +368,58 @@ smalltalk.ROExample);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "gdp",
+category: 'demo',
+fn: function (){
+var self=this;
+var view,cityBuilder,values,graphBuilder,color;
+function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+function $ROMapBuilder(){return smalltalk.ROMapBuilder||(typeof ROMapBuilder=="undefined"?nil:ROMapBuilder)}
+function $GETDiagramBuilder(){return smalltalk.GETDiagramBuilder||(typeof GETDiagramBuilder=="undefined"?nil:GETDiagramBuilder)}
+function $ROMouseEnter(){return smalltalk.ROMouseEnter||(typeof ROMouseEnter=="undefined"?nil:ROMouseEnter)}
+function $ROMouseLeave(){return smalltalk.ROMouseLeave||(typeof ROMouseLeave=="undefined"?nil:ROMouseLeave)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4;
+view=_st($ROView())._new();
+color=_st($Color())._lightBlue();
+cityBuilder=_st($ROMapBuilder())._new();
+_st(cityBuilder)._view_(view);
+_st(cityBuilder)._allCountries();
+values=_st(_st(_st($ROMapBuilder())._new())._pib())._sorted_((function(ar1,ar2){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(ar2)._second()).__lt(_st(ar1)._second());
+}, function($ctx2) {$ctx2.fillBlock({ar1:ar1,ar2:ar2},$ctx1)})}));
+graphBuilder=_st($GETDiagramBuilder())._new();
+_st(graphBuilder)._rawView_(view);
+$1=_st(graphBuilder)._verticalBarDiagram();
+_st($1)._models_(_st(values)._copyFrom_to_((1),(40)));
+_st($1)._y_("second");
+_st($1)._color_(color);
+_st($1)._regularAxisAsInteger();
+_st($1)._barWidth_((2));
+$2=_st($1)._titleLabel_("Gross Domestic Product (GDP)");
+$3=_st(_st(graphBuilder)._interaction())._popUpText();
+_st($3)._on_do_($ROMouseEnter(),(function(event){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(view)._elementFromModel_(_st(_st(_st(_st(event)._element())._model())._first())._asSymbol()))._color_(color);
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
+$4=_st($3)._on_do_($ROMouseLeave(),(function(event){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(view)._elementFromModel_(_st(_st(_st(_st(event)._element())._model())._first())._asSymbol()))._color_(_st($Color())._white());
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
+_st(graphBuilder)._openIn_(view);
+_st(view)._open();
+return self}, function($ctx1) {$ctx1.fill(self,"gdp",{view:view,cityBuilder:cityBuilder,values:values,graphBuilder:graphBuilder,color:color},smalltalk.ROExample)})},
+args: [],
+source: "gdp\x0a| view cityBuilder values graphBuilder color|\x0a\x09view := ROView new.\x0a\x09color := Color lightBlue.\x0a\x09\x0a\x09\x22Maps\x22\x0a\x09cityBuilder := ROMapBuilder new.\x0a\x09cityBuilder view: view.\x0a\x09cityBuilder allCountries.\x0a\x09\x0a\x09\x22Values\x22\x0a\x09values := ROMapBuilder new pib \x0a\x09\x09\x09sorted: [ :ar1 :ar2 | ar2 second < ar1 second ].\x0a\x09graphBuilder := GETDiagramBuilder new.\x0a\x09graphBuilder rawView: view.\x0a\x09graphBuilder verticalBarDiagram\x0a\x09\x09\x09models: (values copyFrom: 1 to: 40);\x0a\x09\x09\x09y: #second;\x0a\x09\x09\x09color: color;\x0a\x09\x09\x09regularAxisAsInteger;\x0a\x09\x09\x09barWidth: 2;\x0a\x09\x09\x09titleLabel: 'Gross Domestic Product (GDP)'.\x0a\x09graphBuilder interaction popUpText\x0a\x09\x09on: ROMouseEnter \x0a\x09\x09do: [ :event |  \x0a\x09\x09\x09\x09(view elementFromModel: \x0a\x09\x09\x09\x09\x09event element model first asSymbol) color: color  ];\x0a\x09\x09on: ROMouseLeave \x0a\x09\x09do: [ :event |  \x0a\x09\x09\x09\x09(view elementFromModel: \x0a\x09\x09\x09\x09\x09event element model first asSymbol) color: Color white  ] \x09\x09\x09.\x0a\x09graphBuilder openIn: view.\x0a\x09\x0a\x09\x22Openining the thing\x22\x0a\x09view open.\x0a\x09\x22view openInWindowSized: 1000 @ 600.\x22",
+messageSends: ["new", "lightBlue", "view:", "allCountries", "sorted:", "<", "second", "pib", "rawView:", "models:", "copyFrom:to:", "verticalBarDiagram", "y:", "color:", "regularAxisAsInteger", "barWidth:", "titleLabel:", "on:do:", "elementFromModel:", "asSymbol", "first", "model", "element", "popUpText", "interaction", "white", "openIn:", "open"],
+referencedClasses: ["ROView", "Color", "ROMapBuilder", "GETDiagramBuilder", "ROMouseEnter", "ROMouseLeave"]
+}),
+smalltalk.ROExample);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "greenAndRedNumbers",
 category: 'demo',
 fn: function (){
@@ -731,58 +783,6 @@ smalltalk.ROExample);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "pib",
-category: 'demo',
-fn: function (){
-var self=this;
-var view,cityBuilder,values,graphBuilder,color;
-function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
-function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
-function $ROMapBuilder(){return smalltalk.ROMapBuilder||(typeof ROMapBuilder=="undefined"?nil:ROMapBuilder)}
-function $GETDiagramBuilder(){return smalltalk.GETDiagramBuilder||(typeof GETDiagramBuilder=="undefined"?nil:GETDiagramBuilder)}
-function $ROMouseEnter(){return smalltalk.ROMouseEnter||(typeof ROMouseEnter=="undefined"?nil:ROMouseEnter)}
-function $ROMouseLeave(){return smalltalk.ROMouseLeave||(typeof ROMouseLeave=="undefined"?nil:ROMouseLeave)}
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4;
-view=_st($ROView())._new();
-color=_st($Color())._lightBlue();
-cityBuilder=_st($ROMapBuilder())._new();
-_st(cityBuilder)._view_(view);
-_st(cityBuilder)._allCountries();
-values=_st(_st(_st($ROMapBuilder())._new())._pib())._sorted_((function(ar1,ar2){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st(ar2)._second()).__lt(_st(ar1)._second());
-}, function($ctx2) {$ctx2.fillBlock({ar1:ar1,ar2:ar2},$ctx1)})}));
-graphBuilder=_st($GETDiagramBuilder())._new();
-_st(graphBuilder)._rawView_(view);
-$1=_st(graphBuilder)._verticalBarDiagram();
-_st($1)._models_(_st(values)._copyFrom_to_((1),(40)));
-_st($1)._y_("second");
-_st($1)._color_(color);
-_st($1)._regularAxisAsInteger();
-_st($1)._barWidth_((2));
-$2=_st($1)._titleLabel_("Gross Domestic Product (GDP)");
-$3=_st(_st(graphBuilder)._interaction())._popUpText();
-_st($3)._on_do_($ROMouseEnter(),(function(event){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st(view)._elementFromModel_(_st(_st(_st(_st(event)._element())._model())._first())._asSymbol()))._color_(color);
-}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
-$4=_st($3)._on_do_($ROMouseLeave(),(function(event){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st(view)._elementFromModel_(_st(_st(_st(_st(event)._element())._model())._first())._asSymbol()))._color_(_st($Color())._white());
-}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
-_st(graphBuilder)._openIn_(view);
-_st(view)._open();
-return self}, function($ctx1) {$ctx1.fill(self,"pib",{view:view,cityBuilder:cityBuilder,values:values,graphBuilder:graphBuilder,color:color},smalltalk.ROExample)})},
-args: [],
-source: "pib\x0a| view cityBuilder values graphBuilder color|\x0a\x09view := ROView new.\x0a\x09color := Color lightBlue.\x0a\x09\x0a\x09\x22Maps\x22\x0a\x09cityBuilder := ROMapBuilder new.\x0a\x09cityBuilder view: view.\x0a\x09cityBuilder allCountries.\x0a\x09\x0a\x09\x22Values\x22\x0a\x09values := ROMapBuilder new pib \x0a\x09\x09\x09sorted: [ :ar1 :ar2 | ar2 second < ar1 second ].\x0a\x09graphBuilder := GETDiagramBuilder new.\x0a\x09graphBuilder rawView: view.\x0a\x09graphBuilder verticalBarDiagram\x0a\x09\x09\x09models: (values copyFrom: 1 to: 40);\x0a\x09\x09\x09y: #second;\x0a\x09\x09\x09color: color;\x0a\x09\x09\x09regularAxisAsInteger;\x0a\x09\x09\x09barWidth: 2;\x0a\x09\x09\x09titleLabel: 'Gross Domestic Product (GDP)'.\x0a\x09graphBuilder interaction popUpText\x0a\x09\x09on: ROMouseEnter \x0a\x09\x09do: [ :event |  \x0a\x09\x09\x09\x09(view elementFromModel: \x0a\x09\x09\x09\x09\x09event element model first asSymbol) color: color  ];\x0a\x09\x09on: ROMouseLeave \x0a\x09\x09do: [ :event |  \x0a\x09\x09\x09\x09(view elementFromModel: \x0a\x09\x09\x09\x09\x09event element model first asSymbol) color: Color white  ] \x09\x09\x09.\x0a\x09graphBuilder openIn: view.\x0a\x09\x0a\x09\x22Openining the thing\x22\x0a\x09view open.\x0a\x09\x22view openInWindowSized: 1000 @ 600.\x22",
-messageSends: ["new", "lightBlue", "view:", "allCountries", "sorted:", "<", "second", "pib", "rawView:", "models:", "copyFrom:to:", "verticalBarDiagram", "y:", "color:", "regularAxisAsInteger", "barWidth:", "titleLabel:", "on:do:", "elementFromModel:", "asSymbol", "first", "model", "element", "popUpText", "interaction", "white", "openIn:", "open"],
-referencedClasses: ["ROView", "Color", "ROMapBuilder", "GETDiagramBuilder", "ROMouseEnter", "ROMouseLeave"]
-}),
-smalltalk.ROExample);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "plotFromCSV",
 category: 'demo',
 fn: function (){
@@ -821,22 +821,27 @@ fn: function (){
 var self=this;
 var view,element;
 function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
-function $Collection(){return smalltalk.Collection||(typeof Collection=="undefined"?nil:Collection)}
 function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
 function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
+function $RODraggable(){return smalltalk.RODraggable||(typeof RODraggable=="undefined"?nil:RODraggable)}
 function $ROPopup(){return smalltalk.ROPopup||(typeof ROPopup=="undefined"?nil:ROPopup)}
 return smalltalk.withContext(function($ctx1) { 
 view=_st($ROView())._new();
-element=_st(_st($ROElement())._forCollection_(_st($Collection())._withAllSubclasses()))._first();
-_st(element).__plus($ROBox());
-_st(element).__at($ROPopup());
+element=_st(_st($ROElement())._on_("Text 1"))._size_((40));
+_st(_st(element).__plus($ROBox()))._color_(_st($Color())._lightRed());
+_st(element).__at($RODraggable());
+_st(element).__at(_st($ROPopup())._text_((function(el){
+return smalltalk.withContext(function($ctx2) {
+return _st(el).__comma(" y 2");
+}, function($ctx2) {$ctx2.fillBlock({el:el},$ctx1)})})));
 _st(view)._add_(element);
 _st(view)._open();
 return self}, function($ctx1) {$ctx1.fill(self,"popup",{view:view,element:element},smalltalk.ROExample)})},
 args: [],
-source: "popup\x0a|view element|\x0aview := ROView new.\x0a\x22element := (ROElement on: 'Hi there!') size: 100.\x22\x0aelement := (ROElement forCollection: Collection withAllSubclasses) first.\x0aelement + ROBox.\x0aelement @ ROPopup.\x0a\x22Open an inspector when clicking\x22\x0a\x0aview add: element.\x0aview open.",
-messageSends: ["new", "first", "forCollection:", "withAllSubclasses", "+", "@", "add:", "open"],
-referencedClasses: ["ROView", "Collection", "ROElement", "ROBox", "ROPopup"]
+source: "popup\x0a\x09|view element|\x0a\x09view := ROView new.\x0a\x09element := (ROElement on: 'Text 1') size: 40.\x0a\x09element + ROBox color: Color lightRed.\x0a\x09element @ RODraggable.\x0a\x09element @ (ROPopup text: [:el |  el , ' y 2']).\x0a\x09view add: element.\x0a\x09view open.",
+messageSends: ["new", "size:", "on:", "color:", "lightRed", "+", "@", "text:", ",", "add:", "open"],
+referencedClasses: ["ROView", "ROElement", "Color", "ROBox", "RODraggable", "ROPopup"]
 }),
 smalltalk.ROExample);
 
