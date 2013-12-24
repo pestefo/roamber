@@ -910,6 +910,35 @@ smalltalk.ROExample);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "relationalTowers",
+category: 'demo',
+fn: function (){
+var self=this;
+var builder;
+function $RelationalTowersBuilder(){return smalltalk.RelationalTowersBuilder||(typeof RelationalTowersBuilder=="undefined"?nil:RelationalTowersBuilder)}
+return smalltalk.withContext(function($ctx1) { 
+builder=_st($RelationalTowersBuilder())._new();
+_st(builder)._legend_("Example of a relation between two set of integers");
+_st(builder)._left_((1)._to_((10)));
+_st(builder)._right_((1)._to_((20)));
+_st(builder)._edgesFromLeft_edgesToLeft_((function(v){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(v).__minus((5)))._to_(_st(v).__plus((5)));
+}, function($ctx2) {$ctx2.fillBlock({v:v},$ctx1)})}),(function(v){
+return smalltalk.withContext(function($ctx2) {
+return _st(v).__slash((2));
+}, function($ctx2) {$ctx2.fillBlock({v:v},$ctx1)})}));
+_st(builder)._open();
+return self}, function($ctx1) {$ctx1.fill(self,"relationalTowers",{builder:builder},smalltalk.ROExample)})},
+args: [],
+source: "relationalTowers\x0a\x0a\x09| builder |\x0a\x0a\x09builder := RelationalTowersBuilder new.\x0a\x09builder legend: 'Example of a relation between two set of integers'.\x0a\x09builder left: (1 to: 10).\x0a\x09builder right: (1 to: 20).\x0a\x09builder edgesFromLeft: [ :v | (v - 5) to: (v + 5) ] edgesToLeft: [ :v | (v / 2) ].\x0a\x09builder open",
+messageSends: ["new", "legend:", "left:", "to:", "right:", "edgesFromLeft:edgesToLeft:", "+", "-", "/", "open"],
+referencedClasses: ["RelationalTowersBuilder"]
+}),
+smalltalk.ROExample);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "scale",
 category: 'not yet classified',
 fn: function (){

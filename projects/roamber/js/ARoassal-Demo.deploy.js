@@ -765,6 +765,30 @@ smalltalk.ROExample);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "relationalTowers",
+fn: function (){
+var self=this;
+var builder;
+function $RelationalTowersBuilder(){return smalltalk.RelationalTowersBuilder||(typeof RelationalTowersBuilder=="undefined"?nil:RelationalTowersBuilder)}
+return smalltalk.withContext(function($ctx1) { 
+builder=_st($RelationalTowersBuilder())._new();
+_st(builder)._legend_("Example of a relation between two set of integers");
+_st(builder)._left_((1)._to_((10)));
+_st(builder)._right_((1)._to_((20)));
+_st(builder)._edgesFromLeft_edgesToLeft_((function(v){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(v).__minus((5)))._to_(_st(v).__plus((5)));
+}, function($ctx2) {$ctx2.fillBlock({v:v},$ctx1)})}),(function(v){
+return smalltalk.withContext(function($ctx2) {
+return _st(v).__slash((2));
+}, function($ctx2) {$ctx2.fillBlock({v:v},$ctx1)})}));
+_st(builder)._open();
+return self}, function($ctx1) {$ctx1.fill(self,"relationalTowers",{builder:builder},smalltalk.ROExample)})},
+messageSends: ["new", "legend:", "left:", "to:", "right:", "edgesFromLeft:edgesToLeft:", "+", "-", "/", "open"]}),
+smalltalk.ROExample);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "scale",
 fn: function (){
 var self=this;
