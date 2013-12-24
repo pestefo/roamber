@@ -76,7 +76,7 @@ smalltalk.ROVerticalDraggable);
 
 
 
-smalltalk.addClass('RelationalTowersBuilder', smalltalk.Object, ['view', 'models', 'title', 'legend', 'left', 'right', 'labelLeft', 'labelRight', 'colorLeft', 'colorRight', 'viewWidth', 'distance', 'direction', 'popups', 'popupElement', 'edges', 'height', 'width'], 'RelationalTowersBuilder');
+smalltalk.addClass('RelationalTowersBuilder', smalltalk.Object, ['view', 'models', 'title', 'legend', 'left', 'right', 'labelLeft', 'labelRight', 'colorLeft', 'colorRight', 'viewWidth', 'distance', 'direction', 'popups', 'popupElement', 'edges', 'shadowEdges', 'height', 'width'], 'RelationalTowersBuilder');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addLinesfrom:toAll:from:color:",
@@ -192,8 +192,8 @@ smalltalk.RelationalTowersBuilder);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "blueLines:in:to:cache:",
-fn: function (aNode,aCollection,links,prompLinks){
+selector: "blueLines:in:to:",
+fn: function (aNode,aCollection,links){
 var self=this;
 function $ROMouseClick(){return smalltalk.ROMouseClick||(typeof ROMouseClick=="undefined"?nil:ROMouseClick)}
 function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
@@ -201,24 +201,30 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 _st(aNode)._on_do_($ROMouseClick(),(function(event){
 return smalltalk.withContext(function($ctx2) {
-$1=_st(_st(_st(aNode)._allEdgesFrom())._reject_((function(e){
+return _st(self["@edges"])._at_ifPresent_ifAbsent_(aNode,(function(){
 return smalltalk.withContext(function($ctx3) {
-return _st(prompLinks)._includes_(e);
-}, function($ctx3) {$ctx3.fillBlock({e:e},$ctx2)})})))._isEmpty();
+$1=_st(_st(_st(_st(self["@edges"])._at_(aNode))._first())._shape())._isHidden();
 if(smalltalk.assert($1)){
-self._addLinesfrom_toAll_from_color_(aNode,links,aCollection,_st($Color())._blue());
-return self._addPopup_from_(aNode,aCollection);
+_st(_st(self["@edges"])._at_(aNode))._do_((function(e){
+return smalltalk.withContext(function($ctx4) {
+return _st(_st(e)._shape())._show();
+}, function($ctx4) {$ctx4.fillBlock({e:e},$ctx3)})}));
 } else {
+_st(_st(self["@edges"])._at_(aNode))._do_((function(e){
+return smalltalk.withContext(function($ctx4) {
+return _st(_st(e)._shape())._hide();
+}, function($ctx4) {$ctx4.fillBlock({e:e},$ctx3)})}));
 self._removePopup_(aNode);
-_st(_st(aNode)._allEdgesFrom())._do_((function(e){
-return smalltalk.withContext(function($ctx3) {
-return _st(e)._remove();
-}, function($ctx3) {$ctx3.fillBlock({e:e},$ctx2)})}));
-return _st(self._view())._signalUpdate();
 };
+return _st(self._view())._signalUpdate();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}),(function(){
+return smalltalk.withContext(function($ctx3) {
+_st(self["@edges"])._at_put_(aNode,self._addLinesfrom_toAll_from_color_(aNode,links,aCollection,_st($Color())._blue()));
+return self._addPopup_from_(aNode,aCollection);
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
 }, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"blueLines:in:to:cache:",{aNode:aNode,aCollection:aCollection,links:links,prompLinks:prompLinks},smalltalk.RelationalTowersBuilder)})},
-messageSends: ["on:do:", "ifTrue:ifFalse:", "addLinesfrom:toAll:from:color:", "blue", "addPopup:from:", "removePopup:", "do:", "remove", "allEdgesFrom", "signalUpdate", "view", "isEmpty", "reject:", "includes:"]}),
+return self}, function($ctx1) {$ctx1.fill(self,"blueLines:in:to:",{aNode:aNode,aCollection:aCollection,links:links},smalltalk.RelationalTowersBuilder)})},
+messageSends: ["on:do:", "at:ifPresent:ifAbsent:", "ifTrue:ifFalse:", "do:", "show", "shape", "at:", "hide", "removePopup:", "isHidden", "first", "signalUpdate", "view", "at:put:", "addLinesfrom:toAll:from:color:", "blue", "addPopup:from:"]}),
 smalltalk.RelationalTowersBuilder);
 
 smalltalk.addMethod(
@@ -379,11 +385,10 @@ function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 elem=_st(_st(_st(_st($ROBox())._new())._color_(_st($Color())._transparent()))._element())._translateTo_(p1);
-_st(self["@view"])._add_(elem);
 $1=elem;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"controlElement:",{p1:p1,elem:elem},smalltalk.RelationalTowersBuilder)})},
-messageSends: ["translateTo:", "element", "color:", "transparent", "new", "add:"]}),
+messageSends: ["translateTo:", "element", "color:", "transparent", "new"]}),
 smalltalk.RelationalTowersBuilder);
 
 smalltalk.addMethod(
@@ -918,8 +923,8 @@ smalltalk.RelationalTowersBuilder);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "greyLinesfrom:in:to:cache:",
-fn: function (aNode,aCollection,links,prompLinks){
+selector: "greyLinesfrom:in:to:",
+fn: function (aNode,aCollection,links){
 var self=this;
 function $ROMouseEnter(){return smalltalk.ROMouseEnter||(typeof ROMouseEnter=="undefined"?nil:ROMouseEnter)}
 function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
@@ -927,18 +932,28 @@ function $ROMouseLeave(){return smalltalk.ROMouseLeave||(typeof ROMouseLeave=="u
 return smalltalk.withContext(function($ctx1) { 
 _st(aNode)._on_do_($ROMouseEnter(),(function(event){
 return smalltalk.withContext(function($ctx2) {
-return _st(prompLinks)._addAll_(self._addLinesfrom_toAll_from_color_(aNode,links,aCollection,_st($Color())._veryVeryLightGray()));
+return _st(self["@shadowEdges"])._at_ifPresent_ifAbsent_(aNode,(function(){
+return smalltalk.withContext(function($ctx3) {
+_st(_st(self["@shadowEdges"])._at_(aNode))._do_((function(e){
+return smalltalk.withContext(function($ctx4) {
+return _st(_st(e)._shape())._show();
+}, function($ctx4) {$ctx4.fillBlock({e:e},$ctx3)})}));
+return _st(self._view())._signalUpdate();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}),(function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(self["@shadowEdges"])._at_put_(aNode,self._addLinesfrom_toAll_from_color_(aNode,links,aCollection,_st($Color())._veryVeryLightGray()));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
 }, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
 _st(aNode)._on_do_($ROMouseLeave(),(function(event){
 return smalltalk.withContext(function($ctx2) {
-_st(prompLinks)._do_((function(e){
+_st(_st(self["@shadowEdges"])._at_(aNode))._do_((function(e){
 return smalltalk.withContext(function($ctx3) {
-return _st(e)._remove();
+return _st(_st(e)._shape())._hide();
 }, function($ctx3) {$ctx3.fillBlock({e:e},$ctx2)})}));
 return _st(self._view())._signalUpdate();
 }, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"greyLinesfrom:in:to:cache:",{aNode:aNode,aCollection:aCollection,links:links,prompLinks:prompLinks},smalltalk.RelationalTowersBuilder)})},
-messageSends: ["on:do:", "addAll:", "addLinesfrom:toAll:from:color:", "veryVeryLightGray", "do:", "remove", "signalUpdate", "view"]}),
+return self}, function($ctx1) {$ctx1.fill(self,"greyLinesfrom:in:to:",{aNode:aNode,aCollection:aCollection,links:links},smalltalk.RelationalTowersBuilder)})},
+messageSends: ["on:do:", "at:ifPresent:ifAbsent:", "do:", "show", "shape", "at:", "signalUpdate", "view", "at:put:", "addLinesfrom:toAll:from:color:", "veryVeryLightGray", "hide"]}),
 smalltalk.RelationalTowersBuilder);
 
 smalltalk.addMethod(
@@ -983,6 +998,7 @@ self["@left"]=_st($OrderedCollection())._new();
 self["@right"]=_st($OrderedCollection())._new();
 self["@popups"]=_st($Dictionary())._new();
 self["@edges"]=_st($Dictionary())._new();
+self["@shadowEdges"]=_st($Dictionary())._new();
 self["@title"]="RelationalTowers";
 self["@legend"]="Relational Towers";
 self._label_("asString");
@@ -999,16 +1015,6 @@ return _st(_st(_st(e)._shape())._color()).__eq(_st($Color())._blue());
 self["@viewWidth"]=(500);
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.RelationalTowersBuilder)})},
 messageSends: ["new", "label:", "color:", "blue", "+", "on:", "size", "select:", "=", "color", "shape", "allEdgesFrom"]}),
-smalltalk.RelationalTowersBuilder);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "killLinksFrom:",
-fn: function (prompLinks){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"killLinksFrom:",{prompLinks:prompLinks},smalltalk.RelationalTowersBuilder)})},
-messageSends: []}),
 smalltalk.RelationalTowersBuilder);
 
 smalltalk.addMethod(
@@ -1162,11 +1168,9 @@ smalltalk.method({
 selector: "linesFrom:with:",
 fn: function (aCollection,aBlock){
 var self=this;
-var otherCollection,prompLinks;
-function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
+var otherCollection;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-prompLinks=_st($OrderedCollection())._new();
 $1=_st(aCollection).__eq(self["@left"]);
 if(smalltalk.assert($1)){
 otherCollection=self["@right"];
@@ -1180,12 +1184,11 @@ var links;
 return smalltalk.withContext(function($ctx2) {
 links=self._linksFrom_with_to_(n1,aBlock,otherCollection);
 links;
-self._blueLines_in_to_cache_(n1,aCollection,links,prompLinks);
-return self._greyLinesfrom_in_to_cache_(n1,aCollection,links,prompLinks);
+self._blueLines_in_to_(n1,aCollection,links);
+return self._greyLinesfrom_in_to_(n1,aCollection,links);
 }, function($ctx2) {$ctx2.fillBlock({n1:n1,links:links},$ctx1)})}));
-self._killLinksFrom_(prompLinks);
-return self}, function($ctx1) {$ctx1.fill(self,"linesFrom:with:",{aCollection:aCollection,aBlock:aBlock,otherCollection:otherCollection,prompLinks:prompLinks},smalltalk.RelationalTowersBuilder)})},
-messageSends: ["new", "ifTrue:ifFalse:", "=", "do:", "linksFrom:with:to:", "blueLines:in:to:cache:", "greyLinesfrom:in:to:cache:", "killLinksFrom:"]}),
+return self}, function($ctx1) {$ctx1.fill(self,"linesFrom:with:",{aCollection:aCollection,aBlock:aBlock,otherCollection:otherCollection},smalltalk.RelationalTowersBuilder)})},
+messageSends: ["ifTrue:ifFalse:", "=", "do:", "linksFrom:with:to:", "blueLines:in:to:", "greyLinesfrom:in:to:"]}),
 smalltalk.RelationalTowersBuilder);
 
 smalltalk.addMethod(
@@ -1193,11 +1196,9 @@ smalltalk.method({
 selector: "linesTo:with:",
 fn: function (aCollection,aBlock){
 var self=this;
-var otherCollection,prompLinks;
-function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
+var otherCollection;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-prompLinks=_st($OrderedCollection())._new();
 $1=_st(aCollection).__eq(self["@left"]);
 if(smalltalk.assert($1)){
 otherCollection=self["@right"];
@@ -1211,12 +1212,11 @@ var links;
 return smalltalk.withContext(function($ctx2) {
 links=self._linksTo_with_to_(n1,aBlock,otherCollection);
 links;
-self._blueLines_in_to_cache_(n1,aCollection,links,prompLinks);
-return self._greyLinesfrom_in_to_cache_(n1,aCollection,links,prompLinks);
+self._blueLines_in_to_(n1,aCollection,links);
+return self._greyLinesfrom_in_to_(n1,aCollection,links);
 }, function($ctx2) {$ctx2.fillBlock({n1:n1,links:links},$ctx1)})}));
-self._killLinksFrom_(prompLinks);
-return self}, function($ctx1) {$ctx1.fill(self,"linesTo:with:",{aCollection:aCollection,aBlock:aBlock,otherCollection:otherCollection,prompLinks:prompLinks},smalltalk.RelationalTowersBuilder)})},
-messageSends: ["new", "ifTrue:ifFalse:", "=", "do:", "linksTo:with:to:", "blueLines:in:to:cache:", "greyLinesfrom:in:to:cache:", "killLinksFrom:"]}),
+return self}, function($ctx1) {$ctx1.fill(self,"linesTo:with:",{aCollection:aCollection,aBlock:aBlock,otherCollection:otherCollection},smalltalk.RelationalTowersBuilder)})},
+messageSends: ["ifTrue:ifFalse:", "=", "do:", "linksTo:with:to:", "blueLines:in:to:", "greyLinesfrom:in:to:"]}),
 smalltalk.RelationalTowersBuilder);
 
 smalltalk.addMethod(
@@ -1507,11 +1507,26 @@ smalltalk.method({
 selector: "removePopup:",
 fn: function (element){
 var self=this;
+var pop;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self["@popups"])._at_(element))._hide();
+var $1,$2,$3;
+pop=_st(self["@popups"])._at_ifAbsent_(element,(function(){
+return smalltalk.withContext(function($ctx2) {
+return nil;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+$1=_st(pop)._isNil();
+if(! smalltalk.assert($1)){
+$2=_st(_st(pop)._shape())._isNil();
+if(! smalltalk.assert($2)){
+$3=_st(_st(_st(pop)._shape())._svgElement())._isNil();
+if(! smalltalk.assert($3)){
+_st(pop)._hide();
 _st(self._view())._signalUpdate();
-return self}, function($ctx1) {$ctx1.fill(self,"removePopup:",{element:element},smalltalk.RelationalTowersBuilder)})},
-messageSends: ["hide", "at:", "signalUpdate", "view"]}),
+};
+};
+};
+return self}, function($ctx1) {$ctx1.fill(self,"removePopup:",{element:element,pop:pop},smalltalk.RelationalTowersBuilder)})},
+messageSends: ["at:ifAbsent:", "ifFalse:", "hide", "signalUpdate", "view", "isNil", "svgElement", "shape"]}),
 smalltalk.RelationalTowersBuilder);
 
 smalltalk.addMethod(

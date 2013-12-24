@@ -46,7 +46,7 @@ initializeElement: element
 ! !
 
 Object subclass: #RelationalTowersBuilder
-	instanceVariableNames: 'view models title legend left right labelLeft labelRight colorLeft colorRight viewWidth distance direction popups popupElement edges height width'
+	instanceVariableNames: 'view models title legend left right labelLeft labelRight colorLeft colorRight viewWidth distance direction popups popupElement edges shadowEdges height width'
 	package: 'RelationalTowersBuilder'!
 !RelationalTowersBuilder commentStamp!
 A RelationalTowersBuilder is xxxxxxxxx.
@@ -353,30 +353,16 @@ addLinesfrom: aNode toAll: aCollection from: anotherCollection color: aColor
 	^lines
 !
 
-blueLines: aNode in: aCollection to: links cache: prompLinks
+blueLines: aNode in: aCollection to: links "cache: prompLinks"
 	aNode
-		on: ROMouseClick
-		do: [ :event | 
-			(aNode allEdgesFrom reject: [ :e | prompLinks includes: e ]) isEmpty
-				ifTrue: [ 
-					self
-						addLinesfrom: aNode
-						toAll: links
-						from: aCollection
-						color: Color blue.
-					self addPopup: aNode from: aCollection.]
-				ifFalse: [ 
-					self removePopup: aNode.
-					aNode allEdgesFrom do: [ :e | e remove ].
-					self view signalUpdate ] ]
-	"aNode
 		on: ROMouseClick
 		do: [ :event | 
 			edges at: aNode		
 				ifPresent: [
-					(edges at: aNode) first shape 
-					self removePopup: aNode.
-					aNode allEdgesFrom do: [ :e | e shape hide ].
+					((edges at: aNode) first shape isHidden)
+						ifTrue: [ (edges at: aNode) do: [ :e | e shape show]]
+						ifFalse: [(edges at: aNode) do: [ :e | e shape hide].
+									self removePopup: aNode.].
 					self view signalUpdate]
 				ifAbsent: [
 					edges at: aNode put: 
@@ -385,7 +371,7 @@ blueLines: aNode in: aCollection to: links cache: prompLinks
 						toAll: links
 						from: aCollection
 						color: Color blue).
-					self addPopup: aNode from: aCollection] ]"
+					self addPopup: aNode from: aCollection] ]
 !
 
 check: aBlock from: s to: f
@@ -417,7 +403,7 @@ companion: aPoint with: anotherPoint
 controlElement: p1
 	| elem |
 	elem := (ROBox new color: Color transparent) element translateTo: p1.
-	view add: elem.
+	"view add: elem."
 	^elem
 !
 
@@ -437,35 +423,29 @@ controlPointStart: aNode from: aCollection
 			+ ((distance / 3) negated @ (aNode bounds height / 2) asInteger)]
 !
 
-greyLinesfrom: aNode in: aCollection to: links cache: prompLinks
+greyLinesfrom: aNode in: aCollection to: links "cache: prompLinks"
 	aNode
 		on: ROMouseEnter
 		do: [ :event | 
-			prompLinks
-				addAll:
+			shadowEdges at: aNode	
+				ifPresent: [ (shadowEdges at: aNode) do: [ :e | e shape show]. self view signalUpdate]
+				ifAbsent: [
+					shadowEdges at: aNode put: 
 					(self
 						addLinesfrom: aNode
 						toAll: links
 						from: aCollection
-						color: Color veryVeryLightGray) ].
+						color: Color veryVeryLightGray)] ].
 	aNode
 		on: ROMouseLeave
 		do: [ :event | 
-			prompLinks do: [ :e | e remove ].
-			self view signalUpdate ]
-!
-
-killLinksFrom: prompLinks
-	"self view
-		on: ROMouseMove
-		do: [ :event | 
-			prompLinks do: [ :e | e remove ].
-			self view signalUpdate ]"
+			(shadowEdges at: aNode) do: [ :e | e shape hide ].
+			self view signalUpdate ].
 !
 
 linesFrom: aCollection with: aBlock
-	| otherCollection prompLinks |
-	prompLinks := OrderedCollection new.
+	| otherCollection" prompLinks" |
+	"prompLinks := OrderedCollection new."
 	aCollection = left
 		ifTrue: [ otherCollection := right ]
 		ifFalse: [ otherCollection := left ].
@@ -477,18 +457,18 @@ linesFrom: aCollection with: aBlock
 				blueLines: n1
 				in: aCollection
 				to: links
-				cache: prompLinks.
+				"cache: prompLinks".
 			self
 				greyLinesfrom: n1
 				in: aCollection
 				to: links
-				cache: prompLinks ].
-	self killLinksFrom: prompLinks
+				"cache: prompLinks" ].
+	"self killLinksFrom: prompLinks"
 !
 
 linesTo: aCollection with: aBlock
-	| otherCollection prompLinks |
-	prompLinks := OrderedCollection new.
+	| otherCollection "prompLinks" |
+	"prompLinks := OrderedCollection new."
 	aCollection = left
 		ifTrue: [ otherCollection := right ]
 		ifFalse: [ otherCollection := left ].
@@ -500,13 +480,13 @@ linesTo: aCollection with: aBlock
 				blueLines: n1
 				in: aCollection
 				to: links
-				cache: prompLinks.
+				"cache: prompLinks".
 			self
 				greyLinesfrom: n1
 				in: aCollection
 				to: links
-				cache: prompLinks ].
-	self killLinksFrom: prompLinks
+				"cache: prompLinks" ].
+	"self killLinksFrom: prompLinks"
 !
 
 linksFrom: aNode with: aBlock to: otherCollection
@@ -677,6 +657,7 @@ initialize
 	right := OrderedCollection new.
 	popups := Dictionary new.
 	edges := Dictionary new. "not in Pharo"
+	shadowEdges := Dictionary new. "not in Pharo"
 	title := 'RelationalTowers'.
 	legend := 'Relational Towers'.
 	self label: #asString.
@@ -829,8 +810,12 @@ positionateTowers
 !
 
 removePopup: element
-	(popups at: element) hide"remove". 
-	self view signalUpdate.
+	| pop |
+	pop := 	(popups at: element ifAbsent: [nil]). 
+	pop isNil ifFalse: [ pop shape isNil 
+											ifFalse: [pop shape svgElement isNil 
+																					ifFalse: [pop hide"remove". 
+								 						 										self view signalUpdate]]].
 !
 
 stick: aLabel on: anElement from: aCollection

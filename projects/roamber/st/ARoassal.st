@@ -1346,6 +1346,12 @@ updateSVGElementOn: canvas for: anElement
 	self subclassResponsibility
 ! !
 
+!ROShape methodsFor: 'testing'!
+
+isHidden
+	^(svgElement node style display = 'none')
+! !
+
 !ROShape class methodsFor: 'not yet classified'!
 
 defaultColor
