@@ -47,7 +47,8 @@
         prefix: 'projects/roamber/js',
         ready: function() {
           // smalltalk.Browser._open();
-          smalltalk.RODemo._init();
+          smalltalk.Color._initializeColorRegistry();
+          smalltalk.RODemo._init();          
         }}) 
       window.onbeforeunload = function() {
           return 'Do you want to close Amber? All uncommitted changes will be lost.';
