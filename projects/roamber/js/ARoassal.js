@@ -3528,6 +3528,24 @@ smalltalk.ROShape);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "isHidden",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(_st(_st(self["@svgElement"])._node())._style())._display()).__eq("none");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isHidden",{},smalltalk.ROShape)})},
+args: [],
+source: "isHidden\x0a\x09^(svgElement node style display = 'none')",
+messageSends: ["=", "display", "style", "node"],
+referencedClasses: []
+}),
+smalltalk.ROShape);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "isShapedAs:",
 category: 'drawing',
 fn: function (aShapeClass){

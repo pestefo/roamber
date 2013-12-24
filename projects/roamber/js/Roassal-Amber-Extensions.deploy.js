@@ -4229,6 +4229,48 @@ smalltalk.Array);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "removeDuplicates",
+fn: function (){
+var self=this;
+var iterator;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+var $early={};
+try {
+self._ifEmpty_((function(){
+return smalltalk.withContext(function($ctx2) {
+$1=self;
+throw $early=[$1];
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+iterator=(1);
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(iterator).__lt_eq(self._size());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileTrue_((function(){
+var each,newIndex;
+return smalltalk.withContext(function($ctx2) {
+each=self._at_(iterator);
+each;
+_st((function(){
+return smalltalk.withContext(function($ctx3) {
+newIndex=self._indexOf_startingAt_(each,_st(iterator).__plus((1)));
+newIndex;
+return _st(newIndex).__gt((0));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}))._whileTrue_((function(){
+return smalltalk.withContext(function($ctx3) {
+return self._removeAt_(newIndex);
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
+iterator=_st(iterator).__plus((1));
+return iterator;
+}, function($ctx2) {$ctx2.fillBlock({each:each,newIndex:newIndex},$ctx1)})}));
+return self}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"removeDuplicates",{iterator:iterator},smalltalk.Array)})},
+messageSends: ["ifEmpty:", "whileTrue:", "at:", "removeAt:", "indexOf:startingAt:", "+", ">", "<=", "size"]}),
+smalltalk.Array);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "removeFirst",
 fn: function (){
 var self=this;

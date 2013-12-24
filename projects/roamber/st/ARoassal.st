@@ -1231,51 +1231,6 @@ widthFor: anElement
 	^ width roValue: anElement
 ! !
 
-!ROShape methodsFor: 'creation'!
-
-colorFor: element
-	"Compute the color of the element"
-
-	"We use a cache mechanism since computing the cache can be quite slow"
-	colorCache notNil ifTrue: [ ^ colorCache ].
-	^ colorCache := color roValue: element.
-
-"	(element hasAttribute: (#element, self class name) asSymbol)
-		ifTrue: [ ^ element attributeAt: (#element, self class name) asSymbol ].
- 
-	colorCache := color roValue: element.
-	element attributeAt: (#element, self class name) asSymbol put: colorCache.
-	^ colorCache"
-!
-
-defaultExtent
-	"Each shape has a minimum size of 5@5"
-
-	^ 5 @ 5
-!
-
-element
-	^ self elementOn: nil
-!
-
-elementOn: anObject
-	^ (ROElement on: anObject) + self
-!
-
-elementsOn: collectionOfObjects
-	"Easy way to create element from a shape"
-	
-	^ collectionOfObjects collect: [ :object | self copy elementOn: object ]
-!
-
-hide
-	svgElement hide.
-!
-
-show
-	svgElement show
-! !
-
 !ROShape methodsFor: 'drawing'!
 
 activateInteractionsOn: anElement

@@ -5450,6 +5450,53 @@ smalltalk.Array);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "removeDuplicates",
+category: '*Roassal-Amber-Extensions',
+fn: function (){
+var self=this;
+var iterator;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+var $early={};
+try {
+self._ifEmpty_((function(){
+return smalltalk.withContext(function($ctx2) {
+$1=self;
+throw $early=[$1];
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+iterator=(1);
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(iterator).__lt_eq(self._size());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileTrue_((function(){
+var each,newIndex;
+return smalltalk.withContext(function($ctx2) {
+each=self._at_(iterator);
+each;
+_st((function(){
+return smalltalk.withContext(function($ctx3) {
+newIndex=self._indexOf_startingAt_(each,_st(iterator).__plus((1)));
+newIndex;
+return _st(newIndex).__gt((0));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}))._whileTrue_((function(){
+return smalltalk.withContext(function($ctx3) {
+return self._removeAt_(newIndex);
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
+iterator=_st(iterator).__plus((1));
+return iterator;
+}, function($ctx2) {$ctx2.fillBlock({each:each,newIndex:newIndex},$ctx1)})}));
+return self}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"removeDuplicates",{iterator:iterator},smalltalk.Array)})},
+args: [],
+source: "removeDuplicates\x0a\x09| iterator |\x0a\x09\x22Remove the copies of elements, but keep the same order\x22\x0a\x09\x0a\x09self ifEmpty: [ ^ self ].\x0a\x09iterator := 1.\x0a\x09[ iterator <= self size ]\x0a\x09\x09whileTrue: [ | each newIndex |\x0a\x09\x09\x09each := self at: iterator.\x09\x09\x09\x0a\x09\x09\x09[ newIndex := (self indexOf: each startingAt: iterator+1).\x0a\x09\x09\x09newIndex > 0 ]\x0a\x09\x09\x09\x09whileTrue: [ self removeAt: newIndex ].\x0a\x09\x09\x09iterator := iterator + 1.\x0a\x09 ]",
+messageSends: ["ifEmpty:", "whileTrue:", "at:", "removeAt:", "indexOf:startingAt:", "+", ">", "<=", "size"],
+referencedClasses: []
+}),
+smalltalk.Array);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "removeFirst",
 category: '*Roassal-Amber-Extensions',
 fn: function (){
