@@ -1114,15 +1114,19 @@ absolutePosition
 
 initialize
 	super initialize.
+	self clear.
 	elements := Array new.
 	svgCanvas := self paper.
-	self clear
 ! !
 
 !ROView methodsFor: 'public - opening'!
 
 clear
-	self paper clear
+	| ev |
+	self paper clear.
+	
+	ev := ROViewCleared new view: self.
+	eventHandler announce: ev.
 !
 
 open

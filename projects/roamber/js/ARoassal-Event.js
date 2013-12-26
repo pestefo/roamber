@@ -907,6 +907,43 @@ smalltalk.ROViewChanged);
 
 
 
+smalltalk.addClass('ROViewCleared', smalltalk.ROEvent, ['view'], 'ARoassal-Event');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "view",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@view"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"view",{},smalltalk.ROViewCleared)})},
+args: [],
+source: "view\x0a\x09^ view",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROViewCleared);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "view:",
+category: 'not yet classified',
+fn: function (aROView){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@view"]=aROView;
+return self}, function($ctx1) {$ctx1.fill(self,"view:",{aROView:aROView},smalltalk.ROViewCleared)})},
+args: ["aROView"],
+source: "view: aROView\x0a\x09view := aROView",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ROViewCleared);
+
+
+
 smalltalk.addClass('ROWindowResized', smalltalk.ROEvent, ['oldExtent', 'extent'], 'ARoassal-Event');
 smalltalk.addMethod(
 smalltalk.method({

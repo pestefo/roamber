@@ -2204,10 +2204,14 @@ smalltalk.method({
 selector: "clear",
 fn: function (){
 var self=this;
+var ev;
+function $ROViewCleared(){return smalltalk.ROViewCleared||(typeof ROViewCleared=="undefined"?nil:ROViewCleared)}
 return smalltalk.withContext(function($ctx1) { 
 _st(self._paper())._clear();
-return self}, function($ctx1) {$ctx1.fill(self,"clear",{},smalltalk.ROView)})},
-messageSends: ["clear", "paper"]}),
+ev=_st(_st($ROViewCleared())._new())._view_(self);
+_st(self["@eventHandler"])._announce_(ev);
+return self}, function($ctx1) {$ctx1.fill(self,"clear",{ev:ev},smalltalk.ROView)})},
+messageSends: ["clear", "paper", "view:", "new", "announce:"]}),
 smalltalk.ROView);
 
 smalltalk.addMethod(
@@ -2231,11 +2235,11 @@ var self=this;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.ROView.superclass.fn.prototype._initialize.apply(_st(self), []);
+self._clear();
 self["@elements"]=_st($Array())._new();
 self["@svgCanvas"]=self._paper();
-self._clear();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROView)})},
-messageSends: ["initialize", "new", "paper", "clear"]}),
+messageSends: ["initialize", "clear", "new", "paper"]}),
 smalltalk.ROView);
 
 smalltalk.addMethod(

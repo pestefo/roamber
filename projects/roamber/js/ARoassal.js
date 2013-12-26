@@ -2962,13 +2962,17 @@ selector: "clear",
 category: 'public - opening',
 fn: function (){
 var self=this;
+var ev;
+function $ROViewCleared(){return smalltalk.ROViewCleared||(typeof ROViewCleared=="undefined"?nil:ROViewCleared)}
 return smalltalk.withContext(function($ctx1) { 
 _st(self._paper())._clear();
-return self}, function($ctx1) {$ctx1.fill(self,"clear",{},smalltalk.ROView)})},
+ev=_st(_st($ROViewCleared())._new())._view_(self);
+_st(self["@eventHandler"])._announce_(ev);
+return self}, function($ctx1) {$ctx1.fill(self,"clear",{ev:ev},smalltalk.ROView)})},
 args: [],
-source: "clear\x0a\x09self paper clear",
-messageSends: ["clear", "paper"],
-referencedClasses: []
+source: "clear\x0a\x09| ev |\x0a\x09self paper clear.\x0a\x09\x0a\x09ev := ROViewCleared new view: self.\x0a\x09eventHandler announce: ev.\x0a\x09",
+messageSends: ["clear", "paper", "view:", "new", "announce:"],
+referencedClasses: ["ROViewCleared"]
 }),
 smalltalk.ROView);
 
@@ -2999,13 +3003,13 @@ var self=this;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.ROView.superclass.fn.prototype._initialize.apply(_st(self), []);
+self._clear();
 self["@elements"]=_st($Array())._new();
 self["@svgCanvas"]=self._paper();
-self._clear();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROView)})},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09elements := Array new.\x0a\x09svgCanvas := self paper.\x0a\x09self clear",
-messageSends: ["initialize", "new", "paper", "clear"],
+source: "initialize\x0a\x09super initialize.\x0a\x09self clear.\x0a\x09elements := Array new.\x0a\x09svgCanvas := self paper.",
+messageSends: ["initialize", "clear", "new", "paper"],
 referencedClasses: ["Array"]
 }),
 smalltalk.ROView);
