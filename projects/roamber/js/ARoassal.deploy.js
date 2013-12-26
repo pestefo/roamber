@@ -2204,14 +2204,10 @@ smalltalk.method({
 selector: "clear",
 fn: function (){
 var self=this;
-var ev;
-function $ROViewCleared(){return smalltalk.ROViewCleared||(typeof ROViewCleared=="undefined"?nil:ROViewCleared)}
 return smalltalk.withContext(function($ctx1) { 
 _st(self._paper())._clear();
-ev=_st(_st($ROViewCleared())._new())._view_(self);
-_st(self["@eventHandler"])._announce_(ev);
-return self}, function($ctx1) {$ctx1.fill(self,"clear",{ev:ev},smalltalk.ROView)})},
-messageSends: ["clear", "paper", "view:", "new", "announce:"]}),
+return self}, function($ctx1) {$ctx1.fill(self,"clear",{},smalltalk.ROView)})},
+messageSends: ["clear", "paper"]}),
 smalltalk.ROView);
 
 smalltalk.addMethod(

@@ -168,10 +168,44 @@ initializeElement: element
 ROInteraction subclass: #ROPopup
 	instanceVariableNames: 'text'
 	package: 'ARoassal-Interaction'!
-!ROPopup commentStamp!
+
+ROPopup class instanceVariableNames: 'popupElement'!
+
+!ROPopup class methodsFor: 'not yet classified'!
+
+addPopupToView: view
+
+	view add: self popupElement. 
+
+	view signalUpdate.
+	
+	popupElement hide.
+!
+
+elementToBeAdded
+	self popupElement. "initialize the roassal element for popup"
+	^ super elementToBeAdded
+!
+
+popupElement
+	^ popupElement ifNil: [ popupElement := (ROLabel elementOn: '#model') color: Color black.]
+!
+
+resetPopupElement
+	popupElement := nil.
+!
+
+text: aString
+	^ self new text: aString.
+! !
+
+ROInteraction subclass: #ROPopup2
+	instanceVariableNames: 'text'
+	package: 'ARoassal-Interaction'!
+!ROPopup2 commentStamp!
 OLD ROPopup!
 
-!ROPopup methodsFor: 'not yet classified'!
+!ROPopup2 methodsFor: 'not yet classified'!
 
 createElementFor: anElement
 
@@ -236,7 +270,7 @@ text: textBlock
 	text := textBlock
 ! !
 
-!ROPopup class methodsFor: 'not yet classified'!
+!ROPopup2 class methodsFor: 'not yet classified'!
 
 text: aString
 	^ self new text: aString.

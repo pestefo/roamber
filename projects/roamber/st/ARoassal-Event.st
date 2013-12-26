@@ -333,20 +333,6 @@ newView: aView
 	newView := aView
 ! !
 
-ROEvent subclass: #ROViewCleared
-	instanceVariableNames: 'view'
-	package: 'ARoassal-Event'!
-
-!ROViewCleared methodsFor: 'not yet classified'!
-
-view
-	^ view
-!
-
-view: aROView
-	view := aROView
-! !
-
 ROEvent subclass: #ROWindowResized
 	instanceVariableNames: 'oldExtent extent'
 	package: 'ARoassal-Event'!

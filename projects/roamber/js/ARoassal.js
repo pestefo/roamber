@@ -2962,17 +2962,13 @@ selector: "clear",
 category: 'public - opening',
 fn: function (){
 var self=this;
-var ev;
-function $ROViewCleared(){return smalltalk.ROViewCleared||(typeof ROViewCleared=="undefined"?nil:ROViewCleared)}
 return smalltalk.withContext(function($ctx1) { 
 _st(self._paper())._clear();
-ev=_st(_st($ROViewCleared())._new())._view_(self);
-_st(self["@eventHandler"])._announce_(ev);
-return self}, function($ctx1) {$ctx1.fill(self,"clear",{ev:ev},smalltalk.ROView)})},
+return self}, function($ctx1) {$ctx1.fill(self,"clear",{},smalltalk.ROView)})},
 args: [],
-source: "clear\x0a\x09| ev |\x0a\x09self paper clear.\x0a\x09\x0a\x09ev := ROViewCleared new view: self.\x0a\x09eventHandler announce: ev.\x0a\x09",
-messageSends: ["clear", "paper", "view:", "new", "announce:"],
-referencedClasses: ["ROViewCleared"]
+source: "clear\x0a\x09self paper clear.\x0a\x09\x0a\x09",
+messageSends: ["clear", "paper"],
+referencedClasses: []
 }),
 smalltalk.ROView);
 

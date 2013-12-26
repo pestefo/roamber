@@ -667,33 +667,6 @@ smalltalk.ROViewChanged);
 
 
 
-smalltalk.addClass('ROViewCleared', smalltalk.ROEvent, ['view'], 'ARoassal-Event');
-smalltalk.addMethod(
-smalltalk.method({
-selector: "view",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self["@view"];
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"view",{},smalltalk.ROViewCleared)})},
-messageSends: []}),
-smalltalk.ROViewCleared);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "view:",
-fn: function (aROView){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@view"]=aROView;
-return self}, function($ctx1) {$ctx1.fill(self,"view:",{aROView:aROView},smalltalk.ROViewCleared)})},
-messageSends: []}),
-smalltalk.ROViewCleared);
-
-
-
 smalltalk.addClass('ROWindowResized', smalltalk.ROEvent, ['oldExtent', 'extent'], 'ARoassal-Event');
 smalltalk.addMethod(
 smalltalk.method({
