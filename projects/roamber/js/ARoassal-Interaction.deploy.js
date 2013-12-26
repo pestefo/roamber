@@ -249,7 +249,7 @@ var ev;
 return smalltalk.withContext(function($ctx2) {
 ev=_st($ROMouseEnter())._new();
 ev;
-_st(ev)._position_(_st(_st(_st(_st(e)._pageX()).__minus(_st(_st($RORaphaelCanvas())._origin())._x())).__minus(_st("#roassal-canvas"._asJQuery())._scrollLeft())).__at(_st(_st(_st(e)._pageY()).__minus(_st(_st($RORaphaelCanvas())._origin())._y())).__minus(_st("#roassal-canvas"._asJQuery())._scrollTop())));
+_st(ev)._position_(_st(_st(_st(_st(e)._pageX()).__minus(_st(_st($RORaphaelCanvas())._origin())._x())).__plus(_st("#roassal-canvas"._asJQuery())._scrollLeft())).__at(_st(_st(_st(e)._pageY()).__minus(_st(_st($RORaphaelCanvas())._origin())._y())).__plus(_st("#roassal-canvas"._asJQuery())._scrollTop())));
 _st(ev)._element_(element);
 return _st(element)._announce_(ev);
 }, function($ctx2) {$ctx2.fillBlock({e:e,ev:ev},$ctx1)})}),(function(){
@@ -260,7 +260,7 @@ ev;
 return _st(element)._announce_(ev);
 }, function($ctx2) {$ctx2.fillBlock({ev:ev},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"initializeElement:",{element:element,svgElement:svgElement},smalltalk.ROHoverable)})},
-messageSends: ["svgElement", "shape", "hover:whenLeave:", "new", "position:", "@", "-", "scrollTop", "asJQuery", "y", "origin", "pageY", "scrollLeft", "x", "pageX", "element:", "announce:"]}),
+messageSends: ["svgElement", "shape", "hover:whenLeave:", "new", "position:", "@", "+", "scrollTop", "asJQuery", "-", "y", "origin", "pageY", "scrollLeft", "x", "pageX", "element:", "announce:"]}),
 smalltalk.ROHoverable);
 
 

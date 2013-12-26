@@ -154,7 +154,7 @@ initializeElement: element
 		| ev |
 		ev := ROMouseEnter new.
 "		ev position: (e clientX  -  (RORaphaelCanvas origin x)) @ (e clientY -  (RORaphaelCanvas origin y))."
-		ev position: (e pageX  -  (RORaphaelCanvas origin x) - ('#roassal-canvas' asJQuery scrollLeft) ) @ (e pageY -  (RORaphaelCanvas origin y) - ('#roassal-canvas' asJQuery scrollTop)).
+		ev position: (e pageX  -  (RORaphaelCanvas origin x) + ('#roassal-canvas' asJQuery scrollLeft) ) @ (e pageY -  (RORaphaelCanvas origin y) + ('#roassal-canvas' asJQuery scrollTop)).
 		ev element: element.
 		element announce: ev.
 		]
@@ -168,6 +168,82 @@ initializeElement: element
 ROInteraction subclass: #ROPopup
 	instanceVariableNames: 'text'
 	package: 'ARoassal-Interaction'!
+
+!ROPopup methodsFor: 'not yet classified'!
+
+addPopupToView: element
+	| view |
+	view := self receivingViewFor: element.	
+	
+	" Is popupElement added to current view? "
+	view = self popupElement view
+		ifFalse: [ 	
+			self class resetPopupElement.
+			self class addPopupToView: view.
+		]
+!
+
+initialize 
+	super initialize.
+	text := #yourself.
+!
+
+initializeElement: element
+	
+	self addPopupToView: element.
+	
+	element 
+		on: ROMouseEnter 
+		do: [ :evt |
+			self updatePopupElementFor: element withEvent: evt.	
+			self popupElement show.
+	].
+	
+	element 
+		on: ROMouseLeave 
+		do: [:evt |
+			self popupElement hide.
+	].
+			
+	element 
+		on: ROMouseDragging 
+		do: [ :evt | 
+			self popupElement hide.		
+	].	
+
+	element 
+		on: ROMouseDragged 
+		do: [ :evt | 
+			self popupElement hide.		
+	].
+!
+
+popupElement
+	^ self class popupElement
+!
+
+receivingViewFor: element
+	^ element view
+!
+
+text
+		^text
+!
+
+text: textBlock
+	" It is one-argument block. This argument represents the model of the bound element "
+	text := textBlock
+!
+
+updatePopupElementFor: element withEvent: evt
+	
+	" change model of popupElement to change its text "
+	self popupElement model: (text roValue: element model).
+	
+	" update the position to the event position  and update view"
+	self popupElement translateTo: evt position.	
+	self popupElement signalUpdate.
+! !
 
 ROPopup class instanceVariableNames: 'popupElement'!
 
