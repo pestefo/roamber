@@ -140,6 +140,24 @@ circle
 	self initShape
 ! !
 
+ROObject subclass: #ROCountryInfo
+	instanceVariableNames: ''
+	package: 'RoassalExtras-Geo'!
+
+!ROCountryInfo class methodsFor: 'list of countries'!
+
+countries
+	^ #(#Afghanistan #Albania #Algeria #Angola #Argentina #Armenia #Australia #Austria #Azerbaijan #Bangladesh #Belarus #Belgium #Belize #Benin #Bhutan #Bolivia #BosniaandHerzegovina #Botswana #Brazil #BruneiDarussalam #Bulgaria #BurkinaFaso #Burundi #Cambodia #Cameroon #Canada #CentralAfricanRepublic #Chad #Chile #China #Colombia #Congo #CostaRica #Croatia #Cuba #Cyprus #CzechRepubilc #DemocraticRepublicCongo #Denmark #Djibouti #DominicanRepublic #Ecuador #Egypt #ElSalvador #EquatorialGuinea #Eritrea #Estonia #Ethiopia #FalklandIslandsMalvinas #Fiji #Finland #France #FrenchGuyana #GM #Gabon #Georgia #Germany #Ghana #GreatBritian #Greece #Greenland #Guatemala #Guinea #GuineaBissau #Guyana #Haiti #Honduras #Hungary #Iceland #India #Indonesia #Iran #Iraq #Ireland #Israel #Italy #IvoryCoast #Jamacia #Japan #Jordan #Kazakhstan #Kenya #Kuwait #Kyrgyzstan #Laos #Latvia #Lebanon #Lesotho #Liberia #Libya #Lithuania #Luxembourg #Madagascar #Malawi #Malaysia #Mali #Mauritania #Mexico #Moldova #Mongolia #Morocco #Mozambique #MyanmarBurma #Nambia #Nepal #Netherlands #NewZealand #Nicaragua #Niger #Nigeria #NorthKorea #Norway #Noumea #Oman #Pakistan #Palestine #Panama #PapuaNewGuinea #Paraguay #Peru #Phillipines #Poland #Portugal #PuertoRico #Qatar #RepublicofMacedonia #RepublicofTurkey #Romania #Russia #Rwanda #SaudiArabia #Senegal #Serbia #SierraLeone #Slovakia #SolomonIslands #Somolia #SouthAfrica #SouthKorea #Spain #SriLanka #Sudan #Suriname #SvalbardJanMayen #Swaziland #Sweden #Switzerland #Syria #Taiwan #Tajikistan #Tanzania #Thailand #TimorLeste #Togo #Tunisia #Turkmenistan #Uganda #Ukraine #UnitedArabEmirates #UnitedStates #Uruguay #Uzbekistan #Vanuatu #Venezuela #Vietnam #WesternSahara #Yemen #Zambia #Zimbabwe)
+!
+
+southAmerica
+	^ #(#Argentina #Brazil #Chile #Colombia #Ecuador #Paraguay #Peru #Uruguay #Venezuela)
+!
+
+world
+	^ self countries
+! !
+
 ROObject subclass: #ROInteractionBuilder
 	instanceVariableNames: 'selfDefinedInteraction'
 	package: 'RoassalExtras-Geo'!
@@ -252,7 +270,7 @@ view
 !ROMapBuilder methodsFor: 'adding'!
 
 allCountries
-	(ROSVGPath countries) do: [:c | self country: c]
+	(ROCountryInfo countries) do: [:c | self country: c]
 !
 
 city: aCityName
@@ -284,7 +302,7 @@ countries: countryNames
 country: aCountryName
 	| symbol |
 	symbol := aCountryName asSymbol.
-	view add: ((ROPath path: (ROSVGPath perform: symbol)) elementOn: symbol)
+	view add: ((ROPath path: (ROCountryInfo perform: symbol)) elementOn: symbol)
 !
 
 edgesFrom: aCityName toAll: cityNames

@@ -498,11 +498,26 @@ theWorld
 	|view color|
 	view := ROView new.
 	
-	view addAll: ((ROSVGPath world) collect: [:country |
+	view addAll: ((ROCountryInfo world) collect: [:country |
 		|el|
-		el := (ROPath path: (ROSVGPath perform: country)) 
+		el := (ROPath path: (ROCountryInfo perform: country)) 
 					elementOn: country.
 		el @ (ROHighlight color: Color brown).
+		el @ ROPopup.
+	]).
+	
+	view open.
+!
+
+theWorld2
+
+	|view color|
+	view := ROView new.
+	
+	view addAll: ((ROCountryInfo world) collect: [:country |
+		|el|
+		el := (ROPath path: (ROCountryInfo perform: country)) 
+					elementOn: country.
 		el @ ROPopup.
 	]).
 	
