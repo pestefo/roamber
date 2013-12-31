@@ -1,3 +1,11 @@
+<!--
+
+COLOR PALETTE
+
+http://www.colorcombos.com/color-schemes/85/ColorCombo85.html
+
+
+-->	
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,6 +34,7 @@
 
   <script src="projects/roamber/js/raphael-min.js" charset="utf-8"></script>
 
+
 </head>
 
 <body>
@@ -46,7 +55,7 @@
           'ARoassal-Layout-Test.js',
           'Roassal-Normalizers.js',
           'Roassal-Amber-Extensions.js',
-	        'Roassal-Builder-Punchcard.js',
+	      'Roassal-Builder-Punchcard.js',
           'RoassalExtras-Geo.js',
           'RoassalExtras-Geo-Tests.js',
           'RoassalExtras-Geo-Tests.js',
@@ -84,20 +93,23 @@
 				<div class="span10">
 					<div class="page-header">
 						<h1>
-							Roassal <small>Visualisation made easy</small>
+							Roassal <small>Visualisation made easy</small> 
 						</h1>
 					</div>
 					<!-- EXAMPLE ROW -->
 					<div class="row-fluid example-row">
-						<div class="span4"> 
-							<a href="#" onclick="smalltalk.ROExample._new()._worldConnections(); "><img src="images/maps.png" /> </a>
+						<div class="span2"> 
+							<ul class="nav nav-pills nav-stacked">
+							  <li class="active"><a href="#">Maps</a></li>
+							  <li><a href="#">Charts</a></li>
+							  <li><a href="#">Other</a></li>
+							</ul>
+
 						</div>
-						<div class="span4">
-							<a href="#" onclick="smalltalk.ROExample._new()._punchcard();"><img src="images/punchcard.png" /> </a>
+						<div class="span10">
+							
 						</div>
-						<div class="span4">
-							<a href="#" onclick="smalltalk.ROExample._new()._worldConnections(); "><img src="images/maps.png" /> </a>
-						</div>
+					
 					</div>
 					
 
@@ -174,6 +186,6 @@
   ga('send', 'pageview');
 
 </script>
-
+<script src="lib/jquery.flippy.min.js" ></script> 
 </body>
 </html>
