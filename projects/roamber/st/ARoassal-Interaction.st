@@ -242,7 +242,7 @@ updatePopupElementFor: element withEvent: evt
 	self popupElement model: (text roValue: element model).
 	
 	" update the position to the event position  and update view"
-	self popupElement translateTo: evt position.	
+	self popupElement translateTo: (evt position) + (10@10).
 	self popupElement signalUpdate.
 ! !
 

@@ -385,10 +385,10 @@ fn: function (element,evt){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._popupElement())._model_(_st(self["@text"])._roValue_(_st(element)._model()));
-_st(self._popupElement())._translateTo_(_st(evt)._position());
+_st(self._popupElement())._translateTo_(_st(_st(evt)._position()).__plus((10).__at((10))));
 _st(self._popupElement())._signalUpdate();
 return self}, function($ctx1) {$ctx1.fill(self,"updatePopupElementFor:withEvent:",{element:element,evt:evt},smalltalk.ROPopup)})},
-messageSends: ["model:", "roValue:", "model", "popupElement", "translateTo:", "position", "signalUpdate"]}),
+messageSends: ["model:", "roValue:", "model", "popupElement", "translateTo:", "+", "@", "position", "signalUpdate"]}),
 smalltalk.ROPopup);
 
 
