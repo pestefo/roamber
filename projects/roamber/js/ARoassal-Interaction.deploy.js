@@ -249,7 +249,7 @@ var ev;
 return smalltalk.withContext(function($ctx2) {
 ev=_st($ROMouseEnter())._new();
 ev;
-_st(ev)._position_(_st(_st(_st(_st(e)._pageX()).__minus(_st(_st($RORaphaelCanvas())._origin())._x())).__plus(_st("#roassal-canvas"._asJQuery())._scrollLeft())).__at(_st(_st(_st(e)._pageY()).__minus(_st(_st($RORaphaelCanvas())._origin())._y())).__plus(_st("#roassal-canvas"._asJQuery())._scrollTop())));
+_st(ev)._position_(_st(_st(_st(e)._pageX()).__minus(_st(_st($RORaphaelCanvas())._origin())._x())).__at(_st(_st(e)._pageY()).__minus(_st(_st($RORaphaelCanvas())._origin())._y())));
 _st(ev)._element_(element);
 return _st(element)._announce_(ev);
 }, function($ctx2) {$ctx2.fillBlock({e:e,ev:ev},$ctx1)})}),(function(){
@@ -260,7 +260,7 @@ ev;
 return _st(element)._announce_(ev);
 }, function($ctx2) {$ctx2.fillBlock({ev:ev},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"initializeElement:",{element:element,svgElement:svgElement},smalltalk.ROHoverable)})},
-messageSends: ["svgElement", "shape", "hover:whenLeave:", "new", "position:", "@", "+", "scrollTop", "asJQuery", "-", "y", "origin", "pageY", "scrollLeft", "x", "pageX", "element:", "announce:"]}),
+messageSends: ["svgElement", "shape", "hover:whenLeave:", "new", "position:", "@", "-", "y", "origin", "pageY", "x", "pageX", "element:", "announce:"]}),
 smalltalk.ROHoverable);
 
 
@@ -385,10 +385,10 @@ fn: function (element,evt){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._popupElement())._model_(_st(self["@text"])._roValue_(_st(element)._model()));
-_st(self._popupElement())._translateTo_(_st(evt)._position());
+_st(self._popupElement())._translateTo_(_st(_st(evt)._position()).__plus((10).__at((10))));
 _st(self._popupElement())._signalUpdate();
 return self}, function($ctx1) {$ctx1.fill(self,"updatePopupElementFor:withEvent:",{element:element,evt:evt},smalltalk.ROPopup)})},
-messageSends: ["model:", "roValue:", "model", "popupElement", "translateTo:", "position", "signalUpdate"]}),
+messageSends: ["model:", "roValue:", "model", "popupElement", "translateTo:", "+", "@", "position", "signalUpdate"]}),
 smalltalk.ROPopup);
 
 

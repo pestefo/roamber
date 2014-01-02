@@ -696,7 +696,7 @@ selector: "paper",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
- var paper = Raphael("roassal-canvas", 1600 , 900); return paper;;
+ var paper = Raphael("roassal-canvas", 1600 , 900); paper.canvas.id = 'roassal-svg-canvas'; return paper;;
 return self}, function($ctx1) {$ctx1.fill(self,"paper",{},smalltalk.RORaphaelCanvas)})},
 messageSends: []}),
 smalltalk.RORaphaelCanvas);
@@ -739,12 +739,14 @@ smalltalk.method({
 selector: "origin",
 fn: function (){
 var self=this;
+var canvasElement;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(self._canvas())._canvas())._offsetLeft()).__at(_st(_st(self._canvas())._canvas())._offsetTop());
+canvasElement="#roassal-svg-canvas"._asJQuery();
+$1=_st(_st(_st(canvasElement)._offset())._left()).__at(_st(_st(canvasElement)._offset())._top());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"origin",{},smalltalk.RORaphaelCanvas.klass)})},
-messageSends: ["@", "offsetTop", "canvas", "offsetLeft"]}),
+}, function($ctx1) {$ctx1.fill(self,"origin",{canvasElement:canvasElement},smalltalk.RORaphaelCanvas.klass)})},
+messageSends: ["asJQuery", "@", "top", "offset", "left"]}),
 smalltalk.RORaphaelCanvas.klass);
 
 
