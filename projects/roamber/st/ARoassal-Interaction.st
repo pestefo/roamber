@@ -154,7 +154,8 @@ initializeElement: element
 		| ev |
 		ev := ROMouseEnter new.
 "		ev position: (e clientX  -  (RORaphaelCanvas origin x)) @ (e clientY -  (RORaphaelCanvas origin y))."
-		ev position: (e pageX  -  (RORaphaelCanvas origin x) + ('#roassal-canvas' asJQuery scrollLeft) ) @ (e pageY -  (RORaphaelCanvas origin y) + ('#roassal-canvas' asJQuery scrollTop)).
+"		ev position: (e pageX  -  (RORaphaelCanvas origin x) + ('#roassal-canvas' asJQuery scrollLeft) ) @ (e pageY -  (RORaphaelCanvas origin y) + ('#roassal-canvas' asJQuery scrollTop))."
+		ev position: (e pageX  -  (RORaphaelCanvas origin x) ) @ (e pageY -  (RORaphaelCanvas origin y) ).	
 		ev element: element.
 		element announce: ev.
 		]
