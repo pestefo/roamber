@@ -104,7 +104,7 @@ smalltalk.ROVerticalDraggable);
 
 
 
-smalltalk.addClass('RelationalTowersBuilder', smalltalk.Object, ['view', 'models', 'title', 'legend', 'body', 'bodyElement', 'left', 'right', 'labelLeft', 'labelRight', 'colorLeft', 'colorRight', 'edgeColor', 'viewWidth', 'distance', 'direction', 'popups', 'popupElement', 'heightLeft', 'heightRight', 'width', 'lineShape', 'edges', 'shadowEdges'], 'RelationalTowersBuilder');
+smalltalk.addClass('RelationalTowersBuilder', smalltalk.Object, ['view', 'models', 'title', 'legend', 'body', 'bodyElement', 'overBody', 'left', 'right', 'labelLeft', 'labelRight', 'colorLeft', 'colorRight', 'edgeColor', 'viewWidth', 'distance', 'direction', 'popups', 'popupElement', 'heightLeft', 'heightRight', 'width', 'lineShape', 'edges', 'shadowEdges'], 'RelationalTowersBuilder');
 smalltalk.RelationalTowersBuilder.comment="A RelationalTowersBuilder is xxxxxxxxx.\x0a\x0aInstance Variables\x0a\x09body:\x09\x09<Object>\x0a\x09bodyElement:\x09\x09<Object>\x0a\x09colorLeft:\x09\x09<Object>\x0a\x09colorRight:\x09\x09<Object>\x0a\x09direction:\x09\x09<Object>\x0a\x09distance:\x09\x09<Object>\x0a\x09edgeColor:\x09\x09<Object>\x0a\x09edges:\x09\x09<Object>\x0a\x09heightLeft:\x09\x09<Object>\x0a\x09heightRight:\x09\x09<Object>\x0a\x09labelLeft:\x09\x09<Object>\x0a\x09labelRight:\x09\x09<Object>\x0a\x09left:\x09\x09<Object>\x0a\x09legend:\x09\x09<Object>\x0a\x09lineShape:\x09\x09<Object>\x0a\x09models:\x09\x09<Object>\x0a\x09popupElement:\x09\x09<Object>\x0a\x09popups:\x09\x09<Object>\x0a\x09right:\x09\x09<Object>\x0a\x09shadowEdges:\x09\x09<Object>\x0a\x09title:\x09\x09<Object>\x0a\x09view:\x09\x09<Object>\x0a\x09viewWidth:\x09\x09<Object>\x0a\x09width:\x09\x09<Object>\x0a\x0abody\x0a\x09- xxxxx\x0a\x0abodyElement\x0a\x09- xxxxx\x0a\x0acolorLeft\x0a\x09- xxxxx\x0a\x0acolorRight\x0a\x09- xxxxx\x0a\x0adirection\x0a\x09- xxxxx\x0a\x0adistance\x0a\x09- xxxxx\x0a\x0aedgeColor\x0a\x09- xxxxx\x0a\x0aedges\x0a\x09- xxxxx\x0a\x0aheightLeft\x0a\x09- xxxxx\x0a\x0aheightRight\x0a\x09- xxxxx\x0a\x0alabelLeft\x0a\x09- xxxxx\x0a\x0alabelRight\x0a\x09- xxxxx\x0a\x0aleft\x0a\x09- xxxxx\x0a\x0alegend\x0a\x09- xxxxx\x0a\x0alineShape\x0a\x09- xxxxx\x0a\x0amodels\x0a\x09- xxxxx\x0a\x0apopupElement\x0a\x09- xxxxx\x0a\x0apopups\x0a\x09- xxxxx\x0a\x0aright\x0a\x09- xxxxx\x0a\x0ashadowEdges\x0a\x09- xxxxx\x0a\x0atitle\x0a\x09- xxxxx\x0a\x0aview\x0a\x09- xxxxx\x0a\x0aviewWidth\x0a\x09- xxxxx\x0a\x0awidth\x0a\x09- xxxxx";
 smalltalk.addMethod(
 smalltalk.method({
@@ -1194,7 +1194,6 @@ var self=this;
 function $ROMouseEnter(){return smalltalk.ROMouseEnter||(typeof ROMouseEnter=="undefined"?nil:ROMouseEnter)}
 function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
 function $ROMouseLeave(){return smalltalk.ROMouseLeave||(typeof ROMouseLeave=="undefined"?nil:ROMouseLeave)}
-function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 _st(aNode)._on_do_($ROMouseEnter(),(function(event){
@@ -1210,34 +1209,37 @@ return _st(self._view())._signalUpdate();
 return smalltalk.withContext(function($ctx3) {
 return _st(self["@shadowEdges"])._at_put_(aNode,self._addLinesfrom_toAll_from_color_(aNode,links,aCollection,_st(self._class())._defaultLightEdgeColor()));
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
+_st(self["@overBody"])._at_put_(aNode,false);
 return _st(_st(self["@bodyElement"])._shape())._color_(_st($Color())._veryVeryLightGray());
 }, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
 _st(aNode)._on_do_($ROMouseLeave(),(function(event){
 var v;
 return smalltalk.withContext(function($ctx2) {
+v=false;
+v;
 _st(_st(self["@shadowEdges"])._at_(aNode))._do_((function(e){
 return smalltalk.withContext(function($ctx3) {
 return _st(_st(e)._shape())._hide();
 }, function($ctx3) {$ctx3.fillBlock({e:e},$ctx2)})}));
 _st(self._view())._signalUpdate();
-v=_st(self["@edges"])._at_ifAbsent_(aNode,(function(){
+_st(self["@overBody"])._do_((function(e){
 return smalltalk.withContext(function($ctx3) {
-return [_st($ROElement())._new()];
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
-v;
-$1=_st(_st(_st(v)._isEmpty())._not())._and_((function(){
-return smalltalk.withContext(function($ctx3) {
-return _st(_st(_st(v)._first())._shape())._isHidden();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
-if(smalltalk.assert($1)){
+v=_st(v)._or_((function(){
+return smalltalk.withContext(function($ctx4) {
+return e;
+}, function($ctx4) {$ctx4.fillBlock({},$ctx3)})}));
+return v;
+}, function($ctx3) {$ctx3.fillBlock({e:e},$ctx2)})}));
+$1=v;
+if(! smalltalk.assert($1)){
 return _st(_st(self["@bodyElement"])._shape())._color_(_st($Color())._darkGray());
 };
 }, function($ctx2) {$ctx2.fillBlock({event:event,v:v},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"greyLinesfrom:in:to:",{aNode:aNode,aCollection:aCollection,links:links},smalltalk.RelationalTowersBuilder)})},
 args: ["aNode", "aCollection", "links"],
-source: "greyLinesfrom: aNode in: aCollection to: links\x0a\x09aNode\x0a\x09\x09on: ROMouseEnter\x0a\x09\x09do: [ :event | \x0a\x09\x09\x09shadowEdges at: aNode\x09\x0a\x09\x09\x09\x09ifPresent: [ :v | v do: [ :e | e shape show\x22self view add: e\x22]. \x0a\x09\x09\x09\x09\x09\x09\x09self view signalUpdate]\x0a\x09\x09\x09\x09ifAbsent: [\x0a\x09\x09\x09\x09\x09shadowEdges at: aNode put: \x0a\x09\x09\x09\x09\x09(self\x0a\x09\x09\x09\x09\x09\x09addLinesfrom: aNode\x0a\x09\x09\x09\x09\x09\x09toAll: links\x0a\x09\x09\x09\x09\x09\x09from: aCollection\x0a\x09\x09\x09\x09\x09\x09color: self class defaultLightEdgeColor)].\x0a\x09\x09\x09bodyElement shape\x22s first\x22 color: Color veryVeryLightGray ].\x0a\x09aNode\x0a\x09\x09on: ROMouseLeave\x0a\x09\x09do: [ :event | |v|\x0a\x09\x09\x09(shadowEdges at: aNode) do: [ :e | e shape hide\x22remove\x22].\x0a\x09\x09\x09self view signalUpdate.\x0a\x09\x09\x09v := (edges at: aNode ifAbsent: [{ROElement new}]).\x0a\x09\x09\x09((v isEmpty not) and: [v first shape isHidden\x22isRendered\x22])\x0a\x09\x09\x09\x09\x22ifFalse:\x22ifTrue: [ bodyElement shape\x22s first\x22 color: Color darkGray]].",
-messageSends: ["on:do:", "at:ifPresent:ifAbsent:", "do:", "show", "shape", "signalUpdate", "view", "at:put:", "addLinesfrom:toAll:from:color:", "defaultLightEdgeColor", "class", "color:", "veryVeryLightGray", "hide", "at:", "at:ifAbsent:", "new", "ifTrue:", "darkGray", "and:", "isHidden", "first", "not", "isEmpty"],
-referencedClasses: ["ROMouseEnter", "Color", "ROMouseLeave", "ROElement"]
+source: "greyLinesfrom: aNode in: aCollection to: links\x0a\x09aNode\x0a\x09\x09on: ROMouseEnter\x0a\x09\x09do: [ :event | \x0a\x09\x09\x09shadowEdges at: aNode\x09\x0a\x09\x09\x09\x09ifPresent: [ :v | v do: [ :e | e shape show\x22self view add: e\x22]. \x0a\x09\x09\x09\x09\x09\x09\x09self view signalUpdate]\x0a\x09\x09\x09\x09ifAbsent: [\x0a\x09\x09\x09\x09\x09shadowEdges at: aNode put: \x0a\x09\x09\x09\x09\x09(self\x0a\x09\x09\x09\x09\x09\x09addLinesfrom: aNode\x0a\x09\x09\x09\x09\x09\x09toAll: links\x0a\x09\x09\x09\x09\x09\x09from: aCollection\x0a\x09\x09\x09\x09\x09\x09color: self class defaultLightEdgeColor)].\x0a\x09\x09\x09overBody at: aNode put: false.\x0a\x09\x09\x09bodyElement shape\x22s first\x22 color: Color veryVeryLightGray ].\x0a\x09aNode\x0a\x09\x09on: ROMouseLeave\x0a\x09\x09do: [ :event | |v|\x0a\x09\x09\x09v := false.\x0a\x09\x09\x09(shadowEdges at: aNode) do: [ :e | e shape hide\x22remove\x22].\x0a\x09\x09\x09self view signalUpdate.\x0a\x09\x09\x09overBody do: [ :e|  v := v or: [e]]. \x0a\x09\x09\x09v ifFalse: [ bodyElement shape\x22s first\x22 color: Color darkGray]].",
+messageSends: ["on:do:", "at:ifPresent:ifAbsent:", "do:", "show", "shape", "signalUpdate", "view", "at:put:", "addLinesfrom:toAll:from:color:", "defaultLightEdgeColor", "class", "color:", "veryVeryLightGray", "hide", "at:", "or:", "ifFalse:", "darkGray"],
+referencedClasses: ["ROMouseEnter", "Color", "ROMouseLeave"]
 }),
 smalltalk.RelationalTowersBuilder);
 
@@ -1354,6 +1356,7 @@ self._edgeColor_(_st(self._class())._defaultEdgeColor());
 self._height_((10));
 self["@width"]=(10);
 self["@lineShape"]=false;
+self["@overBody"]=_st($Dictionary())._new();
 self["@popupElement"]=(function(elem){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st($ROElement())._on_(_st(_st(_st(elem)._allEdgesFrom())._select_((function(e){
@@ -1364,7 +1367,7 @@ return _st(_st(_st(e)._shape())._color()).__eq(self._edgeColor());
 self["@viewWidth"]=(500);
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.RelationalTowersBuilder)})},
 args: [],
-source: "initialize\x0a\x09view := ROView new.\x0a\x09models := OrderedCollection new.\x0a\x09left := OrderedCollection new.\x0a\x09right := OrderedCollection new.\x0a\x09popups := Dictionary new.\x0a\x09edges := Dictionary new.\x0a\x09shadowEdges := Dictionary new.\x0a\x09title := 'RelationalTowers'.\x0a\x09legend := 'Relational Towers'.\x0a\x09body := ''.\x0a\x09self label: #asString.\x0a\x09self color: self class defaultElementColor.\x0a\x09self edgeColor: self class defaultEdgeColor.\x0a\x09self height: 10.\x0a\x09width := 10.\x0a\x09lineShape := false.\x0a\x09popupElement := [ :elem | (ROElement on: ((elem allEdgesFrom select: [:e | e shape\x22s first\x22 color = self edgeColor]) size)) \x0a\x09\x09+ (ROLabel new \x22fontSize: 14;\x22 color: self edgeColor) ].\x0a\x09viewWidth := 500.",
+source: "initialize\x0a\x09view := ROView new.\x0a\x09models := OrderedCollection new.\x0a\x09left := OrderedCollection new.\x0a\x09right := OrderedCollection new.\x0a\x09popups := Dictionary new.\x0a\x09edges := Dictionary new.\x0a\x09shadowEdges := Dictionary new.\x0a\x09title := 'RelationalTowers'.\x0a\x09legend := 'Relational Towers'.\x0a\x09body := ''.\x0a\x09self label: #asString.\x0a\x09self color: self class defaultElementColor.\x0a\x09self edgeColor: self class defaultEdgeColor.\x0a\x09self height: 10.\x0a\x09width := 10.\x0a\x09lineShape := false.\x0a\x09overBody := Dictionary new.\x0a\x09popupElement := [ :elem | (ROElement on: ((elem allEdgesFrom select: [:e | e shape\x22s first\x22 color = self edgeColor]) size)) \x0a\x09\x09+ (ROLabel new \x22fontSize: 14;\x22 color: self edgeColor) ].\x0a\x09viewWidth := 500.",
 messageSends: ["new", "label:", "color:", "defaultElementColor", "class", "edgeColor:", "defaultEdgeColor", "height:", "+", "edgeColor", "on:", "size", "select:", "=", "color", "shape", "allEdgesFrom"],
 referencedClasses: ["ROView", "OrderedCollection", "Dictionary", "ROLabel", "ROElement"]
 }),
@@ -1589,7 +1592,6 @@ fn: function (aNode,aCollection,links){
 var self=this;
 function $ROMouseClick(){return smalltalk.ROMouseClick||(typeof ROMouseClick=="undefined"?nil:ROMouseClick)}
 function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
-function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 _st(aNode)._on_do_($ROMouseClick(),(function(event){
@@ -1606,34 +1608,45 @@ return smalltalk.withContext(function($ctx4) {
 return _st(_st(e)._shape())._show();
 }, function($ctx4) {$ctx4.fillBlock({e:e},$ctx3)})}));
 self._addPopup_from_(aNode,aCollection);
-$2=_st(_st(_st(_st(self["@shadowEdges"])._at_ifAbsent_(aNode,(function(){
-return smalltalk.withContext(function($ctx4) {
-return [_st($ROElement())._new()];
-}, function($ctx4) {$ctx4.fillBlock({},$ctx3)})})))._first())._shape())._isHidden();
-if(smalltalk.assert($2)){
-_st(_st(self["@bodyElement"])._shape())._color_(_st($Color())._darkGray());
-};
+_st(self["@overBody"])._at_put_(aNode,true);
+_st(_st(self["@bodyElement"])._shape())._color_(_st($Color())._veryVeryLightGray());
 } else {
+var val;
+val=false;
+val;
 _st(v)._do_((function(e){
 return smalltalk.withContext(function($ctx4) {
 return _st(_st(e)._shape())._hide();
 }, function($ctx4) {$ctx4.fillBlock({e:e},$ctx3)})}));
 self._removePopup_(aNode);
-_st(_st(self["@bodyElement"])._shape())._color_(_st($Color())._veryVeryLightGray());
+_st(self["@overBody"])._at_put_(aNode,false);
+_st(self["@overBody"])._do_((function(e){
+return smalltalk.withContext(function($ctx4) {
+val=_st(val)._or_((function(){
+return smalltalk.withContext(function($ctx5) {
+return e;
+}, function($ctx5) {$ctx5.fillBlock({},$ctx4)})}));
+return val;
+}, function($ctx4) {$ctx4.fillBlock({e:e},$ctx3)})}));
+$2=val;
+if(! smalltalk.assert($2)){
+_st(_st(self["@bodyElement"])._shape())._color_(_st($Color())._darkGray());
+};
 };
 return _st(self._view())._signalUpdate();
 }, function($ctx3) {$ctx3.fillBlock({v:v},$ctx2)})}),(function(){
 return smalltalk.withContext(function($ctx3) {
 _st(self["@edges"])._at_put_(aNode,self._addLinesfrom_toAll_from_color_(aNode,links,aCollection,self._edgeColor()));
 self._addPopup_from_(aNode,aCollection);
+_st(self["@overBody"])._at_put_(aNode,true);
 return _st(_st(self["@bodyElement"])._shape())._color_(_st($Color())._veryVeryLightGray());
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
 }, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"lines:in:to:",{aNode:aNode,aCollection:aCollection,links:links},smalltalk.RelationalTowersBuilder)})},
 args: ["aNode", "aCollection", "links"],
-source: "lines: aNode in: aCollection to: links\x0a\x09aNode\x0a\x09\x09on: ROMouseClick\x0a\x09\x09do: [ :event | \x0a\x09\x09\x09edges at: aNode\x09\x09\x0a\x09\x09\x09\x09ifPresent: [ :v |\x0a\x09\x09\x09\x09\x09((v isEmpty not) and: [v first shape isHidden\x22isRendered\x22])\x0a\x09\x09\x09\x09\x09\x09\x22ifTrue:\x22ifFalse: [ v do: [ :e | e shape hide\x22remove\x22].\x0a\x09\x09\x09\x09\x09\x09\x09\x09self removePopup: aNode.\x0a\x09\x09\x09\x09\x09\x09\x09\x09bodyElement shape\x22s first\x22 color: Color veryVeryLightGray]\x0a\x09\x09\x09\x09\x09\x09\x22ifFalse:\x22ifTrue: [ v do: [ :e | e shape show\x22self view add: e\x22]. \x0a\x09\x09\x09\x09\x09\x09\x09\x09self addPopup: aNode from: aCollection.\x0a\x09\x09\x09\x09\x09\x09\x09\x09((shadowEdges at: aNode ifAbsent: [{ROElement new}]) first shape isHidden\x22isRendered\x22)\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09\x22ifFalse:\x22ifTrue: [ bodyElement shape\x22s first\x22 color: Color darkGray]].\x0a\x09\x09\x09\x09\x09self view signalUpdate]\x0a\x09\x09\x09\x09ifAbsent: [\x0a\x09\x09\x09\x09\x09edges at: aNode put: \x0a\x09\x09\x09\x09\x09(self\x0a\x09\x09\x09\x09\x09\x09addLinesfrom: aNode\x0a\x09\x09\x09\x09\x09\x09toAll: links\x0a\x09\x09\x09\x09\x09\x09from: aCollection\x0a\x09\x09\x09\x09\x09\x09color: self edgeColor).\x0a\x09\x09\x09\x09\x09self addPopup: aNode from: aCollection.\x0a\x09\x09\x09\x09\x09bodyElement shape\x22s first\x22 color: Color veryVeryLightGray]]",
-messageSends: ["on:do:", "at:ifPresent:ifAbsent:", "ifFalse:ifTrue:", "do:", "hide", "shape", "removePopup:", "color:", "veryVeryLightGray", "show", "addPopup:from:", "ifTrue:", "darkGray", "isHidden", "first", "at:ifAbsent:", "new", "and:", "not", "isEmpty", "signalUpdate", "view", "at:put:", "addLinesfrom:toAll:from:color:", "edgeColor"],
-referencedClasses: ["ROMouseClick", "Color", "ROElement"]
+source: "lines: aNode in: aCollection to: links\x0a\x09aNode\x0a\x09\x09on: ROMouseClick\x0a\x09\x09do: [ :event | \x0a\x09\x09\x09edges at: aNode\x09\x09\x0a\x09\x09\x09\x09ifPresent: [ :v |\x0a\x09\x09\x09\x09\x09((v isEmpty not) and: [v first shape isHidden\x22isRendered\x22])\x0a\x09\x09\x09\x09\x09\x09\x22ifTrue:\x22ifFalse: [ | val |\x0a\x09\x09\x09\x09\x09\x09\x09\x09val := false.\x0a\x09\x09\x09\x09\x09\x09\x09\x09v do: [ :e | e shape hide\x22remove\x22].\x0a\x09\x09\x09\x09\x09\x09\x09\x09self removePopup: aNode.\x0a\x09\x09\x09\x09\x09\x09\x09\x09overBody at: aNode put: false.\x0a\x09\x09\x09\x09\x09\x09\x09\x09overBody do: [ :e|  val := val or: [e]]. \x0a\x09\x09\x09\x09\x09\x09\x09\x09val ifFalse: [ bodyElement shape\x22s first\x22 color: Color darkGray]]\x0a\x09\x09\x09\x09\x09\x09\x22ifFalse:\x22ifTrue: [ v do: [ :e | e shape show\x22self view add: e\x22]. \x0a\x09\x09\x09\x09\x09\x09\x09\x09self addPopup: aNode from: aCollection.\x0a\x09\x09\x09\x09\x09\x09\x09\x09overBody at: aNode put: true. \x0a\x09\x09\x09\x09\x09\x09\x09\x09bodyElement shape\x22s first\x22 color: Color veryVeryLightGray].\x0a\x09\x09\x09\x09\x09self view signalUpdate]\x0a\x09\x09\x09\x09ifAbsent: [\x0a\x09\x09\x09\x09\x09edges at: aNode put: \x0a\x09\x09\x09\x09\x09(self\x0a\x09\x09\x09\x09\x09\x09addLinesfrom: aNode\x0a\x09\x09\x09\x09\x09\x09toAll: links\x0a\x09\x09\x09\x09\x09\x09from: aCollection\x0a\x09\x09\x09\x09\x09\x09color: self edgeColor).\x0a\x09\x09\x09\x09\x09self addPopup: aNode from: aCollection.\x0a\x09\x09\x09\x09\x09overBody at: aNode put: true.\x0a\x09\x09\x09\x09\x09bodyElement shape\x22s first\x22 color: Color veryVeryLightGray]]",
+messageSends: ["on:do:", "at:ifPresent:ifAbsent:", "ifFalse:ifTrue:", "do:", "hide", "shape", "removePopup:", "at:put:", "or:", "ifFalse:", "color:", "darkGray", "show", "addPopup:from:", "veryVeryLightGray", "and:", "isHidden", "first", "not", "isEmpty", "signalUpdate", "view", "addLinesfrom:toAll:from:color:", "edgeColor"],
+referencedClasses: ["ROMouseClick", "Color"]
 }),
 smalltalk.RelationalTowersBuilder);
 
@@ -2188,22 +2201,22 @@ $2=_st($1)._color_(aColor);
 line=$2;
 $3=self["@lineShape"];
 if(smalltalk.assert($3)){
-$4=line;
-_st($4)._addControlElement_(controlPoint2);
-$5=_st($4)._addControlElement_(controlPoint1);
-$5;
-} else {
 $6=line;
 _st($6)._addControlElement_(controlPoint1);
 $7=_st($6)._addControlElement_(controlPoint2);
 $7;
+} else {
+$4=line;
+_st($4)._addControlElement_(controlPoint2);
+$5=_st($4)._addControlElement_(controlPoint1);
+$5;
 };
 $8=line;
 return $8;
 }, function($ctx1) {$ctx1.fill(self,"splineLine:with:with:color:",{attachpoint:attachpoint,controlPoint1:controlPoint1,controlPoint2:controlPoint2,aColor:aColor,line:line},smalltalk.RelationalTowersBuilder)})},
 args: ["attachpoint", "controlPoint1", "controlPoint2", "aColor"],
-source: "splineLine: attachpoint with: controlPoint1 with: controlPoint2 color: aColor\x0a\x09| line |\x0a\x09line := ROBSplineLine new attachPoint: attachpoint; color: aColor.\x0a\x09lineShape \x0a\x09\x09ifTrue: [  \x0a\x09\x09\x09line addControlElement: controlPoint2;\x0a\x09\x09\x09addControlElement: controlPoint1]\x0a\x09\x09ifFalse:[\x0a\x09\x09\x09line addControlElement: controlPoint1;\x0a\x09\x09\x09addControlElement: controlPoint2].\x0a\x09^line",
-messageSends: ["attachPoint:", "new", "color:", "ifTrue:ifFalse:", "addControlElement:"],
+source: "splineLine: attachpoint with: controlPoint1 with: controlPoint2 color: aColor\x0a\x09| line |\x0a\x09line := ROBSplineLine new attachPoint: attachpoint; color: aColor.\x0a\x09lineShape \x0a\x09\x09\x22ifTrue:\x22ifFalse: [  \x0a\x09\x09\x09line addControlElement: controlPoint2;\x0a\x09\x09\x09addControlElement: controlPoint1]\x0a\x09\x09\x22ifFalse:\x22ifTrue: [\x0a\x09\x09\x09line addControlElement: controlPoint1;\x0a\x09\x09\x09addControlElement: controlPoint2].\x0a\x09^line",
+messageSends: ["attachPoint:", "new", "color:", "ifFalse:ifTrue:", "addControlElement:"],
 referencedClasses: ["ROBSplineLine"]
 }),
 smalltalk.RelationalTowersBuilder);
