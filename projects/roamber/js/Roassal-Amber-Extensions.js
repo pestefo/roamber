@@ -708,6 +708,24 @@ smalltalk.Color.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "darkGray",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._colorDict())._at_("darkGray");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"darkGray",{},smalltalk.Color.klass)})},
+args: [],
+source: "darkGray\x0a\x09^   self colorDict at: #darkGray",
+messageSends: ["at:", "colorDict"],
+referencedClasses: []
+}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "defaultColors",
 category: 'defaults',
 fn: function (){

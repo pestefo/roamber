@@ -2034,6 +2034,10 @@ initialize
 		self extent: self defaultExtent.
 !
 
+isHidden
+	^true
+!
+
 isShapedAs: aShapeClass
 	^ false
 !

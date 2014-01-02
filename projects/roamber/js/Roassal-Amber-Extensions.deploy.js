@@ -558,6 +558,19 @@ smalltalk.Color.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "darkGray",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._colorDict())._at_("darkGray");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"darkGray",{},smalltalk.Color.klass)})},
+messageSends: ["at:", "colorDict"]}),
+smalltalk.Color.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "defaultColors",
 fn: function (){
 var self=this;

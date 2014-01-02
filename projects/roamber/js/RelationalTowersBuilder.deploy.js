@@ -76,13 +76,13 @@ smalltalk.ROVerticalDraggable);
 
 
 
-smalltalk.addClass('RelationalTowersBuilder', smalltalk.Object, ['view', 'models', 'title', 'legend', 'left', 'right', 'labelLeft', 'labelRight', 'colorLeft', 'colorRight', 'viewWidth', 'distance', 'direction', 'popups', 'popupElement', 'edges', 'shadowEdges', 'height', 'width'], 'RelationalTowersBuilder');
+smalltalk.addClass('RelationalTowersBuilder', smalltalk.Object, ['view', 'models', 'title', 'legend', 'body', 'bodyElement', 'left', 'right', 'labelLeft', 'labelRight', 'colorLeft', 'colorRight', 'edgeColor', 'viewWidth', 'distance', 'direction', 'popups', 'popupElement', 'heightLeft', 'heightRight', 'width', 'lineShape', 'edges', 'shadowEdges'], 'RelationalTowersBuilder');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addLinesfrom:toAll:from:color:",
 fn: function (aNode,aCollection,anotherCollection,aColor){
 var self=this;
-var at,ce1,ce2,ce3,ce4,p1,p2,p3,p4,lines;
+var at,ce1,ce2,p1,p2,lines;
 function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 function $RORightBorderAttachPoint(){return smalltalk.RORightBorderAttachPoint||(typeof RORightBorderAttachPoint=="undefined"?nil:RORightBorderAttachPoint)}
 function $ROLeftBorderAttachPoint(){return smalltalk.ROLeftBorderAttachPoint||(typeof ROLeftBorderAttachPoint=="undefined"?nil:ROLeftBorderAttachPoint)}
@@ -98,16 +98,18 @@ at;
 at=_st($ROLeftBorderAttachPoint())._instance();
 at;
 };
-p3=self._controlPointStart_from_(aNode,anotherCollection);
-ce3=self._controlElement_(p3);
 _st(aCollection)._do_((function(l){
 var ed;
 return smalltalk.withContext(function($ctx2) {
-p2=self._controlPointEnd_from_(l,anotherCollection);
+p2=self._controlPoint_with_(aNode,l);
 p2;
 ce2=self._controlElement_(p2);
 ce2;
-ed=_st(_st($ROEdge())._from_to_(aNode,l)).__plus(self._splineLine_with_with_with_with_color_(at,nil,ce2,ce3,nil,aColor));
+p1=self._controlPoint_with_(l,aNode);
+p1;
+ce1=self._controlElement_(p1);
+ce1;
+ed=_st(_st($ROEdge())._from_to_(aNode,l)).__plus(self._splineLine_with_with_color_(at,ce1,ce2,aColor));
 ed;
 _st(lines)._add_(ed);
 return _st(self["@view"])._add_(ed);
@@ -115,8 +117,8 @@ return _st(self["@view"])._add_(ed);
 _st(self._view())._signalUpdate();
 $2=lines;
 return $2;
-}, function($ctx1) {$ctx1.fill(self,"addLinesfrom:toAll:from:color:",{aNode:aNode,aCollection:aCollection,anotherCollection:anotherCollection,aColor:aColor,at:at,ce1:ce1,ce2:ce2,ce3:ce3,ce4:ce4,p1:p1,p2:p2,p3:p3,p4:p4,lines:lines},smalltalk.RelationalTowersBuilder)})},
-messageSends: ["new", "ifTrue:ifFalse:", "instance", "=", "controlPointStart:from:", "controlElement:", "do:", "controlPointEnd:from:", "+", "splineLine:with:with:with:with:color:", "from:to:", "add:", "signalUpdate", "view"]}),
+}, function($ctx1) {$ctx1.fill(self,"addLinesfrom:toAll:from:color:",{aNode:aNode,aCollection:aCollection,anotherCollection:anotherCollection,aColor:aColor,at:at,ce1:ce1,ce2:ce2,p1:p1,p2:p2,lines:lines},smalltalk.RelationalTowersBuilder)})},
+messageSends: ["new", "ifTrue:ifFalse:", "instance", "=", "do:", "controlPoint:with:", "controlElement:", "+", "splineLine:with:with:color:", "from:to:", "add:", "signalUpdate", "view"]}),
 smalltalk.RelationalTowersBuilder);
 
 smalltalk.addMethod(
@@ -126,29 +128,32 @@ fn: function (element,aCollection){
 var self=this;
 var pop;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$3;
 $1=_st(_st(element)._allEdgesFrom())._isEmpty();
 if(! smalltalk.assert($1)){
-_st(self["@popups"])._at_ifPresent_ifAbsent_((0),(function(e){
-return smalltalk.withContext(function($ctx2) {
-return _st(e)._show();
-}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
 pop=_st(self._popupElement())._value_(element);
 pop;
+$2=_st(_st(pop)._model()).__eq((1));
+if(! smalltalk.assert($2)){
+_st(self["@popups"])._at_ifPresent_ifAbsent_(element,(function(v){
+return smalltalk.withContext(function($ctx2) {
+return _st(v)._hide();
+}, function($ctx2) {$ctx2.fillBlock({v:v},$ctx1)})}),(function(){
+return smalltalk.withContext(function($ctx2) {
 _st(self["@popups"])._at_put_(element,pop);
 _st(self._view())._add_(pop);
 self._stickTop_on_from_(pop,element,aCollection);
-$2=_st(aCollection).__eq(self["@left"]);
-if(smalltalk.assert($2)){
-return _st(pop)._translateBy_(_st((5)._negated()).__at((0)));
+$3=_st(aCollection).__eq(self["@left"]);
+if(smalltalk.assert($3)){
+return _st(pop)._translateBy_(_st(_st(_st(_st(element)._width()).__plus(_st(pop)._width())).__plus((5))).__at(_st(_st(_st(element)._height()).__slash((2))).__minus(_st(pop)._height())));
 } else {
-return _st(pop)._translateBy_((5).__at((0)));
+return _st(pop)._translateBy_(_st(_st(_st(_st(_st(element)._width()).__plus(_st(pop)._width())).__plus((5)))._negated()).__at(_st(_st(_st(element)._height()).__slash((2))).__minus(_st(pop)._height())));
 };
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 };
+};
 return self}, function($ctx1) {$ctx1.fill(self,"addPopup:from:",{element:element,aCollection:aCollection,pop:pop},smalltalk.RelationalTowersBuilder)})},
-messageSends: ["ifFalse:", "at:ifPresent:ifAbsent:", "show", "value:", "popupElement", "at:put:", "add:", "view", "stickTop:on:from:", "ifTrue:ifFalse:", "translateBy:", "@", "negated", "=", "isEmpty", "allEdgesFrom"]}),
+messageSends: ["ifFalse:", "value:", "popupElement", "at:ifPresent:ifAbsent:", "hide", "at:put:", "add:", "view", "stickTop:on:from:", "ifTrue:ifFalse:", "translateBy:", "@", "-", "height", "/", "+", "width", "negated", "=", "model", "isEmpty", "allEdgesFrom"]}),
 smalltalk.RelationalTowersBuilder);
 
 smalltalk.addMethod(
@@ -159,7 +164,7 @@ var self=this;
 var values,aux,otherCollection;
 function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$3;
 $1=_st(aCollection).__eq(self["@left"]);
 if(smalltalk.assert($1)){
 otherCollection=self["@right"];
@@ -171,15 +176,20 @@ otherCollection;
 values=_st($OrderedCollection())._new();
 aux=_st(aCollection)._collect_((function(l){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(aBlock)._value_(_st(l)._model()))._asOrderedCollection();
+return _st(aBlock)._value_(_st(l)._model());
 }, function($ctx2) {$ctx2.fillBlock({l:l},$ctx1)})}));
 _st(aux)._do_((function(e){
 return smalltalk.withContext(function($ctx2) {
+$2=_st(e)._isString();
+if(smalltalk.assert($2)){
+return _st(values)._add_(e);
+} else {
 return _st(values)._addAll_(e);
+};
 }, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
 _st(values)._removeDuplicates();
-$2=_st(otherCollection).__eq(self["@left"]);
-if(smalltalk.assert($2)){
+$3=_st(otherCollection).__eq(self["@left"]);
+if(smalltalk.assert($3)){
 self["@left"]=self._from_in_(values,"left");
 self["@left"];
 } else {
@@ -187,44 +197,31 @@ self["@right"]=self._from_in_(values,"right");
 self["@right"];
 };
 return self}, function($ctx1) {$ctx1.fill(self,"assignMissing:from:",{aBlock:aBlock,aCollection:aCollection,values:values,aux:aux,otherCollection:otherCollection},smalltalk.RelationalTowersBuilder)})},
-messageSends: ["ifTrue:ifFalse:", "=", "new", "collect:", "asOrderedCollection", "value:", "model", "do:", "addAll:", "removeDuplicates", "from:in:"]}),
+messageSends: ["ifTrue:ifFalse:", "=", "new", "collect:", "value:", "model", "do:", "add:", "addAll:", "isString", "removeDuplicates", "from:in:"]}),
 smalltalk.RelationalTowersBuilder);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "blueLines:in:to:",
-fn: function (aNode,aCollection,links){
+selector: "body",
+fn: function (){
 var self=this;
-function $ROMouseClick(){return smalltalk.ROMouseClick||(typeof ROMouseClick=="undefined"?nil:ROMouseClick)}
-function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-_st(aNode)._on_do_($ROMouseClick(),(function(event){
-return smalltalk.withContext(function($ctx2) {
-return _st(self["@edges"])._at_ifPresent_ifAbsent_(aNode,(function(){
-return smalltalk.withContext(function($ctx3) {
-$1=_st(_st(_st(_st(self["@edges"])._at_(aNode))._first())._shape())._isHidden();
-if(smalltalk.assert($1)){
-_st(_st(self["@edges"])._at_(aNode))._do_((function(e){
-return smalltalk.withContext(function($ctx4) {
-return _st(_st(e)._shape())._show();
-}, function($ctx4) {$ctx4.fillBlock({e:e},$ctx3)})}));
-} else {
-_st(_st(self["@edges"])._at_(aNode))._do_((function(e){
-return smalltalk.withContext(function($ctx4) {
-return _st(_st(e)._shape())._hide();
-}, function($ctx4) {$ctx4.fillBlock({e:e},$ctx3)})}));
-self._removePopup_(aNode);
-};
-return _st(self._view())._signalUpdate();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}),(function(){
-return smalltalk.withContext(function($ctx3) {
-_st(self["@edges"])._at_put_(aNode,self._addLinesfrom_toAll_from_color_(aNode,links,aCollection,_st($Color())._blue()));
-return self._addPopup_from_(aNode,aCollection);
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
-}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"blueLines:in:to:",{aNode:aNode,aCollection:aCollection,links:links},smalltalk.RelationalTowersBuilder)})},
-messageSends: ["on:do:", "at:ifPresent:ifAbsent:", "ifTrue:ifFalse:", "do:", "show", "shape", "at:", "hide", "removePopup:", "isHidden", "first", "signalUpdate", "view", "at:put:", "addLinesfrom:toAll:from:color:", "blue", "addPopup:from:"]}),
+$1=self["@body"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"body",{},smalltalk.RelationalTowersBuilder)})},
+messageSends: []}),
+smalltalk.RelationalTowersBuilder);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "body:",
+fn: function (aText){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@body"]=aText;
+return self}, function($ctx1) {$ctx1.fill(self,"body:",{aText:aText},smalltalk.RelationalTowersBuilder)})},
+messageSends: []}),
 smalltalk.RelationalTowersBuilder);
 
 smalltalk.addMethod(
@@ -255,19 +252,6 @@ $3=r;
 return $3;
 }, function($ctx1) {$ctx1.fill(self,"check:from:to:",{aBlock:aBlock,s:s,f:f,v:v,r:r},smalltalk.RelationalTowersBuilder)})},
 messageSends: ["ifTrue:ifFalse:", "value:value:", "=", "value:", "includes:", "isCollection", "numArgs"]}),
-smalltalk.RelationalTowersBuilder);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "color",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self["@color"];
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"color",{},smalltalk.RelationalTowersBuilder)})},
-messageSends: []}),
 smalltalk.RelationalTowersBuilder);
 
 smalltalk.addMethod(
@@ -338,44 +322,6 @@ smalltalk.RelationalTowersBuilder);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "companion:with:",
-fn: function (aPoint,anotherPoint){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$4,$5,$6,$1;
-$2=_st(_st(aPoint)._x()).__lt(_st(anotherPoint)._x());
-if(smalltalk.assert($2)){
-$3=_st(_st(_st(aPoint)._y()).__minus(_st(anotherPoint)._y())).__gt((150));
-if(smalltalk.assert($3)){
-$1=_st(aPoint).__plus(_st(_st(_st(self["@distance"]).__slash((12)))._negated()).__at(_st(self["@distance"]).__slash((12))));
-} else {
-$4=_st(_st(_st(aPoint)._y()).__minus(_st(anotherPoint)._y())).__lt((150)._negated());
-if(smalltalk.assert($4)){
-$1=_st(aPoint).__plus(_st(_st(self["@distance"]).__slash((12))).__at(_st(self["@distance"]).__slash((12)._negated())));
-} else {
-$1=aPoint;
-};
-};
-} else {
-$5=_st(_st(_st(aPoint)._y()).__minus(_st(anotherPoint)._y())).__gt((150));
-if(smalltalk.assert($5)){
-$1=_st(aPoint).__plus(_st(_st(self["@distance"]).__slash((12))).__at(_st(self["@distance"]).__slash((12))));
-} else {
-$6=_st(_st(_st(aPoint)._y()).__minus(_st(anotherPoint)._y())).__lt((150)._negated());
-if(smalltalk.assert($6)){
-$1=_st(aPoint).__plus(_st(_st(_st(self["@distance"]).__slash((12)))._negated()).__at(_st(_st(self["@distance"]).__slash((12)))._negated()));
-} else {
-$1=aPoint;
-};
-};
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"companion:with:",{aPoint:aPoint,anotherPoint:anotherPoint},smalltalk.RelationalTowersBuilder)})},
-messageSends: ["ifTrue:ifFalse:", "+", "@", "/", "negated", "<", "-", "y", ">", "x"]}),
-smalltalk.RelationalTowersBuilder);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "controlElement:",
 fn: function (p1){
 var self=this;
@@ -393,38 +339,23 @@ smalltalk.RelationalTowersBuilder);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "controlPointEnd:from:",
-fn: function (aNode,aCollection){
+selector: "controlPoint:with:",
+fn: function (aNode,anotherNode){
 var self=this;
+var p1,p2;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
-$2=_st(aCollection).__eq(self["@left"]);
+p1=_st(aNode)._absolutePosition();
+p2=_st(anotherNode)._absolutePosition();
+$2=_st(_st(p1)._x()).__lt(_st(p2)._x());
 if(smalltalk.assert($2)){
-$1=_st(_st(aNode)._absolutePosition()).__plus(_st(_st(_st(self["@distance"]).__slash((3)))._negated()).__at(_st(_st(_st(_st(aNode)._bounds())._height()).__slash((2)))._asInteger()));
+$1=_st(_st(_st(p1)._x()).__plus(_st(aNode)._width())).__at(_st(_st(p2)._y()).__plus(_st(_st(anotherNode)._height()).__slash((2))));
 } else {
-$1=_st(_st(aNode)._absolutePosition()).__plus(_st(_st(self["@distance"]).__slash((3))).__at(_st(_st(_st(_st(aNode)._bounds())._height()).__slash((2)))._asInteger()));
+$1=_st(_st(_st(p1)._x()).__plus(_st(aNode)._width())).__at(_st(p2)._y());
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"controlPointEnd:from:",{aNode:aNode,aCollection:aCollection},smalltalk.RelationalTowersBuilder)})},
-messageSends: ["ifTrue:ifFalse:", "+", "@", "asInteger", "/", "height", "bounds", "negated", "absolutePosition", "="]}),
-smalltalk.RelationalTowersBuilder);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "controlPointStart:from:",
-fn: function (aNode,aCollection){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=_st(aCollection).__eq(self["@left"]);
-if(smalltalk.assert($2)){
-$1=_st(_st(aNode)._absolutePosition()).__plus(_st(_st(self["@distance"]).__slash((3))).__at(_st(_st(_st(_st(aNode)._bounds())._height()).__slash((2)))._asInteger()));
-} else {
-$1=_st(_st(aNode)._absolutePosition()).__plus(_st(_st(_st(self["@distance"]).__slash((3)))._negated()).__at(_st(_st(_st(_st(aNode)._bounds())._height()).__slash((2)))._asInteger()));
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"controlPointStart:from:",{aNode:aNode,aCollection:aCollection},smalltalk.RelationalTowersBuilder)})},
-messageSends: ["ifTrue:ifFalse:", "+", "@", "asInteger", "/", "height", "bounds", "absolutePosition", "negated", "="]}),
+}, function($ctx1) {$ctx1.fill(self,"controlPoint:with:",{aNode:aNode,anotherNode:anotherNode,p1:p1,p2:p2},smalltalk.RelationalTowersBuilder)})},
+messageSends: ["absolutePosition", "ifTrue:ifFalse:", "@", "+", "/", "height", "y", "width", "x", "<"]}),
 smalltalk.RelationalTowersBuilder);
 
 smalltalk.addMethod(
@@ -448,6 +379,30 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self["@distance"]=aNumber;
 return self}, function($ctx1) {$ctx1.fill(self,"distance:",{aNumber:aNumber},smalltalk.RelationalTowersBuilder)})},
+messageSends: []}),
+smalltalk.RelationalTowersBuilder);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "edgeColor",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@edgeColor"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"edgeColor",{},smalltalk.RelationalTowersBuilder)})},
+messageSends: []}),
+smalltalk.RelationalTowersBuilder);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "edgeColor:",
+fn: function (aColor){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@edgeColor"]=aColor;
+return self}, function($ctx1) {$ctx1.fill(self,"edgeColor:",{aColor:aColor},smalltalk.RelationalTowersBuilder)})},
 messageSends: []}),
 smalltalk.RelationalTowersBuilder);
 
@@ -571,10 +526,10 @@ selector: "edgesToLeft:edgesToRight:",
 fn: function (aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._edgesToRight_(aBlock);
-self._edgesToLeft_(anotherBlock);
+self._edgesToLeft_(aBlock);
+self._edgesToRight_(anotherBlock);
 return self}, function($ctx1) {$ctx1.fill(self,"edgesToLeft:edgesToRight:",{aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.RelationalTowersBuilder)})},
-messageSends: ["edgesToRight:", "edgesToLeft:"]}),
+messageSends: ["edgesToLeft:", "edgesToRight:"]}),
 smalltalk.RelationalTowersBuilder);
 
 smalltalk.addMethod(
@@ -621,10 +576,45 @@ function $RelationalTowersBuilder(){return smalltalk.RelationalTowersBuilder||(t
 return smalltalk.withContext(function($ctx1) { 
 a=_st($RelationalTowersBuilder())._new();
 _st(a)._left_(["a","b","c"]);
+_st(a)._body_("a b c a b c");
 _st(a)._edgesTo_("yourself");
 _st(a)._open();
 return self}, function($ctx1) {$ctx1.fill(self,"example1",{a:a},smalltalk.RelationalTowersBuilder)})},
-messageSends: ["new", "left:", "edgesTo:", "open"]}),
+messageSends: ["new", "left:", "body:", "edgesTo:", "open"]}),
+smalltalk.RelationalTowersBuilder);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "example10",
+fn: function (){
+var self=this;
+var builder,maiden1,maiden2;
+function $RelationalTowersBuilder(){return smalltalk.RelationalTowersBuilder||(typeof RelationalTowersBuilder=="undefined"?nil:RelationalTowersBuilder)}
+return smalltalk.withContext(function($ctx1) { 
+maiden1=[[(2013),(46),["United States","Germany","United Kingdom","Brazil","Spain","Russia","France","Poland","Sweden","Austria","Finland","Argentina","Switzerland","Romania","Paraguay","Netherlands","Turkey","Chile","Portugal","Slovakia","Czech Republic","Belgium","Croatia","Italy","Mexico"]],[(2012),(34),["United States","Canada"]],[(2011),(63),["United Kingdom","Brazil","Australia","Germany","France","Russia","Indonesia","United States","Mexico","Colombia","Netherlands","Peru","Poland","Denmark","Czech Republic","Sweden","Singapore","Argentina","Austria","Belgium","Chile","Greece","Norway","Puerto Rico","Turkey","Finland","South Korea","Switzerland","Portugal","Italy","Spain"]],[(2010),(36),["United States","Canada","Italy","Ireland","Belgium","United Kingdom","Spain","Sweden","Germany","Finland","Norway","Hungary","Romania"]],[(2009),(22),["Brazil","Mexico","New Zealand","Colombia","Ecuador","Serbia","India","Chile","United Arab Emirates","Peru","Argentina","United States","Venezuela","Costa Rica"]],[(2008),(68),["United States","Canada","Australia","Mexico","Brazil","Japan","Sweden","Norway","France","Finland","Argentina","Puerto Rico","Czech Republic","Chile","Poland","Hungary","Portugal","Costa Rica","Romania","Colombia","Greece","United Kingdom","Croatia","Denmark","Netherlands","Russia","India","Switzerland","Germany","Italy","Belgium","Spain"]],[(2007),(16),["United Kingdom","Germany","Italy","Slovenia","Belgium","India","Greece","United Arab Emirates","Spain","Serbia","Netherlands","Czech Republic","Bulgaria"]],[(2006),(45),["United Kingdom","United States","Japan","Sweden","Finland","Canada","Norway","Italy","Denmark","Germany","Switzerland","Ireland","France","Spain","Netherlands"]],[(2005),(46),["United States","United Kingdom","Germany","Finland","Norway","Canada","Portugal","Belgium","Czech Republic","Switzerland","Netherlands","Greece","Austria","Sweden","Poland","Ireland","Iceland","Italy","France","Spain"]],[(2004),(14),["United States","Japan","Brazil","Canada","Argentina","Chile"]],[(2003),(90),["United States","Germany","United Kingdom","Spain","France","Sweden","Italy","Canada","Belgium","Czech Republic","Denmark","Switzerland","Finland","Hungary","Netherlands","Poland","Norway","Croatia","Portugal","Slovakia","Austria","Ireland"]],[(2002),(4),["United Kingdom"]],[(2001),(6),["United Kingdom","Argentina","Brazil","Mexico","Chile"]],[(2000),(79),["United States","Japan","United Kingdom","Germany","Canada","Spain","France","Poland","Czech Republic","Switzerland","Sweden","Slovenia","Portugal","Norway","Greece","Belgium","Netherlands","Hungary","Denmark","Slovakia","Finland","Italy","Austria","Estonia"]],[(1999),(28),["United States","Canada","Germany","Spain","Sweden","Italy","Netherlands","Greece","France","Finland"]],[(1998),(87),["United States","Germany","United Kingdom","France","Spain","Italy","Japan","Brazil","Canada","Mexico","Turkey","Greece","Argentina","Hungary","Poland","Finland","Czech Republic","Portugal","Malta","Belgium","Denmark","Sweden","Switzerland","Netherlands"]],[(1996),(75),["United States","France","Japan","Spain","Italy","Brazil","Canada","Argentina","United Kingdom","Greece","Mexico","Slovenia","Denmark","Netherlands","Chile","Ireland","Colombia","Finland","Belgium"]],[(1995),(55),["Germany","Italy","United Kingdom","Spain","Israel","South Africa","Sweden","Switzerland","Greece","Denmark","Norway","Romania","Belgium","Finland","France","Portugal","Bulgaria","Austria","Poland","Slovakia","Netherlands","Hungary","Czech Republic"]],[(1993),(45),["Italy","United Kingdom","Germany","France","Russia","Spain","Czech Republic","Slovakia","Sweden","Netherlands","Ireland","Austria","Switzerland","Portugal"]],[(1992),(65),["United States","Japan","Canada","Spain","France","Mexico","Brazil","Australia","United Kingdom","Venezuela","Sweden","Italy","Germany","Belgium","Argentina","Puerto Rico","Finland","Norway","Denmark","Switzerland","Uruguay","Iceland","Netherlands","New Zealand"]],[(1991),(50),["United States","Canada","Japan","Switzerland","Denmark","France"]],[(1990),(56),["United Kingdom","Germany","Italy","Spain","Netherlands","Belgium","France","Sweden","Finland","Ireland","Portugal","Norway","Denmark"]],[(1988),(97),["United States","United Kingdom","Canada","Germany","Spain","France","Sweden","Finland","Portugal","Italy","Belgium","Hungary","Denmark","Netherlands","Austria","Switzerland","Norway","Greece"]],[(1987),(85),["United States","Canada","Japan"]],[(1986),(66),["United Kingdom","Germany","Poland","France","Italy","Sweden","Spain","Austria","Serbia","Portugal","Hungary","Switzerland","Croatia","Slovenia","Netherlands","Norway","Belgium","Finland"]],[(1985),(104),["United States","Japan","Australia","Brazil","United Kingdom"]],[(1984),(87),["United Kingdom","Canada","Germany","United States","France","Poland","Italy","Spain","Portugal","Sweden","Slovenia","Switzerland","Finland","Hungary","Belgium","Netherlands","Austria","Denmark","Serbia"]],[(1983),(137),["United States","United Kingdom","Germany","Canada","France","Spain","Sweden","Netherlands","Denmark","Belgium","Finland","Switzerland","Norway"]],[(1982),(181),["United States","United Kingdom","France","Canada","Australia","Japan","Germany","Spain","Belgium","Switzerland","Netherlands"]],[(1981),(137),["United States","United Kingdom","France","Germany","Italy","Sweden","Netherlands","Japan","Canada","Denmark","Belgium","Serbia","Switzerland"]],[(1980),(157),["United Kingdom","Germany","Italy","France","Belgium","Sweden","Portugal","Netherlands","Finland","Norway","Switzerland","Ireland","Denmark"]],[(1979),(89),["United Kingdom"]],[(1978),(4),["United Kingdom"]],[(1977),(38),["United Kingdom"]],[(1976),(34),["United Kingdom"]]];
+maiden2=["United States".__minus_gt((686)),"United Kingdom".__minus_gt((538)),"Germany".__minus_gt((154)),"Canada".__minus_gt((111)),"France".__minus_gt((109)),"Japan".__minus_gt((70)),"Italy".__minus_gt((70)),"Spain".__minus_gt((68)),"Sweden".__minus_gt((39)),"Australia".__minus_gt((32)),"Brazil".__minus_gt((32)),"Netherlands".__minus_gt((28)),"Finland".__minus_gt((24)),"Belgium".__minus_gt((24)),"Poland".__minus_gt((23)),"Switzerland".__minus_gt((22)),"Denmark".__minus_gt((19)),"Norway".__minus_gt((18)),"Mexico".__minus_gt((17)),"Portugal".__minus_gt((16)),"Greece".__minus_gt((13)),"Czech Republic".__minus_gt((11)),"Austria".__minus_gt((11)),"Hungary".__minus_gt((10)),"Argentina".__minus_gt((10)),"Ireland".__minus_gt((8)),"Russia".__minus_gt((8)),"Chile".__minus_gt((7)),"Serbia".__minus_gt((5)),"Slovenia".__minus_gt((5)),"Slovakia".__minus_gt((5)),"Croatia".__minus_gt((4)),"Romania".__minus_gt((4)),"Colombia".__minus_gt((4)),"Turkey".__minus_gt((4)),"New Zealand".__minus_gt((3)),"Venezuela".__minus_gt((3)),"India".__minus_gt((3)),"Israel".__minus_gt((3)),"South Africa".__minus_gt((3)),"Puerto Rico".__minus_gt((3)),"United Arab Emirates".__minus_gt((2)),"Indonesia".__minus_gt((2)),"Bulgaria".__minus_gt((2)),"Peru".__minus_gt((2)),"Iceland".__minus_gt((2)),"Costa Rica".__minus_gt((2)),"South Korea".__minus_gt((1)),"Uruguay".__minus_gt((1)),"Ecuador".__minus_gt((1)),"Estonia".__minus_gt((1)),"Malta".__minus_gt((1)),"Singapore".__minus_gt((1)),"Paraguay".__minus_gt((1))];
+builder=_st($RelationalTowersBuilder())._new();
+_st(builder)._title_("Iron Maiden");
+_st(builder)._legend_("Concerts around the word per year");
+_st(builder)._body_("Iron Maiden are an English heavy metal band \x0aformed in Leyton, east London, in 1975 by \x0abassist and primary songwriter Steve Harris. \x0aThe band's discography has grown to \x0athirty-seven albums, including fifteen studio \x0aalbums, eleven live albums, four EPs, and \x0aseven compilations.\x0a\x0aPioneers of the New Wave of British Heavy \x0aMetal, Iron Maiden achieved initial success \x0aduring the early 1980s. After several line-up \x0achanges, the band went on to release a \x0aseries of US and UK platinum and gold \x0aalbums, including 1982's The Number of the \x0aBeast, 1983's Piece of Mind, 1984's \x0aPowerslave, 1985's live release Live After \x0aDeath, 1986's Somewhere in Time and \x0a1988's Seventh Son of a Seventh Son. \x0aSince the return of lead vocalist Bruce \x0aDickinson and guitarist Adrian Smith in 1999, \x0athe band have undergone a resurgence in \x0apopularity, with their latest studio offering, \x0aThe Final Frontier, peaking at No. 1 in 28 \x0adifferent countries and receiving \x0awidespread critical acclaim.\x0a\x0aConsidered one of the most successful \x0aheavy metal bands in history, Iron Maiden \x0ahave sold over 85 million records worldwide \x0awith little radio or television support. The \x0aband won the Ivor Novello Award for \x0ainternational achievement in 2002, and were \x0aalso inducted into the Hollywood RockWalk in \x0aSunset Boulevard, Los Angeles, California \x0aduring their United States tour in 2005. As of \x0aOctober 2013, the band have played over \x0a2000 live shows throughout their career. For \x0athe past 35 years, the band have been \x0asupported by their famous mascot, \x22Eddie\x22, \x0awho has appeared on almost all of their album \x0aand single covers, as well as in their live \x0ashows.");
+_st(builder)._colorLeft_("second");
+_st(builder)._colorRight_("value");
+_st(builder)._heightLeft_("second");
+_st(builder)._heightRight_((function(v){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(v)._value()).__slash((10));
+}, function($ctx2) {$ctx2.fillBlock({v:v},$ctx1)})}));
+_st(builder)._left_(maiden1);
+_st(builder)._right_(maiden2);
+_st(builder)._labelLeft_("first");
+_st(builder)._labelRight_("key");
+_st(builder)._edgesTo_((function(a,b){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(a)._third())._includes_(_st(b)._key());
+}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1)})}));
+_st(builder)._open();
+return self}, function($ctx1) {$ctx1.fill(self,"example10",{builder:builder,maiden1:maiden1,maiden2:maiden2},smalltalk.RelationalTowersBuilder)})},
+messageSends: ["->", "new", "title:", "legend:", "body:", "colorLeft:", "colorRight:", "heightLeft:", "heightRight:", "/", "value", "left:", "right:", "labelLeft:", "labelRight:", "edgesTo:", "includes:", "key", "third", "open"]}),
 smalltalk.RelationalTowersBuilder);
 
 smalltalk.addMethod(
@@ -691,9 +681,10 @@ return _st(_st(v).__minus((5)))._to_(_st(v).__plus((5)));
 return smalltalk.withContext(function($ctx2) {
 return _st(v).__slash((2));
 }, function($ctx2) {$ctx2.fillBlock({v:v},$ctx1)})}));
+_st(builder)._octopiEdges();
 _st(builder)._open();
 return self}, function($ctx1) {$ctx1.fill(self,"example4",{builder:builder},smalltalk.RelationalTowersBuilder)})},
-messageSends: ["new", "legend:", "left:", "to:", "right:", "edgesFromLeft:edgesToLeft:", "+", "-", "/", "open"]}),
+messageSends: ["new", "legend:", "left:", "to:", "right:", "edgesFromLeft:edgesToLeft:", "+", "-", "/", "octopiEdges", "open"]}),
 smalltalk.RelationalTowersBuilder);
 
 smalltalk.addMethod(
@@ -809,24 +800,50 @@ smalltalk.RelationalTowersBuilder);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "example9",
+fn: function (){
+var self=this;
+var builder,hohoho;
+function $RelationalTowersBuilder(){return smalltalk.RelationalTowersBuilder||(typeof RelationalTowersBuilder=="undefined"?nil:RelationalTowersBuilder)}
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+return smalltalk.withContext(function($ctx1) { 
+hohoho=["Afghanistan".__minus_gt("Baba Chaghaloo"),"Albania".__minus_gt("Babadimri"),"Argentina".__minus_gt("Papá Noel"),"Armenia".__minus_gt("Gaghant Baba"),"Belgium".__minus_gt("Pere Noel"),"Bosnia and Herzegovina".__minus_gt("Deda Mraz"),"Bolivia".__minus_gt("Papá Noel"),"Brazil".__minus_gt("Papai Noel"),"Bulgaria".__minus_gt("Dyado Koleda"),"Canada".__minus_gt("Santa Claus"),"Chile".__minus_gt("Viejo Pascuero"),"China".__minus_gt("Dun Che Lao Ren"),"Colombia".__minus_gt("Papá Noel"),"Denmark".__minus_gt("Julemanden"),"Ecuador".__minus_gt("Papá Noel"),"Egypt".__minus_gt("Papa Noël"),"France".__minus_gt("Pere Noel"),"French Canada".__minus_gt("Père Noël"),"Finland".__minus_gt("Joulupukki"),"Germany".__minus_gt("Weihnachtsmann"),"Hawaii".__minus_gt("Kanakaloka"),"Hungary".__minus_gt("Mikulas"),"Iran".__minus_gt("Baba Noel"),"Iraq".__minus_gt("Vader Kersfees"),"Ireland".__minus_gt("Daidí na Nollaig"),"Italy".__minus_gt("Babbo Natale"),"Jamaica".__minus_gt("Santa Claus"),"Japan".__minus_gt("Hoteiosho"),"Lithuania".__minus_gt("Kaledu Senelis"),"Malta".__minus_gt("San Niklaw"),"Netherlands".__minus_gt("Kerstman"),"Norway".__minus_gt("Julenissen"),"Perú".__minus_gt("Papá Noel"),"Poland".__minus_gt("Swiety Mikolaj"),"Portugal".__minus_gt("Pai Natal"),"Romania".__minus_gt("Mos Craciun"),"Russia".__minus_gt("Ded Moroz"),"Serbia".__minus_gt("Deda Mraz"),"Scottish Highlands".__minus_gt("Daidaín na Nollaig"),"South Africa".__minus_gt("Vader Kersfees"),"Spain".__minus_gt("Papá Noel"),"Sweden".__minus_gt("Jultomten"),"Turkey".__minus_gt("Noel Baba"),"United Kingdom".__minus_gt("Father Christmas"),"US".__minus_gt("Santa Claus")];
+builder=_st($RelationalTowersBuilder())._new();
+_st(builder)._title_("Merry Christmas");
+_st(builder)._legend_("Santa Claus over the World");
+_st(builder)._colorLeft_(_st($Color())._green());
+_st(builder)._colorRight_(_st($Color())._red());
+_st(builder)._left_(hohoho);
+_st(builder)._labelLeft_("key");
+_st(builder)._edgesTo_("value");
+_st(builder)._open();
+return self}, function($ctx1) {$ctx1.fill(self,"example9",{builder:builder,hohoho:hohoho},smalltalk.RelationalTowersBuilder)})},
+messageSends: ["->", "new", "title:", "legend:", "colorLeft:", "green", "colorRight:", "red", "left:", "labelLeft:", "edgesTo:", "open"]}),
+smalltalk.RelationalTowersBuilder);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "from:in:",
 fn: function (aCollection,aString){
 var self=this;
-var h,w,dictionary,normalizer,c,color;
+var h,w,dictionary,normalizer,c,color,height;
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
-function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
 function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
 function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$4,$5,$3;
+var $1,$2,$3,$4,$6,$7,$5;
 $1=_st(aString).__eq("left");
 if(smalltalk.assert($1)){
 color=self._colorLeft();
 color;
+height=self._heightLeft();
+height;
 } else {
 color=self._colorRight();
 color;
+height=self._heightRight();
+height;
 };
 $2=color;
 if(($receiver = $2) == nil || $receiver == undefined){
@@ -835,11 +852,18 @@ color;
 } else {
 $2;
 };
+$3=height;
+if(($receiver = $3) == nil || $receiver == undefined){
+height=self._heightRight();
+height;
+} else {
+$3;
+};
 h=(function(v){
 return smalltalk.withContext(function($ctx2) {
 return _st((function(){
 return smalltalk.withContext(function($ctx3) {
-return _st(self._height())._value_(v);
+return _st(height)._value_(v);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}))._on_do_($Error(),(function(){
 return smalltalk.withContext(function($ctx3) {
 return (10);
@@ -855,7 +879,16 @@ return smalltalk.withContext(function($ctx3) {
 return (10);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
 }, function($ctx2) {$ctx2.fillBlock({v:v},$ctx1)})});
+$4=_st(color)._isColor();
+if(smalltalk.assert($4)){
+c=(function(v){
+return smalltalk.withContext(function($ctx2) {
+return color;
+}, function($ctx2) {$ctx2.fillBlock({v:v},$ctx1)})});
+c;
+} else {
 dictionary=_st($Dictionary())._new();
+dictionary;
 _st(aCollection)._do_((function(e){
 return smalltalk.withContext(function($ctx2) {
 return _st(dictionary)._at_put_(e,_st((function(){
@@ -867,6 +900,7 @@ return (0);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2)})})));
 }, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
 normalizer=self._getNormalizerfrom_(dictionary);
+normalizer;
 c=(function(v){
 return smalltalk.withContext(function($ctx2) {
 return _st((function(){
@@ -874,23 +908,25 @@ return smalltalk.withContext(function($ctx3) {
 return _st(normalizer)._roValue_(_st(color)._value_(v));
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}))._on_do_($Error(),(function(){
 return smalltalk.withContext(function($ctx3) {
-return _st($Color())._lightGray();
+return _st(self._class())._errorColor();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
 }, function($ctx2) {$ctx2.fillBlock({v:v},$ctx1)})});
-$3=_st(aCollection)._collect_((function(m){
+c;
+};
+$5=_st(aCollection)._collect_((function(m){
 var elem;
 return smalltalk.withContext(function($ctx2) {
 elem=_st($ROElement())._on_(m);
 elem;
-$4=_st($ROBox())._new();
-_st($4)._height_(_st(h)._value_(m));
-_st($4)._width_(_st(w)._value_(m));
-$5=_st($4)._color_(_st(c)._value_(m));
-return _st(elem).__plus($5);
+$6=_st($ROBox())._new();
+_st($6)._height_(_st(h)._value_(m));
+_st($6)._width_(_st(w)._value_(m));
+$7=_st($6)._color_(_st(c)._value_(m));
+return _st(elem).__plus($7);
 }, function($ctx2) {$ctx2.fillBlock({m:m,elem:elem},$ctx1)})}));
-return $3;
-}, function($ctx1) {$ctx1.fill(self,"from:in:",{aCollection:aCollection,aString:aString,h:h,w:w,dictionary:dictionary,normalizer:normalizer,c:c,color:color},smalltalk.RelationalTowersBuilder)})},
-messageSends: ["ifTrue:ifFalse:", "colorLeft", "colorRight", "=", "ifNil:", "on:do:", "value:", "height", "width", "new", "do:", "at:put:", "getNormalizerfrom:", "lightGray", "roValue:", "collect:", "on:", "+", "height:", "width:", "color:"]}),
+return $5;
+}, function($ctx1) {$ctx1.fill(self,"from:in:",{aCollection:aCollection,aString:aString,h:h,w:w,dictionary:dictionary,normalizer:normalizer,c:c,color:color,height:height},smalltalk.RelationalTowersBuilder)})},
+messageSends: ["ifTrue:ifFalse:", "colorLeft", "heightLeft", "colorRight", "heightRight", "=", "ifNil:", "on:do:", "value:", "width", "new", "do:", "at:put:", "getNormalizerfrom:", "errorColor", "class", "roValue:", "isColor", "collect:", "on:", "+", "height:", "width:", "color:"]}),
 smalltalk.RelationalTowersBuilder);
 
 smalltalk.addMethod(
@@ -911,14 +947,13 @@ smalltalk.method({
 selector: "getNormalizerfrom:",
 fn: function (aDictionary){
 var self=this;
-function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
 function $RONColorLinearNormalizer(){return smalltalk.RONColorLinearNormalizer||(typeof RONColorLinearNormalizer=="undefined"?nil:RONColorLinearNormalizer)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st($RONColorLinearNormalizer())._inContext_lowColor_highColor_(_st(aDictionary)._values(),_st($Color())._yellow(),_st($Color())._green());
+$1=_st($RONColorLinearNormalizer())._inContext_lowColor_highColor_(_st(aDictionary)._values(),_st(self._class())._normalizerBotom(),_st(self._class())._normalizerTop());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"getNormalizerfrom:",{aDictionary:aDictionary},smalltalk.RelationalTowersBuilder)})},
-messageSends: ["inContext:lowColor:highColor:", "values", "yellow", "green"]}),
+messageSends: ["inContext:lowColor:highColor:", "values", "normalizerBotom", "class", "normalizerTop"]}),
 smalltalk.RelationalTowersBuilder);
 
 smalltalk.addMethod(
@@ -929,54 +964,106 @@ var self=this;
 function $ROMouseEnter(){return smalltalk.ROMouseEnter||(typeof ROMouseEnter=="undefined"?nil:ROMouseEnter)}
 function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
 function $ROMouseLeave(){return smalltalk.ROMouseLeave||(typeof ROMouseLeave=="undefined"?nil:ROMouseLeave)}
+function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
 return smalltalk.withContext(function($ctx1) { 
+var $1;
 _st(aNode)._on_do_($ROMouseEnter(),(function(event){
 return smalltalk.withContext(function($ctx2) {
-return _st(self["@shadowEdges"])._at_ifPresent_ifAbsent_(aNode,(function(){
+_st(self["@shadowEdges"])._at_ifPresent_ifAbsent_(aNode,(function(v){
 return smalltalk.withContext(function($ctx3) {
-_st(_st(self["@shadowEdges"])._at_(aNode))._do_((function(e){
+_st(v)._do_((function(e){
 return smalltalk.withContext(function($ctx4) {
 return _st(_st(e)._shape())._show();
 }, function($ctx4) {$ctx4.fillBlock({e:e},$ctx3)})}));
 return _st(self._view())._signalUpdate();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}),(function(){
+}, function($ctx3) {$ctx3.fillBlock({v:v},$ctx2)})}),(function(){
 return smalltalk.withContext(function($ctx3) {
-return _st(self["@shadowEdges"])._at_put_(aNode,self._addLinesfrom_toAll_from_color_(aNode,links,aCollection,_st($Color())._veryVeryLightGray()));
+return _st(self["@shadowEdges"])._at_put_(aNode,self._addLinesfrom_toAll_from_color_(aNode,links,aCollection,_st(self._class())._defaultLightEdgeColor()));
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
+return _st(_st(self["@bodyElement"])._shape())._color_(_st($Color())._veryVeryLightGray());
 }, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
 _st(aNode)._on_do_($ROMouseLeave(),(function(event){
+var v;
 return smalltalk.withContext(function($ctx2) {
 _st(_st(self["@shadowEdges"])._at_(aNode))._do_((function(e){
 return smalltalk.withContext(function($ctx3) {
 return _st(_st(e)._shape())._hide();
 }, function($ctx3) {$ctx3.fillBlock({e:e},$ctx2)})}));
-return _st(self._view())._signalUpdate();
-}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
+_st(self._view())._signalUpdate();
+v=_st(self["@edges"])._at_ifAbsent_(aNode,(function(){
+return smalltalk.withContext(function($ctx3) {
+return [_st($ROElement())._new()];
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
+v;
+$1=_st(_st(_st(v)._isEmpty())._not())._and_((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(_st(_st(v)._first())._shape())._isHidden();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
+if(smalltalk.assert($1)){
+return _st(_st(self["@bodyElement"])._shape())._color_(_st($Color())._darkGray());
+};
+}, function($ctx2) {$ctx2.fillBlock({event:event,v:v},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"greyLinesfrom:in:to:",{aNode:aNode,aCollection:aCollection,links:links},smalltalk.RelationalTowersBuilder)})},
-messageSends: ["on:do:", "at:ifPresent:ifAbsent:", "do:", "show", "shape", "at:", "signalUpdate", "view", "at:put:", "addLinesfrom:toAll:from:color:", "veryVeryLightGray", "hide"]}),
-smalltalk.RelationalTowersBuilder);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "height",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self["@height"];
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"height",{},smalltalk.RelationalTowersBuilder)})},
-messageSends: []}),
+messageSends: ["on:do:", "at:ifPresent:ifAbsent:", "do:", "show", "shape", "signalUpdate", "view", "at:put:", "addLinesfrom:toAll:from:color:", "defaultLightEdgeColor", "class", "color:", "veryVeryLightGray", "hide", "at:", "at:ifAbsent:", "new", "ifTrue:", "darkGray", "and:", "isHidden", "first", "not", "isEmpty"]}),
 smalltalk.RelationalTowersBuilder);
 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "height:",
-fn: function (aNumber){
+fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self["@height"]=aNumber;
-return self}, function($ctx1) {$ctx1.fill(self,"height:",{aNumber:aNumber},smalltalk.RelationalTowersBuilder)})},
+self._heightLeft_(aBlock);
+self._heightRight_(aBlock);
+return self}, function($ctx1) {$ctx1.fill(self,"height:",{aBlock:aBlock},smalltalk.RelationalTowersBuilder)})},
+messageSends: ["heightLeft:", "heightRight:"]}),
+smalltalk.RelationalTowersBuilder);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "heightLeft",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@heightLeft"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"heightLeft",{},smalltalk.RelationalTowersBuilder)})},
+messageSends: []}),
+smalltalk.RelationalTowersBuilder);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "heightLeft:",
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@heightLeft"]=aBlock;
+return self}, function($ctx1) {$ctx1.fill(self,"heightLeft:",{aBlock:aBlock},smalltalk.RelationalTowersBuilder)})},
+messageSends: []}),
+smalltalk.RelationalTowersBuilder);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "heightRight",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@heightRight"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"heightRight",{},smalltalk.RelationalTowersBuilder)})},
+messageSends: []}),
+smalltalk.RelationalTowersBuilder);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "heightRight:",
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@heightRight"]=aBlock;
+return self}, function($ctx1) {$ctx1.fill(self,"heightRight:",{aBlock:aBlock},smalltalk.RelationalTowersBuilder)})},
 messageSends: []}),
 smalltalk.RelationalTowersBuilder);
 
@@ -988,7 +1075,6 @@ var self=this;
 function $ROView(){return smalltalk.ROView||(typeof ROView=="undefined"?nil:ROView)}
 function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
-function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
 function $ROLabel(){return smalltalk.ROLabel||(typeof ROLabel=="undefined"?nil:ROLabel)}
 function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
 return smalltalk.withContext(function($ctx1) { 
@@ -1001,20 +1087,33 @@ self["@edges"]=_st($Dictionary())._new();
 self["@shadowEdges"]=_st($Dictionary())._new();
 self["@title"]="RelationalTowers";
 self["@legend"]="Relational Towers";
+self["@body"]="";
 self._label_("asString");
-self._color_(_st($Color())._blue());
-self["@height"]=(10);
+self._color_(_st(self._class())._defaultElementColor());
+self._edgeColor_(_st(self._class())._defaultEdgeColor());
+self._height_((10));
 self["@width"]=(10);
+self["@lineShape"]=false;
 self["@popupElement"]=(function(elem){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st($ROElement())._on_(_st(_st(_st(elem)._allEdgesFrom())._select_((function(e){
 return smalltalk.withContext(function($ctx3) {
-return _st(_st(_st(e)._shape())._color()).__eq(_st($Color())._blue());
-}, function($ctx3) {$ctx3.fillBlock({e:e},$ctx2)})})))._size())).__plus(_st(_st($ROLabel())._new())._color_(_st($Color())._blue()));
+return _st(_st(_st(e)._shape())._color()).__eq(self._edgeColor());
+}, function($ctx3) {$ctx3.fillBlock({e:e},$ctx2)})})))._size())).__plus(_st(_st($ROLabel())._new())._color_(self._edgeColor()));
 }, function($ctx2) {$ctx2.fillBlock({elem:elem},$ctx1)})});
 self["@viewWidth"]=(500);
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.RelationalTowersBuilder)})},
-messageSends: ["new", "label:", "color:", "blue", "+", "on:", "size", "select:", "=", "color", "shape", "allEdgesFrom"]}),
+messageSends: ["new", "label:", "color:", "defaultElementColor", "class", "edgeColor:", "defaultEdgeColor", "height:", "+", "edgeColor", "on:", "size", "select:", "=", "color", "shape", "allEdgesFrom"]}),
+smalltalk.RelationalTowersBuilder);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "killLinksFrom",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"killLinksFrom",{},smalltalk.RelationalTowersBuilder)})},
+messageSends: []}),
 smalltalk.RelationalTowersBuilder);
 
 smalltalk.addMethod(
@@ -1165,6 +1264,57 @@ smalltalk.RelationalTowersBuilder);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "lines:in:to:",
+fn: function (aNode,aCollection,links){
+var self=this;
+function $ROMouseClick(){return smalltalk.ROMouseClick||(typeof ROMouseClick=="undefined"?nil:ROMouseClick)}
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+_st(aNode)._on_do_($ROMouseClick(),(function(event){
+return smalltalk.withContext(function($ctx2) {
+return _st(self["@edges"])._at_ifPresent_ifAbsent_(aNode,(function(v){
+return smalltalk.withContext(function($ctx3) {
+$1=_st(_st(_st(v)._isEmpty())._not())._and_((function(){
+return smalltalk.withContext(function($ctx4) {
+return _st(_st(_st(v)._first())._shape())._isHidden();
+}, function($ctx4) {$ctx4.fillBlock({},$ctx3)})}));
+if(smalltalk.assert($1)){
+_st(v)._do_((function(e){
+return smalltalk.withContext(function($ctx4) {
+return _st(_st(e)._shape())._show();
+}, function($ctx4) {$ctx4.fillBlock({e:e},$ctx3)})}));
+self._addPopup_from_(aNode,aCollection);
+$2=_st(_st(_st(_st(self["@shadowEdges"])._at_ifAbsent_(aNode,(function(){
+return smalltalk.withContext(function($ctx4) {
+return [_st($ROElement())._new()];
+}, function($ctx4) {$ctx4.fillBlock({},$ctx3)})})))._first())._shape())._isHidden();
+if(smalltalk.assert($2)){
+_st(_st(self["@bodyElement"])._shape())._color_(_st($Color())._darkGray());
+};
+} else {
+_st(v)._do_((function(e){
+return smalltalk.withContext(function($ctx4) {
+return _st(_st(e)._shape())._hide();
+}, function($ctx4) {$ctx4.fillBlock({e:e},$ctx3)})}));
+self._removePopup_(aNode);
+_st(_st(self["@bodyElement"])._shape())._color_(_st($Color())._veryVeryLightGray());
+};
+return _st(self._view())._signalUpdate();
+}, function($ctx3) {$ctx3.fillBlock({v:v},$ctx2)})}),(function(){
+return smalltalk.withContext(function($ctx3) {
+_st(self["@edges"])._at_put_(aNode,self._addLinesfrom_toAll_from_color_(aNode,links,aCollection,self._edgeColor()));
+self._addPopup_from_(aNode,aCollection);
+return _st(_st(self["@bodyElement"])._shape())._color_(_st($Color())._veryVeryLightGray());
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"lines:in:to:",{aNode:aNode,aCollection:aCollection,links:links},smalltalk.RelationalTowersBuilder)})},
+messageSends: ["on:do:", "at:ifPresent:ifAbsent:", "ifFalse:ifTrue:", "do:", "hide", "shape", "removePopup:", "color:", "veryVeryLightGray", "show", "addPopup:from:", "ifTrue:", "darkGray", "isHidden", "first", "at:ifAbsent:", "new", "and:", "not", "isEmpty", "signalUpdate", "view", "at:put:", "addLinesfrom:toAll:from:color:", "edgeColor"]}),
+smalltalk.RelationalTowersBuilder);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "linesFrom:with:",
 fn: function (aCollection,aBlock){
 var self=this;
@@ -1184,11 +1334,12 @@ var links;
 return smalltalk.withContext(function($ctx2) {
 links=self._linksFrom_with_to_(n1,aBlock,otherCollection);
 links;
-self._blueLines_in_to_(n1,aCollection,links);
+self._lines_in_to_(n1,aCollection,links);
 return self._greyLinesfrom_in_to_(n1,aCollection,links);
 }, function($ctx2) {$ctx2.fillBlock({n1:n1,links:links},$ctx1)})}));
+self._killLinksFrom();
 return self}, function($ctx1) {$ctx1.fill(self,"linesFrom:with:",{aCollection:aCollection,aBlock:aBlock,otherCollection:otherCollection},smalltalk.RelationalTowersBuilder)})},
-messageSends: ["ifTrue:ifFalse:", "=", "do:", "linksFrom:with:to:", "blueLines:in:to:", "greyLinesfrom:in:to:"]}),
+messageSends: ["ifTrue:ifFalse:", "=", "do:", "linksFrom:with:to:", "lines:in:to:", "greyLinesfrom:in:to:", "killLinksFrom"]}),
 smalltalk.RelationalTowersBuilder);
 
 smalltalk.addMethod(
@@ -1212,11 +1363,12 @@ var links;
 return smalltalk.withContext(function($ctx2) {
 links=self._linksTo_with_to_(n1,aBlock,otherCollection);
 links;
-self._blueLines_in_to_(n1,aCollection,links);
+self._lines_in_to_(n1,aCollection,links);
 return self._greyLinesfrom_in_to_(n1,aCollection,links);
 }, function($ctx2) {$ctx2.fillBlock({n1:n1,links:links},$ctx1)})}));
+self._killLinksFrom();
 return self}, function($ctx1) {$ctx1.fill(self,"linesTo:with:",{aCollection:aCollection,aBlock:aBlock,otherCollection:otherCollection},smalltalk.RelationalTowersBuilder)})},
-messageSends: ["ifTrue:ifFalse:", "=", "do:", "linksTo:with:to:", "blueLines:in:to:", "greyLinesfrom:in:to:"]}),
+messageSends: ["ifTrue:ifFalse:", "=", "do:", "linksTo:with:to:", "lines:in:to:", "greyLinesfrom:in:to:", "killLinksFrom"]}),
 smalltalk.RelationalTowersBuilder);
 
 smalltalk.addMethod(
@@ -1311,6 +1463,17 @@ smalltalk.RelationalTowersBuilder);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "octopiEdges",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@lineShape"]=true;
+return self}, function($ctx1) {$ctx1.fill(self,"octopiEdges",{},smalltalk.RelationalTowersBuilder)})},
+messageSends: []}),
+smalltalk.RelationalTowersBuilder);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "onLeftAndRight:",
 fn: function (aCollection){
 var self=this;
@@ -1384,12 +1547,13 @@ smalltalk.method({
 selector: "positionateTowers",
 fn: function (){
 var self=this;
-var maxwl,maxwr,maxl,maxr,max,leg;
+var maxwl,maxwr,maxl,maxr,max,leg,legTrans,leftTrans,rightTrans,bod;
 function $ROVerticalLineLayout(){return smalltalk.ROVerticalLineLayout||(typeof ROVerticalLineLayout=="undefined"?nil:ROVerticalLineLayout)}
 function $ROLabel(){return smalltalk.ROLabel||(typeof ROLabel=="undefined"?nil:ROLabel)}
 function $ROElement(){return smalltalk.ROElement||(typeof ROElement=="undefined"?nil:ROElement)}
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$2;
 maxl=_st(_st(self["@left"])._collect_((function(l){
 return smalltalk.withContext(function($ctx2) {
 return _st(l)._height();
@@ -1404,22 +1568,41 @@ _st($ROVerticalLineLayout())._on_(self["@right"]);
 maxwl=self._labels_(self["@left"]);
 maxwr=self._labels_(self["@right"]);
 self["@distance"]=_st(_st(_st(_st(_st(self._models())._size()).__star(_st(max)._ln())).__star((5)))._max_((300)))._min_((400));
+leg=_st(_st($ROElement())._on_(self._legend())).__plus(_st(_st($ROLabel())._new())._fontSize_((18)));
+_st(self._view())._add_(leg);
+legTrans=_st(_st(_st(_st(maxwl).__plus((40))).__plus(_st(self["@distance"]).__slash((2)))).__minus(_st(_st(leg)._width()).__slash((2))))._max_((0));
+_st(leg)._translateBy_(_st(legTrans).__at((0)));
+$1=_st(legTrans).__eq((0));
+if(smalltalk.assert($1)){
+leftTrans=_st(_st(_st(leg)._width()).__slash((2))).__minus(_st(_st(self["@distance"]).__slash((2))).__plus(maxwl));
+leftTrans;
+rightTrans=_st(leftTrans).__plus(self["@distance"]);
+rightTrans;
+} else {
+leftTrans=_st(maxwl).__plus((30));
+leftTrans;
+rightTrans=_st(_st(maxwl).__plus(self["@distance"])).__plus((30));
+rightTrans;
+};
 _st(self["@left"])._do_((function(e){
 return smalltalk.withContext(function($ctx2) {
-return _st(e)._translateBy_(_st(_st(maxwl).__plus((30))).__at((30)));
+return _st(e)._translateBy_(_st(leftTrans).__at((40)));
 }, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
 _st(self["@right"])._do_((function(e){
 return smalltalk.withContext(function($ctx2) {
-return _st(e)._translateBy_(_st(_st(_st(maxwl).__plus(self["@distance"])).__plus((30))).__at((30)));
+return _st(e)._translateBy_(_st(rightTrans).__at((40)));
 }, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
-leg=_st(_st($ROElement())._on_(self._legend())).__plus($ROLabel());
-_st(self._view())._add_(leg);
-_st(leg)._translateBy_(_st(_st(_st(_st(maxwl).__plus((40))).__plus(_st(self["@distance"]).__slash((2)))).__minus(_st(_st(leg)._width()).__slash((2)))).__at((0)));
-self["@viewWidth"]=_st(_st(_st(self["@distance"]).__plus(maxwl)).__plus(maxwr)).__plus((80));
-$1=self["@distance"];
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"positionateTowers",{maxwl:maxwl,maxwr:maxwr,maxl:maxl,maxr:maxr,max:max,leg:leg},smalltalk.RelationalTowersBuilder)})},
-messageSends: ["max", "collect:", "height", "max:", "on:", "labels:", "min:", "*", "ln", "size", "models", "do:", "translateBy:", "@", "+", "legend", "add:", "view", "-", "/", "width"]}),
+bod=_st(_st($ROElement())._on_(self._body())).__plus(_st(_st($ROLabel())._new())._color_(_st($Color())._darkGray()));
+self["@bodyElement"]=bod;
+_st(bod)._width_(self["@distance"]);
+_st(self._view())._add_(bod);
+_st(bod)._translateBy_(_st(_st(maxwl).__plus((60))).__at((30)));
+_st(bod)._forward_(_st(bod)._view());
+self["@viewWidth"]=_st(_st(_st(_st(self["@distance"]).__plus(maxwl)).__plus(maxwr)).__plus((80)))._max_(_st(leg)._width());
+$2=self["@distance"];
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"positionateTowers",{maxwl:maxwl,maxwr:maxwr,maxl:maxl,maxr:maxr,max:max,leg:leg,legTrans:legTrans,leftTrans:leftTrans,rightTrans:rightTrans,bod:bod},smalltalk.RelationalTowersBuilder)})},
+messageSends: ["max", "collect:", "height", "max:", "on:", "labels:", "min:", "*", "ln", "size", "models", "+", "fontSize:", "new", "legend", "add:", "view", "-", "/", "width", "translateBy:", "@", "ifTrue:ifFalse:", "=", "do:", "color:", "darkGray", "body", "width:", "forward:"]}),
 smalltalk.RelationalTowersBuilder);
 
 smalltalk.addMethod(
@@ -1441,31 +1624,39 @@ fn: function (aBlock){
 var self=this;
 var newBlock;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2,$3,$4;
 $1=_st(aBlock)._isBlock();
 if(smalltalk.assert($1)){
 newBlock=aBlock;
 newBlock;
 } else {
 newBlock=(function(a,b){
+var v;
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(a)._perform_(aBlock))._includes_(b);
-}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1)})});
+v=_st(aBlock)._value_(a);
+v;
+$2=_st(v)._includes_(b);
+if(smalltalk.assert($2)){
+return true;
+} else {
+return _st(v).__eq(b);
+};
+}, function($ctx2) {$ctx2.fillBlock({a:a,b:b,v:v},$ctx1)})});
 newBlock;
 };
-$2=_st(self._distance())._isNil();
-if(smalltalk.assert($2)){
+$3=_st(self._distance())._isNil();
+if(smalltalk.assert($3)){
 self["@distance"]=self._positionateTowers();
 self["@distance"];
 };
-$3=_st(self["@direction"]).__eq("to");
-if(smalltalk.assert($3)){
+$4=_st(self["@direction"]).__eq("to");
+if(smalltalk.assert($4)){
 self._linesTo_with_(self["@left"],newBlock);
 } else {
 self._linesFrom_with_(self["@left"],newBlock);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"relationLeft:",{aBlock:aBlock,newBlock:newBlock},smalltalk.RelationalTowersBuilder)})},
-messageSends: ["ifTrue:ifFalse:", "includes:", "perform:", "isBlock", "ifTrue:", "positionateTowers", "isNil", "distance", "linesTo:with:", "linesFrom:with:", "="]}),
+messageSends: ["ifTrue:ifFalse:", "value:", "=", "includes:", "isBlock", "ifTrue:", "positionateTowers", "isNil", "distance", "linesTo:with:", "linesFrom:with:"]}),
 smalltalk.RelationalTowersBuilder);
 
 smalltalk.addMethod(
@@ -1475,31 +1666,39 @@ fn: function (aBlock){
 var self=this;
 var newBlock;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2,$3,$4;
 $1=_st(aBlock)._isBlock();
 if(smalltalk.assert($1)){
 newBlock=aBlock;
 newBlock;
 } else {
 newBlock=(function(a,b){
+var v;
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(a)._perform_(aBlock))._includes_(b);
-}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1)})});
+v=_st(aBlock)._value_(a);
+v;
+$2=_st(v)._includes_(b);
+if(smalltalk.assert($2)){
+return true;
+} else {
+return _st(v).__eq(b);
+};
+}, function($ctx2) {$ctx2.fillBlock({a:a,b:b,v:v},$ctx1)})});
 newBlock;
 };
-$2=_st(self._distance())._isNil();
-if(smalltalk.assert($2)){
+$3=_st(self._distance())._isNil();
+if(smalltalk.assert($3)){
 self["@distance"]=self._positionateTowers();
 self["@distance"];
 };
-$3=_st(self["@direction"]).__eq("to");
-if(smalltalk.assert($3)){
+$4=_st(self["@direction"]).__eq("to");
+if(smalltalk.assert($4)){
 self._linesTo_with_(self["@right"],newBlock);
 } else {
 self._linesFrom_with_(self["@right"],newBlock);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"relationRight:",{aBlock:aBlock,newBlock:newBlock},smalltalk.RelationalTowersBuilder)})},
-messageSends: ["ifTrue:ifFalse:", "includes:", "perform:", "isBlock", "ifTrue:", "positionateTowers", "isNil", "distance", "linesTo:with:", "linesFrom:with:", "="]}),
+messageSends: ["ifTrue:ifFalse:", "value:", "=", "includes:", "isBlock", "ifTrue:", "positionateTowers", "isNil", "distance", "linesTo:with:", "linesFrom:with:"]}),
 smalltalk.RelationalTowersBuilder);
 
 smalltalk.addMethod(
@@ -1556,21 +1755,33 @@ smalltalk.RelationalTowersBuilder);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "splineLine:with:with:with:with:color:",
-fn: function (attachpoint,controlPoint1,controlPoint2,controlPoint3,controlPoint4,aColor){
+selector: "splineLine:with:with:color:",
+fn: function (attachpoint,controlPoint1,controlPoint2,aColor){
 var self=this;
+var line;
 function $ROBSplineLine(){return smalltalk.ROBSplineLine||(typeof ROBSplineLine=="undefined"?nil:ROBSplineLine)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
-$2=_st($ROBSplineLine())._new();
-_st($2)._attachPoint_(attachpoint);
-_st($2)._color_(aColor);
-_st($2)._addControlElement_(controlPoint2);
-$3=_st($2)._addControlElement_(controlPoint3);
-$1=$3;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"splineLine:with:with:with:with:color:",{attachpoint:attachpoint,controlPoint1:controlPoint1,controlPoint2:controlPoint2,controlPoint3:controlPoint3,controlPoint4:controlPoint4,aColor:aColor},smalltalk.RelationalTowersBuilder)})},
-messageSends: ["attachPoint:", "new", "color:", "addControlElement:"]}),
+var $1,$2,$3,$4,$5,$6,$7,$8;
+$1=_st($ROBSplineLine())._new();
+_st($1)._attachPoint_(attachpoint);
+$2=_st($1)._color_(aColor);
+line=$2;
+$3=self["@lineShape"];
+if(smalltalk.assert($3)){
+$4=line;
+_st($4)._addControlElement_(controlPoint2);
+$5=_st($4)._addControlElement_(controlPoint1);
+$5;
+} else {
+$6=line;
+_st($6)._addControlElement_(controlPoint1);
+$7=_st($6)._addControlElement_(controlPoint2);
+$7;
+};
+$8=line;
+return $8;
+}, function($ctx1) {$ctx1.fill(self,"splineLine:with:with:color:",{attachpoint:attachpoint,controlPoint1:controlPoint1,controlPoint2:controlPoint2,aColor:aColor,line:line},smalltalk.RelationalTowersBuilder)})},
+messageSends: ["attachPoint:", "new", "color:", "ifTrue:ifFalse:", "addControlElement:"]}),
 smalltalk.RelationalTowersBuilder);
 
 smalltalk.addMethod(
@@ -1694,6 +1905,90 @@ return self}, function($ctx1) {$ctx1.fill(self,"width:",{aNumber:aNumber},smallt
 messageSends: []}),
 smalltalk.RelationalTowersBuilder);
 
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultEdgeColor",
+fn: function (){
+var self=this;
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($Color())._r_g_b_((123).__slash((256)),(50).__slash((256)),(148).__slash((256)));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultEdgeColor",{},smalltalk.RelationalTowersBuilder.klass)})},
+messageSends: ["r:g:b:", "/"]}),
+smalltalk.RelationalTowersBuilder.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultElementColor",
+fn: function (){
+var self=this;
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($Color())._r_g_b_((0).__slash((256)),(136).__slash((256)),(55).__slash((256)));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultElementColor",{},smalltalk.RelationalTowersBuilder.klass)})},
+messageSends: ["r:g:b:", "/"]}),
+smalltalk.RelationalTowersBuilder.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultLightEdgeColor",
+fn: function (){
+var self=this;
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($Color())._r_g_b_((194).__slash((256)),(165).__slash((256)),(207).__slash((256)));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultLightEdgeColor",{},smalltalk.RelationalTowersBuilder.klass)})},
+messageSends: ["r:g:b:", "/"]}),
+smalltalk.RelationalTowersBuilder.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "errorColor",
+fn: function (){
+var self=this;
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($Color())._r_g_b_((202).__slash((256)),(0),(32).__slash((256)));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"errorColor",{},smalltalk.RelationalTowersBuilder.klass)})},
+messageSends: ["r:g:b:", "/"]}),
+smalltalk.RelationalTowersBuilder.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "normalizerBotom",
+fn: function (){
+var self=this;
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($Color())._r_g_b_((199).__slash((256)),(233).__slash((256)),(192).__slash((256)));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"normalizerBotom",{},smalltalk.RelationalTowersBuilder.klass)})},
+messageSends: ["r:g:b:", "/"]}),
+smalltalk.RelationalTowersBuilder.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "normalizerTop",
+fn: function (){
+var self=this;
+function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($Color())._r_g_b_((0),(68).__slash((256)),(27).__slash((256)));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"normalizerTop",{},smalltalk.RelationalTowersBuilder.klass)})},
+messageSends: ["r:g:b:", "/"]}),
+smalltalk.RelationalTowersBuilder.klass);
 
 
 smalltalk.addClass('RelationalTowersBuilderTest', smalltalk.TestCase, ['builder'], 'RelationalTowersBuilder');

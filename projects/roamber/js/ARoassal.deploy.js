@@ -4185,6 +4185,17 @@ smalltalk.RONullShape);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "isHidden",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return true;
+}, function($ctx1) {$ctx1.fill(self,"isHidden",{},smalltalk.RONullShape)})},
+messageSends: []}),
+smalltalk.RONullShape);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "isShapedAs:",
 fn: function (aShapeClass){
 var self=this;

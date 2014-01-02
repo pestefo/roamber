@@ -350,6 +350,10 @@ cyan
 	^ self colorDict at: #cyan
 !
 
+darkGray
+	^   self colorDict at: #darkGray
+!
+
 gray
 	^   self colorDict at: #gray
 !
