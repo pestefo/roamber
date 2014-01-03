@@ -4251,8 +4251,8 @@ fn: function (canvas,anEdge){
 var self=this;
 var startPoint,endPoint,x1,y1,xn,yn,mid,p;
 return smalltalk.withContext(function($ctx1) { 
-endPoint=_st(self["@attachPoint"])._startingPointOf_(anEdge);
-startPoint=_st(self["@attachPoint"])._endingPointOf_(anEdge);
+endPoint=_st(self["@attachPoint"])._endingPointOf_(anEdge);
+startPoint=_st(self["@attachPoint"])._startingPointOf_(anEdge);
 x1=_st(startPoint)._x();
 y1=_st(startPoint)._y();
 xn=_st(endPoint)._x();
@@ -4267,8 +4267,8 @@ p=_st(_st(_st(_st(_st(_st(_st("M".__comma(x1)).__comma(" ")).__comma(y1)).__comm
 self["@svgElement"]=_st(canvas)._path_(p);
 return self}, function($ctx1) {$ctx1.fill(self,"initializeSVGElementOn:for:",{canvas:canvas,anEdge:anEdge,startPoint:startPoint,endPoint:endPoint,x1:x1,y1:y1,xn:xn,yn:yn,mid:mid,p:p},smalltalk.ROBSplineLine)})},
 args: ["canvas", "anEdge"],
-source: "initializeSVGElementOn: canvas for: anEdge\x0a\x09|startPoint  endPoint x1 y1 xn yn mid p|\x0a\x09endPoint  := attachPoint startingPointOf: anEdge.\x0a\x09startPoint := attachPoint endingPointOf: anEdge.\x0a\x09x1 := startPoint x.\x0a\x09y1 := startPoint y.\x0a\x09xn := endPoint x.\x0a\x09yn := endPoint y.\x0a\x09p :=''.\x0a\x09controlElements do: [ :e | p:= p,(e position x asString), ' ', (e position y asString),' ' ].\x0a\x09p :=  'M', x1,' ', y1, 'C', p, xn, ' ', yn.\x0a\x09svgElement := canvas path: p",
-messageSends: ["startingPointOf:", "endingPointOf:", "x", "y", "do:", ",", "asString", "position", "path:"],
+source: "initializeSVGElementOn: canvas for: anEdge\x0a\x09|startPoint  endPoint x1 y1 xn yn mid p|\x0a\x09endPoint  := attachPoint endingPointOf: anEdge.\x0a\x09startPoint := attachPoint startingPointOf: anEdge.\x0a\x09x1 := startPoint x.\x0a\x09y1 := startPoint y.\x0a\x09xn := endPoint x.\x0a\x09yn := endPoint y.\x0a\x09p :=''.\x0a\x09controlElements do: [ :e | p:= p,(e position x asString), ' ', (e position y asString),' ' ].\x0a\x09p :=  'M', x1,' ', y1, 'C', p, xn, ' ', yn.\x0a\x09svgElement := canvas path: p",
+messageSends: ["endingPointOf:", "startingPointOf:", "x", "y", "do:", ",", "asString", "position", "path:"],
 referencedClasses: []
 }),
 smalltalk.ROBSplineLine);

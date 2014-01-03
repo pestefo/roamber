@@ -3143,8 +3143,8 @@ fn: function (canvas,anEdge){
 var self=this;
 var startPoint,endPoint,x1,y1,xn,yn,mid,p;
 return smalltalk.withContext(function($ctx1) { 
-endPoint=_st(self["@attachPoint"])._startingPointOf_(anEdge);
-startPoint=_st(self["@attachPoint"])._endingPointOf_(anEdge);
+endPoint=_st(self["@attachPoint"])._endingPointOf_(anEdge);
+startPoint=_st(self["@attachPoint"])._startingPointOf_(anEdge);
 x1=_st(startPoint)._x();
 y1=_st(startPoint)._y();
 xn=_st(endPoint)._x();
@@ -3158,7 +3158,7 @@ return p;
 p=_st(_st(_st(_st(_st(_st(_st("M".__comma(x1)).__comma(" ")).__comma(y1)).__comma("C")).__comma(p)).__comma(xn)).__comma(" ")).__comma(yn);
 self["@svgElement"]=_st(canvas)._path_(p);
 return self}, function($ctx1) {$ctx1.fill(self,"initializeSVGElementOn:for:",{canvas:canvas,anEdge:anEdge,startPoint:startPoint,endPoint:endPoint,x1:x1,y1:y1,xn:xn,yn:yn,mid:mid,p:p},smalltalk.ROBSplineLine)})},
-messageSends: ["startingPointOf:", "endingPointOf:", "x", "y", "do:", ",", "asString", "position", "path:"]}),
+messageSends: ["endingPointOf:", "startingPointOf:", "x", "y", "do:", ",", "asString", "position", "path:"]}),
 smalltalk.ROBSplineLine);
 
 smalltalk.addMethod(
