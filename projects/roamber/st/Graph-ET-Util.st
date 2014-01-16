@@ -120,7 +120,7 @@ strongHighlightWhenClick
 		
 		(attributes includesKey: #isPressed)
 			ifTrue: [ROBlink unhighlight:  event element. 
-				attributes removeKey: #isPressed ];
+				attributes removeKey: #isPressed ]
 			ifFalse: [ROBlink highlight: event element.
 				attributes at: #isPressed put: true ].
 		].

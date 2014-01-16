@@ -1,4 +1,7 @@
+define("roamber/RoassalExtras-Geo-Tests", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "roamber/ARoassal-Test"], function(smalltalk,nil,_st){
 smalltalk.addPackage('RoassalExtras-Geo-Tests');
+smalltalk.packages["RoassalExtras-Geo-Tests"].transport = {"type":"amd","amdNamespace":"roamber"};
+
 smalltalk.addClass('ROFranceMapBuilderTest', smalltalk.ROTest, ['builder'], 'RoassalExtras-Geo-Tests');
 smalltalk.addMethod(
 smalltalk.method({
@@ -66,7 +69,7 @@ _st(_st(self["@builder"])._interaction())._on_do_($ROMouseEnter(),(function(even
 return smalltalk.withContext(function($ctx2) {
 t=true;
 return t;
-}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1,1)})}));
 nice=_st(self["@builder"])._city_("Nice");
 self._deny_(t);
 _st(nice)._announce_($ROMouseEnter());
@@ -88,18 +91,27 @@ var self=this;
 var nice,paris;
 function $ROEllipse(){return smalltalk.ROEllipse||(typeof ROEllipse=="undefined"?nil:ROEllipse)}
 return smalltalk.withContext(function($ctx1) { 
+var $1,$4,$3,$2;
 _st(_st(self["@builder"])._shape())._linearFillColor_((function(cityName){
 return smalltalk.withContext(function($ctx2) {
 return _st(cityName)._size();
-}, function($ctx2) {$ctx2.fillBlock({cityName:cityName},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({cityName:cityName},$ctx1,1)})}));
 _st(self["@builder"])._cities_(["Nice", "Paris"]);
-nice=_st(_st(self["@builder"])._view())._elementFromModel_("Nice");
+$1=_st(self["@builder"])._view();
+$ctx1.sendIdx["view"]=1;
+nice=_st($1)._elementFromModel_("Nice");
+$ctx1.sendIdx["elementFromModel:"]=1;
 paris=_st(_st(self["@builder"])._view())._elementFromModel_("Paris");
-self._assert_(_st(_st(_st(nice)._getShape_($ROEllipse()))._colorFor_(nice)).__tild_eq(_st(_st(paris)._getShape_($ROEllipse()))._colorFor_(paris)));
+$4=_st(nice)._getShape_($ROEllipse());
+$ctx1.sendIdx["getShape:"]=1;
+$3=_st($4)._colorFor_(nice);
+$ctx1.sendIdx["colorFor:"]=1;
+$2=_st($3).__tild_eq(_st(_st(paris)._getShape_($ROEllipse()))._colorFor_(paris));
+self._assert_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"testLinearFillColor",{nice:nice,paris:paris},smalltalk.ROFranceMapBuilderTest)})},
 args: [],
 source: "testLinearFillColor\x0a\x09| nice paris |\x0a\x09builder shape linearFillColor: [ :cityName | cityName size ].\x0a\x09builder cities: #('Nice' 'Paris'). \x0a\x09\x0a\x09nice := builder view elementFromModel: 'Nice'.\x0a\x09paris := builder view elementFromModel: 'Paris'.\x0a\x09self assert: ((nice getShape: ROEllipse) colorFor: nice) ~= ((paris getShape: ROEllipse) colorFor: paris)",
-messageSends: ["linearFillColor:", "size", "shape", "cities:", "elementFromModel:", "view", "assert:", "~=", "colorFor:", "getShape:"],
+messageSends: ["linearFillColor:", "shape", "size", "cities:", "elementFromModel:", "view", "assert:", "~=", "colorFor:", "getShape:"],
 referencedClasses: ["ROEllipse"]
 }),
 smalltalk.ROFranceMapBuilderTest);
@@ -133,11 +145,19 @@ var element;
 function $ROBox(){return smalltalk.ROBox||(typeof ROBox=="undefined"?nil:ROBox)}
 function $ROEllipse(){return smalltalk.ROEllipse||(typeof ROEllipse=="undefined"?nil:ROEllipse)}
 return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 _st(_st(self["@builder"])._shape())._rectangle();
 _st(self["@builder"])._city_("Nice");
+$ctx1.sendIdx["city:"]=1;
 _st(self["@builder"])._city_("Paris");
-element=_st(_st(self["@builder"])._view())._elementFromModel_("Nice");
-self._assert_(_st(element)._isShapedAs_($ROBox()));
+$1=_st(self["@builder"])._view();
+$ctx1.sendIdx["view"]=1;
+element=_st($1)._elementFromModel_("Nice");
+$ctx1.sendIdx["elementFromModel:"]=1;
+$2=_st(element)._isShapedAs_($ROBox());
+$ctx1.sendIdx["isShapedAs:"]=1;
+self._assert_($2);
+$ctx1.sendIdx["assert:"]=1;
 element=_st(_st(self["@builder"])._view())._elementFromModel_("Paris");
 self._assert_(_st(element)._isShapedAs_($ROEllipse()));
 return self}, function($ctx1) {$ctx1.fill(self,"testShapeBuilder",{element:element},smalltalk.ROFranceMapBuilderTest)})},
@@ -193,18 +213,38 @@ var nice,paris;
 function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
 function $ROEllipse(){return smalltalk.ROEllipse||(typeof ROEllipse=="undefined"?nil:ROEllipse)}
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self["@builder"])._shape())._color_(_st($Color())._blue());
+var $1,$2,$3,$4,$5,$8,$7,$6;
+$1=_st(self["@builder"])._shape();
+$ctx1.sendIdx["shape"]=1;
+$2=_st($Color())._blue();
+$ctx1.sendIdx["blue"]=1;
+_st($1)._color_($2);
+$ctx1.sendIdx["color:"]=1;
 _st(self["@builder"])._city_("Nice");
-_st(_st(self["@builder"])._shape())._color_(_st($Color())._gray());
+$ctx1.sendIdx["city:"]=1;
+$3=_st(self["@builder"])._shape();
+$4=_st($Color())._gray();
+$ctx1.sendIdx["gray"]=1;
+_st($3)._color_($4);
 _st(self["@builder"])._city_("Paris");
-nice=_st(_st(self["@builder"])._view())._elementFromModel_("Nice");
+$5=_st(self["@builder"])._view();
+$ctx1.sendIdx["view"]=1;
+nice=_st($5)._elementFromModel_("Nice");
+$ctx1.sendIdx["elementFromModel:"]=1;
 paris=_st(_st(self["@builder"])._view())._elementFromModel_("Paris");
-self._assert_(_st(_st(_st(nice)._getShape_($ROEllipse()))._colorFor_(nice)).__eq(_st($Color())._blue()));
+$8=_st(nice)._getShape_($ROEllipse());
+$ctx1.sendIdx["getShape:"]=1;
+$7=_st($8)._colorFor_(nice);
+$ctx1.sendIdx["colorFor:"]=1;
+$6=_st($7).__eq(_st($Color())._blue());
+$ctx1.sendIdx["="]=1;
+self._assert_($6);
+$ctx1.sendIdx["assert:"]=1;
 self._assert_(_st(_st(_st(paris)._getShape_($ROEllipse()))._colorFor_(paris)).__eq(_st($Color())._gray()));
 return self}, function($ctx1) {$ctx1.fill(self,"testShapeColor",{nice:nice,paris:paris},smalltalk.ROFranceMapBuilderTest)})},
 args: [],
 source: "testShapeColor\x0a\x0a\x09| nice paris |\x0a\x09builder shape color: Color blue.\x0a\x09builder city: 'Nice'. \x0a\x09\x0a\x09builder shape color: Color gray.\x0a\x09builder city: 'Paris'.\x0a\x09\x0a\x09nice := builder view elementFromModel: 'Nice'.\x0a\x09paris := builder view elementFromModel: 'Paris'.\x0a\x09\x0a\x09self assert: ((nice getShape: ROEllipse) colorFor: nice) = Color blue.\x0a\x09self assert: ((paris getShape: ROEllipse) colorFor: paris) = Color gray",
-messageSends: ["color:", "blue", "shape", "city:", "gray", "elementFromModel:", "view", "assert:", "=", "colorFor:", "getShape:"],
+messageSends: ["color:", "shape", "blue", "city:", "gray", "elementFromModel:", "view", "assert:", "=", "colorFor:", "getShape:"],
 referencedClasses: ["Color", "ROEllipse"]
 }),
 smalltalk.ROFranceMapBuilderTest);
@@ -219,14 +259,21 @@ var nice;
 function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
 function $ROEllipse(){return smalltalk.ROEllipse||(typeof ROEllipse=="undefined"?nil:ROEllipse)}
 return smalltalk.withContext(function($ctx1) { 
-self._assert_(_st(_st(_st(self["@builder"])._shape())._color()).__eq(_st($Color())._red()));
+var $2,$3,$1;
+$2=_st(_st(self["@builder"])._shape())._color();
+$3=_st($Color())._red();
+$ctx1.sendIdx["red"]=1;
+$1=_st($2).__eq($3);
+$ctx1.sendIdx["="]=1;
+self._assert_($1);
+$ctx1.sendIdx["assert:"]=1;
 _st(self["@builder"])._city_("Nice");
 nice=_st(_st(self["@builder"])._view())._elementFromModel_("Nice");
 self._assert_(_st(_st(_st(nice)._getShape_($ROEllipse()))._colorFor_(nice)).__eq(_st($Color())._red()));
 return self}, function($ctx1) {$ctx1.fill(self,"testShapeColor2",{nice:nice},smalltalk.ROFranceMapBuilderTest)})},
 args: [],
 source: "testShapeColor2\x0a\x09| nice |\x0a\x09self assert: builder shape color = Color red.\x0a\x09\x0a\x09builder city: 'Nice'. \x0a\x09\x0a\x09nice := builder view elementFromModel: 'Nice'.\x0a\x09self assert: ((nice getShape: ROEllipse) colorFor: nice) = Color red.",
-messageSends: ["assert:", "=", "red", "color", "shape", "city:", "elementFromModel:", "view", "colorFor:", "getShape:"],
+messageSends: ["assert:", "=", "color", "shape", "red", "city:", "elementFromModel:", "view", "colorFor:", "getShape:"],
 referencedClasses: ["Color", "ROEllipse"]
 }),
 smalltalk.ROFranceMapBuilderTest);
@@ -244,14 +291,15 @@ return smalltalk.withContext(function($ctx1) {
 _st(_st(self["@builder"])._shape())._color_((function(v){
 return smalltalk.withContext(function($ctx2) {
 return _st($Color())._green();
-}, function($ctx2) {$ctx2.fillBlock({v:v},$ctx1)})}));
+$ctx2.sendIdx["green"]=1;
+}, function($ctx2) {$ctx2.fillBlock({v:v},$ctx1,1)})}));
 _st(self["@builder"])._city_("Nice");
 nice=_st(_st(self["@builder"])._view())._elementFromModel_("Nice");
 self._assert_(_st(_st(_st(nice)._getShape_($ROEllipse()))._colorFor_(nice)).__eq(_st($Color())._green()));
 return self}, function($ctx1) {$ctx1.fill(self,"testShapeColor3",{nice:nice},smalltalk.ROFranceMapBuilderTest)})},
 args: [],
 source: "testShapeColor3\x0a\x09| nice |\x0a\x09builder shape color: [ :v | Color green ].\x0a\x09builder city: 'Nice'. \x0a\x09\x0a\x09nice := builder view elementFromModel: 'Nice'.\x0a\x09self assert: ((nice getShape: ROEllipse) colorFor: nice) = Color green.",
-messageSends: ["color:", "green", "shape", "city:", "elementFromModel:", "view", "assert:", "=", "colorFor:", "getShape:"],
+messageSends: ["color:", "shape", "green", "city:", "elementFromModel:", "view", "assert:", "=", "colorFor:", "getShape:"],
 referencedClasses: ["Color", "ROEllipse"]
 }),
 smalltalk.ROFranceMapBuilderTest);
@@ -265,12 +313,28 @@ var self=this;
 var nice,paris;
 function $ROEllipse(){return smalltalk.ROEllipse||(typeof ROEllipse=="undefined"?nil:ROEllipse)}
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self["@builder"])._shape())._size_((20));
+var $1,$2,$6,$5,$4,$3;
+$1=_st(self["@builder"])._shape();
+$ctx1.sendIdx["shape"]=1;
+_st($1)._size_((20));
 _st(self["@builder"])._city_("Nice");
+$ctx1.sendIdx["city:"]=1;
 _st(self["@builder"])._city_("Paris");
-nice=_st(_st(self["@builder"])._view())._elementFromModel_("Nice");
+$2=_st(self["@builder"])._view();
+$ctx1.sendIdx["view"]=1;
+nice=_st($2)._elementFromModel_("Nice");
+$ctx1.sendIdx["elementFromModel:"]=1;
 paris=_st(_st(self["@builder"])._view())._elementFromModel_("Paris");
-self._assert_(_st(_st(_st(_st(nice)._getShape_($ROEllipse()))._extentFor_(nice))._x()).__eq((20)));
+$6=_st(nice)._getShape_($ROEllipse());
+$ctx1.sendIdx["getShape:"]=1;
+$5=_st($6)._extentFor_(nice);
+$ctx1.sendIdx["extentFor:"]=1;
+$4=_st($5)._x();
+$ctx1.sendIdx["x"]=1;
+$3=_st($4).__eq((20));
+$ctx1.sendIdx["="]=1;
+self._assert_($3);
+$ctx1.sendIdx["assert:"]=1;
 self._assert_(_st(_st(_st(_st(paris)._getShape_($ROEllipse()))._extentFor_(paris))._x()).__eq(_st(_st(self["@builder"])._shape())._defaultCitySize()));
 return self}, function($ctx1) {$ctx1.fill(self,"testShapeSize",{nice:nice,paris:paris},smalltalk.ROFranceMapBuilderTest)})},
 args: [],
@@ -311,14 +375,27 @@ var edge;
 function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
 function $ROLine(){return smalltalk.ROLine||(typeof ROLine=="undefined"?nil:ROLine)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$3,$5,$4,$2,$9,$8,$7,$6;
 _st(self["@builder"])._country_("UnitedStates");
 _st(self["@builder"])._cities_(["New York City", "Washington, D.C."]);
 $1=_st(_st(self["@builder"])._shape())._line();
 _st($1)._width_((3));
-$2=_st($1)._color_(_st(_st($Color())._blue())._alpha_((0.5)));
+$3=$1;
+$5=_st($Color())._blue();
+$ctx1.sendIdx["blue"]=1;
+$4=_st($5)._alpha_((0.5));
+$ctx1.sendIdx["alpha:"]=1;
+$2=_st($3)._color_($4);
 _st(self["@builder"])._edgesFrom_toAll_("New York City",["Washington, D.C."]);
-self._assert_(_st(_st(_st(_st(self["@builder"])._view())._elementsAsEdge())._size()).__eq((1)));
+$9=_st(self["@builder"])._view();
+$ctx1.sendIdx["view"]=1;
+$8=_st($9)._elementsAsEdge();
+$ctx1.sendIdx["elementsAsEdge"]=1;
+$7=_st($8)._size();
+$6=_st($7).__eq((1));
+$ctx1.sendIdx["="]=1;
+self._assert_($6);
+$ctx1.sendIdx["assert:"]=1;
 edge=_st(_st(_st(self["@builder"])._view())._elementsAsEdge())._anyOne();
 self._assert_(_st(_st(_st(edge)._getShape_($ROLine()))._color()).__eq(_st(_st($Color())._blue())._alpha_((0.5))));
 return self}, function($ctx1) {$ctx1.fill(self,"testEdges",{edge:edge},smalltalk.ROMapBuilderTest)})},
@@ -330,4 +407,4 @@ referencedClasses: ["Color", "ROLine"]
 smalltalk.ROMapBuilderTest);
 
 
-
+});

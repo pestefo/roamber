@@ -593,13 +593,13 @@ TestCase subclass: #ROTableTest
 !ROTableTest methodsFor: 'as yet unclassified'!
 
 setUp1
-	|str |
+	|str table|
 	str := self class data1.
 	table := (RODataParser rawData: str withToken: ',') asTable.
 !
 
 setUp2
-	|str |
+	|str table|
 	str := self class data2.
 	table := (RODataParser rawData: str withToken: '&') asTable.
 !

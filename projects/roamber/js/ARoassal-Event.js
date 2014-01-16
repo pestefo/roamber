@@ -1,4 +1,7 @@
+define("roamber/ARoassal-Event", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Announcements"], function(smalltalk,nil,_st){
 smalltalk.addPackage('ARoassal-Event');
+smalltalk.packages["ARoassal-Event"].transport = {"type":"amd","amdNamespace":"roamber"};
+
 smalltalk.addClass('ROEvent', smalltalk.SystemAnnouncement, [], 'ARoassal-Event');
 
 smalltalk.addMethod(
@@ -173,11 +176,10 @@ category: 'action',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 $1=self["@element"];
-if(($receiver = $1) == nil || $receiver == undefined){
-$2=self;
-return $2;
+if(($receiver = $1) == nil || $receiver == null){
+return self;
 } else {
 $1;
 };
@@ -217,6 +219,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.ROComponentEvent.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@position"]=(0).__at((0));
+$ctx1.sendIdx["@"]=1;
 self["@realPosition"]=(0).__at((0));
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ROComponentEvent)})},
 args: [],
@@ -244,7 +247,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"model",{},smalltalk.ROComponentEvent)})},
 args: [],
 source: "model \x0a\x09^ element isNil\x0a\x09\x09ifTrue: [ nil ]\x0a\x09\x09ifFalse: [ self element model ]",
-messageSends: ["ifTrue:ifFalse:", "model", "element", "isNil"],
+messageSends: ["ifTrue:ifFalse:", "isNil", "model", "element"],
 referencedClasses: []
 }),
 smalltalk.ROComponentEvent);
@@ -977,4 +980,4 @@ referencedClasses: []
 smalltalk.ROWindowResized);
 
 
-
+});

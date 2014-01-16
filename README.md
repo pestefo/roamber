@@ -1,16 +1,17 @@
-Roassal in Amber
-=======
+# Roassal in Amber 0.12
+
 [Roassal](http://www.objectprofile.com/#/pages/products/roassal/overview.html) is an agile visualization engine for Smalltalk-like programming languages. This github repository contains a port for running it on the [Amber Smalltalk](http://amber-lang.net) platform.
 
 This project is developed by [Pablo Estefó](http://about.me/pestefo) and mentored by [Alexandre Bergel](http://bergel.eu) and [Manfred Kröhnert](http://github.com/mkroehnert).
+The code was migrated to Amber 0.12 by [Oscar Nierstrasz](http://scg.unibe.ch/staff/oscar).
 
 ## Installation
-For running Roassal, we need you have [NodeJS (a JavaScript server)](#1---install-nodejs) installed.
+To run Roassal, we need you have [NodeJS (a JavaScript server)](#1---install-nodejs) installed.
 
 ### Installing nodejs
 We first need NodeJS to serve javascript files to your Web Browser. Open a terminal/xterm and type "node --version". If you have something like v0.8.16, then it means you have NodeJS installed. Move to the second step. 
 
-If you do not have NodeJS install, then download one of these installers for the latests verison of nodejs `v0.10.12` and double click on it
+If you do not have NodeJS installed, then download one of these installers for the latests verison of nodejs `v0.10.12` and double click on it
 
 * [MacOSX](http://nodejs.org/dist/v0.10.12/node-v0.10.12.pkg)
 * [Windows](http://nodejs.org/dist/v0.10.12/node-v0.10.12-x86.msi)
@@ -19,8 +20,6 @@ If you do not have NodeJS install, then download one of these installers for the
 
 NodeJs weights only 42 Mb, and will be installed on /usr/local/bin. No big deal. 
 After this, you should be able to exectue `node --version` in a terminal. If you still have an error, maybe your PATH variable is not properly set.
-
-
 
 ## Running ROAmber 
 
@@ -36,7 +35,7 @@ Now you can extend and customize Roamber as you wish… Do you have an interesti
 
 ### or… Take a look to our examples!
 
-Let's try some examples we have wrote going to:
+Let's try some examples we have written by going to:
 
 [`http://pestefo.github.io/roamber/`](http://pestefo.github.io/roamber/) 
 

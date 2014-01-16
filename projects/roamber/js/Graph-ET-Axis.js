@@ -1,4 +1,7 @@
+define("roamber/Graph-ET-Axis", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Graph-ET-Axis');
+smalltalk.packages["Graph-ET-Axis"].transport = {"type":"amd","amdNamespace":"roamber"};
+
 smalltalk.addClass('GETAbstractAxisDecorator', smalltalk.Object, ['axis'], 'Graph-ET-Axis');
 smalltalk.addMethod(
 smalltalk.method({
@@ -89,7 +92,7 @@ _st(self._axis())._add_(labelElement);
 return self}, function($ctx1) {$ctx1.fill(self,"createLabel:atLeftOf:",{string:string,aPosition:aPosition,labelElement:labelElement},smalltalk.GETAbstractAxisDecorator)})},
 args: ["string", "aPosition"],
 source: "createLabel: string atLeftOf: aPosition\x0a\x09\x22Define a label located at aPosition.\x0a\x09the label is on the left of aPosition\x22\x0a\x09\x0a\x09| labelElement |\x0a\x09labelElement := ROLabel elementOn: string.\x0a\x09labelElement translateTo: (aPosition - (labelElement width @ (labelElement height / 2))) .\x0a\x09self axis \x0a\x09\x09add: labelElement",
-messageSends: ["elementOn:", "translateTo:", "-", "@", "/", "height", "width", "add:", "axis"],
+messageSends: ["elementOn:", "translateTo:", "-", "@", "width", "/", "height", "add:", "axis"],
 referencedClasses: ["ROLabel"]
 }),
 smalltalk.GETAbstractAxisDecorator);
@@ -143,10 +146,14 @@ function $ROLine(){return smalltalk.ROLine||(typeof ROLine=="undefined"?nil:ROLi
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$4,$5,$6,$7,$8;
 $1=_st($ROElement())._new();
+$ctx1.sendIdx["new"]=1;
 _st($1)._translateTo_(startingPoint);
+$ctx1.sendIdx["translateTo:"]=1;
 $2=_st($1)._size_((0));
+$ctx1.sendIdx["size:"]=1;
 origin=$2;
 $3=_st($ROElement())._new();
+$ctx1.sendIdx["new"]=2;
 _st($3)._translateTo_(endingPoint);
 $4=_st($3)._size_((0));
 end=$4;
@@ -157,7 +164,9 @@ $6=_st($5)._yourself();
 _st(edge).__plus($6);
 $7=self._axis();
 _st($7)._add_(origin);
+$ctx1.sendIdx["add:"]=1;
 _st($7)._add_(end);
+$ctx1.sendIdx["add:"]=2;
 $8=_st($7)._add_(edge);
 return self}, function($ctx1) {$ctx1.fill(self,"createLineFrom:to:color:",{startingPoint:startingPoint,endingPoint:endingPoint,aColor:aColor,origin:origin,end:end,edge:edge},smalltalk.GETAbstractAxisDecorator)})},
 args: ["startingPoint", "endingPoint", "aColor"],
@@ -212,8 +221,12 @@ category: 'displaying',
 fn: function (anAxis){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
 self._axis_(anAxis);
-self._createLineFrom_to_(_st(self._axis())._start(),_st(self._axis())._end());
+$2=self._axis();
+$ctx1.sendIdx["axis"]=1;
+$1=_st($2)._start();
+self._createLineFrom_to_($1,_st(self._axis())._end());
 return self}, function($ctx1) {$ctx1.fill(self,"decorate:",{anAxis:anAxis},smalltalk.GETBaseLineDecorator)})},
 args: ["anAxis"],
 source: "decorate: anAxis \x0a\x0a\x09self axis: anAxis.\x09\x0a\x09self createLineFrom: self axis start to: self axis end",
@@ -233,18 +246,45 @@ fn: function (anAxis){
 var self=this;
 var runningPosition,runningValue,deltaValue,deltaPixels,labelAsNumber;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$2,$5,$4,$7,$6,$3,$8,$11,$10,$13,$12,$9,$14,$15,$16;
 self._axis_(anAxis);
-runningPosition=_st(self._axis())._start();
-runningValue=_st(self._axis())._runningValue();
-deltaPixels=_st(_st(_st(self._axis())._end()).__minus(_st(self._axis())._start())).__slash(self._numberOfLabels());
-deltaValue=_st(_st(_st(self._axis())._minValue()).__minus(_st(self._axis())._maxValue())).__slash(self._numberOfLabels());
-_st(_st(self._numberOfLabels()).__plus((1)))._timesRepeat_((function(){
+$1=self._axis();
+$ctx1.sendIdx["axis"]=1;
+runningPosition=_st($1)._start();
+$ctx1.sendIdx["start"]=1;
+$2=self._axis();
+$ctx1.sendIdx["axis"]=2;
+runningValue=_st($2)._runningValue();
+$5=self._axis();
+$ctx1.sendIdx["axis"]=3;
+$4=_st($5)._end();
+$7=self._axis();
+$ctx1.sendIdx["axis"]=4;
+$6=_st($7)._start();
+$3=_st($4).__minus($6);
+$ctx1.sendIdx["-"]=1;
+$8=self._numberOfLabels();
+$ctx1.sendIdx["numberOfLabels"]=1;
+deltaPixels=_st($3).__slash($8);
+$ctx1.sendIdx["/"]=1;
+$11=self._axis();
+$ctx1.sendIdx["axis"]=5;
+$10=_st($11)._minValue();
+$13=self._axis();
+$ctx1.sendIdx["axis"]=6;
+$12=_st($13)._maxValue();
+$9=_st($10).__minus($12);
+$14=self._numberOfLabels();
+$ctx1.sendIdx["numberOfLabels"]=2;
+deltaValue=_st($9).__slash($14);
+$15=_st(self._numberOfLabels()).__plus((1));
+$ctx1.sendIdx["+"]=1;
+_st($15)._timesRepeat_((function(){
 return smalltalk.withContext(function($ctx2) {
 labelAsNumber=self._getCustomizedValue_(runningValue);
 labelAsNumber;
-$1=_st(_st(deltaPixels)._x()).__eq((0));
-if(smalltalk.assert($1)){
+$16=_st(_st(deltaPixels)._x()).__eq((0));
+if(smalltalk.assert($16)){
 self._createLabel_atLeftOf_(labelAsNumber,runningPosition);
 } else {
 self._createLabel_atBottomOf_(labelAsNumber,runningPosition);
@@ -253,11 +293,11 @@ runningPosition=_st(runningPosition).__plus(deltaPixels);
 runningPosition;
 runningValue=_st(self._axis())._nextFrom_by_(runningValue,deltaValue);
 return runningValue;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"decorate:",{anAxis:anAxis,runningPosition:runningPosition,runningValue:runningValue,deltaValue:deltaValue,deltaPixels:deltaPixels,labelAsNumber:labelAsNumber},smalltalk.GETRegularLabelDecorator)})},
 args: ["anAxis"],
 source: "decorate: anAxis\x0a\x09| runningPosition runningValue deltaValue deltaPixels labelAsNumber |\x0a\x09self axis: anAxis.\x0a\x09runningPosition := self axis start.\x0a\x09runningValue := self axis runningValue.\x0a\x09deltaPixels := (self axis end - self axis start) / self numberOfLabels.\x0a\x09deltaValue := (self axis minValue - self axis maxValue) / self numberOfLabels.\x0a\x09self numberOfLabels + 1\x0a\x09\x09timesRepeat: [ \x0a\x09\x09\x09labelAsNumber := self getCustomizedValue: runningValue.\x0a\x09\x09\x09deltaPixels x = 0\x0a\x09\x09\x09\x09ifTrue: [ self createLabel: labelAsNumber atLeftOf: runningPosition ]\x0a\x09\x09\x09\x09ifFalse: [ self createLabel: labelAsNumber atBottomOf: runningPosition ].\x0a\x09\x09\x09runningPosition := runningPosition + deltaPixels.\x0a\x09\x09\x09runningValue := self axis nextFrom: runningValue by: deltaValue ]",
-messageSends: ["axis:", "start", "axis", "runningValue", "/", "numberOfLabels", "-", "end", "maxValue", "minValue", "timesRepeat:", "getCustomizedValue:", "ifTrue:ifFalse:", "createLabel:atLeftOf:", "createLabel:atBottomOf:", "=", "x", "+", "nextFrom:by:"],
+messageSends: ["axis:", "start", "axis", "runningValue", "/", "-", "end", "numberOfLabels", "minValue", "maxValue", "timesRepeat:", "+", "getCustomizedValue:", "ifTrue:ifFalse:", "=", "x", "createLabel:atLeftOf:", "createLabel:atBottomOf:", "nextFrom:by:"],
 referencedClasses: []
 }),
 smalltalk.GETRegularLabelDecorator);
@@ -272,7 +312,7 @@ return smalltalk.withContext(function($ctx1) {
 self._useValueFormater_((function(v){
 return smalltalk.withContext(function($ctx2) {
 return _st(v)._asFloat();
-}, function($ctx2) {$ctx2.fillBlock({v:v},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({v:v},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"formatFloat",{},smalltalk.GETRegularLabelDecorator)})},
 args: [],
 source: "formatFloat\x0a\x09self useValueFormater: [ :v | v asFloat ]",
@@ -291,7 +331,7 @@ return smalltalk.withContext(function($ctx1) {
 self._useValueFormater_((function(v){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(v)._rounded())._asInteger();
-}, function($ctx2) {$ctx2.fillBlock({v:v},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({v:v},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"formatInteger",{},smalltalk.GETRegularLabelDecorator)})},
 args: [],
 source: "formatInteger\x0a\x09self useValueFormater: [ :v | v rounded asInteger ]",
@@ -328,7 +368,7 @@ shift=(10)._raisedTo_(nbOfDecimal);
 self._useValueFormater_((function(v){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(_st(_st(v).__star(shift))._asInteger()).__slash(shift))._asFloat();
-}, function($ctx2) {$ctx2.fillBlock({v:v},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({v:v},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"formatTruncatedFloatBy:",{nbOfDecimal:nbOfDecimal,shift:shift},smalltalk.GETRegularLabelDecorator)})},
 args: ["nbOfDecimal"],
 source: "formatTruncatedFloatBy: nbOfDecimal\x0a\x09| shift |\x0a\x09shift := 10 raisedTo: nbOfDecimal.\x0a\x09self useValueFormater: [ :v | ((v * shift) asInteger / shift) asFloat ]",
@@ -450,20 +490,39 @@ fn: function (anAxis){
 var self=this;
 var runningPosition,delta,tickDelta;
 return smalltalk.withContext(function($ctx1) { 
+var $1,$4,$3,$6,$5,$2,$7,$8,$9,$10;
 self._axis_(anAxis);
-runningPosition=_st(self._axis())._start();
-delta=_st(_st(_st(self._axis())._end()).__minus(_st(self._axis())._start())).__slash(self._numberOfTicks());
+$1=self._axis();
+$ctx1.sendIdx["axis"]=1;
+runningPosition=_st($1)._start();
+$ctx1.sendIdx["start"]=1;
+$4=self._axis();
+$ctx1.sendIdx["axis"]=2;
+$3=_st($4)._end();
+$6=self._axis();
+$ctx1.sendIdx["axis"]=3;
+$5=_st($6)._start();
+$2=_st($3).__minus($5);
+$ctx1.sendIdx["-"]=1;
+$7=self._numberOfTicks();
+$ctx1.sendIdx["numberOfTicks"]=1;
+delta=_st($2).__slash($7);
 tickDelta=_st(self._axis())._delta();
-_st(_st(self._numberOfTicks()).__plus((1)))._timesRepeat_((function(){
+$8=_st(self._numberOfTicks()).__plus((1));
+$ctx1.sendIdx["+"]=1;
+_st($8)._timesRepeat_((function(){
 return smalltalk.withContext(function($ctx2) {
-self._createLineFrom_to_(_st(runningPosition).__minus(tickDelta),_st(runningPosition).__plus(tickDelta));
+$9=_st(runningPosition).__minus(tickDelta);
+$10=_st(runningPosition).__plus(tickDelta);
+$ctx2.sendIdx["+"]=2;
+self._createLineFrom_to_($9,$10);
 runningPosition=_st(runningPosition).__plus(delta);
 return runningPosition;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"decorate:",{anAxis:anAxis,runningPosition:runningPosition,delta:delta,tickDelta:tickDelta},smalltalk.GETRegularTickDecorator)})},
 args: ["anAxis"],
 source: "decorate: anAxis \x0a\x0a\x09| runningPosition delta tickDelta |\x0a\x09\x0a\x09self axis: anAxis.\x0a\x09\x0a\x09runningPosition := self axis start.\x0a\x09delta := self axis end - self axis start / self numberOfTicks.\x0a\x09tickDelta := self axis delta.\x0a\x0a\x09(self numberOfTicks + 1) timesRepeat: [\x0a\x09\x09self createLineFrom: runningPosition - tickDelta to: runningPosition + tickDelta.\x0a\x09\x09runningPosition := runningPosition + delta ]",
-messageSends: ["axis:", "start", "axis", "/", "numberOfTicks", "-", "end", "delta", "timesRepeat:", "createLineFrom:to:", "+"],
+messageSends: ["axis:", "start", "axis", "/", "-", "end", "numberOfTicks", "delta", "timesRepeat:", "+", "createLineFrom:to:"],
 referencedClasses: []
 }),
 smalltalk.GETRegularTickDecorator);
@@ -545,18 +604,32 @@ category: 'displaying',
 fn: function (anAxis){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $4,$3,$2,$1,$6,$5,$8,$7,$10,$9;
 self._axis_(anAxis);
-$1=_st(_st(_st(self._axis())._delta())._x()).__eq((0));
+$4=self._axis();
+$ctx1.sendIdx["axis"]=1;
+$3=_st($4)._delta();
+$2=_st($3)._x();
+$1=_st($2).__eq((0));
 if(smalltalk.assert($1)){
-self._createLabel_at_(_st(self._axis())._label(),_st(self._axis())._end());
+$6=self._axis();
+$ctx1.sendIdx["axis"]=2;
+$5=_st($6)._label();
+$ctx1.sendIdx["label"]=1;
+$8=self._axis();
+$ctx1.sendIdx["axis"]=3;
+$7=_st($8)._end();
+self._createLabel_at_($5,$7);
 } else {
-self._createLabel_atTopOf_(_st(self._axis())._label(),_st(self._axis())._start());
+$10=self._axis();
+$ctx1.sendIdx["axis"]=4;
+$9=_st($10)._label();
+self._createLabel_atTopOf_($9,_st(self._axis())._start());
 };
 return self}, function($ctx1) {$ctx1.fill(self,"decorate:",{anAxis:anAxis},smalltalk.GETTitleDecorator)})},
 args: ["anAxis"],
 source: "decorate: anAxis\x0a\x09\x0a\x09self axis: anAxis.\x0a\x09\x0a\x09(self axis delta x = 0)\x0a\x09\x09ifTrue: [ self createLabel: self axis label at: self axis end ]\x0a\x09\x09ifFalse: [ self createLabel: self axis label atTopOf: self axis start ]",
-messageSends: ["axis:", "ifTrue:ifFalse:", "createLabel:at:", "label", "axis", "end", "createLabel:atTopOf:", "start", "=", "x", "delta"],
+messageSends: ["axis:", "ifTrue:ifFalse:", "=", "x", "delta", "axis", "createLabel:at:", "label", "end", "createLabel:atTopOf:", "start"],
 referencedClasses: []
 }),
 smalltalk.GETTitleDecorator);
@@ -928,10 +1001,9 @@ category: 'accessing',
 fn: function (aStartingPoint,anEndingPoint){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=self;
-_st($1)._start_(aStartingPoint);
-$2=_st($1)._end_(anEndingPoint);
+var $1;
+self._start_(aStartingPoint);
+$1=self._end_(anEndingPoint);
 return self}, function($ctx1) {$ctx1.fill(self,"from:to:",{aStartingPoint:aStartingPoint,anEndingPoint:anEndingPoint},smalltalk.GETAxis)})},
 args: ["aStartingPoint", "anEndingPoint"],
 source: "from: aStartingPoint to: anEndingPoint\x0a\x0a\x09self start: aStartingPoint;\x0a\x09\x09 end: anEndingPoint",
@@ -948,7 +1020,10 @@ fn: function (){
 var self=this;
 function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-self._elements_(_st($OrderedCollection())._new());
+var $1;
+$1=_st($OrderedCollection())._new();
+$ctx1.sendIdx["new"]=1;
+self._elements_($1);
 self._decorators_(_st($OrderedCollection())._new());
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.GETAxis)})},
 args: [],
@@ -999,10 +1074,9 @@ category: 'accessing',
 fn: function (aValue,anotherValue){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=self;
-_st($1)._maxValue_(aValue);
-$2=_st($1)._minValue_(anotherValue);
+var $1;
+self._maxValue_(aValue);
+$1=self._minValue_(anotherValue);
 return self}, function($ctx1) {$ctx1.fill(self,"max:min:",{aValue:aValue,anotherValue:anotherValue},smalltalk.GETAxis)})},
 args: ["aValue", "anotherValue"],
 source: "max: aValue min: anotherValue\x0a\x0a\x09self maxValue: aValue;\x0a\x09\x09 minValue: anotherValue",
@@ -1184,4 +1258,4 @@ referencedClasses: []
 smalltalk.GETAxis);
 
 
-
+});

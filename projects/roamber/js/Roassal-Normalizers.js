@@ -1,4 +1,7 @@
+define("roamber/Roassal-Normalizers", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "roamber/ARoassal"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Roassal-Normalizers');
+smalltalk.packages["Roassal-Normalizers"].transport = {"type":"amd","amdNamespace":"roamber"};
+
 smalltalk.addClass('RONAbstractNormalizer', smalltalk.ROObject, ['command'], 'Roassal-Normalizers');
 smalltalk.addMethod(
 smalltalk.method({
@@ -60,17 +63,16 @@ category: 'private-accessing',
 fn: function (aValue){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 var $early={};
 try {
 _st(self["@normalizers"])._keysAndValuesDo_((function(range,norm){
 return smalltalk.withContext(function($ctx2) {
 $1=_st(range)._rangeIncludes_(aValue);
 if(smalltalk.assert($1)){
-$2=norm;
-throw $early=[$2];
+throw $early=[norm];
 };
-}, function($ctx2) {$ctx2.fillBlock({range:range,norm:norm},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({range:range,norm:norm},$ctx1,1)})}));
 self._error_(_st(_st(aValue)._asString()).__comma(" not in declared ranges"));
 return self}
 catch(e) {if(e===$early)return e[0]; throw e}
@@ -126,25 +128,41 @@ fn: function (anArrayOfNumbers,anArrayOfColors){
 var self=this;
 var size,start,end;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
-function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 function $RONColorLinearNormalizer(){return smalltalk.RONColorLinearNormalizer||(typeof RONColorLinearNormalizer=="undefined"?nil:RONColorLinearNormalizer)}
+function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1,$4,$5,$6,$8,$9,$7;
 self["@normalizers"]=_st($Dictionary())._new();
-self._assert_(_st(_st(anArrayOfNumbers)._size()).__eq(_st(anArrayOfColors)._size()));
+$2=_st(anArrayOfNumbers)._size();
+$ctx1.sendIdx["size"]=1;
+$3=_st(anArrayOfColors)._size();
+$ctx1.sendIdx["size"]=2;
+$1=_st($2).__eq($3);
+self._assert_($1);
 size=_st(anArrayOfNumbers)._size();
 (1)._to_do_(_st(size).__minus((1)),(function(i){
 return smalltalk.withContext(function($ctx2) {
 start=_st(anArrayOfNumbers)._at_(i);
+$ctx2.sendIdx["at:"]=1;
 start;
-end=_st(anArrayOfNumbers)._at_(_st(i).__plus((1)));
+$4=_st(i).__plus((1));
+$ctx2.sendIdx["+"]=1;
+end=_st(anArrayOfNumbers)._at_($4);
+$ctx2.sendIdx["at:"]=2;
 end;
-return _st(self["@normalizers"])._at_put_(_st(start)._to_(end),_st($RONColorLinearNormalizer())._inContext_lowColor_highColor_(_st($Array())._with_with_(start,end),_st(anArrayOfColors)._at_(i),_st(anArrayOfColors)._at_(_st(i).__plus((1)))));
-}, function($ctx2) {$ctx2.fillBlock({i:i},$ctx1)})}));
+$5=self["@normalizers"];
+$6=_st(start)._to_(end);
+$8=_st($Array())._with_with_(start,end);
+$9=_st(anArrayOfColors)._at_(i);
+$ctx2.sendIdx["at:"]=3;
+$7=_st($RONColorLinearNormalizer())._inContext_lowColor_highColor_($8,$9,_st(anArrayOfColors)._at_(_st(i).__plus((1))));
+return _st($5)._at_put_($6,$7);
+}, function($ctx2) {$ctx2.fillBlock({i:i},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"valueRange:colorRange:",{anArrayOfNumbers:anArrayOfNumbers,anArrayOfColors:anArrayOfColors,size:size,start:start,end:end},smalltalk.ROMultipleColorLinearNormalizer)})},
 args: ["anArrayOfNumbers", "anArrayOfColors"],
 source: "valueRange: anArrayOfNumbers colorRange: anArrayOfColors\x0a\x09\x22 {1. 2. 3} {Color red. Color yellow. Color green}\x22\x0a\x09\x0a\x09| size start end |\x0a\x09normalizers := Dictionary new.\x0a\x09self assert: anArrayOfNumbers size = anArrayOfColors size.\x0a\x09size := anArrayOfNumbers size.\x0a\x091 to: size - 1 do: [ :i |\x0a\x09\x09start := anArrayOfNumbers at: i.\x0a\x09\x09end :=  anArrayOfNumbers at: i + 1.\x0a\x09\x09normalizers\x0a\x09\x09\x09at: (start to: end)\x0a\x09\x09\x09put: (RONColorLinearNormalizer\x0a\x09\x09\x09\x09\x09\x09inContext: (Array with: start with: end)\x0a\x09\x09\x09\x09\x09\x09lowColor: (anArrayOfColors at: i)\x0a\x09\x09\x09\x09\x09\x09highColor: (anArrayOfColors at: i + 1))\x0a\x09].",
 messageSends: ["new", "assert:", "=", "size", "to:do:", "-", "at:", "+", "at:put:", "to:", "inContext:lowColor:highColor:", "with:with:"],
-referencedClasses: ["Dictionary", "Array", "RONColorLinearNormalizer"]
+referencedClasses: ["Dictionary", "RONColorLinearNormalizer", "Array"]
 }),
 smalltalk.ROMultipleColorLinearNormalizer);
 
@@ -197,10 +215,15 @@ fn: function (){
 var self=this;
 function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-self["@colorIndex"]=_st(_st(self["@colorIndex"]).__backslash_backslash(_st(_st($Color())._colorNames())._size())).__plus((1));
-$1=_st($Color())._perform_(_st(_st($Color())._colorNames())._at_(self["@colorIndex"]));
-return $1;
+var $2,$4,$3,$1,$5;
+$2=self["@colorIndex"];
+$4=_st($Color())._colorNames();
+$ctx1.sendIdx["colorNames"]=1;
+$3=_st($4)._size();
+$1=_st($2).__backslash_backslash($3);
+self["@colorIndex"]=_st($1).__plus((1));
+$5=_st($Color())._perform_(_st(_st($Color())._colorNames())._at_(self["@colorIndex"]));
+return $5;
 }, function($ctx1) {$ctx1.fill(self,"nextColor",{},smalltalk.RONIdentityNormalizer)})},
 args: [],
 source: "nextColor\x0a\x09\x0a\x09colorIndex := colorIndex \x5c\x5c Color colorNames size + 1.\x0a\x09^Color perform: (Color colorNames at: colorIndex)",
@@ -220,7 +243,7 @@ var $1;
 $1=_st(self["@dictionary"])._at_ifAbsentPut_(_st(self["@command"])._roValue_(anEntity),(function(){
 return smalltalk.withContext(function($ctx2) {
 return self._nextColor();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"roValue:",{anEntity:anEntity},smalltalk.RONIdentityNormalizer)})},
 args: ["anEntity"],
@@ -388,9 +411,13 @@ category: 'private',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $3,$5,$4,$2,$1;
 self["@colorIndex"]=_st(self["@colorIndex"]).__plus((1));
-$2=_st(self["@colorIndex"]).__gt(_st(self._colors())._size());
+$3=self["@colorIndex"];
+$5=self._colors();
+$ctx1.sendIdx["colors"]=1;
+$4=_st($5)._size();
+$2=_st($3).__gt($4);
 if(smalltalk.assert($2)){
 $1=self._defaultColor();
 } else {
@@ -400,7 +427,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"nextColor",{},smalltalk.RONExplicitIdentityNormalizer)})},
 args: [],
 source: "nextColor\x0a\x09\x0a\x09colorIndex := colorIndex + 1.\x0a\x09^colorIndex > self colors size\x0a\x09\x09ifTrue: [ self defaultColor ]\x0a\x09\x09ifFalse: [ self colors at: colorIndex ]",
-messageSends: ["+", "ifTrue:ifFalse:", "defaultColor", "at:", "colors", ">", "size"],
+messageSends: ["+", "ifTrue:ifFalse:", ">", "size", "colors", "defaultColor", "at:"],
 referencedClasses: []
 }),
 smalltalk.RONExplicitIdentityNormalizer);
@@ -522,21 +549,23 @@ category: 'private',
 fn: function (anEntity){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$3;
 $1=_st(self["@maximumValue"])._isNil();
 if(smalltalk.assert($1)){
-self["@maximumValue"]=_st(_st(self._context())._roValue_(anEntity))._inject_into_((1),(function(maximum,entity){
+$2=_st(self._context())._roValue_(anEntity);
+$ctx1.sendIdx["roValue:"]=1;
+self["@maximumValue"]=_st($2)._inject_into_((1),(function(maximum,entity){
 return smalltalk.withContext(function($ctx2) {
 return _st(maximum)._max_(_st(self._command())._roValue_(entity));
-}, function($ctx2) {$ctx2.fillBlock({maximum:maximum,entity:entity},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({maximum:maximum,entity:entity},$ctx1,2)})}));
 self["@maximumValue"];
 };
-$2=self["@maximumValue"];
-return $2;
+$3=self["@maximumValue"];
+return $3;
 }, function($ctx1) {$ctx1.fill(self,"maximumValue:",{anEntity:anEntity},smalltalk.RONLinearNormalizer)})},
 args: ["anEntity"],
 source: "maximumValue: anEntity\x0a\x09\x22Returns the largest value that the color metric provides\x22\x0a\x09\x0a\x09maximumValue isNil\x0a\x09\x09ifTrue:\x0a\x09\x09\x09[maximumValue := (self context roValue: anEntity)\x0a\x09\x09\x09\x09inject: 1\x0a\x09\x09\x09\x09into:\x0a\x09\x09\x09\x09\x09[:maximum :entity | maximum max: (self command roValue: entity)]].\x0a\x09^maximumValue",
-messageSends: ["ifTrue:", "inject:into:", "max:", "roValue:", "command", "context", "isNil"],
+messageSends: ["ifTrue:", "isNil", "inject:into:", "roValue:", "context", "max:", "command"],
 referencedClasses: []
 }),
 smalltalk.RONLinearNormalizer);
@@ -548,21 +577,23 @@ category: 'private',
 fn: function (anEntity){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$3;
 $1=_st(self["@minimumValue"])._isNil();
 if(smalltalk.assert($1)){
-self["@minimumValue"]=_st(_st(self._context())._roValue_(anEntity))._inject_into_((100000000000),(function(minimum,entity){
+$2=_st(self._context())._roValue_(anEntity);
+$ctx1.sendIdx["roValue:"]=1;
+self["@minimumValue"]=_st($2)._inject_into_((100000000000),(function(minimum,entity){
 return smalltalk.withContext(function($ctx2) {
 return _st(minimum)._min_(_st(self._command())._roValue_(entity));
-}, function($ctx2) {$ctx2.fillBlock({minimum:minimum,entity:entity},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({minimum:minimum,entity:entity},$ctx1,2)})}));
 self["@minimumValue"];
 };
-$2=self["@minimumValue"];
-return $2;
+$3=self["@minimumValue"];
+return $3;
 }, function($ctx1) {$ctx1.fill(self,"minimumValue:",{anEntity:anEntity},smalltalk.RONLinearNormalizer)})},
 args: ["anEntity"],
 source: "minimumValue: anEntity\x0a\x09\x22Returns the smallest value that the color metric provides\x22\x0a\x09\x0a\x09minimumValue isNil\x0a\x09\x09ifTrue:\x0a\x09\x09\x09[minimumValue := (self context roValue: anEntity)\x0a\x09\x09\x09\x09inject: 100000000000 \x0a\x09\x09\x09\x09into:\x0a\x09\x09\x09\x09\x09[:minimum :entity | minimum min: (self command roValue: entity)]].\x0a\x09^minimumValue",
-messageSends: ["ifTrue:", "inject:into:", "min:", "roValue:", "command", "context", "isNil"],
+messageSends: ["ifTrue:", "isNil", "inject:into:", "roValue:", "context", "min:", "command"],
 referencedClasses: []
 }),
 smalltalk.RONLinearNormalizer);
@@ -579,7 +610,7 @@ var $1;
 $1=self._inContext_withCommand_(aCollection,(function(obj){
 return smalltalk.withContext(function($ctx2) {
 return obj;
-}, function($ctx2) {$ctx2.fillBlock({obj:obj},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({obj:obj},$ctx1,1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"inContext:",{aCollection:aCollection},smalltalk.RONLinearNormalizer.klass)})},
 args: ["aCollection"],
@@ -622,13 +653,31 @@ var self=this;
 var rv,gv,bv,invWt;
 function $Color(){return smalltalk.Color||(typeof Color=="undefined"?nil:Color)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $2,$1,$3,$5,$4,$6,$8,$7,$9;
 invWt=(1).__minus(wt);
-rv=_st(_st(_st(aColor)._red()).__star(invWt)).__plus(_st(_st(aColorValue)._red()).__star(wt));
-gv=_st(_st(_st(aColor)._green()).__star(invWt)).__plus(_st(_st(aColorValue)._green()).__star(wt));
-bv=_st(_st(_st(aColor)._blue()).__star(invWt)).__plus(_st(_st(aColorValue)._blue()).__star(wt));
-$1=_st($Color())._r_g_b_(rv,gv,bv);
-return $1;
+$2=_st(aColor)._red();
+$ctx1.sendIdx["red"]=1;
+$1=_st($2).__star(invWt);
+$ctx1.sendIdx["*"]=1;
+$3=_st(_st(aColorValue)._red()).__star(wt);
+$ctx1.sendIdx["*"]=2;
+rv=_st($1).__plus($3);
+$ctx1.sendIdx["+"]=1;
+$5=_st(aColor)._green();
+$ctx1.sendIdx["green"]=1;
+$4=_st($5).__star(invWt);
+$ctx1.sendIdx["*"]=3;
+$6=_st(_st(aColorValue)._green()).__star(wt);
+$ctx1.sendIdx["*"]=4;
+gv=_st($4).__plus($6);
+$ctx1.sendIdx["+"]=2;
+$8=_st(aColor)._blue();
+$ctx1.sendIdx["blue"]=1;
+$7=_st($8).__star(invWt);
+$ctx1.sendIdx["*"]=5;
+bv=_st($7).__plus(_st(_st(aColorValue)._blue()).__star(wt));
+$9=_st($Color())._r_g_b_(rv,gv,bv);
+return $9;
 }, function($ctx1) {$ctx1.fill(self,"blend:with:weight:",{aColor:aColor,aColorValue:aColorValue,wt:wt,rv:rv,gv:gv,bv:bv,invWt:invWt},smalltalk.RONColorLinearNormalizer)})},
 args: ["aColor", "aColorValue", "wt"],
 source: "blend: aColor with: aColorValue weight: wt\x0a\x09\x22Answer a new ColorValue which is a weighted blend of the receiver and the\x0a\x09supplied ColorValue.\x22\x0a\x09\x22Simply interpolates in RGB space.\x22\x0a\x0a\x09| rv gv bv invWt |\x0a\x09\x0a\x09invWt := 1-wt.\x0a\x09rv := ((aColor red * invWt) + ((aColorValue red)*wt)) \x22rounded\x22.\x0a\x09gv := ((aColor green  * invWt) + ((aColorValue green)*wt)) \x22rounded\x22.\x0a\x09bv := ((aColor blue *invWt)+ ((aColorValue blue)*wt)) \x22rounded\x22.\x0a\x09^Color r: rv g: gv b: bv",
@@ -758,7 +807,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"maxBrightnessFor:",{anEntity:anEntity},smalltalk.RONColorLinearNormalizer)})},
 args: ["anEntity"],
 source: "maxBrightnessFor: anEntity\x0a\x09\x0a\x09^maxBrightness isNil\x0a\x09\x09ifTrue: [1.0]\x0a\x09\x09ifFalse: [maxBrightness roValue: anEntity]",
-messageSends: ["ifTrue:ifFalse:", "roValue:", "isNil"],
+messageSends: ["ifTrue:ifFalse:", "isNil", "roValue:"],
 referencedClasses: []
 }),
 smalltalk.RONColorLinearNormalizer);
@@ -797,7 +846,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"minBrightnessFor:",{anEntity:anEntity},smalltalk.RONColorLinearNormalizer)})},
 args: ["anEntity"],
 source: "minBrightnessFor: anEntity\x0a\x09\x0a\x09^minBrightness isNil\x0a\x09\x09ifTrue: [0.0]\x0a\x09\x09ifFalse: [minBrightness roValue: anEntity]",
-messageSends: ["ifTrue:ifFalse:", "roValue:", "isNil"],
+messageSends: ["ifTrue:ifFalse:", "isNil", "roValue:"],
 referencedClasses: []
 }),
 smalltalk.RONColorLinearNormalizer);
@@ -810,8 +859,9 @@ fn: function (anEntity){
 var self=this;
 var myValue,myHighColor,myLowColor,myMinBrightness,myMaxBrightness,weight,minValue,maxValue;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$3,$6,$7,$5,$4,$8;
 minValue=self._minimumValue_(anEntity);
+$ctx1.sendIdx["minimumValue:"]=1;
 maxValue=self._maximumValue_(anEntity);
 myMinBrightness=self._minBrightnessFor_(anEntity);
 myMaxBrightness=self._maxBrightnessFor_(anEntity);
@@ -819,18 +869,28 @@ myHighColor=self._highColorFor_(anEntity);
 myLowColor=self._lowColorFor_(anEntity);
 $1=_st(minValue).__eq(maxValue);
 if(smalltalk.assert($1)){
-weight=_st(_st(myMinBrightness).__plus(myMaxBrightness)).__slash((2));
+$2=_st(myMinBrightness).__plus(myMaxBrightness);
+$ctx1.sendIdx["+"]=1;
+weight=_st($2).__slash((2));
+$ctx1.sendIdx["/"]=1;
 } else {
 myValue=_st(_st(self._command())._value_(anEntity)).__minus(self._minimumValue_(anEntity));
+$ctx1.sendIdx["-"]=1;
 myValue;
-weight=_st(myMinBrightness).__plus(_st(_st(_st(myValue)._abs()).__slash(_st(maxValue).__minus(minValue))).__star(_st(myMaxBrightness).__minus(myMinBrightness)));
+$3=myMinBrightness;
+$6=_st(myValue)._abs();
+$7=_st(maxValue).__minus(minValue);
+$ctx1.sendIdx["-"]=2;
+$5=_st($6).__slash($7);
+$4=_st($5).__star(_st(myMaxBrightness).__minus(myMinBrightness));
+weight=_st($3).__plus($4);
 };
-$2=self._blend_with_weight_(myLowColor,myHighColor,weight);
-return $2;
+$8=self._blend_with_weight_(myLowColor,myHighColor,weight);
+return $8;
 }, function($ctx1) {$ctx1.fill(self,"roValue:",{anEntity:anEntity,myValue:myValue,myHighColor:myHighColor,myLowColor:myLowColor,myMinBrightness:myMinBrightness,myMaxBrightness:myMaxBrightness,weight:weight,minValue:minValue,maxValue:maxValue},smalltalk.RONColorLinearNormalizer)})},
 args: ["anEntity"],
 source: "roValue: anEntity\x0a\x09\x22Calculates the color of the entity based on the context.\x22\x0a\x09\x0a\x09| myValue myHighColor myLowColor myMinBrightness myMaxBrightness weight minValue maxValue |\x0a\x09\x22Get color specific data\x22\x0a\x09minValue :=  self minimumValue: anEntity.\x0a\x09maxValue :=  self maximumValue: anEntity.\x0a\x09myMinBrightness := self minBrightnessFor: anEntity.\x0a\x09myMaxBrightness := self maxBrightnessFor: anEntity.\x0a\x09myHighColor := self highColorFor: anEntity.\x0a\x09myLowColor := self lowColorFor: anEntity.\x09\x22Get data\x22\x0a\x09weight := minValue = maxValue \x0a\x09\x09ifTrue: [(myMinBrightness + myMaxBrightness) / 2]\x0a\x09\x09ifFalse: [\x09\x0a\x09\x09\x09myValue := (self command value: anEntity) - (self minimumValue: anEntity).\x0a\x09\x09\x09myMinBrightness + (myValue abs / (maxValue - minValue) * (myMaxBrightness - myMinBrightness)) ].\x0a\x09^self blend: myLowColor with: myHighColor weight: weight",
-messageSends: ["minimumValue:", "maximumValue:", "minBrightnessFor:", "maxBrightnessFor:", "highColorFor:", "lowColorFor:", "ifTrue:ifFalse:", "/", "+", "-", "value:", "command", "*", "abs", "=", "blend:with:weight:"],
+messageSends: ["minimumValue:", "maximumValue:", "minBrightnessFor:", "maxBrightnessFor:", "highColorFor:", "lowColorFor:", "ifTrue:ifFalse:", "=", "/", "+", "-", "value:", "command", "*", "abs", "blend:with:weight:"],
 referencedClasses: []
 }),
 smalltalk.RONColorLinearNormalizer);
@@ -945,7 +1005,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"roValue:",{anEntity:anEntity,value:value},smalltalk.RONFontLinearNormalizer)})},
 args: ["anEntity"],
 source: "roValue: anEntity\x0a\x09\x22Calculates the color of the entity based on the context.\x22\x0a\x09\x0a\x09| value |\x0a\x09value := self command roValue: anEntity.\x0a\x09^5 + (38 * (value abs / (self maximumValue: anEntity))) asInteger",
-messageSends: ["roValue:", "command", "+", "asInteger", "*", "/", "maximumValue:", "abs"],
+messageSends: ["roValue:", "command", "+", "asInteger", "*", "/", "abs", "maximumValue:"],
 referencedClasses: []
 }),
 smalltalk.RONFontLinearNormalizer);
@@ -985,7 +1045,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"roValue:",{anEntity:anEntity,value:value},smalltalk.RONumberLinearNormalizer)})},
 args: ["anEntity"],
 source: "roValue: anEntity\x0a\x09\x22Normalize value based on maximum value.\x22\x0a\x09\x0a\x09| value |\x0a\x09value := self command roValue: anEntity.\x0a\x09^ ((value abs / (self maximumValue: anEntity)) asFloat * self scale) asInteger",
-messageSends: ["roValue:", "command", "asInteger", "*", "scale", "asFloat", "/", "maximumValue:", "abs"],
+messageSends: ["roValue:", "command", "asInteger", "*", "asFloat", "/", "abs", "maximumValue:", "scale"],
 referencedClasses: []
 }),
 smalltalk.RONumberLinearNormalizer);
@@ -1124,15 +1184,19 @@ fn: function (anEntity){
 var self=this;
 var value,slope;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $4,$3,$2,$1;
 value=_st(self._command())._roValue_(anEntity);
 slope=self._slope_(anEntity);
-$1=_st(_st(_st(_st(_st(value)._abs()).__star(slope)).__plus(self._maxScale())).__minus(_st(_st(self._maximumValue_(anEntity))._asFloat()).__star(slope)))._asInteger();
+$4=_st(_st(value)._abs()).__star(slope);
+$ctx1.sendIdx["*"]=1;
+$3=_st($4).__plus(self._maxScale());
+$2=_st($3).__minus(_st(_st(self._maximumValue_(anEntity))._asFloat()).__star(slope));
+$1=_st($2)._asInteger();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"roValue:",{anEntity:anEntity,value:value,slope:slope},smalltalk.ROValueLinearNormalizer)})},
 args: ["anEntity"],
 source: "roValue: anEntity\x0a\x09\x0a\x09\x22Normalize value based on minimum and maximum value.\x22\x0a\x09| value slope |\x0a\x09value := self command roValue: anEntity.\x0a\x09slope := self slope: anEntity.\x0a\x09^ ((value abs * slope) + self maxScale - ((self maximumValue: anEntity) asFloat * slope)) asInteger",
-messageSends: ["roValue:", "command", "slope:", "asInteger", "-", "*", "asFloat", "maximumValue:", "+", "maxScale", "abs"],
+messageSends: ["roValue:", "command", "slope:", "asInteger", "-", "+", "*", "abs", "maxScale", "asFloat", "maximumValue:"],
 referencedClasses: []
 }),
 smalltalk.ROValueLinearNormalizer);
@@ -1144,16 +1208,21 @@ category: 'as yet unclassified',
 fn: function (anEntity){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st(self["@maxScale"]).__minus(self["@minScale"])).__slash(_st(_st(self._maximumValue_(anEntity))._asFloat()).__minus(_st(self._minimumValue_(anEntity))._asFloat()));
+var $2,$4,$3,$1;
+$2=_st(self["@maxScale"]).__minus(self["@minScale"]);
+$ctx1.sendIdx["-"]=1;
+$4=_st(self._maximumValue_(anEntity))._asFloat();
+$ctx1.sendIdx["asFloat"]=1;
+$3=_st($4).__minus(_st(self._minimumValue_(anEntity))._asFloat());
+$1=_st($2).__slash($3);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"slope:",{anEntity:anEntity},smalltalk.ROValueLinearNormalizer)})},
 args: ["anEntity"],
 source: "slope: anEntity\x0a\x09\x0a\x09^ (maxScale - minScale) / ((self maximumValue: anEntity) asFloat - (self minimumValue: anEntity )asFloat).",
-messageSends: ["/", "-", "asFloat", "minimumValue:", "maximumValue:"],
+messageSends: ["/", "-", "asFloat", "maximumValue:", "minimumValue:"],
 referencedClasses: []
 }),
 smalltalk.ROValueLinearNormalizer);
 
 
-
+});

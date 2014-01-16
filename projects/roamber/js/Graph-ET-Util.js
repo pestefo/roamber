@@ -1,4 +1,7 @@
+define("roamber/Graph-ET-Util", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Graph-ET-Util');
+smalltalk.packages["Graph-ET-Util"].transport = {"type":"amd","amdNamespace":"roamber"};
+
 smalltalk.addClass('GETDistribution', smalltalk.Object, ['numbers'], 'Graph-ET-Util');
 smalltalk.addMethod(
 smalltalk.method({
@@ -28,37 +31,50 @@ var interval,running,tmp,result;
 function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-interval=_st(_st(_st(numberMax).__plus((1))).__minus(numberMin)).__slash(nbOfIntervals);
+var $2,$1,$3,$4,$6,$7,$8,$5,$9;
+$2=_st(numberMax).__plus((1));
+$ctx1.sendIdx["+"]=1;
+$1=_st($2).__minus(numberMin);
+interval=_st($1).__slash(nbOfIntervals);
 running=numberMin;
 tmp=_st(self["@numbers"])._copy();
 result=_st($OrderedCollection())._new();
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(running)._asFloat()).__lt(numberMax);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileTrue_((function(){
+$ctx2.sendIdx["<"]=1;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._whileTrue_((function(){
 var c;
 return smalltalk.withContext(function($ctx2) {
 c=_st(tmp)._select_((function(v){
 return smalltalk.withContext(function($ctx3) {
 return _st(_st(v).__gt_eq(running))._and_((function(){
 return smalltalk.withContext(function($ctx4) {
-return _st(v).__lt(_st(running).__plus(interval));
-}, function($ctx4) {$ctx4.fillBlock({},$ctx3)})}));
-}, function($ctx3) {$ctx3.fillBlock({v:v},$ctx2)})}));
+$3=_st(running).__plus(interval);
+$ctx4.sendIdx["+"]=2;
+return _st(v).__lt($3);
+}, function($ctx4) {$ctx4.fillBlock({},$ctx3,4)})}));
+}, function($ctx3) {$ctx3.fillBlock({v:v},$ctx2,3)})}));
 c;
-_st(result)._add_(_st($Array())._with_with_with_(running,_st(interval).__plus(running),_st(c)._asArray()));
+$4=result;
+$6=running;
+$7=_st(interval).__plus(running);
+$ctx2.sendIdx["+"]=3;
+$8=_st(c)._asArray();
+$ctx2.sendIdx["asArray"]=1;
+$5=_st($Array())._with_with_with_($6,$7,$8);
+_st($4)._add_($5);
 tmp=_st(tmp)._copyWithoutAll_(c);
 tmp;
 running=_st(running).__plus(interval);
 return running;
-}, function($ctx2) {$ctx2.fillBlock({c:c},$ctx1)})}));
-$1=_st(result)._asArray();
-return $1;
+}, function($ctx2) {$ctx2.fillBlock({c:c},$ctx1,2)})}));
+$9=_st(result)._asArray();
+return $9;
 }, function($ctx1) {$ctx1.fill(self,"annotatedFrequencyMin:max:amountOfIntervals:",{numberMin:numberMin,numberMax:numberMax,nbOfIntervals:nbOfIntervals,interval:interval,running:running,tmp:tmp,result:result},smalltalk.GETDistribution)})},
 args: ["numberMin", "numberMax", "nbOfIntervals"],
 source: "annotatedFrequencyMin: numberMin max: numberMax amountOfIntervals: nbOfIntervals\x0a\x0a\x09| interval running tmp result |\x0a\x09interval := ((numberMax + 1 - numberMin) / nbOfIntervals).\x0a\x09running := numberMin.\x0a\x09\x0a\x09tmp := numbers copy.\x0a\x09result := OrderedCollection new.\x0a\x09[ running asFloat < numberMax ] whileTrue: [ \x0a\x09\x09| c |\x0a\x09\x09c := tmp select: [ :v | v >= running and: [ v < (running + interval) ]].\x0a\x09\x09result add: (Array with: running with: interval + running with: c asArray).\x0a\x09\x09tmp := tmp copyWithoutAll: c.\x0a\x09\x09running := running + interval ].\x0a\x09\x0a\x09^ result asArray",
-messageSends: ["/", "-", "+", "copy", "new", "whileTrue:", "select:", "and:", "<", ">=", "add:", "with:with:with:", "asArray", "copyWithoutAll:", "asFloat"],
+messageSends: ["/", "-", "+", "copy", "new", "whileTrue:", "<", "asFloat", "select:", "and:", ">=", "add:", "with:with:with:", "asArray", "copyWithoutAll:"],
 referencedClasses: ["OrderedCollection", "Array"]
 }),
 smalltalk.GETDistribution);
@@ -108,37 +124,46 @@ var self=this;
 var interval,running,tmp,result;
 function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-interval=_st(_st(_st(numberMax).__plus((1))).__minus(numberMin)).__slash(nbOfIntervals);
+var $2,$1,$3,$4,$5,$6;
+$2=_st(numberMax).__plus((1));
+$ctx1.sendIdx["+"]=1;
+$1=_st($2).__minus(numberMin);
+interval=_st($1).__slash(nbOfIntervals);
 running=numberMin;
 tmp=_st(self["@numbers"])._copy();
 result=_st($OrderedCollection())._new();
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(running)._asFloat()).__lt(numberMax);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileTrue_((function(){
+$ctx2.sendIdx["<"]=1;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._whileTrue_((function(){
 var c;
 return smalltalk.withContext(function($ctx2) {
 c=_st(tmp)._select_((function(v){
 return smalltalk.withContext(function($ctx3) {
 return _st(_st(v).__gt_eq(running))._and_((function(){
 return smalltalk.withContext(function($ctx4) {
-return _st(v).__lt(_st(running).__plus(interval));
-}, function($ctx4) {$ctx4.fillBlock({},$ctx3)})}));
-}, function($ctx3) {$ctx3.fillBlock({v:v},$ctx2)})}));
+$3=_st(running).__plus(interval);
+$ctx4.sendIdx["+"]=2;
+return _st(v).__lt($3);
+}, function($ctx4) {$ctx4.fillBlock({},$ctx3,4)})}));
+}, function($ctx3) {$ctx3.fillBlock({v:v},$ctx2,3)})}));
 c;
-_st(result)._add_(_st(c)._asArray());
+$4=result;
+$5=_st(c)._asArray();
+$ctx2.sendIdx["asArray"]=1;
+_st($4)._add_($5);
 tmp=_st(tmp)._copyWithoutAll_(c);
 tmp;
 running=_st(running).__plus(interval);
 return running;
-}, function($ctx2) {$ctx2.fillBlock({c:c},$ctx1)})}));
-$1=_st(result)._asArray();
-return $1;
+}, function($ctx2) {$ctx2.fillBlock({c:c},$ctx1,2)})}));
+$6=_st(result)._asArray();
+return $6;
 }, function($ctx1) {$ctx1.fill(self,"frequencyMin:max:amountOfIntervals:",{numberMin:numberMin,numberMax:numberMax,nbOfIntervals:nbOfIntervals,interval:interval,running:running,tmp:tmp,result:result},smalltalk.GETDistribution)})},
 args: ["numberMin", "numberMax", "nbOfIntervals"],
 source: "frequencyMin: numberMin max: numberMax amountOfIntervals: nbOfIntervals\x0a\x0a\x09| interval running tmp result |\x0a\x09interval := ((numberMax + 1 - numberMin) / nbOfIntervals).\x0a\x09running := numberMin.\x0a\x09\x0a\x09tmp := numbers copy.\x0a\x09result := OrderedCollection new.\x0a\x09[ running asFloat < numberMax ] whileTrue: [ \x0a\x09\x09| c |\x0a\x09\x09c := tmp select: [ :v | v >= running and: [ v < (running + interval) ]].\x0a\x09\x09result add: c asArray.\x0a\x09\x09tmp := tmp copyWithoutAll: c.\x0a\x09\x09running := running + interval ].\x0a\x09\x0a\x09^ result asArray",
-messageSends: ["/", "-", "+", "copy", "new", "whileTrue:", "select:", "and:", "<", ">=", "add:", "asArray", "copyWithoutAll:", "asFloat"],
+messageSends: ["/", "-", "+", "copy", "new", "whileTrue:", "<", "asFloat", "select:", "and:", ">=", "add:", "asArray", "copyWithoutAll:"],
 referencedClasses: ["OrderedCollection"]
 }),
 smalltalk.GETDistribution);
@@ -310,11 +335,11 @@ return smalltalk.withContext(function($ctx1) {
 _st(self._diagram())._do_(_st($ROPopup())._text_((function(event){
 return smalltalk.withContext(function($ctx2) {
 return _st(aBlock)._value_(event);
-}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})})));
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1,1)})})));
 return self}, function($ctx1) {$ctx1.fill(self,"popUpText:",{aBlock:aBlock},smalltalk.GETInteractionWrapper)})},
 args: ["aBlock"],
 source: "popUpText: aBlock\x0a\x0a\x09(self diagram) do: (ROPopup text: [:event | aBlock value: event]).",
-messageSends: ["do:", "text:", "value:", "diagram"],
+messageSends: ["do:", "diagram", "text:", "value:"],
 referencedClasses: ["ROPopup"]
 }),
 smalltalk.GETInteractionWrapper);
@@ -328,27 +353,29 @@ var self=this;
 function $ROMouseClick(){return smalltalk.ROMouseClick||(typeof ROMouseClick=="undefined"?nil:ROMouseClick)}
 function $ROBlink(){return smalltalk.ROBlink||(typeof ROBlink=="undefined"?nil:ROBlink)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$3;
 _st(self._diagram())._on_do_($ROMouseClick(),(function(event){
 var attributes;
 return smalltalk.withContext(function($ctx2) {
-attributes=_st(_st(event)._element())._attributes();
+$1=_st(event)._element();
+$ctx2.sendIdx["element"]=1;
+attributes=_st($1)._attributes();
 attributes;
-$1=_st(attributes)._includesKey_("isPressed");
-if(smalltalk.assert($1)){
-_st($ROBlink())._unhighlight_(_st(event)._element());
-_st(attributes)._removeKey_("isPressed");
-};
-if(! smalltalk.assert($1)){
+$2=_st(attributes)._includesKey_("isPressed");
+if(smalltalk.assert($2)){
+$3=_st(event)._element();
+$ctx2.sendIdx["element"]=2;
+_st($ROBlink())._unhighlight_($3);
+return _st(attributes)._removeKey_("isPressed");
+} else {
 _st($ROBlink())._highlight_(_st(event)._element());
-$2=_st(attributes)._at_put_("isPressed",true);
+return _st(attributes)._at_put_("isPressed",true);
 };
-return $2;
-}, function($ctx2) {$ctx2.fillBlock({event:event,attributes:attributes},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({event:event,attributes:attributes},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"strongHighlightWhenClick",{},smalltalk.GETInteractionWrapper)})},
 args: [],
-source: "strongHighlightWhenClick\x0a\x0a\x09(self diagram) on: ROMouseClick do: [:event |\x0a\x09\x09| attributes |\x0a\x09\x09attributes := event element attributes.\x0a\x09\x09\x0a\x09\x09(attributes includesKey: #isPressed)\x0a\x09\x09\x09ifTrue: [ROBlink unhighlight:  event element. \x0a\x09\x09\x09\x09attributes removeKey: #isPressed ];\x0a\x09\x09\x09ifFalse: [ROBlink highlight: event element.\x0a\x09\x09\x09\x09attributes at: #isPressed put: true ].\x0a\x09\x09].",
-messageSends: ["on:do:", "attributes", "element", "ifTrue:", "unhighlight:", "removeKey:", "includesKey:", "ifFalse:", "highlight:", "at:put:", "diagram"],
+source: "strongHighlightWhenClick\x0a\x0a\x09(self diagram) on: ROMouseClick do: [:event |\x0a\x09\x09| attributes |\x0a\x09\x09attributes := event element attributes.\x0a\x09\x09\x0a\x09\x09(attributes includesKey: #isPressed)\x0a\x09\x09\x09ifTrue: [ROBlink unhighlight:  event element. \x0a\x09\x09\x09\x09attributes removeKey: #isPressed ]\x0a\x09\x09\x09ifFalse: [ROBlink highlight: event element.\x0a\x09\x09\x09\x09attributes at: #isPressed put: true ].\x0a\x09\x09].",
+messageSends: ["on:do:", "diagram", "attributes", "element", "ifTrue:ifFalse:", "includesKey:", "unhighlight:", "removeKey:", "highlight:", "at:put:"],
 referencedClasses: ["ROMouseClick", "ROBlink"]
 }),
 smalltalk.GETInteractionWrapper);
@@ -363,21 +390,27 @@ function $ROMouseEnter(){return smalltalk.ROMouseEnter||(typeof ROMouseEnter=="u
 function $ROBlink(){return smalltalk.ROBlink||(typeof ROBlink=="undefined"?nil:ROBlink)}
 function $ROMouseLeave(){return smalltalk.ROMouseLeave||(typeof ROMouseLeave=="undefined"?nil:ROMouseLeave)}
 return smalltalk.withContext(function($ctx1) { 
-_st(self._diagram())._on_do_($ROMouseEnter(),(function(event){
+var $1,$2;
+$1=self._diagram();
+$ctx1.sendIdx["diagram"]=1;
+_st($1)._on_do_($ROMouseEnter(),(function(event){
 return smalltalk.withContext(function($ctx2) {
-return _st($ROBlink())._highlight_(_st(event)._element());
-}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
+$2=_st(event)._element();
+$ctx2.sendIdx["element"]=1;
+return _st($ROBlink())._highlight_($2);
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1,1)})}));
+$ctx1.sendIdx["on:do:"]=1;
 _st(self._diagram())._on_do_($ROMouseLeave(),(function(event){
 return smalltalk.withContext(function($ctx2) {
 return _st($ROBlink())._unhighlight_(_st(event)._element());
-}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1,2)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"strongHighlightWhenOver",{},smalltalk.GETInteractionWrapper)})},
 args: [],
 source: "strongHighlightWhenOver\x0a\x0a\x09(self diagram) on: ROMouseEnter do: [:event | ROBlink highlight: event element].\x0a\x09(self diagram) on: ROMouseLeave do: [:event | ROBlink unhighlight: event element].",
-messageSends: ["on:do:", "highlight:", "element", "diagram", "unhighlight:"],
+messageSends: ["on:do:", "diagram", "highlight:", "element", "unhighlight:"],
 referencedClasses: ["ROMouseEnter", "ROBlink", "ROMouseLeave"]
 }),
 smalltalk.GETInteractionWrapper);
 
 
-
+});

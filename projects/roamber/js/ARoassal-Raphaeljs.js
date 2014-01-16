@@ -1,4 +1,7 @@
+define("roamber/ARoassal-Raphaeljs", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects", "roamber/ARoassal"], function(smalltalk,nil,_st){
 smalltalk.addPackage('ARoassal-Raphaeljs');
+smalltalk.packages["ARoassal-Raphaeljs"].transport = {"type":"amd","amdNamespace":"roamber"};
+
 smalltalk.addClass('RORaphael', smalltalk.Object, ['view', 'canvas', 'eventBeginingDragging', 'elementBeingPointed', 'animationBlock'], 'ARoassal-Raphaeljs');
 smalltalk.RORaphael.comment="A ROMorph is the unique interface between Roassal and Morphic\x0a\x0aInstance Variables\x0a\x09animationBlock:\x09\x09<Object>\x0a\x09canvas:\x09\x09<Object>\x0a\x09elementBeingPointed:\x09\x09<Object>\x0a\x09eventBeginingDragging:\x09\x09<Object>\x0a\x09view:\x09\x09<Object>\x0a\x0aanimationBlock\x0a\x09- xxxxx\x0a\x0acanvas\x0a\x09- xxxxx\x0a\x0aelementBeingPointed\x0a\x09- xxxxx\x0a\x0aeventBeginingDragging\x0a\x09- xxxxx\x0a\x0aview\x0a\x09- xxxxx";
 smalltalk.addMethod(
@@ -27,11 +30,14 @@ fn: function (){
 var self=this;
 var c;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-c=_st(self["@view"])._canvasForRealSize_(_st(self._bounds())._extent());
+var $1,$2,$3;
+$1=self["@view"];
+$2=_st(self._bounds())._extent();
+$ctx1.sendIdx["extent"]=1;
+c=_st($1)._canvasForRealSize_($2);
 _st(c)._extent_(self._extent());
-$1=c;
-return $1;
+$3=c;
+return $3;
 }, function($ctx1) {$ctx1.fill(self,"canvas",{c:c},smalltalk.RORaphael)})},
 args: [],
 source: "canvas\x0a\x09| c |\x0a\x09c := view canvasForRealSize: self bounds extent.\x0a\x09c extent: self extent.\x0a\x09^ c",
@@ -47,14 +53,17 @@ category: 'drawing',
 fn: function (aCanvas){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(aCanvas)._clipBy_during_(self._bounds(),(function(c){
+var $1;
+$1=self._bounds();
+$ctx1.sendIdx["bounds"]=1;
+_st(aCanvas)._clipBy_during_($1,(function(c){
 return smalltalk.withContext(function($ctx2) {
 return _st(c)._translateBy_during_(_st(self._bounds())._origin(),(function(can){
 return smalltalk.withContext(function($ctx3) {
 _st(self["@canvas"])._canvas_(can);
 return _st(self["@view"])._drawOn_(self["@canvas"]);
-}, function($ctx3) {$ctx3.fillBlock({can:can},$ctx2)})}));
-}, function($ctx2) {$ctx2.fillBlock({c:c},$ctx1)})}));
+}, function($ctx3) {$ctx3.fillBlock({can:can},$ctx2,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({c:c},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"drawOn:",{aCanvas:aCanvas},smalltalk.RORaphael)})},
 args: ["aCanvas"],
 source: "drawOn: aCanvas\x0a\x09aCanvas clipBy: self bounds during: [ :c |\x0a\x09\x09c translateBy: self bounds origin during:\x0a\x09\x09\x09[ :can | \x0a\x09\x09\x09\x09canvas canvas: can.\x0a\x09\x09\x09\x09view drawOn: canvas ] ].",
@@ -107,6 +116,7 @@ fn: function (v){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.RORaphael.superclass.fn.prototype._extent_.apply(_st(self), [v]);
+$ctx1.sendIdx["extent:"]=1;
 _st(self["@canvas"])._extent_(v);
 _st(self["@view"])._windowSize_(v);
 return self}, function($ctx1) {$ctx1.fill(self,"extent:",{v:v},smalltalk.RORaphael)})},
@@ -189,27 +199,26 @@ var self=this;
 var currentElement;
 function $ROMouseLeave(){return smalltalk.ROMouseLeave||(typeof ROMouseLeave=="undefined"?nil:ROMouseLeave)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5,$6;
+var $1,$2,$3,$4;
 $1=_st(anEvent)._wasHandled();
 if(smalltalk.assert($1)){
-$2=self;
-return $2;
+return self;
 };
-$3=self._isDragging();
-if(smalltalk.assert($3)){
-$4=self;
-return $4;
+$2=self._isDragging();
+if(smalltalk.assert($2)){
+return self;
 };
-$5=self["@elementBeingPointed"];
-if(($receiver = $5) == nil || $receiver == undefined){
+$3=self["@elementBeingPointed"];
+if(($receiver = $3) == nil || $receiver == null){
 self["@elementBeingPointed"]=self._elementForEvent_(anEvent);
+$ctx1.sendIdx["elementForEvent:"]=1;
 self["@elementBeingPointed"];
 } else {
-$5;
+$3;
 };
 currentElement=self._elementForEvent_(anEvent);
-$6=_st(currentElement).__tild_tild(self["@elementBeingPointed"]);
-if(smalltalk.assert($6)){
+$4=_st(currentElement).__tild_tild(self["@elementBeingPointed"]);
+if(smalltalk.assert($4)){
 _st(self["@elementBeingPointed"])._announce_($ROMouseLeave());
 self["@elementBeingPointed"]=currentElement;
 self["@elementBeingPointed"];
@@ -218,7 +227,7 @@ self._roMouseEnter_(anEvent);
 return self}, function($ctx1) {$ctx1.fill(self,"handleMouseOver:",{anEvent:anEvent,currentElement:currentElement},smalltalk.RORaphael)})},
 args: ["anEvent"],
 source: "handleMouseOver: anEvent\x0a\x0a\x09| currentElement |\x0a\x09anEvent wasHandled ifTrue:[ ^ self ]. \x22not interested\x22\x0a\x09\x22Do nothing if we are dragging\x22\x0a\x09self isDragging ifTrue: [ ^ self ].\x0a\x09 \x0a\x09elementBeingPointed ifNil: [ elementBeingPointed := self elementForEvent: anEvent ].\x0a\x09\x0a\x09currentElement := self elementForEvent: anEvent.\x0a\x0a\x22Transcript show: (view camera realToVirtualPoint: (self relativePositionFor: anEvent)) printString, '   ',  (elementBeingPointed == currentElement) printString; cr.\x22\x0a\x0a\x09(currentElement ~~ elementBeingPointed)\x0a\x09\x09ifTrue: [ \x0a\x09\x09\x09\x22Transcript show: 'mouse over: ', anEvent  printString, '  ', elementBeingPointed printString, '   ', currentElement printString; cr.\x22\x0a\x09\x09\x09\x22self roMouseLeave: anEvent.\x22\x0a\x09\x09\x09elementBeingPointed announce: ROMouseLeave.\x0a\x09\x09\x09elementBeingPointed := currentElement.\x0a\x09\x09\x09self roMouseEnter: anEvent ].\x0a\x09\x09\x0a\x22\x09self roMouseMoving: anEvent.\x22",
-messageSends: ["ifTrue:", "wasHandled", "isDragging", "ifNil:", "elementForEvent:", "announce:", "roMouseEnter:", "~~"],
+messageSends: ["ifTrue:", "wasHandled", "isDragging", "ifNil:", "elementForEvent:", "~~", "announce:", "roMouseEnter:"],
 referencedClasses: ["ROMouseLeave"]
 }),
 smalltalk.RORaphael);
@@ -302,10 +311,9 @@ fn: function (relativePosition){
 var self=this;
 function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=$Transcript();
-_st($1)._show_("leave: ".__comma(_st(self._elementForRealPosition_(relativePosition))._printString()));
-$2=_st($1)._cr();
+var $1;
+_st($Transcript())._show_("leave: ".__comma(_st(self._elementForRealPosition_(relativePosition))._printString()));
+$1=_st($Transcript())._cr();
 return self}, function($ctx1) {$ctx1.fill(self,"log:",{relativePosition:relativePosition},smalltalk.RORaphael)})},
 args: ["relativePosition"],
 source: "log: relativePosition\x0a\x09Transcript\x0a\x09\x09show: 'leave: ' , (self elementForRealPosition: relativePosition) printString;\x0a\x09\x09cr",
@@ -321,17 +329,16 @@ category: 'events-processing',
 fn: function (evt){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2;
 $1=self["@eventBeginingDragging"];
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 _st(_st(evt)._hand())._waitForClicksOrDrag_event_selectors_threshold_(self,evt,["roMouseClick:",nil,nil,"roMouseDragBegin:"],(5));
-$2=self;
-return $2;
+return self;
 } else {
 $1;
 };
-$3=_st(evt)._anyButtonPressed();
-if(smalltalk.assert($3)){
+$2=_st(evt)._anyButtonPressed();
+if(smalltalk.assert($2)){
 self._roMouseDragging_(evt);
 };
 _st(evt)._wasHandled_(true);
@@ -339,7 +346,7 @@ return true;
 }, function($ctx1) {$ctx1.fill(self,"mouseDown:",{evt:evt},smalltalk.RORaphael)})},
 args: ["evt"],
 source: "mouseDown: evt\x0a\x0a\x09eventBeginingDragging ifNil: [\x0a\x09\x09evt hand \x0a\x09\x09\x09\x09\x09waitForClicksOrDrag: self \x0a\x09\x09\x09\x09\x09event: evt \x0a\x09\x09\x09\x09\x09selectors: { #roMouseClick:. nil. nil. #roMouseDragBegin: }\x0a\x09\x09\x09\x09\x09threshold: 5.\x0a\x09\x09^ self ].\x0a\x09\x0a\x09evt anyButtonPressed ifTrue: [\x0a\x09\x09self roMouseDragging: evt.\x0a\x09].\x0a\x09evt wasHandled: true.\x0a\x09^ true",
-messageSends: ["ifNil:", "waitForClicksOrDrag:event:selectors:threshold:", "hand", "ifTrue:", "roMouseDragging:", "anyButtonPressed", "wasHandled:"],
+messageSends: ["ifNil:", "waitForClicksOrDrag:event:selectors:threshold:", "hand", "ifTrue:", "anyButtonPressed", "roMouseDragging:", "wasHandled:"],
 referencedClasses: []
 }),
 smalltalk.RORaphael);
@@ -361,7 +368,7 @@ return true;
 }, function($ctx1) {$ctx1.fill(self,"mouseEnter:",{evt:evt},smalltalk.RORaphael)})},
 args: ["evt"],
 source: "mouseEnter: evt\x0a\x22\x09Transcript show: 'mouseEnter ', evt printString; cr.\x22\x0a\x09\x0a\x09evt anyButtonPressed ifFalse: [\x0a\x09\x09self roMouseEnter: evt.\x0a\x09].\x0a\x09evt wasHandled: true.\x0a\x09^ true",
-messageSends: ["ifFalse:", "roMouseEnter:", "anyButtonPressed", "wasHandled:"],
+messageSends: ["ifFalse:", "anyButtonPressed", "roMouseEnter:", "wasHandled:"],
 referencedClasses: []
 }),
 smalltalk.RORaphael);
@@ -383,7 +390,7 @@ return true;
 }, function($ctx1) {$ctx1.fill(self,"mouseLeave:",{evt:evt},smalltalk.RORaphael)})},
 args: ["evt"],
 source: "mouseLeave: evt\x0a\x09\x0a\x09evt anyButtonPressed ifFalse: [\x0a\x09\x09self roMouseLeave: evt.\x0a\x09].\x0a\x09evt wasHandled: true.\x0a\x09^ true",
-messageSends: ["ifFalse:", "roMouseLeave:", "anyButtonPressed", "wasHandled:"],
+messageSends: ["ifFalse:", "anyButtonPressed", "roMouseLeave:", "wasHandled:"],
 referencedClasses: []
 }),
 smalltalk.RORaphael);
@@ -407,7 +414,7 @@ return true;
 }, function($ctx1) {$ctx1.fill(self,"mouseMove:",{evt:evt},smalltalk.RORaphael)})},
 args: ["evt"],
 source: "mouseMove: evt\x0a\x09\x0a\x09evt anyButtonPressed\x0a\x09\x09ifTrue: [ self roMouseDragging: evt ] \x0a\x09\x09ifFalse: [ self roMouseMoving: evt ].\x0a\x09evt wasHandled: true.\x0a\x09^ true",
-messageSends: ["ifTrue:ifFalse:", "roMouseDragging:", "roMouseMoving:", "anyButtonPressed", "wasHandled:"],
+messageSends: ["ifTrue:ifFalse:", "anyButtonPressed", "roMouseDragging:", "roMouseMoving:", "wasHandled:"],
 referencedClasses: []
 }),
 smalltalk.RORaphael);
@@ -428,7 +435,7 @@ _st(evt)._wasHandled_(true);
 return self}, function($ctx1) {$ctx1.fill(self,"mouseUp:",{evt:evt},smalltalk.RORaphael)})},
 args: ["evt"],
 source: "mouseUp: evt\x0a\x09self isDragging ifTrue: \x0a\x09\x09[self roMouseDragEnd: evt ].\x0a\x09evt wasHandled: true.",
-messageSends: ["ifTrue:", "roMouseDragEnd:", "isDragging", "wasHandled:"],
+messageSends: ["ifTrue:", "isDragging", "roMouseDragEnd:", "wasHandled:"],
 referencedClasses: []
 }),
 smalltalk.RORaphael);
@@ -482,7 +489,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"relativePositionFor:",{evt:evt},smalltalk.RORaphael)})},
 args: ["evt"],
 source: "relativePositionFor: evt\x0a\x09\x22Return the position within the window\x22\x0a\x09\x0a\x09^ evt position - self bounds origin",
-messageSends: ["-", "origin", "bounds", "position"],
+messageSends: ["-", "position", "origin", "bounds"],
 referencedClasses: []
 }),
 smalltalk.RORaphael);
@@ -500,7 +507,7 @@ _st(self["@view"])._announce_(_st(_st($ROKeyDown())._new())._keyValue_(_st(evt).
 return self}, function($ctx1) {$ctx1.fill(self,"roKeyStroke:",{evt:evt,relativePosition:relativePosition,ev:ev,virtualPosition:virtualPosition,keyValue:keyValue},smalltalk.RORaphael)})},
 args: ["evt"],
 source: "roKeyStroke: evt\x0a\x09| relativePosition ev virtualPosition keyValue |\x0a\x09\x0a\x09view announce: (ROKeyDown new keyValue: evt keyValue).",
-messageSends: ["announce:", "keyValue:", "keyValue", "new"],
+messageSends: ["announce:", "keyValue:", "new", "keyValue"],
 referencedClasses: ["ROKeyDown"]
 }),
 smalltalk.RORaphael);
@@ -521,11 +528,13 @@ relativePosition=self._relativePositionFor_(evt);
 $1=_st(evt)._yellowButtonChanged();
 if(smalltalk.assert($1)){
 ev=_st($ROMouseRightClick())._new();
+$ctx1.sendIdx["new"]=1;
 ev;
 };
 $2=_st(evt)._redButtonChanged();
 if(smalltalk.assert($2)){
 ev=_st($ROMouseLeftClick())._new();
+$ctx1.sendIdx["new"]=2;
 ev;
 };
 $3=_st(evt)._blueButtonChanged();
@@ -542,7 +551,7 @@ _st(self._elementForRealPosition_(relativePosition))._announce_(ev);
 return self}, function($ctx1) {$ctx1.fill(self,"roMouseClick:",{evt:evt,relativePosition:relativePosition,ev:ev,virtualPosition:virtualPosition},smalltalk.RORaphael)})},
 args: ["evt"],
 source: "roMouseClick: evt\x0a\x09| relativePosition ev virtualPosition |\x0a\x09relativePosition := self relativePositionFor: evt.\x09\x0a\x09evt yellowButtonChanged\x0a\x09\x09ifTrue: [ ev := ROMouseRightClick new ].\x0a\x09evt redButtonChanged\x0a\x09\x09ifTrue: [ ev := ROMouseLeftClick new ].\x0a\x09evt blueButtonChanged\x0a\x09\x09ifTrue: [ ev := ROMouseClick new ].\x0a\x0a\x09ev commandKeyPressed: evt commandKeyPressed.\x0a\x09ev controlKeyPressed: evt controlKeyPressed.\x0a\x09ev shiftKeyPressed: evt shiftPressed.\x0a\x0a\x09virtualPosition := self realToVirtualPoint: relativePosition.\x0a\x09ev position: virtualPosition.\x0a\x22\x09Transcript show: (self elementForRealPosition: relativePosition) printString, '     ', relativePosition printString; cr.\x22\x0a\x09(self elementForRealPosition: relativePosition) announce: ev.\x0a\x09\x0a\x22Transcript show: 'click: ', virtualPosition printString; cr\x22",
-messageSends: ["relativePositionFor:", "ifTrue:", "new", "yellowButtonChanged", "redButtonChanged", "blueButtonChanged", "commandKeyPressed:", "commandKeyPressed", "controlKeyPressed:", "controlKeyPressed", "shiftKeyPressed:", "shiftPressed", "realToVirtualPoint:", "position:", "announce:", "elementForRealPosition:"],
+messageSends: ["relativePositionFor:", "ifTrue:", "yellowButtonChanged", "new", "redButtonChanged", "blueButtonChanged", "commandKeyPressed:", "commandKeyPressed", "controlKeyPressed:", "controlKeyPressed", "shiftKeyPressed:", "shiftPressed", "realToVirtualPoint:", "position:", "announce:", "elementForRealPosition:"],
 referencedClasses: ["ROMouseRightClick", "ROMouseLeftClick", "ROMouseClick"]
 }),
 smalltalk.RORaphael);
@@ -575,13 +584,15 @@ var self=this;
 var relativePosition,step,event;
 function $ROMouseDragged(){return smalltalk.ROMouseDragged||(typeof ROMouseDragged=="undefined"?nil:ROMouseDragged)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$3;
 relativePosition=self._relativePositionFor_(evt);
-step=_st(_st(evt)._position()).__minus(_st(self["@eventBeginingDragging"])._position());
-$1=_st($ROMouseDragged())._new();
-_st($1)._step_(step);
-$2=_st($1)._yourself();
-event=$2;
+$1=_st(evt)._position();
+$ctx1.sendIdx["position"]=1;
+step=_st($1).__minus(_st(self["@eventBeginingDragging"])._position());
+$2=_st($ROMouseDragged())._new();
+_st($2)._step_(step);
+$3=_st($2)._yourself();
+event=$3;
 _st(event)._position_(self._realToVirtualPoint_(relativePosition));
 _st(self["@elementBeingPointed"])._announce_(event);
 self["@eventBeginingDragging"]=nil;
@@ -605,16 +616,17 @@ function $ROMouseDragging(){return smalltalk.ROMouseDragging||(typeof ROMouseDra
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$4,$5;
 $1=self["@eventBeginingDragging"];
-if(($receiver = $1) == nil || $receiver == undefined){
-$2=self;
-return $2;
+if(($receiver = $1) == nil || $receiver == null){
+return self;
 } else {
 $1;
 };
 relativePosition=self._relativePositionFor_(evt);
-step=_st(_st(evt)._position()).__minus(_st(self["@eventBeginingDragging"])._position());
+$2=_st(evt)._position();
+$ctx1.sendIdx["position"]=1;
+step=_st($2).__minus(_st(self["@eventBeginingDragging"])._position());
 $3=self["@elementBeingPointed"];
-if(($receiver = $3) == nil || $receiver == undefined){
+if(($receiver = $3) == nil || $receiver == null){
 self["@elementBeingPointed"]=self._elementForRealPosition_(relativePosition);
 self["@elementBeingPointed"];
 } else {
@@ -720,17 +732,22 @@ self["@view"]=anROView;
 _st(self["@view"])._on_do_($RORefreshNeeded(),(function(event){
 return smalltalk.withContext(function($ctx2) {
 return self._changed();
-}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
+$ctx2.sendIdx["changed"]=1;
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1,1)})}));
+$ctx1.sendIdx["on:do:"]=1;
 _st(self["@view"])._on_do_($ROViewChanged(),(function(event){
 return smalltalk.withContext(function($ctx2) {
 _st(_st(event)._newView())._on_do_($RORefreshNeeded(),(function(e){
 return smalltalk.withContext(function($ctx3) {
 return self._changed();
-}, function($ctx3) {$ctx3.fillBlock({e:e},$ctx2)})}));
+$ctx3.sendIdx["changed"]=2;
+}, function($ctx3) {$ctx3.fillBlock({e:e},$ctx2,3)})}));
 return self._changed();
-}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1,2)})}));
+$ctx1.sendIdx["on:do:"]=2;
 self["@canvas"]=_st(_st(self["@view"])._camera())._canvas();
 self._extent_(_st(self["@view"])._defaultWindowSize());
+$ctx1.sendIdx["extent:"]=1;
 _st(self["@canvas"])._extent_(self._extent());
 return self}, function($ctx1) {$ctx1.fill(self,"setView:",{anROView:anROView},smalltalk.RORaphael)})},
 args: ["anROView"],
@@ -747,21 +764,20 @@ category: 'morph',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 $1=_st(self["@animationBlock"])._isComplete();
 if(smalltalk.assert($1)){
 self["@animationBlock"]=nil;
 self["@animationBlock"];
 self._stopStepping();
-$2=self;
-return $2;
+return self;
 };
 _st(self["@animationBlock"])._incrementStep();
 self._changed();
 return self}, function($ctx1) {$ctx1.fill(self,"step",{},smalltalk.RORaphael)})},
 args: [],
 source: "step\x0a\x09animationBlock isComplete ifTrue: [ animationBlock := nil. self stopStepping. ^ self ].\x0a\x09animationBlock incrementStep.\x0a\x09self changed.",
-messageSends: ["ifTrue:", "stopStepping", "isComplete", "incrementStep", "changed"],
+messageSends: ["ifTrue:", "isComplete", "stopStepping", "incrementStep", "changed"],
 referencedClasses: []
 }),
 smalltalk.RORaphael);
@@ -883,11 +899,9 @@ category: 'as yet unclassified',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
 smalltalk.RORaphaelCanvas.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@svgCanvas"]=self._paper();
-$1=self;
-return $1;
+return self;
 }, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.RORaphaelCanvas)})},
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x09svgCanvas := self paper.\x0a\x09^ self",
@@ -923,7 +937,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=self["@paper"];
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 self["@paper"]=_st(self._basicNew())._initialize();
 self["@paper"];
 } else {
@@ -963,16 +977,19 @@ fn: function (){
 var self=this;
 var canvasElement;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $3,$2,$1;
 canvasElement="#roassal-svg-canvas"._asJQuery();
-$1=_st(_st(_st(canvasElement)._offset())._left()).__at(_st(_st(canvasElement)._offset())._top());
+$3=_st(canvasElement)._offset();
+$ctx1.sendIdx["offset"]=1;
+$2=_st($3)._left();
+$1=_st($2).__at(_st(_st(canvasElement)._offset())._top());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"origin",{canvasElement:canvasElement},smalltalk.RORaphaelCanvas.klass)})},
 args: [],
 source: "origin\x0a\x09| canvasElement |\x0a\x09canvasElement := '#roassal-svg-canvas' asJQuery.\x0a\x09^ (canvasElement offset left) @ (canvasElement offset top)",
-messageSends: ["asJQuery", "@", "top", "offset", "left"],
+messageSends: ["asJQuery", "@", "left", "offset", "top"],
 referencedClasses: []
 }),
 smalltalk.RORaphaelCanvas.klass);
 
-
+});

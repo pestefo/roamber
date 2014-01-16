@@ -1606,25 +1606,6 @@ shouldnt: aBlock raise: anExceptionClass
 		do: [:ex | false])
 ! !
 
-!Announcer methodsFor: '*Roassal-Amber-Extensions'!
-
-numberOfSubscriptions
-	subscriptions ifNil:[^ 0].
-	^ subscriptions size
-!
-
-unsubscribe: anEvent
-	
-	subscriptions removeAllSuchThat: [:announSubscript | announSubscript announcementClass ==  anEvent class].
-!
-
-when: aClass do: aBlock
-	subscriptions add: (AnnouncementSubscription new
-		block: aBlock;
-		announcementClass: aClass;
-		yourself)
-! !
-
 !Behavior methodsFor: '*Roassal-Amber-Extensions'!
 
 >> aString
@@ -1694,6 +1675,131 @@ numberOfVariables
 
 withAllSuperclasses
 	^(Array with: self) addAll: self allSuperclasses; yourself
+! !
+
+!Number methodsFor: '*Roassal-Amber-Extensions'!
+
+// aNumber
+
+	<return Math.floor( self / aNumber ) >
+!
+
+abs
+	^Math abs: self
+!
+
+asFloat
+	^self
+!
+
+asInteger
+	^self truncated
+!
+
+between: min and: max 
+	"Answer whether the receiver is less than or equal to the argument, max, 
+	and greater than or equal to the argument, min."
+
+	^self >= min and: [self <= max]
+!
+
+ceiling
+	
+	< return Math.ceil(self); >
+!
+
+cos
+	<return Math.cos(self)>
+!
+
+exp
+	<return Math.exp(self)>
+!
+
+floor
+	
+	< return Math.floor(self); >
+!
+
+fractionPart
+	^ self - (self floor)
+!
+
+isInteger
+	^ self = (self asInteger)
+!
+
+ln
+   
+   < return Math.log(self); >
+!
+
+max: max in: anInterval 
+	"
+	(0 max: 20 in: (1 to: 10)) == 1
+	(0 max: 20 in: (0 to: 10)) == 0
+	(0 max: 20 in: (1 to: 10)) == 1
+	(2 max: 20 in: (0 to: 10)) == 1 
+	(4 max: 20 in: (0 to: 10)) == 2
+	(20 max: 20 in: (0 to: 10)) == 10
+	"
+	^ self min: 0 max: max in: anInterval
+!
+
+min: min max: max in: anInterval 
+	"
+	(0 max: 20 in: (1 to: 10)) == 1
+	(0 max: 20 in: (0 to: 10)) == 0
+	(0 max: 20 in: (1 to: 10)) == 1
+	(2 max: 20 in: (0 to: 10)) == 1 
+	(4 max: 20 in: (0 to: 10)) == 2
+	(19 max: 20 in: (0 to: 10)) == 10
+	"
+	^ (self - min) / (max - min) * (anInterval last - anInterval first) + anInterval first
+!
+
+quo: aNumber 
+	"Integer quotient defined by division with truncation toward zero. 
+	
+	-9 quo: 4 = -2.
+	-0.9 quo: 0.4 = -2. 
+	
+	rem: answers the remainder from this division."
+
+	^(self / aNumber) truncated
+!
+
+rem: aNumber 
+	"Remainder defined in terms of quo:. Answer a Number with the same 
+	sign as self. e.g. 9 rem: 4 = 1, -9 rem: 4 = -1. 0.9 rem: 0.4 = 0.1."
+
+	^self - ((self quo: aNumber) * aNumber)
+!
+
+roundTo: quantum 
+	"Answer the nearest number that is a multiple of quantum."
+
+	^(self / quantum) rounded * quantum
+!
+
+roundUpTo: aNumber 
+	"Answer the next multiple of aNumber toward infinity that is nearest the receiver.
+	Examples:
+               3.1479 roundUpTo: 0.01 -> 3.15
+               3.1479 roundUpTo: 0.1 -> 3.2
+               1923 roundUpTo: 10 -> 1930
+               3.1479 roundUpTo: 0.005 -> 3.15
+               -3.1479 roundUpTo: 0.01 -> -3.14"
+
+	^(self / aNumber) ceiling * aNumber
+!
+
+sin
+	<return Math.sin(self)>
+!
+
+tan
+	<return Math.tan(self)>
 ! !
 
 !BlockClosure methodsFor: '*Roassal-Amber-Extensions'!
@@ -1837,22 +1943,6 @@ with: otherCollection collect: twoArgBlock
 	^ result
 ! !
 
-!HashedCollection methodsFor: '*Roassal-Amber-Extensions'!
-
-doWithIndex: aBlock2
-	"Support Set enumeration with a counter, even though not ordered"
-	| index |
-	index := 0.
-	self do: [:item | aBlock2 value: item value: (index := index+1)]
-! !
-
-!Dictionary methodsFor: '*Roassal-Amber-Extensions'!
-
-at: anIndex ifAbsentPut: aBlock
-	^self at: anIndex ifAbsent: [
-	    self at: anIndex put: aBlock value]
-! !
-
 !SequenceableCollection methodsFor: '*Roassal-Amber-Extensions'!
 
 atAllPut: anObject 
@@ -1908,6 +1998,76 @@ with: otherCollection do: twoArgBlock
 		[:index |
 		twoArgBlock value: (self at: index)
 				value: (otherCollection at: index)]
+! !
+
+!String methodsFor: '*Roassal-Amber-Extensions'!
+
+beginsWith: aString
+
+	<return(self.indexOf(aString) == 0)>
+!
+
+capitalized
+
+	^self
+!
+
+copyReplaceAll: aString with: anotherString
+
+	^self copy replace: aString with: anotherString
+!
+
+endsWith: suffix
+
+	<return self.indexOf(suffix, self.length - suffix.length) !!== -1>
+!
+
+isNotNumeric
+	^ self isNumeric not
+!
+
+isNumeric
+	"Answer if it can be converted asNumber"
+	< return !!isNaN(parseFloat(self)) && isFinite(self); >
+"
+[ self asNumber] 
+		on: Error 
+		do: [ ^ false ].
+	^ true.
+"
+!
+
+lineCount
+	"Answer the number of lines represented by the receiver, where every line delimiter CR, LF or CRLF pair adds one line."
+
+	| lineCount |
+	lineCount := 0.
+	self lineIndicesDo: [:start :endWithoutDelimiters :end |
+		lineCount := lineCount + 1].
+	^lineCount
+!
+
+roValue: anObject 
+	^ anObject perform: self
+!
+
+split: aString
+	^ aString subStrings: self
+!
+
+trim
+	^ self trimBoth
+!
+
+value: anObject 
+	^ anObject perform: self
+! !
+
+!String class methodsFor: '*Roassal-Amber-Extensions'!
+
+with: aUTFCharCode
+
+	^self fromString: aUTFCharCode
 ! !
 
 !Array methodsFor: '*Roassal-Amber-Extensions'!
@@ -1985,217 +2145,6 @@ with: anObject with: anObject2 with: anObject3 with: anObject4
 		at: 3 put: anObject3;
 		at: 4 put: anObject4;
 		yourself
-! !
-
-!String methodsFor: '*Roassal-Amber-Extensions'!
-
-beginsWith: aString
-
-	<return(self.indexOf(aString) == 0)>
-!
-
-capitalized
-
-	^self
-!
-
-copyReplaceAll: aString with: anotherString
-
-	^self copy replace: aString with: anotherString
-!
-
-endsWith: suffix
-
-	<return self.indexOf(suffix, self.length - suffix.length) !!== -1>
-!
-
-isNotNumeric
-	^ self isNumeric not
-!
-
-isNumeric
-	"Answer if it can be converted asNumber"
-	< return !!isNaN(parseFloat(self)) && isFinite(self); >
-"
-[ self asNumber] 
-		on: Error 
-		do: [ ^ false ].
-	^ true.
-"
-!
-
-lineCount
-	"Answer the number of lines represented by the receiver, where every line delimiter CR, LF or CRLF pair adds one line."
-
-	| lineCount |
-	lineCount := 0.
-	self lineIndicesDo: [:start :endWithoutDelimiters :end |
-		lineCount := lineCount + 1].
-	^lineCount
-!
-
-roValue: anObject 
-	^ anObject perform: self
-!
-
-split: aString
-	^ aString subStrings: self
-!
-
-trim
-	^ self trimBoth
-!
-
-value: anObject 
-	^ anObject perform: self
-! !
-
-!String class methodsFor: '*Roassal-Amber-Extensions'!
-
-with: aUTFCharCode
-
-	^self fromString: aUTFCharCode
-! !
-
-!Symbol methodsFor: '*Roassal-Amber-Extensions'!
-
-roValue: anObject
-	^anObject perform: self
-!
-
-value: anObject
-	^anObject perform: self
-! !
-
-!Set methodsFor: '*Roassal-Amber-Extensions'!
-
-remove: anObject ifAbsent: aBlock
-	elements remove: anObject ifAbsent: aBlock
-! !
-
-!Number methodsFor: '*Roassal-Amber-Extensions'!
-
-// aNumber
-
-	<return Math.floor( self / aNumber ) >
-!
-
-abs
-	^Math abs: self
-!
-
-asFloat
-	^self
-!
-
-asInteger
-	^self truncated
-!
-
-between: min and: max 
-	"Answer whether the receiver is less than or equal to the argument, max, 
-	and greater than or equal to the argument, min."
-
-	^self >= min and: [self <= max]
-!
-
-ceiling
-	
-	< return Math.ceil(self); >
-!
-
-cos
-	<return Math.cos(self)>
-!
-
-exp
-	<return Math.exp(self)>
-!
-
-floor
-	
-	< return Math.floor(self); >
-!
-
-fractionPart
-	^ self - (self floor)
-!
-
-isInteger
-	^ self = (self asInteger)
-!
-
-ln
-   
-   < return Math.log(self); >
-!
-
-max: max in: anInterval 
-	"
-	(0 max: 20 in: (1 to: 10)) == 1
-	(0 max: 20 in: (0 to: 10)) == 0
-	(0 max: 20 in: (1 to: 10)) == 1
-	(2 max: 20 in: (0 to: 10)) == 1 
-	(4 max: 20 in: (0 to: 10)) == 2
-	(20 max: 20 in: (0 to: 10)) == 10
-	"
-	^ self min: 0 max: max in: anInterval
-!
-
-min: min max: max in: anInterval 
-	"
-	(0 max: 20 in: (1 to: 10)) == 1
-	(0 max: 20 in: (0 to: 10)) == 0
-	(0 max: 20 in: (1 to: 10)) == 1
-	(2 max: 20 in: (0 to: 10)) == 1 
-	(4 max: 20 in: (0 to: 10)) == 2
-	(19 max: 20 in: (0 to: 10)) == 10
-	"
-	^ (self - min) / (max - min) * (anInterval last - anInterval first) + anInterval first
-!
-
-quo: aNumber 
-	"Integer quotient defined by division with truncation toward zero. 
-	
-	-9 quo: 4 = -2.
-	-0.9 quo: 0.4 = -2. 
-	
-	rem: answers the remainder from this division."
-
-	^(self / aNumber) truncated
-!
-
-rem: aNumber 
-	"Remainder defined in terms of quo:. Answer a Number with the same 
-	sign as self. e.g. 9 rem: 4 = 1, -9 rem: 4 = -1. 0.9 rem: 0.4 = 0.1."
-
-	^self - ((self quo: aNumber) * aNumber)
-!
-
-roundTo: quantum 
-	"Answer the nearest number that is a multiple of quantum."
-
-	^(self / quantum) rounded * quantum
-!
-
-roundUpTo: aNumber 
-	"Answer the next multiple of aNumber toward infinity that is nearest the receiver.
-	Examples:
-               3.1479 roundUpTo: 0.01 -> 3.15
-               3.1479 roundUpTo: 0.1 -> 3.2
-               1923 roundUpTo: 10 -> 1930
-               3.1479 roundUpTo: 0.005 -> 3.15
-               -3.1479 roundUpTo: 0.01 -> -3.14"
-
-	^(self / aNumber) ceiling * aNumber
-!
-
-sin
-	<return Math.sin(self)>
-!
-
-tan
-	<return Math.tan(self)>
 ! !
 
 !Point methodsFor: '*Roassal-Amber-Extensions'!
@@ -2316,6 +2265,47 @@ radius: rad theta: angle
 	^(rad * (Math cos: angle))@(rad * (Math sin: angle))
 ! !
 
+!HashedCollection methodsFor: '*Roassal-Amber-Extensions'!
+
+doWithIndex: aBlock2
+	"Support Set enumeration with a counter, even though not ordered"
+	| index |
+	index := 0.
+	self do: [:item | aBlock2 value: item value: (index := index+1)]
+! !
+
+!Dictionary methodsFor: '*Roassal-Amber-Extensions'!
+
+at: anIndex ifAbsentPut: aBlock
+	^self at: anIndex ifAbsent: [
+	    self at: anIndex put: aBlock value]
+! !
+
+!Set methodsFor: '*Roassal-Amber-Extensions'!
+
+remove: anObject ifAbsent: aBlock
+	elements remove: anObject ifAbsent: aBlock
+! !
+
+!Announcer methodsFor: '*Roassal-Amber-Extensions'!
+
+numberOfSubscriptions
+	subscriptions ifNil:[^ 0].
+	^ subscriptions size
+!
+
+unsubscribe: anEvent
+	
+	subscriptions removeAllSuchThat: [:announSubscript | announSubscript announcementClass ==  anEvent class].
+!
+
+when: aClass do: aBlock
+	subscriptions add: (AnnouncementSubscription new
+		block: aBlock;
+		announcementClass: aClass;
+		yourself)
+! !
+
 !ROElement methodsFor: '*Roassal-Amber-Extensions'!
 
 printString
@@ -2337,5 +2327,15 @@ asAnnouncement
 
 asAnnouncement
 	^self new
+! !
+
+!Symbol methodsFor: '*Roassal-Amber-Extensions'!
+
+roValue: anObject
+	^anObject perform: self
+!
+
+value: anObject
+	^anObject perform: self
 ! !
 

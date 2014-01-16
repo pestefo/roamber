@@ -2107,6 +2107,17 @@ path: aString
 	^ self new path: aString
 ! !
 
+!Number methodsFor: '*ARoassal'!
+
+raisedTo: exponent
+< return Math.pow( self , exponent ) >
+!
+
+roValue: aBlock
+
+	^ self
+! !
+
 !Collection methodsFor: '*ARoassal'!
 
 asSortedCollection
@@ -2131,16 +2142,5 @@ collect: collectBlock thenSelect: selectBlock
 
 anyOne
 	^ self first
-! !
-
-!Number methodsFor: '*ARoassal'!
-
-raisedTo: exponent
-< return Math.pow( self , exponent ) >
-!
-
-roValue: aBlock
-
-	^ self
 ! !
 
