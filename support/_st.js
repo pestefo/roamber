@@ -1,4 +1,4 @@
-
+ 
 /**
  * _st is a function used all over the compiled amber code that
  * takes any value (JavaScript or Smalltalk)
