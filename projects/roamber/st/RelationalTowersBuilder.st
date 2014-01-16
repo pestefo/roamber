@@ -46,7 +46,7 @@ initializeElement: element
 ! !
 
 Object subclass: #RelationalTowersBuilder
-	instanceVariableNames: 'view models title legend body bodyElement left right labelLeft labelRight colorLeft colorRight edgeColor viewWidth distance direction popups popupElement heightLeft heightRight width lineShape edges shadowEdges'
+	instanceVariableNames: 'view models title legend body bodyElement overBody left right labelLeft labelRight colorLeft colorRight edgeColor viewWidth distance direction popups popupElement heightLeft heightRight width lineShape edges shadowEdges'
 	package: 'RelationalTowersBuilder'!
 !RelationalTowersBuilder commentStamp!
 A RelationalTowersBuilder is xxxxxxxxx.
@@ -448,15 +448,16 @@ greyLinesfrom: aNode in: aCollection to: links
 						toAll: links
 						from: aCollection
 						color: self class defaultLightEdgeColor)].
+			overBody at: aNode put: false.
 			bodyElement shape"s first" color: Color veryVeryLightGray ].
 	aNode
 		on: ROMouseLeave
 		do: [ :event | |v|
+			v := false.
 			(shadowEdges at: aNode) do: [ :e | e shape hide"remove"].
 			self view signalUpdate.
-			v := (edges at: aNode ifAbsent: [{ROElement new}]).
-			((v isEmpty not) and: [v first shape isHidden"isRendered"])
-				"ifFalse:"ifTrue: [ bodyElement shape"s first" color: Color darkGray]].
+			overBody do: [ :e|  v := v or: [e]]. 
+			v ifFalse: [ bodyElement shape"s first" color: Color darkGray]].
 !
 
 killLinksFrom
@@ -474,13 +475,17 @@ lines: aNode in: aCollection to: links
 			edges at: aNode		
 				ifPresent: [ :v |
 					((v isEmpty not) and: [v first shape isHidden"isRendered"])
-						"ifTrue:"ifFalse: [ v do: [ :e | e shape hide"remove"].
+						"ifTrue:"ifFalse: [ | val |
+								val := false.
+								v do: [ :e | e shape hide"remove"].
 								self removePopup: aNode.
-								bodyElement shape"s first" color: Color veryVeryLightGray]
+								overBody at: aNode put: false.
+								overBody do: [ :e|  val := val or: [e]]. 
+								val ifFalse: [ bodyElement shape"s first" color: Color darkGray]]
 						"ifFalse:"ifTrue: [ v do: [ :e | e shape show"self view add: e"]. 
 								self addPopup: aNode from: aCollection.
-								((shadowEdges at: aNode ifAbsent: [{ROElement new}]) first shape isHidden"isRendered")
-									"ifFalse:"ifTrue: [ bodyElement shape"s first" color: Color darkGray]].
+								overBody at: aNode put: true. 
+								bodyElement shape"s first" color: Color veryVeryLightGray].
 					self view signalUpdate]
 				ifAbsent: [
 					edges at: aNode put: 
@@ -490,6 +495,7 @@ lines: aNode in: aCollection to: links
 						from: aCollection
 						color: self edgeColor).
 					self addPopup: aNode from: aCollection.
+					overBody at: aNode put: true.
 					bodyElement shape"s first" color: Color veryVeryLightGray]]
 !
 
@@ -571,10 +577,10 @@ splineLine: attachpoint with: controlPoint1 with: controlPoint2 color: aColor
 	| line |
 	line := ROBSplineLine new attachPoint: attachpoint; color: aColor.
 	lineShape 
-		ifTrue: [  
+		"ifTrue:"ifFalse: [  
 			line addControlElement: controlPoint2;
 			addControlElement: controlPoint1]
-		ifFalse:[
+		"ifFalse:"ifTrue: [
 			line addControlElement: controlPoint1;
 			addControlElement: controlPoint2].
 	^line
@@ -835,6 +841,7 @@ initialize
 	self height: 10.
 	width := 10.
 	lineShape := false.
+	overBody := Dictionary new.
 	popupElement := [ :elem | (ROElement on: ((elem allEdgesFrom select: [:e | e shape"s first" color = self edgeColor]) size)) 
 		+ (ROLabel new "fontSize: 14;" color: self edgeColor) ].
 	viewWidth := 500.

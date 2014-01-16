@@ -1520,8 +1520,8 @@ initialize
 
 initializeSVGElementOn: canvas for: anEdge
 	|startPoint  endPoint x1 y1 xn yn mid p|
-	endPoint  := attachPoint startingPointOf: anEdge.
-	startPoint := attachPoint endingPointOf: anEdge.
+	endPoint  := attachPoint endingPointOf: anEdge.
+	startPoint := attachPoint startingPointOf: anEdge.
 	x1 := startPoint x.
 	y1 := startPoint y.
 	xn := endPoint x.

@@ -237,7 +237,8 @@ selector: "create",
 fn: function () {
 var self=this;
 var view;
-return smalltalk.withContext(function($ctx1) { view=_st((smalltalk.ROView || ROView))._new();
+return smalltalk.withContext(function($ctx1) { 
+view=_st((smalltalk.ROView || ROView))._new();
 _st(view)._add_(_st(_st((smalltalk.ROElement || ROElement))._new())._shape_(_st((smalltalk.ROBox || ROBox))._new()));
 _st(view)._open();
 return self}, function($ctx1) {$ctx1.fill(self,"create",{view:view},smalltalk.ROExample)});},
@@ -397,11 +398,13 @@ selector: "horizontalLayout",
 fn: function () {
 var self=this;
 var view;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 view=_st((smalltalk.ROView || ROView))._new();
 _st(view)._clear();
 _st((10))._timesRepeat_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(view)._add_(_st(_st((smalltalk.ROElement || ROElement))._new())._shape_(_st((smalltalk.ROBox || ROBox))._new()));
+return smalltalk.withContext(function($ctx2) {
+return _st(view)._add_(_st(_st((smalltalk.ROElement || ROElement))._new())._shape_(_st((smalltalk.ROBox || ROBox))._new()));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 _st((smalltalk.ROHorizontalLineLayout || ROHorizontalLineLayout))._on_(_st(view)._elements());
 _st(view)._open();
@@ -417,16 +420,20 @@ selector: "horizontalLayout2",
 fn: function () {
 var self=this;
 var view;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 view=_st((smalltalk.ROView || ROView))._new();
 _st(view)._clear();
 _st((1))._to_do_((20),(function(i){
-return smalltalk.withContext(function($ctx2) {$1=_st((smalltalk.ROBox || ROBox))._new();
+return smalltalk.withContext(function($ctx2) {
+$1=_st((smalltalk.ROBox || ROBox))._new();
 _st($1)._height_((function(el){
-return smalltalk.withContext(function($ctx3) {return _st(_st(el)._model()).__star((13));
+return smalltalk.withContext(function($ctx3) {
+return _st(_st(el)._model()).__star((13));
 }, function($ctx3) {$ctx3.fillBlock({el:el},$ctx1)})}));
 $2=_st($1)._width_((function(el){
-return smalltalk.withContext(function($ctx3) {return _st(_st(el)._model()).__star((5));
+return smalltalk.withContext(function($ctx3) {
+return _st(_st(el)._model()).__star((5));
 }, function($ctx3) {$ctx3.fillBlock({el:el},$ctx1)})}));
 return _st(view)._add_(_st(_st(_st((smalltalk.ROElement || ROElement))._new())._model_(i))._shape_($2));
 }, function($ctx2) {$ctx2.fillBlock({i:i},$ctx1)})}));
@@ -495,7 +502,7 @@ smalltalk.ROExample);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "ironMaiden",
+selector: "ironMaidenTours",
 fn: function (){
 var self=this;
 var builder,maiden1,maiden2;
@@ -523,7 +530,7 @@ return smalltalk.withContext(function($ctx2) {
 return _st(_st(a)._third())._includes_(_st(b)._key());
 }, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1)})}));
 _st(builder)._open();
-return self}, function($ctx1) {$ctx1.fill(self,"ironMaiden",{builder:builder,maiden1:maiden1,maiden2:maiden2},smalltalk.ROExample)})},
+return self}, function($ctx1) {$ctx1.fill(self,"ironMaidenTours",{builder:builder,maiden1:maiden1,maiden2:maiden2},smalltalk.ROExample)})},
 messageSends: ["->", "new", "title:", "legend:", "body:", "colorLeft:", "colorRight:", "heightLeft:", "heightRight:", "/", "value", "left:", "right:", "labelLeft:", "labelRight:", "edgesTo:", "includes:", "key", "third", "open"]}),
 smalltalk.ROExample);
 
@@ -799,30 +806,6 @@ smalltalk.ROExample);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "relationalTowers",
-fn: function (){
-var self=this;
-var builder;
-function $RelationalTowersBuilder(){return smalltalk.RelationalTowersBuilder||(typeof RelationalTowersBuilder=="undefined"?nil:RelationalTowersBuilder)}
-return smalltalk.withContext(function($ctx1) { 
-builder=_st($RelationalTowersBuilder())._new();
-_st(builder)._legend_("Example of a relation between two set of integers");
-_st(builder)._left_((1)._to_((10)));
-_st(builder)._right_((1)._to_((20)));
-_st(builder)._edgesFromLeft_edgesToLeft_((function(v){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st(v).__minus((5)))._to_(_st(v).__plus((5)));
-}, function($ctx2) {$ctx2.fillBlock({v:v},$ctx1)})}),(function(v){
-return smalltalk.withContext(function($ctx2) {
-return _st(v).__slash((2));
-}, function($ctx2) {$ctx2.fillBlock({v:v},$ctx1)})}));
-_st(builder)._open();
-return self}, function($ctx1) {$ctx1.fill(self,"relationalTowers",{builder:builder},smalltalk.ROExample)})},
-messageSends: ["new", "legend:", "left:", "to:", "right:", "edgesFromLeft:edgesToLeft:", "+", "-", "/", "open"]}),
-smalltalk.ROExample);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "scale",
 fn: function (){
 var self=this;
@@ -1005,7 +988,8 @@ selector: "tux",
 fn: function () {
 var self=this;
 var view;
-return smalltalk.withContext(function($ctx1) { view=_st((smalltalk.ROView || ROView))._new();
+return smalltalk.withContext(function($ctx1) { 
+view=_st((smalltalk.ROView || ROView))._new();
 _st(view)._add_(_st((smalltalk.ROTux || ROTux))._element());
 _st(view)._open();
 return self}, function($ctx1) {$ctx1.fill(self,"tux",{view:view},smalltalk.ROExample)});},
