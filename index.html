@@ -17,7 +17,8 @@
 		var smalltalk = ''; // the global smalltalk, to be initialized
 		require.config({ paths: {
         	'roamber' : 'roamber/js',
-        	'roamber/_source' : 'roamber/st'
+        	'roamber/_source' : 'roamber/st',
+          'amber_vm/_st' : 'vendor/amber/support/_st'
 		}});
 		require([
 			'amber/devel',
