@@ -5,19 +5,19 @@
     <title>ROAmber demo</title> 
     <meta http-equiv="content-type" content="text/html; charset=utf-8" /> 
     <meta name="author" content="Object Profile www.objectprofile.com" /> 
-    <script src="projects/roamber/lib/raphael-min.js" charset="utf-8"></script>
-    <link href="bower_components/bootstrap/css/bootstrap.css" rel="stylesheet" >
-	  <script src="bower_components/jquery/jquery.min.js"></script>
+    <script src="roamber/lib/raphael-min.js" charset="utf-8"></script>
+    <link href="vendor/amber/bower_components/bootstrap/css/bootstrap.css" rel="stylesheet" >
+	  <script src="vendor/amber/bower_components/jquery/jquery.min.js"></script>
   </head> 
 
   <body>
-  <script type='text/javascript' src='support/amber.js'></script> 
-	<script type='text/javascript' src='support/requirejs/require.min.js'></script>	
+  <script type='text/javascript' src='vendor/amber/support/amber.js'></script> 
+	<script type='text/javascript' src='vendor/amber/support/requirejs/require.min.js'></script>	
     <script type='text/javascript'>
 		var smalltalk = ''; // the global smalltalk, to be initialized
 		require.config({ paths: {
-        	'roamber' : 'projects/roamber/js',
-        	'roamber/_source' : 'projects/roamber/st'
+        	'roamber' : 'roamber/js',
+        	'roamber/_source' : 'roamber/st'
 		}});
 		require([
 			'amber/devel',
@@ -150,7 +150,7 @@
 
 
   
-<script src="bower_components/bootstrap/js/bootstrap.js"></script>
+<script src="vendor/amber/bower_components/bootstrap/js/bootstrap.js"></script>
   <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
