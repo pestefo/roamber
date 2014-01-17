@@ -280,32 +280,23 @@ var self=this;
 function $ROMouseEnter(){return smalltalk.ROMouseEnter||(typeof ROMouseEnter=="undefined"?nil:ROMouseEnter)}
 function $ROMouseLeave(){return smalltalk.ROMouseLeave||(typeof ROMouseLeave=="undefined"?nil:ROMouseLeave)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$2,$4;
+var $1;
 _st(element)._on_do_($ROMouseEnter(),(function(evt){
 return smalltalk.withContext(function($ctx2) {
 $1=_st(evt)._element();
 $ctx2.sendIdx["element"]=1;
-_st($1)._color_(self._color());
+return _st($1)._color_(self._color());
 $ctx2.sendIdx["color:"]=1;
-$3=_st(evt)._element();
-$ctx2.sendIdx["element"]=2;
-$2=_st($3)._view();
-$ctx2.sendIdx["view"]=1;
-return _st($2)._signalUpdate();
-$ctx2.sendIdx["signalUpdate"]=1;
 }, function($ctx2) {$ctx2.fillBlock({evt:evt},$ctx1,1)})}));
 $ctx1.sendIdx["on:do:"]=1;
 _st(element)._on_do_($ROMouseLeave(),(function(evt){
 return smalltalk.withContext(function($ctx2) {
-$4=_st(evt)._element();
-$ctx2.sendIdx["element"]=3;
-_st($4)._color_(_st(_st(_st(element)._shape())._class())._defaultColor());
-return _st(_st(_st(evt)._element())._view())._signalUpdate();
+return _st(_st(evt)._element())._color_(_st(_st(_st(element)._shape())._class())._defaultColor());
 }, function($ctx2) {$ctx2.fillBlock({evt:evt},$ctx1,2)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"initializeElement:",{element:element},smalltalk.ROHighlight)})},
 args: ["element"],
-source: "initializeElement: element\x0a\x0a\x09element \x0a\x09\x09on:  ROMouseEnter \x0a\x09\x09do: [:evt | \x0a\x09\x09\x09\x09\x09evt element color: (self color). \x0a\x09\x09\x09\x09\x09evt element view signalUpdate\x0a\x09].\x0a\x09\x0a\x09element \x0a\x09\x09on: ROMouseLeave \x0a\x09\x09do: [:evt | \x0a\x09\x09\x09\x09\x09evt element color: (element shape class defaultColor). \x0a\x09\x09\x09\x09\x09evt element view signalUpdate\x0a\x09].",
-messageSends: ["on:do:", "color:", "element", "color", "signalUpdate", "view", "defaultColor", "class", "shape"],
+source: "initializeElement: element\x0a\x0a\x09element \x0a\x09\x09on:  ROMouseEnter \x0a\x09\x09do: [:evt | \x0a\x09\x09\x09\x09\x09evt element color: (self color). \x0a\x09].\x0a\x09\x0a\x09element \x0a\x09\x09on: ROMouseLeave \x0a\x09\x09do: [:evt | \x0a\x09\x09\x09\x09\x09evt element color: (element shape class defaultColor). \x0a\x09].",
+messageSends: ["on:do:", "color:", "element", "color", "defaultColor", "class", "shape"],
 referencedClasses: ["ROMouseEnter", "ROMouseLeave"]
 }),
 smalltalk.ROHighlight);

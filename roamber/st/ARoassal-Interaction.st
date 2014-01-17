@@ -118,14 +118,12 @@ initializeElement: element
 		on:  ROMouseEnter 
 		do: [:evt | 
 					evt element color: (self color). 
-					evt element view signalUpdate
 	].
 	
 	element 
 		on: ROMouseLeave 
 		do: [:evt | 
 					evt element color: (element shape class defaultColor). 
-					evt element view signalUpdate
 	].
 ! !
 
